@@ -131,7 +131,7 @@ static int lcm(int a, int b)
 {
   int newnum = [self numerator] * [frac numerator];
   int newden = [self denominator] * [frac denominator];
-  return [Fraction valueWithNumerator: newnum
+  return [[Fraction alloc] initWithNumerator: newnum
                                andDenominator: newden];
 }
 
@@ -145,7 +145,7 @@ static int lcm(int a, int b)
   int common = lcm([self denominator], [frac denominator]);
   int resnum = common / [self denominator] * [self numerator] +
   common / [frac denominator] * [frac numerator];
-  return [Fraction valueWithNumerator: resnum andDenominator: common];
+  return [[Fraction alloc] initWithNumerator: resnum andDenominator: common];
 }
 
 -(id)sub: (Fraction *)frac
@@ -156,26 +156,26 @@ static int lcm(int a, int b)
 -(id)mod: (Fraction *)frac
 {
   return [[self divide: frac]
-          sub: [Fraction valueWithInteger: [[self divide: frac] integer]]];
+          sub: [[Fraction alloc] initWithInteger: [[self divide: frac] integer]]];
 }
 
 // unary operators
 -(id)neg
 {
-  return [Fraction valueWithNumerator: -1*[self numerator]
+  return [[Fraction alloc] initWithNumerator: -1 * [self numerator]
                                andDenominator: [self denominator]];
 }
 
 -(id)abs
 {
-  return [Fraction valueWithNumerator: abs([self numerator])
+  return [[Fraction alloc] initWithNumerator: abs([self numerator])
                                andDenominator: [self denominator]];
 }
 
 -(id)reciprocal
 {
-  return [Fraction valueWithNumerator: [self denominator]
-                               andDenominator: [self numerator]];
+  return [[Fraction alloc] initWithNumerator:[self denominator]
+                              andDenominator: [self numerator]];
 }
 
 // get the sign
@@ -225,24 +225,4 @@ static int lcm(int a, int b)
   return denominator;
 }
 
-// class method
-+(instancetype)valueWithNumerator:(int)num andDenominator: (int)den
-{
-  return [[self alloc] initWithNumerator: num andDenominator: den];
-}
-
-+(instancetype)valueWithDouble: (double)fnum
-{
-  return [[self alloc] initWithDouble: fnum];
-}
-
-+(instancetype)valueWithInteger: (int)inum
-{
-  return [[self alloc] initWithInteger: inum];
-}
-
-+(instancetype)valueWithFraction: (Fraction *)frac
-{
-  return [[self alloc] initWithFraction: frac];
-}
 @end

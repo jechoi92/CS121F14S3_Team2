@@ -9,10 +9,6 @@
   BOOL autoSimplify;
   BOOL withSign;
 }
-+(instancetype)valueWithNumerator:(int)num andDenominator: (int)den;
-+(instancetype)valueWithDouble: (double)fnum;
-+(instancetype)valueWithInteger: (int)inum;
-+(instancetype)valueWithFraction: (Fraction *)frac;
 -(instancetype)initWithNumerator: (int)num andDenominator: (int)den;
 -(instancetype)initWithDouble: (double)fnum precision: (int)prec;
 -(instancetype)initWithInteger: (int)inum;
