@@ -6,12 +6,13 @@
 //  Copyright (c) 2014 Razeware LLC. All rights reserved.
 //
 
+#import <Foundation/Foundation.h>
+#import <math.h>
 #import "Fraction.h"
 
 // gcd: [[Greatest common divisor#Recursive_Euclid_algorithm]]
 // if built in as "private" function, add static.
 @implementation Fraction
-
 static int gcd(int m, int n) {
   int t, r;
   
@@ -70,7 +71,7 @@ static int lcm(int a, int b)
   return [self initWithNumerator: nd andDenominator: (int)p ];
 }
 
--(instancetype)initWithRational: (Fraction *)frac
+-(instancetype)initWithFraction: (Fraction *)frac
 {
   return [self initWithNumerator: [frac numerator] andDenominator: [frac denominator]];
 }
@@ -225,23 +226,23 @@ static int lcm(int a, int b)
 }
 
 // class method
-//+(instancetype)valueWithNumerator:(int)num andDenominator: (int)den
-//{
-//  return [[self alloc] initWithNumerator: num andDenominator: den];
-//}
-//
-//+(instancetype)valueWithDouble: (double)fnum
-//{
-//  return [[self alloc] initWithDouble: fnum];
-//}
-//
-//+(instancetype)valueWithInteger: (int)inum
-//{
-//  return [[self alloc] initWithInteger: inum];
-//}
-//
-//+(instancetype)valueWithRational: (Fraction *)frac
-//{
-//  return [[self alloc] initWithRational: frac];
-//}
++(instancetype)valueWithNumerator:(int)num andDenominator: (int)den
+{
+  return [[self alloc] initWithNumerator: num andDenominator: den];
+}
+
++(instancetype)valueWithDouble: (double)fnum
+{
+  return [[self alloc] initWithDouble: fnum];
+}
+
++(instancetype)valueWithInteger: (int)inum
+{
+  return [[self alloc] initWithInteger: inum];
+}
+
++(instancetype)valueWithFraction: (Fraction *)frac
+{
+  return [[self alloc] initWithFraction: frac];
+}
 @end

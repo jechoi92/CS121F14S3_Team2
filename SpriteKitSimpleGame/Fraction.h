@@ -1,4 +1,6 @@
 
+#import <Foundation/Foundation.h>
+
 @interface Fraction : NSObject
 {
 @private
@@ -7,14 +9,14 @@
   BOOL autoSimplify;
   BOOL withSign;
 }
-//+(instancetype)valueWithNumerator:(int)num andDenominator: (int)den;
-//+(instancetype)valueWithDouble: (double)fnum;
-//+(instancetype)valueWithInteger: (int)inum;
-//+(instancetype)valueWithRational: (Fraction *)frac;
++(instancetype)valueWithNumerator:(int)num andDenominator: (int)den;
++(instancetype)valueWithDouble: (double)fnum;
++(instancetype)valueWithInteger: (int)inum;
++(instancetype)valueWithFraction: (Fraction *)frac;
 -(instancetype)initWithNumerator: (int)num andDenominator: (int)den;
 -(instancetype)initWithDouble: (double)fnum precision: (int)prec;
 -(instancetype)initWithInteger: (int)inum;
--(instancetype)initWithRational: (Fraction *)frac;
+-(instancetype)initWithFraction: (Fraction *)frac;
 -(NSComparisonResult)compare: (Fraction *)frac;
 -(id)simplify: (BOOL)act;
 -(void)setAutoSimplify: (BOOL)v;
