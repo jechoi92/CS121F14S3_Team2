@@ -17,7 +17,6 @@
 		35F3DF0117D8011E009EFFF2 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 35F3DEFF17D8011E009EFFF2 /* Main.storyboard */; };
 		35F3DF0417D8011E009EFFF2 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 35F3DF0317D8011E009EFFF2 /* ViewController.m */; };
 		35F3DF0717D8011E009EFFF2 /* MyScene.m in Sources */ = {isa = PBXBuildFile; fileRef = 35F3DF0617D8011E009EFFF2 /* MyScene.m */; };
-		35F3DF0917D8011E009EFFF2 /* Spaceship.png in Resources */ = {isa = PBXBuildFile; fileRef = 35F3DF0817D8011E009EFFF2 /* Spaceship.png */; };
 		35F3DF0B17D8011E009EFFF2 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 35F3DF0A17D8011E009EFFF2 /* Images.xcassets */; };
 		35F3DF1217D8011E009EFFF2 /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 35F3DF1117D8011E009EFFF2 /* XCTest.framework */; };
 		35F3DF1317D8011E009EFFF2 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 35F3DEEB17D8011E009EFFF2 /* Foundation.framework */; };
@@ -28,6 +27,8 @@
 		35F3DF2C17D80158009EFFF2 /* pew-pew-lei.caf in Resources */ = {isa = PBXBuildFile; fileRef = 35F3DF2917D80158009EFFF2 /* pew-pew-lei.caf */; };
 		35F3DF2D17D80158009EFFF2 /* sprites.atlas in Resources */ = {isa = PBXBuildFile; fileRef = 35F3DF2A17D80158009EFFF2 /* sprites.atlas */; };
 		35F3DF3017D803D6009EFFF2 /* GameOverScene.m in Sources */ = {isa = PBXBuildFile; fileRef = 35F3DF2F17D803D6009EFFF2 /* GameOverScene.m */; };
+		DA5396CD19F03210001404D2 /* jobro__laser6.wav in Resources */ = {isa = PBXBuildFile; fileRef = DA5396CC19F03210001404D2 /* jobro__laser6.wav */; };
+		DA5396CF19F03319001404D2 /* ryansnook__medium-explosion.wav in Resources */ = {isa = PBXBuildFile; fileRef = DA5396CE19F03319001404D2 /* ryansnook__medium-explosion.wav */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -57,7 +58,6 @@
 		35F3DF0317D8011E009EFFF2 /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
 		35F3DF0517D8011E009EFFF2 /* MyScene.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MyScene.h; sourceTree = "<group>"; };
 		35F3DF0617D8011E009EFFF2 /* MyScene.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MyScene.m; sourceTree = "<group>"; };
-		35F3DF0817D8011E009EFFF2 /* Spaceship.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Spaceship.png; sourceTree = "<group>"; };
 		35F3DF0A17D8011E009EFFF2 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		35F3DF1017D8011E009EFFF2 /* SpriteKitSimpleGameTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SpriteKitSimpleGameTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		35F3DF1117D8011E009EFFF2 /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
@@ -69,6 +69,8 @@
 		35F3DF2A17D80158009EFFF2 /* sprites.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = sprites.atlas; sourceTree = "<group>"; };
 		35F3DF2E17D803D6009EFFF2 /* GameOverScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameOverScene.h; sourceTree = "<group>"; };
 		35F3DF2F17D803D6009EFFF2 /* GameOverScene.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameOverScene.m; sourceTree = "<group>"; };
+		DA5396CC19F03210001404D2 /* jobro__laser6.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; name = jobro__laser6.wav; path = ../jobro__laser6.wav; sourceTree = "<group>"; };
+		DA5396CE19F03319001404D2 /* ryansnook__medium-explosion.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; name = "ryansnook__medium-explosion.wav"; path = "../ryansnook__medium-explosion.wav"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -139,7 +141,6 @@
 				35F3DF0317D8011E009EFFF2 /* ViewController.m */,
 				35F3DF0517D8011E009EFFF2 /* MyScene.h */,
 				35F3DF0617D8011E009EFFF2 /* MyScene.m */,
-				35F3DF0817D8011E009EFFF2 /* Spaceship.png */,
 				35F3DF0A17D8011E009EFFF2 /* Images.xcassets */,
 				35F3DEF417D8011E009EFFF2 /* Supporting Files */,
 				35F3DF2E17D803D6009EFFF2 /* GameOverScene.h */,
@@ -180,6 +181,8 @@
 		35F3DF2717D80158009EFFF2 /* Sounds */ = {
 			isa = PBXGroup;
 			children = (
+				DA5396CE19F03319001404D2 /* ryansnook__medium-explosion.wav */,
+				DA5396CC19F03210001404D2 /* jobro__laser6.wav */,
 				35F3DF2817D80158009EFFF2 /* background-music-aac.caf */,
 				35F3DF2917D80158009EFFF2 /* pew-pew-lei.caf */,
 			);
@@ -266,7 +269,8 @@
 				35F3DF2B17D80158009EFFF2 /* background-music-aac.caf in Resources */,
 				35F3DEF817D8011E009EFFF2 /* InfoPlist.strings in Resources */,
 				35F3DF0B17D8011E009EFFF2 /* Images.xcassets in Resources */,
-				35F3DF0917D8011E009EFFF2 /* Spaceship.png in Resources */,
+				DA5396CF19F03319001404D2 /* ryansnook__medium-explosion.wav in Resources */,
+				DA5396CD19F03210001404D2 /* jobro__laser6.wav in Resources */,
 				35F3DF0117D8011E009EFFF2 /* Main.storyboard in Resources */,
 				35F3DF2C17D80158009EFFF2 /* pew-pew-lei.caf in Resources */,
 			);
@@ -419,6 +423,7 @@
 				INFOPLIST_FILE = "SpriteKitSimpleGame/SpriteKitSimpleGame-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SPRITEKIT_TEXTURE_ATLAS_OUTPUT = YES;
+				TARGETED_DEVICE_FAMILY = 2;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -433,6 +438,7 @@
 				INFOPLIST_FILE = "SpriteKitSimpleGame/SpriteKitSimpleGame-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SPRITEKIT_TEXTURE_ATLAS_OUTPUT = YES;
+				TARGETED_DEVICE_FAMILY = 2;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;
@@ -496,6 +502,7 @@
 				35F3DF2317D8011E009EFFF2 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		35F3DF2417D8011E009EFFF2 /* Build configuration list for PBXNativeTarget "SpriteKitSimpleGameTests" */ = {
 			isa = XCConfigurationList;
@@ -504,6 +511,7 @@
 				35F3DF2617D8011E009EFFF2 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
