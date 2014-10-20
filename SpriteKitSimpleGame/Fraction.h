@@ -40,4 +40,5 @@
 // defraction
 -(double)number;
 -(int)integer;
+-(NSString*)toString;
 @end

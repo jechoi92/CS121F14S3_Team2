@@ -225,4 +225,9 @@ static int lcm(int a, int b)
   return denominator;
 }
 
+-(NSString*)toString;
+{
+    return [NSString stringWithFormat:@"%i / %i", numerator, denominator];
+}
+
 @end
