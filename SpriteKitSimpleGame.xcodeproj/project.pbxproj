@@ -31,6 +31,7 @@
 		934647FC19F5AD8B00D34162 /* HealthBarView.m in Sources */ = {isa = PBXBuildFile; fileRef = 934647FA19F5AD8B00D34162 /* HealthBarView.m */; };
 		DA5396CD19F03210001404D2 /* jobro__laser6.wav in Resources */ = {isa = PBXBuildFile; fileRef = DA5396CC19F03210001404D2 /* jobro__laser6.wav */; };
 		DA5396CF19F03319001404D2 /* ryansnook__medium-explosion.wav in Resources */ = {isa = PBXBuildFile; fileRef = DA5396CE19F03319001404D2 /* ryansnook__medium-explosion.wav */; };
+		DA546EB919F5BAAC00A649A8 /* InstrViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DA546EB819F5BAAC00A649A8 /* InstrViewController.m */; };
 		DAC3CEE619F19CC10053DAA5 /* Fraction.m in Sources */ = {isa = PBXBuildFile; fileRef = DAC3CEE519F19CC10053DAA5 /* Fraction.m */; };
 /* End PBXBuildFile section */
 
@@ -78,6 +79,8 @@
 		934647FA19F5AD8B00D34162 /* HealthBarView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HealthBarView.m; sourceTree = "<group>"; };
 		DA5396CC19F03210001404D2 /* jobro__laser6.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; name = jobro__laser6.wav; path = ../jobro__laser6.wav; sourceTree = "<group>"; };
 		DA5396CE19F03319001404D2 /* ryansnook__medium-explosion.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; name = "ryansnook__medium-explosion.wav"; path = "../ryansnook__medium-explosion.wav"; sourceTree = "<group>"; };
+		DA546EB719F5BAAC00A649A8 /* InstrViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InstrViewController.h; sourceTree = "<group>"; };
+		DA546EB819F5BAAC00A649A8 /* InstrViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InstrViewController.m; sourceTree = "<group>"; };
 		DAC3CEE419F19CC10053DAA5 /* Fraction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Fraction.h; sourceTree = "<group>"; };
 		DAC3CEE519F19CC10053DAA5 /* Fraction.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Fraction.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -151,6 +154,8 @@
 				35F3DEFD17D8011E009EFFF2 /* AppDelegate.m */,
 				35F3DEFF17D8011E009EFFF2 /* Main.storyboard */,
 				35F3DF0217D8011E009EFFF2 /* ViewController.h */,
+				DA546EB719F5BAAC00A649A8 /* InstrViewController.h */,
+				DA546EB819F5BAAC00A649A8 /* InstrViewController.m */,
 				35F3DF0317D8011E009EFFF2 /* ViewController.m */,
 				35F3DF0517D8011E009EFFF2 /* MyScene.h */,
 				35F3DF0617D8011E009EFFF2 /* MyScene.m */,
@@ -314,6 +319,7 @@
 				35F3DEFE17D8011E009EFFF2 /* AppDelegate.m in Sources */,
 				35F3DEFA17D8011E009EFFF2 /* main.m in Sources */,
 				DAC3CEE619F19CC10053DAA5 /* Fraction.m in Sources */,
+				DA546EB919F5BAAC00A649A8 /* InstrViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -17,6 +17,11 @@
 
 @implementation ViewController
 
+- (void)viewDidLoad
+{
+  [super viewDidLoad];
+}
+
 - (void)viewWillLayoutSubviews
 {
     [super viewWillLayoutSubviews];

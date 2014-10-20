@@ -1,14 +1,13 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6245" systemVersion="13F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="LVB-YS-i5n">
     <dependencies>
-        <deployment defaultVersion="1792" identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6238"/>
     </dependencies>
     <scenes>
         <!--View Controller-->
         <scene sceneID="CtS-rA-C9T">
             <objects>
-                <viewController id="LVB-YS-i5n" customClass="ViewController" sceneMemberID="viewController">
+                <viewController id="LVB-YS-i5n" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="JxQ-pC-m6H"/>
                         <viewControllerLayoutGuide type="bottom" id="lLP-cs-wC8"/>
@@ -23,7 +22,7 @@
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
-                                    <segue destination="Ocb-QF-B0f" kind="push" id="ZwU-Pn-kZh"/>
+                                    <segue destination="Ocb-QF-B0f" kind="modal" modalTransitionStyle="crossDissolve" id="Kcl-dX-uIO"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="LAh-LG-A4T">
@@ -31,6 +30,9 @@
                                 <state key="normal" title="Instructions">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
+                                <connections>
+                                    <segue destination="4WB-aH-voY" kind="modal" id="tDG-O5-kwy"/>
+                                </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Fraction Blasters" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="x09-bc-eIb">
                                 <rect key="frame" x="11" y="20" width="298" height="93"/>
@@ -45,6 +47,42 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="btX-cZ-eVz" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-110" y="-136"/>
+        </scene>
+        <!--Instr View Controller-->
+        <scene sceneID="GlQ-ff-oQs">
+            <objects>
+                <viewController id="4WB-aH-voY" customClass="InstrViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="K7E-bT-AUr"/>
+                        <viewControllerLayoutGuide type="bottom" id="bfd-DU-ewl"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="moH-qi-UOy">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Dda-RG-94i">
+                                <rect key="frame" x="24" y="8" width="273" height="393"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <mutableString key="text">Get ready, Space Cadet! The Earth is in danger! Asteroids are hurdling towards the Earth, and there's only one way to stop them: you must shoot them down. But there's a catch: each asteroid can only be destroyed by a certain type of laser. You have to figure out which type of laser will destroy each asteroid by solving the equation on the asteroid. Once you know the frequency that will destroy the laser, drag your ship along the bottom to get into position to destroy the asteroid. Click the laser frequency you think will destroy it to shoot a laser directly upward at the asteroid. If you can't solve the equation in time, and the asteroid collides with the Earth, the Earth will get damaged. The health bar on the left hand side of the screen will show you how much health the Earth has left. Solve the equations quickly and save the Earth!!</mutableString>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                            </textView>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aup-hy-ehE">
+                                <rect key="frame" x="137" y="439" width="40" height="30"/>
+                                <state key="normal" title="Close">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <segue destination="LVB-YS-i5n" kind="modal" id="22D-DS-CzK"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="oRW-nK-rPN" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-529" y="574"/>
         </scene>
         <!--View Controller-->
         <scene sceneID="Wbo-PY-6JE">
