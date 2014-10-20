@@ -26,6 +26,9 @@
     self.backgroundMusicPlayer.numberOfLoops = -1;
     [self.backgroundMusicPlayer prepareToPlay];
     //[self.backgroundMusicPlayer play];
+    
+    [self createHealthBar];
+    [self createSideBar];
 
     // Configure the view.
     SKView * skView = (SKView *)self.view;
@@ -40,6 +43,16 @@
       // Present the scene.
       [skView presentScene:scene];
     }
+}
+
+- (void)createHealthBar
+{
+
+}
+
+- (void)createSideBar
+{
+    
 }
 
 - (BOOL)shouldAutorotate
