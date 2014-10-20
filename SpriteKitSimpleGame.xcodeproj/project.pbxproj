@@ -28,6 +28,8 @@
 		35F3DF2D17D80158009EFFF2 /* sprites.atlas in Resources */ = {isa = PBXBuildFile; fileRef = 35F3DF2A17D80158009EFFF2 /* sprites.atlas */; };
 		35F3DF3017D803D6009EFFF2 /* GameOverScene.m in Sources */ = {isa = PBXBuildFile; fileRef = 35F3DF2F17D803D6009EFFF2 /* GameOverScene.m */; };
 		934647F019F5A4FD00D34162 /* HealthBarView.m in Sources */ = {isa = PBXBuildFile; fileRef = 934647EF19F5A4FD00D34162 /* HealthBarView.m */; };
+		934647FB19F5AD8B00D34162 /* Equation.m in Sources */ = {isa = PBXBuildFile; fileRef = 934647F819F5AD8B00D34162 /* Equation.m */; };
+		934647FC19F5AD8B00D34162 /* HealthBarView.m in Sources */ = {isa = PBXBuildFile; fileRef = 934647FA19F5AD8B00D34162 /* HealthBarView.m */; };
 		A95CBDCB19F1A44100B0A8F6 /* Sidebar.m in Sources */ = {isa = PBXBuildFile; fileRef = A95CBDCA19F1A44100B0A8F6 /* Sidebar.m */; };
 		A95CBDCE19F1A4B500B0A8F6 /* EquationClass.m in Sources */ = {isa = PBXBuildFile; fileRef = A95CBDCD19F1A4B500B0A8F6 /* EquationClass.m */; };
 		A95CBDD719F1AA5700B0A8F6 /* Equation.m in Sources */ = {isa = PBXBuildFile; fileRef = A95CBDD619F1AA5700B0A8F6 /* Equation.m */; };
@@ -76,6 +78,10 @@
 		35F3DF2F17D803D6009EFFF2 /* GameOverScene.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameOverScene.m; sourceTree = "<group>"; };
 		934647EE19F5A4FD00D34162 /* HealthBarView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = HealthBarView.h; path = ../HealthBarView.h; sourceTree = "<group>"; };
 		934647EF19F5A4FD00D34162 /* HealthBarView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = HealthBarView.m; path = ../HealthBarView.m; sourceTree = "<group>"; };
+		934647F719F5AD8B00D34162 /* Equation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Equation.h; sourceTree = "<group>"; };
+		934647F819F5AD8B00D34162 /* Equation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Equation.m; sourceTree = "<group>"; };
+		934647F919F5AD8B00D34162 /* HealthBarView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HealthBarView.h; sourceTree = "<group>"; };
+		934647FA19F5AD8B00D34162 /* HealthBarView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HealthBarView.m; sourceTree = "<group>"; };
 		A95CBDCA19F1A44100B0A8F6 /* Sidebar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Sidebar.m; sourceTree = "<group>"; };
 		A95CBDCD19F1A4B500B0A8F6 /* EquationClass.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EquationClass.m; sourceTree = "<group>"; };
 		A95CBDD519F1AA5700B0A8F6 /* Equation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Equation.h; path = ../Equation.h; sourceTree = "<group>"; };
@@ -145,6 +151,10 @@
 		35F3DEF317D8011E009EFFF2 /* SpriteKitSimpleGame */ = {
 			isa = PBXGroup;
 			children = (
+				934647F719F5AD8B00D34162 /* Equation.h */,
+				934647F819F5AD8B00D34162 /* Equation.m */,
+				934647F919F5AD8B00D34162 /* HealthBarView.h */,
+				934647FA19F5AD8B00D34162 /* HealthBarView.m */,
 				934647EE19F5A4FD00D34162 /* HealthBarView.h */,
 				934647EF19F5A4FD00D34162 /* HealthBarView.m */,
 				35F3DF2717D80158009EFFF2 /* Sounds */,
@@ -164,8 +174,6 @@
 				35F3DF2F17D803D6009EFFF2 /* GameOverScene.m */,
 				DAC3CEE419F19CC10053DAA5 /* Fraction.h */,
 				DAC3CEE519F19CC10053DAA5 /* Fraction.m */,
-				A91B148619F5A4BC00C8DA59 /* Sidebar.h */,
-				A91B148719F5A4BC00C8DA59 /* Sidebar.m */,
 			);
 			path = SpriteKitSimpleGame;
 			sourceTree = "<group>";
@@ -313,9 +321,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				35F3DF3017D803D6009EFFF2 /* GameOverScene.m in Sources */,
+				934647FB19F5AD8B00D34162 /* Equation.m in Sources */,
 				35F3DF0717D8011E009EFFF2 /* MyScene.m in Sources */,
-				A91B148819F5A4BC00C8DA59 /* Sidebar.m in Sources */,
 				A95CBDCB19F1A44100B0A8F6 /* Sidebar.m in Sources */,
+				934647FC19F5AD8B00D34162 /* HealthBarView.m in Sources */,
 				A95CBDCE19F1A4B500B0A8F6 /* EquationClass.m in Sources */,
 				A95CBDD719F1AA5700B0A8F6 /* Equation.m in Sources */,
 				35F3DF0417D8011E009EFFF2 /* ViewController.m in Sources */,
