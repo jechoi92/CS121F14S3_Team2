@@ -164,6 +164,8 @@
 				35F3DF2F17D803D6009EFFF2 /* GameOverScene.m */,
 				DAC3CEE419F19CC10053DAA5 /* Fraction.h */,
 				DAC3CEE519F19CC10053DAA5 /* Fraction.m */,
+				A91B148619F5A4BC00C8DA59 /* Sidebar.h */,
+				A91B148719F5A4BC00C8DA59 /* Sidebar.m */,
 			);
 			path = SpriteKitSimpleGame;
 			sourceTree = "<group>";
@@ -312,6 +314,7 @@
 			files = (
 				35F3DF3017D803D6009EFFF2 /* GameOverScene.m in Sources */,
 				35F3DF0717D8011E009EFFF2 /* MyScene.m in Sources */,
+				A91B148819F5A4BC00C8DA59 /* Sidebar.m in Sources */,
 				A95CBDCB19F1A44100B0A8F6 /* Sidebar.m in Sources */,
 				A95CBDCE19F1A4B500B0A8F6 /* EquationClass.m in Sources */,
 				A95CBDD719F1AA5700B0A8F6 /* Equation.m in Sources */,
