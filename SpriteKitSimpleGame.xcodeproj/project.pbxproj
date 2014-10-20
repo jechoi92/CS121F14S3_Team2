@@ -27,10 +27,8 @@
 		35F3DF2C17D80158009EFFF2 /* pew-pew-lei.caf in Resources */ = {isa = PBXBuildFile; fileRef = 35F3DF2917D80158009EFFF2 /* pew-pew-lei.caf */; };
 		35F3DF2D17D80158009EFFF2 /* sprites.atlas in Resources */ = {isa = PBXBuildFile; fileRef = 35F3DF2A17D80158009EFFF2 /* sprites.atlas */; };
 		35F3DF3017D803D6009EFFF2 /* GameOverScene.m in Sources */ = {isa = PBXBuildFile; fileRef = 35F3DF2F17D803D6009EFFF2 /* GameOverScene.m */; };
-		A91B148819F5A4BC00C8DA59 /* Sidebar.m in Sources */ = {isa = PBXBuildFile; fileRef = A91B148719F5A4BC00C8DA59 /* Sidebar.m */; };
-		A95CBDCB19F1A44100B0A8F6 /* Sidebar.m in Sources */ = {isa = PBXBuildFile; fileRef = A95CBDCA19F1A44100B0A8F6 /* Sidebar.m */; };
-		A95CBDCE19F1A4B500B0A8F6 /* EquationClass.m in Sources */ = {isa = PBXBuildFile; fileRef = A95CBDCD19F1A4B500B0A8F6 /* EquationClass.m */; };
-		A95CBDD719F1AA5700B0A8F6 /* Equation.m in Sources */ = {isa = PBXBuildFile; fileRef = A95CBDD619F1AA5700B0A8F6 /* Equation.m */; };
+		934647FB19F5AD8B00D34162 /* Equation.m in Sources */ = {isa = PBXBuildFile; fileRef = 934647F819F5AD8B00D34162 /* Equation.m */; };
+		934647FC19F5AD8B00D34162 /* HealthBarView.m in Sources */ = {isa = PBXBuildFile; fileRef = 934647FA19F5AD8B00D34162 /* HealthBarView.m */; };
 		DA5396CD19F03210001404D2 /* jobro__laser6.wav in Resources */ = {isa = PBXBuildFile; fileRef = DA5396CC19F03210001404D2 /* jobro__laser6.wav */; };
 		DA5396CF19F03319001404D2 /* ryansnook__medium-explosion.wav in Resources */ = {isa = PBXBuildFile; fileRef = DA5396CE19F03319001404D2 /* ryansnook__medium-explosion.wav */; };
 		DAC3CEE619F19CC10053DAA5 /* Fraction.m in Sources */ = {isa = PBXBuildFile; fileRef = DAC3CEE519F19CC10053DAA5 /* Fraction.m */; };
@@ -74,12 +72,10 @@
 		35F3DF2A17D80158009EFFF2 /* sprites.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = sprites.atlas; sourceTree = "<group>"; };
 		35F3DF2E17D803D6009EFFF2 /* GameOverScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameOverScene.h; sourceTree = "<group>"; };
 		35F3DF2F17D803D6009EFFF2 /* GameOverScene.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameOverScene.m; sourceTree = "<group>"; };
-		A91B148619F5A4BC00C8DA59 /* Sidebar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Sidebar.h; sourceTree = "<group>"; };
-		A91B148719F5A4BC00C8DA59 /* Sidebar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Sidebar.m; sourceTree = "<group>"; };
-		A95CBDCA19F1A44100B0A8F6 /* Sidebar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Sidebar.m; sourceTree = "<group>"; };
-		A95CBDCD19F1A4B500B0A8F6 /* EquationClass.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EquationClass.m; sourceTree = "<group>"; };
-		A95CBDD519F1AA5700B0A8F6 /* Equation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Equation.h; path = ../Equation.h; sourceTree = "<group>"; };
-		A95CBDD619F1AA5700B0A8F6 /* Equation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Equation.m; path = ../Equation.m; sourceTree = "<group>"; };
+		934647F719F5AD8B00D34162 /* Equation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Equation.h; sourceTree = "<group>"; };
+		934647F819F5AD8B00D34162 /* Equation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Equation.m; sourceTree = "<group>"; };
+		934647F919F5AD8B00D34162 /* HealthBarView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HealthBarView.h; sourceTree = "<group>"; };
+		934647FA19F5AD8B00D34162 /* HealthBarView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HealthBarView.m; sourceTree = "<group>"; };
 		DA5396CC19F03210001404D2 /* jobro__laser6.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; name = jobro__laser6.wav; path = ../jobro__laser6.wav; sourceTree = "<group>"; };
 		DA5396CE19F03319001404D2 /* ryansnook__medium-explosion.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; name = "ryansnook__medium-explosion.wav"; path = "../ryansnook__medium-explosion.wav"; sourceTree = "<group>"; };
 		DAC3CEE419F19CC10053DAA5 /* Fraction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Fraction.h; sourceTree = "<group>"; };
@@ -145,12 +141,14 @@
 		35F3DEF317D8011E009EFFF2 /* SpriteKitSimpleGame */ = {
 			isa = PBXGroup;
 			children = (
+				934647F719F5AD8B00D34162 /* Equation.h */,
+				934647F819F5AD8B00D34162 /* Equation.m */,
+				934647F919F5AD8B00D34162 /* HealthBarView.h */,
+				934647FA19F5AD8B00D34162 /* HealthBarView.m */,
 				35F3DF2717D80158009EFFF2 /* Sounds */,
 				35F3DF2A17D80158009EFFF2 /* sprites.atlas */,
 				35F3DEFC17D8011E009EFFF2 /* AppDelegate.h */,
 				35F3DEFD17D8011E009EFFF2 /* AppDelegate.m */,
-				A95CBDD519F1AA5700B0A8F6 /* Equation.h */,
-				A95CBDD619F1AA5700B0A8F6 /* Equation.m */,
 				35F3DEFF17D8011E009EFFF2 /* Main.storyboard */,
 				35F3DF0217D8011E009EFFF2 /* ViewController.h */,
 				35F3DF0317D8011E009EFFF2 /* ViewController.m */,
@@ -162,8 +160,6 @@
 				35F3DF2F17D803D6009EFFF2 /* GameOverScene.m */,
 				DAC3CEE419F19CC10053DAA5 /* Fraction.h */,
 				DAC3CEE519F19CC10053DAA5 /* Fraction.m */,
-				A91B148619F5A4BC00C8DA59 /* Sidebar.h */,
-				A91B148719F5A4BC00C8DA59 /* Sidebar.m */,
 			);
 			path = SpriteKitSimpleGame;
 			sourceTree = "<group>";
@@ -311,11 +307,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				35F3DF3017D803D6009EFFF2 /* GameOverScene.m in Sources */,
+				934647FB19F5AD8B00D34162 /* Equation.m in Sources */,
 				35F3DF0717D8011E009EFFF2 /* MyScene.m in Sources */,
-				A91B148819F5A4BC00C8DA59 /* Sidebar.m in Sources */,
-				A95CBDCB19F1A44100B0A8F6 /* Sidebar.m in Sources */,
-				A95CBDCE19F1A4B500B0A8F6 /* EquationClass.m in Sources */,
-				A95CBDD719F1AA5700B0A8F6 /* Equation.m in Sources */,
+				934647FC19F5AD8B00D34162 /* HealthBarView.m in Sources */,
 				35F3DF0417D8011E009EFFF2 /* ViewController.m in Sources */,
 				35F3DEFE17D8011E009EFFF2 /* AppDelegate.m in Sources */,
 				35F3DEFA17D8011E009EFFF2 /* main.m in Sources */,
@@ -441,7 +435,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "SpriteKitSimpleGame/SpriteKitSimpleGame-Prefix.pch";
 				INFOPLIST_FILE = "SpriteKitSimpleGame/SpriteKitSimpleGame-Info.plist";
@@ -456,7 +449,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "SpriteKitSimpleGame/SpriteKitSimpleGame-Prefix.pch";
 				INFOPLIST_FILE = "SpriteKitSimpleGame/SpriteKitSimpleGame-Info.plist";
