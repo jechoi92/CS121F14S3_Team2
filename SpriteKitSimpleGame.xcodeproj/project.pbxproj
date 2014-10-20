@@ -31,6 +31,7 @@
 		934647FC19F5AD8B00D34162 /* HealthBarView.m in Sources */ = {isa = PBXBuildFile; fileRef = 934647FA19F5AD8B00D34162 /* HealthBarView.m */; };
 		DA5396CD19F03210001404D2 /* jobro__laser6.wav in Resources */ = {isa = PBXBuildFile; fileRef = DA5396CC19F03210001404D2 /* jobro__laser6.wav */; };
 		DA5396CF19F03319001404D2 /* ryansnook__medium-explosion.wav in Resources */ = {isa = PBXBuildFile; fileRef = DA5396CE19F03319001404D2 /* ryansnook__medium-explosion.wav */; };
+		DA69081319F5B7AD00913016 /* Projectile.m in Sources */ = {isa = PBXBuildFile; fileRef = DA69081219F5B7AD00913016 /* Projectile.m */; };
 		DAC3CEE619F19CC10053DAA5 /* Fraction.m in Sources */ = {isa = PBXBuildFile; fileRef = DAC3CEE519F19CC10053DAA5 /* Fraction.m */; };
 /* End PBXBuildFile section */
 
@@ -78,6 +79,8 @@
 		934647FA19F5AD8B00D34162 /* HealthBarView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HealthBarView.m; sourceTree = "<group>"; };
 		DA5396CC19F03210001404D2 /* jobro__laser6.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; name = jobro__laser6.wav; path = ../jobro__laser6.wav; sourceTree = "<group>"; };
 		DA5396CE19F03319001404D2 /* ryansnook__medium-explosion.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; name = "ryansnook__medium-explosion.wav"; path = "../ryansnook__medium-explosion.wav"; sourceTree = "<group>"; };
+		DA69081119F5B7AD00913016 /* Projectile.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Projectile.h; sourceTree = "<group>"; };
+		DA69081219F5B7AD00913016 /* Projectile.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Projectile.m; sourceTree = "<group>"; };
 		DAC3CEE419F19CC10053DAA5 /* Fraction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Fraction.h; sourceTree = "<group>"; };
 		DAC3CEE519F19CC10053DAA5 /* Fraction.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Fraction.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -141,12 +144,12 @@
 		35F3DEF317D8011E009EFFF2 /* SpriteKitSimpleGame */ = {
 			isa = PBXGroup;
 			children = (
+				35F3DF2717D80158009EFFF2 /* Sounds */,
+				35F3DF2A17D80158009EFFF2 /* sprites.atlas */,
 				934647F719F5AD8B00D34162 /* Equation.h */,
 				934647F819F5AD8B00D34162 /* Equation.m */,
 				934647F919F5AD8B00D34162 /* HealthBarView.h */,
 				934647FA19F5AD8B00D34162 /* HealthBarView.m */,
-				35F3DF2717D80158009EFFF2 /* Sounds */,
-				35F3DF2A17D80158009EFFF2 /* sprites.atlas */,
 				35F3DEFC17D8011E009EFFF2 /* AppDelegate.h */,
 				35F3DEFD17D8011E009EFFF2 /* AppDelegate.m */,
 				35F3DEFF17D8011E009EFFF2 /* Main.storyboard */,
@@ -154,12 +157,14 @@
 				35F3DF0317D8011E009EFFF2 /* ViewController.m */,
 				35F3DF0517D8011E009EFFF2 /* MyScene.h */,
 				35F3DF0617D8011E009EFFF2 /* MyScene.m */,
-				35F3DF0A17D8011E009EFFF2 /* Images.xcassets */,
-				35F3DEF417D8011E009EFFF2 /* Supporting Files */,
 				35F3DF2E17D803D6009EFFF2 /* GameOverScene.h */,
 				35F3DF2F17D803D6009EFFF2 /* GameOverScene.m */,
 				DAC3CEE419F19CC10053DAA5 /* Fraction.h */,
 				DAC3CEE519F19CC10053DAA5 /* Fraction.m */,
+				DA69081119F5B7AD00913016 /* Projectile.h */,
+				DA69081219F5B7AD00913016 /* Projectile.m */,
+				35F3DF0A17D8011E009EFFF2 /* Images.xcassets */,
+				35F3DEF417D8011E009EFFF2 /* Supporting Files */,
 			);
 			path = SpriteKitSimpleGame;
 			sourceTree = "<group>";
@@ -314,6 +319,7 @@
 				35F3DEFE17D8011E009EFFF2 /* AppDelegate.m in Sources */,
 				35F3DEFA17D8011E009EFFF2 /* main.m in Sources */,
 				DAC3CEE619F19CC10053DAA5 /* Fraction.m in Sources */,
+				DA69081319F5B7AD00913016 /* Projectile.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
