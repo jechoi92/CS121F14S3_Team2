@@ -8,56 +8,25 @@
 
 #import "MyScene.h"
 #import "GameOverScene.h"
+#import "Projectile.h"
 
 static const uint32_t projectileCategory     =  0x1 << 0;
 static const uint32_t monsterCategory        =  0x1 << 1;
 static NSString* const playerNodeName = @"movable";
-//static NSString* const buttonNodeName = @"shoot";
 
-// 1
 @interface MyScene () <SKPhysicsContactDelegate>
-@property (nonatomic) SKSpriteNode * player;
+@property (nonatomic) SKSpriteNode* player;
 @property (nonatomic) NSTimeInterval lastSpawnTimeInterval;
 @property (nonatomic) NSTimeInterval lastUpdateTimeInterval;
 @property (nonatomic) int monstersDestroyed;
-@property (nonatomic, strong) SKSpriteNode *selectedNode;
 @end
-
-static inline CGPoint rwAdd(CGPoint a, CGPoint b) {
-    return CGPointMake(a.x + b.x, a.y + b.y);
-}
- 
-static inline CGPoint rwSub(CGPoint a, CGPoint b) {
-    return CGPointMake(a.x - b.x, a.y - b.y);
-}
- 
-static inline CGPoint rwMult(CGPoint a, float b) {
-    return CGPointMake(a.x * b, a.y * b);
-}
- 
-static inline float rwLength(CGPoint a) {
-    return sqrtf(a.x * a.x + a.y * a.y);
-}
- 
-// Makes a vector have a length of 1
-static inline CGPoint rwNormalize(CGPoint a) {
-    float length = rwLength(a);
-    return CGPointMake(a.x / length, a.y / length);
-}
 
 @implementation MyScene
  
 -(id)initWithSize:(CGSize)size {    
     if (self = [super initWithSize:size]) {
- 
-        // 2
-        //NSLog(@"Size: %@", NSStringFromCGSize(size));
- 
-        // 3
-        //self.backgroundColor = [SKColor colorWithRed:1.0 green:1.0 blue:1.0 alpha:1.0];
         self.backgroundColor = [SKColor blackColor];
- 
-        // 4
+
         self.player = [SKSpriteNode spriteNodeWithImageNamed:@"Spaceship"];
         [self.player setScale:0.3];
         self.player.position = CGPointMake(self.frame.size.width/2, self.player.size.width/2);
@@ -66,13 +35,11 @@ static inline CGPoint rwNormalize(CGPoint a) {
       
         self.physicsWorld.gravity = CGVectorMake(0,0);
         self.physicsWorld.contactDelegate = self;
- 
     }
     return self;
 }
 
 - (void)addMonster {
- 
     // Create sprite
     SKSpriteNode * monster = [SKSpriteNode spriteNodeWithImageNamed:@"asteroid"];
     monster.physicsBody = [SKPhysicsBody bodyWithCircleOfRadius:monster.size.width/2 - 5]; // 1
@@ -81,24 +48,23 @@ static inline CGPoint rwNormalize(CGPoint a) {
     monster.physicsBody.contactTestBitMask = projectileCategory; // 4
     monster.physicsBody.collisionBitMask = 0; // 5
 
-  
     // Determine where to spawn the monster along the X axis
     int minX = monster.size.width / 2;
     int maxX = self.frame.size.width - monster.size.width / 2;
     int rangeX = maxX - minX;
     int actualX = (arc4random() % rangeX) + minX;
- 
+
     // Create the monster slightly off-screen along the top edge,
     // and along a random position along the Y axis as calculated above
     monster.position = CGPointMake(actualX, self.frame.size.height + monster.size.height/2);
     [self addChild:monster];
- 
+
     // Determine speed of the monster
     int minDuration = 10.0;
     int maxDuration = 14.0;
     int rangeDuration = maxDuration - minDuration;
     int actualDuration = (arc4random() % rangeDuration) + minDuration;
- 
+
     // Create the actions
     SKAction * actionMove = [SKAction moveTo:CGPointMake(actualX, -monster.size.height/2) duration:actualDuration];
     SKAction * actionMoveDone = [SKAction removeFromParent];
@@ -108,11 +74,9 @@ static inline CGPoint rwNormalize(CGPoint a) {
         [self.view presentScene:gameOverScene transition: reveal];
     }];
     [monster runAction:[SKAction sequence:@[actionMove, loseAction, actionMoveDone]]];
- 
 }
 
 - (void)updateWithTimeSinceLastUpdate:(CFTimeInterval)timeSinceLast {
- 
     self.lastSpawnTimeInterval += timeSinceLast;
     if (self.lastSpawnTimeInterval > 4) {
         self.lastSpawnTimeInterval = 0;
@@ -131,26 +95,6 @@ static inline CGPoint rwNormalize(CGPoint a) {
     }
 
     [self updateWithTimeSinceLastUpdate:timeSinceLast];
- 
-}
-
-/*- (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
-    UITouch* touch = [touches anyObject];
-    CGPoint positionInScene = [touch locationInNode:self];
-    [self selectNodeForTouch:positionInScene];
-}*/
-
-- (void)selectNodeForTouch:(CGPoint)touchLocation {
-    SKSpriteNode* touchedNode = (SKSpriteNode*)[self nodeAtPoint:touchLocation];
-    if(![_selectedNode isEqual:touchedNode]) {
-        _selectedNode = touchedNode;
-        if([[touchedNode name] isEqualToString:playerNodeName]) {
-            //what
-        }
-//        else if([[touchedNode name] isEqualToString:buttonNodeName]) {
-//            //IDK
-//        }
-    }
 }
 
 - (CGPoint)boundPlayerPos:(CGPoint)newPos {
@@ -174,54 +118,20 @@ static inline CGPoint rwNormalize(CGPoint a) {
 }
 
 - (void)handlePanFrom:(UIPanGestureRecognizer *)recognizer {
-    if (recognizer.state == UIGestureRecognizerStateBegan) {
-        
-        CGPoint touchLocation = [recognizer locationInView:recognizer.view];
-        
-        touchLocation = [self convertPointFromView:touchLocation];
-        
-        [self selectNodeForTouch:touchLocation];
-        
-        
-    } else if (recognizer.state == UIGestureRecognizerStateChanged) {
-        
+    if (recognizer.state == UIGestureRecognizerStateChanged) {
         CGPoint translation = [recognizer translationInView:recognizer.view];
         translation = CGPointMake(translation.x, -translation.y);
         [self translatePlayer:translation];
         [recognizer setTranslation:CGPointZero inView:recognizer.view];
         
     } else if (recognizer.state == UIGestureRecognizerStateEnded) {
-        /*if (![[_selectedNode name] isEqualToString:playerNodeName]) {
-            float scrollDuration = 0.2;
-            CGPoint velocity = [recognizer velocityInView:recognizer.view];
-            CGPoint pos = [_selectedNode position];
-            CGPoint p = mult(velocity, scrollDuration);
-            
-            CGPoint newPos = CGPointMake(pos.x + p.x, pos.y + p.y);
-            newPos = [self boundLayerPos:newPos];
-            [_selectedNode removeAllActions];
-            
-            SKAction *moveTo = [SKAction moveTo:newPos duration:scrollDuration];
-            [moveTo setTimingMode:SKActionTimingEaseOut];
-            [_selectedNode runAction:moveTo];
-        }*/
-        [_selectedNode removeAllActions];
+        [self.player removeAllActions];
     }
 }
 
 - (void)touchesEnded:(NSSet*)touches withEvent:(UIEvent*)event {
- 
-    //[self runAction:[SKAction playSoundFileNamed:@"pew-pew-lei.caf" waitForCompletion:NO]];
-    [self runAction:[SKAction playSoundFileNamed:@"jobro__laser6.wav" waitForCompletion:NO]];
- 
-    // 1 - Choose one of the touches to work with
-    UITouch * touch = [touches anyObject];
-    CGPoint location = [touch locationInNode:self];
- 
-    // 2 - Set up initial location of projectile
     SKSpriteNode * projectile = [SKSpriteNode spriteNodeWithImageNamed:@"LaserBeamSprite"];
     projectile.position = self.player.position;
-    //NSLog(@"%f",projectile.size.width);
     projectile.physicsBody = [SKPhysicsBody bodyWithCircleOfRadius:projectile.size.width/2];
     projectile.physicsBody.dynamic = YES;
     projectile.physicsBody.categoryBitMask = projectileCategory;
@@ -230,14 +140,9 @@ static inline CGPoint rwNormalize(CGPoint a) {
     projectile.physicsBody.usesPreciseCollisionDetection = YES;
     projectile.yScale = -1.0;
 
-    // 3- Determine offset of location to projectile
-    CGPoint offset = rwSub(location, projectile.position);
-
-    // 4 - Bail out if you are shooting down or backwards
-    if (offset.y <= 0) return;
-
-    // 5 - OK to add now - we've double checked position
     [self addChild:projectile];
+    
+    [self runAction:[SKAction playSoundFileNamed:@"jobro__laser6.wav" waitForCompletion:NO]];
 
     // 8 - Add the shoot amount to the current position
     CGPoint realDest = CGPointMake(projectile.position.x, self.size.height);

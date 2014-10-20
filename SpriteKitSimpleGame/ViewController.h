@@ -11,4 +11,7 @@
 
 @interface ViewController : UIViewController
 
+- (void)createHealthBar;
+- (void)createSideBar;
+
 @end
