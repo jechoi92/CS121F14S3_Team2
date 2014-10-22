@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6245" systemVersion="13F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="LVB-YS-i5n">
     <dependencies>
+        <deployment defaultVersion="1792" identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6238"/>
     </dependencies>
     <scenes>
@@ -63,7 +64,7 @@
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Dda-RG-94i">
                                 <rect key="frame" x="24" y="8" width="273" height="393"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <mutableString key="text">Get ready, Space Cadet! The Earth is in danger! Asteroids are hurdling towards the Earth, and there's only one way to stop them: you must shoot them down. But there's a catch: each asteroid can only be destroyed by a certain type of laser. You have to figure out which type of laser will destroy each asteroid by solving the equation on the asteroid. Once you know the frequency that will destroy the laser, drag your ship along the bottom to get into position to destroy the asteroid. Click the laser frequency you think will destroy it to shoot a laser directly upward at the asteroid. If you can't solve the equation in time, and the asteroid collides with the Earth, the Earth will get damaged. The health bar on the left hand side of the screen will show you how much health the Earth has left. Solve the equations quickly and save the Earth!!</mutableString>
+                                <string key="text">Get ready, Space Cadet! The Earth is in danger! Asteroids are hurdling towards the Earth, and there's only one way to stop them: you must shoot them down. But there's a catch: each asteroid can only be destroyed by a certain type of laser. You have to figure out which type of laser will destroy each asteroid by solving the equation on the asteroid. Once you know the frequency that will destroy the laser, drag your ship along the bottom to get into position to destroy the asteroid. Click the laser frequency you think will destroy it to shoot a laser directly upward at the asteroid. If you can't solve the equation in time, and the asteroid collides with the Earth, the Earth will get damaged. The health bar on the left hand side of the screen will show you how much health the Earth has left. Solve the equations quickly and save the Earth!!</string>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>

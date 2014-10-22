@@ -44,6 +44,7 @@
     
     // Present the scene.
     [_gameView presentScene:scene];
+  }
 }
 
 - (void)createHealthBar
