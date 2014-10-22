@@ -6,22 +6,21 @@
 //  Copyright (c) 2013 Razeware LLC. All rights reserved.
 //
 
-#import "ViewController.h"
+#import "GameViewController.h"
 #import "MyScene.h"
 
 @import AVFoundation;
 
-@interface ViewController (){
+@interface GameViewController (){
   SKView *_gameView;
 }
 @property (nonatomic) AVAudioPlayer * backgroundMusicPlayer;
 @end
 
-@implementation ViewController
+@implementation GameViewController
 
-- (void)viewDidLoad
+- (void)viewWillLayoutSubviews
 {
-  [super viewDidLoad];
   NSError *error;
   NSURL * backgroundMusicURL = [[NSBundle mainBundle] URLForResource:@"background-music-aac" withExtension:@"caf"];
   self.backgroundMusicPlayer = [[AVAudioPlayer alloc] initWithContentsOfURL:backgroundMusicURL error:&error];
