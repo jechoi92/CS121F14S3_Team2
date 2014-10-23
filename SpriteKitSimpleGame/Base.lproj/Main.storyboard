@@ -1,25 +1,117 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6245" systemVersion="13E28" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="LVB-YS-i5n">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6245" systemVersion="13F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="UV1-dF-Ec5">
     <dependencies>
+        <deployment defaultVersion="1792" identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6238"/>
     </dependencies>
     <scenes>
-        <!--View Controller-->
-        <scene sceneID="CtS-rA-C9T">
+        <!--Main Menu View Controller-->
+        <scene sceneID="XmJ-CE-Qvm">
             <objects>
-                <viewController id="LVB-YS-i5n" customClass="ViewController" sceneMemberID="viewController">
+                <viewController id="UV1-dF-Ec5" customClass="MainMenuViewController" sceneMemberID="viewController">
                     <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="JxQ-pC-m6H"/>
-                        <viewControllerLayoutGuide type="bottom" id="lLP-cs-wC8"/>
+                        <viewControllerLayoutGuide type="top" id="07X-66-sP4"/>
+                        <viewControllerLayoutGuide type="bottom" id="96y-Na-Zn6"/>
                     </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="bdc-N1-crn" customClass="SKView">
+                    <view key="view" contentMode="scaleToFill" id="Xiz-mI-21D">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8ZX-RT-bY3">
+                                <rect key="frame" x="121" y="245" width="79" height="30"/>
+                                <state key="normal" title="Start Game">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <segue destination="rXg-ev-ObE" kind="modal" id="bNs-03-LhT"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Hbg-OA-T3g">
+                                <rect key="frame" x="120" y="292" width="81" height="30"/>
+                                <state key="normal" title="Instructions">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <segue destination="4WB-aH-voY" kind="modal" id="6O1-Z7-Px0"/>
+                                </connections>
+                            </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" text="Fraction Blasters" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ABA-uX-w67">
+                                <rect key="frame" x="43" y="8" width="234" height="77"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="30"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="centerX" secondItem="Hbg-OA-T3g" secondAttribute="centerX" id="1aR-Aa-Pez"/>
+                            <constraint firstAttribute="centerX" secondItem="8ZX-RT-bY3" secondAttribute="centerX" id="HdR-n5-Z1K"/>
+                            <constraint firstAttribute="centerX" secondItem="ABA-uX-w67" secondAttribute="centerX" id="ghl-Bu-Voj"/>
+                        </constraints>
                     </view>
                 </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="btX-cZ-eVz" sceneMemberID="firstResponder"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="2aT-2O-vhu" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
+            <point key="canvasLocation" x="-195" y="-150"/>
+        </scene>
+        <!--Game View Controller-->
+        <scene sceneID="mux-Al-2lM">
+            <objects>
+                <viewController id="rXg-ev-ObE" customClass="GameViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="7uJ-EU-Opt"/>
+                        <viewControllerLayoutGuide type="bottom" id="25B-IP-7Rv"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="Zgh-3p-BDS" customClass="SKView">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="jtd-KW-gZI" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="162" y="-150"/>
+        </scene>
+        <!--Instr View Controller-->
+        <scene sceneID="GlQ-ff-oQs">
+            <objects>
+                <viewController id="4WB-aH-voY" customClass="InstrViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="K7E-bT-AUr"/>
+                        <viewControllerLayoutGuide type="bottom" id="bfd-DU-ewl"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="moH-qi-UOy">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aup-hy-ehE">
+                                <rect key="frame" x="140" y="441" width="40" height="30"/>
+                                <state key="normal" title="Close">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <segue destination="UV1-dF-Ec5" kind="modal" id="k1q-w6-BbA"/>
+                                </connections>
+                            </button>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Dda-RG-94i">
+                                <rect key="frame" x="24" y="8" width="273" height="393"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <string key="text">Get ready, Space Cadet! The Earth is in danger! Asteroids are hurdling towards the Earth, and there's only one way to stop them: you must shoot them down. But there's a catch: each asteroid can only be destroyed by a certain type of laser. You have to figure out which type of laser will destroy each asteroid by solving the equation on the asteroid. Once you know the frequency that will destroy the laser, drag your ship along the bottom to get into position to destroy the asteroid. Click the laser frequency you think will destroy it to shoot a laser directly upward at the asteroid. If you can't solve the equation in time, and the asteroid collides with the Earth, the Earth will get damaged. The health bar on the left hand side of the screen will show you how much health the Earth has left. Solve the equations quickly and save the Earth!!</string>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                            </textView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="centerX" secondItem="aup-hy-ehE" secondAttribute="centerX" id="6rs-hE-q6i"/>
+                            <constraint firstAttribute="centerX" secondItem="Dda-RG-94i" secondAttribute="centerX" id="9Ur-R8-jfq"/>
+                            <constraint firstItem="aup-hy-ehE" firstAttribute="top" secondItem="Dda-RG-94i" secondAttribute="bottom" constant="40" id="i82-ZO-Atl"/>
+                        </constraints>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="oRW-nK-rPN" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-553" y="-100"/>
         </scene>
     </scenes>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
