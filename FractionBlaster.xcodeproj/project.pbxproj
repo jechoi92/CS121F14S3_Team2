@@ -1,0 +1,509 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		93272F4C1A075F2A00D32070 /* background-music-aac.caf in Resources */ = {isa = PBXBuildFile; fileRef = 93272F491A075F2A00D32070 /* background-music-aac.caf */; };
+		93272F4E1A075F2A00D32070 /* sprites.atlas in Resources */ = {isa = PBXBuildFile; fileRef = 93272F4B1A075F2A00D32070 /* sprites.atlas */; };
+		93272F501A075F3E00D32070 /* jobro__laser6.wav in Resources */ = {isa = PBXBuildFile; fileRef = 93272F4F1A075F3E00D32070 /* jobro__laser6.wav */; };
+		93272F521A075F4C00D32070 /* ryansnook__medium-explosion.wav in Resources */ = {isa = PBXBuildFile; fileRef = 93272F511A075F4C00D32070 /* ryansnook__medium-explosion.wav */; };
+		93CB20F51A0754590050185E /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 93CB20F41A0754590050185E /* main.m */; };
+		93CB20F81A0754590050185E /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 93CB20F71A0754590050185E /* AppDelegate.m */; };
+		93CB20FB1A0754590050185E /* MainMenuViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 93CB20FA1A0754590050185E /* MainMenuViewController.m */; };
+		93CB20FE1A0754590050185E /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 93CB20FC1A0754590050185E /* Main.storyboard */; };
+		93CB21001A0754590050185E /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 93CB20FF1A0754590050185E /* Images.xcassets */; };
+		93CB21031A0754590050185E /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 93CB21011A0754590050185E /* LaunchScreen.xib */; };
+		93CB210F1A0754590050185E /* FractionBlasterTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 93CB210E1A0754590050185E /* FractionBlasterTests.m */; };
+		93CB21611A075AED0050185E /* Equation.m in Sources */ = {isa = PBXBuildFile; fileRef = 93CB21601A075AED0050185E /* Equation.m */; };
+		93CB21641A075AFC0050185E /* Fraction.m in Sources */ = {isa = PBXBuildFile; fileRef = 93CB21631A075AFC0050185E /* Fraction.m */; };
+		93CB21671A075B1F0050185E /* Projectile.m in Sources */ = {isa = PBXBuildFile; fileRef = 93CB21661A075B1F0050185E /* Projectile.m */; };
+		93CB216A1A075BB00050185E /* GameViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 93CB21691A075BB00050185E /* GameViewController.m */; };
+		93CB216D1A075C8F0050185E /* EquationGenerator.m in Sources */ = {isa = PBXBuildFile; fileRef = 93CB216C1A075C8F0050185E /* EquationGenerator.m */; };
+		93CB21701A075CC30050185E /* SideBarView.m in Sources */ = {isa = PBXBuildFile; fileRef = 93CB216F1A075CC30050185E /* SideBarView.m */; };
+		93CB21731A075CCD0050185E /* HealthBarView.m in Sources */ = {isa = PBXBuildFile; fileRef = 93CB21721A075CCD0050185E /* HealthBarView.m */; };
+		93CB21791A075D510050185E /* GameScene.m in Sources */ = {isa = PBXBuildFile; fileRef = 93CB21781A075D510050185E /* GameScene.m */; };
+		93CB217C1A075DB70050185E /* GameOverScene.m in Sources */ = {isa = PBXBuildFile; fileRef = 93CB217B1A075DB70050185E /* GameOverScene.m */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		93CB21091A0754590050185E /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 93CB20E71A0754590050185E /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 93CB20EE1A0754590050185E;
+			remoteInfo = FractionBlaster;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		93272F491A075F2A00D32070 /* background-music-aac.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "background-music-aac.caf"; sourceTree = "<group>"; };
+		93272F4B1A075F2A00D32070 /* sprites.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = sprites.atlas; sourceTree = "<group>"; };
+		93272F4F1A075F3E00D32070 /* jobro__laser6.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = jobro__laser6.wav; sourceTree = "<group>"; };
+		93272F511A075F4C00D32070 /* ryansnook__medium-explosion.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = "ryansnook__medium-explosion.wav"; sourceTree = "<group>"; };
+		93CB20EF1A0754590050185E /* FractionBlaster.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FractionBlaster.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		93CB20F31A0754590050185E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		93CB20F41A0754590050185E /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		93CB20F61A0754590050185E /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		93CB20F71A0754590050185E /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		93CB20F91A0754590050185E /* MainMenuViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MainMenuViewController.h; sourceTree = "<group>"; };
+		93CB20FA1A0754590050185E /* MainMenuViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MainMenuViewController.m; sourceTree = "<group>"; };
+		93CB20FD1A0754590050185E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		93CB20FF1A0754590050185E /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
+		93CB21021A0754590050185E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
+		93CB21081A0754590050185E /* FractionBlasterTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = FractionBlasterTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		93CB210D1A0754590050185E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		93CB210E1A0754590050185E /* FractionBlasterTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FractionBlasterTests.m; sourceTree = "<group>"; };
+		93CB215F1A075AED0050185E /* Equation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Equation.h; path = ../Equation.h; sourceTree = "<group>"; };
+		93CB21601A075AED0050185E /* Equation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Equation.m; path = ../Equation.m; sourceTree = "<group>"; };
+		93CB21621A075AFC0050185E /* Fraction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Fraction.h; path = ../Fraction.h; sourceTree = "<group>"; };
+		93CB21631A075AFC0050185E /* Fraction.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Fraction.m; path = ../Fraction.m; sourceTree = "<group>"; };
+		93CB21651A075B1F0050185E /* Projectile.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Projectile.h; path = ../Projectile.h; sourceTree = "<group>"; };
+		93CB21661A075B1F0050185E /* Projectile.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Projectile.m; path = ../Projectile.m; sourceTree = "<group>"; };
+		93CB21681A075BB00050185E /* GameViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GameViewController.h; path = ../GameViewController.h; sourceTree = "<group>"; };
+		93CB21691A075BB00050185E /* GameViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GameViewController.m; path = ../GameViewController.m; sourceTree = "<group>"; };
+		93CB216B1A075C8F0050185E /* EquationGenerator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = EquationGenerator.h; path = ../EquationGenerator.h; sourceTree = "<group>"; };
+		93CB216C1A075C8F0050185E /* EquationGenerator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = EquationGenerator.m; path = ../EquationGenerator.m; sourceTree = "<group>"; };
+		93CB216E1A075CC30050185E /* SideBarView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SideBarView.h; path = ../SideBarView.h; sourceTree = "<group>"; };
+		93CB216F1A075CC30050185E /* SideBarView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SideBarView.m; path = ../SideBarView.m; sourceTree = "<group>"; };
+		93CB21711A075CCD0050185E /* HealthBarView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = HealthBarView.h; path = ../HealthBarView.h; sourceTree = "<group>"; };
+		93CB21721A075CCD0050185E /* HealthBarView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = HealthBarView.m; path = ../HealthBarView.m; sourceTree = "<group>"; };
+		93CB21771A075D510050185E /* GameScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GameScene.h; path = ../GameScene.h; sourceTree = "<group>"; };
+		93CB21781A075D510050185E /* GameScene.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GameScene.m; path = ../GameScene.m; sourceTree = "<group>"; };
+		93CB217A1A075DB70050185E /* GameOverScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GameOverScene.h; path = ../GameOverScene.h; sourceTree = "<group>"; };
+		93CB217B1A075DB70050185E /* GameOverScene.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GameOverScene.m; path = ../GameOverScene.m; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		93CB20EC1A0754590050185E /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		93CB21051A0754590050185E /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		93272F481A075F2A00D32070 /* Sounds */ = {
+			isa = PBXGroup;
+			children = (
+				93272F511A075F4C00D32070 /* ryansnook__medium-explosion.wav */,
+				93272F4F1A075F3E00D32070 /* jobro__laser6.wav */,
+				93272F491A075F2A00D32070 /* background-music-aac.caf */,
+			);
+			path = Sounds;
+			sourceTree = "<group>";
+		};
+		93CB20E61A0754590050185E = {
+			isa = PBXGroup;
+			children = (
+				93CB20F11A0754590050185E /* FractionBlaster */,
+				93CB210B1A0754590050185E /* FractionBlasterTests */,
+				93CB20F01A0754590050185E /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		93CB20F01A0754590050185E /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				93CB20EF1A0754590050185E /* FractionBlaster.app */,
+				93CB21081A0754590050185E /* FractionBlasterTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		93CB20F11A0754590050185E /* FractionBlaster */ = {
+			isa = PBXGroup;
+			children = (
+				93CB215F1A075AED0050185E /* Equation.h */,
+				93CB21601A075AED0050185E /* Equation.m */,
+				93CB21621A075AFC0050185E /* Fraction.h */,
+				93CB21631A075AFC0050185E /* Fraction.m */,
+				93CB21651A075B1F0050185E /* Projectile.h */,
+				93CB21661A075B1F0050185E /* Projectile.m */,
+				93CB216B1A075C8F0050185E /* EquationGenerator.h */,
+				93CB216C1A075C8F0050185E /* EquationGenerator.m */,
+				93CB216E1A075CC30050185E /* SideBarView.h */,
+				93CB216F1A075CC30050185E /* SideBarView.m */,
+				93CB21711A075CCD0050185E /* HealthBarView.h */,
+				93CB21721A075CCD0050185E /* HealthBarView.m */,
+				93CB21771A075D510050185E /* GameScene.h */,
+				93CB21781A075D510050185E /* GameScene.m */,
+				93CB217A1A075DB70050185E /* GameOverScene.h */,
+				93CB217B1A075DB70050185E /* GameOverScene.m */,
+				93CB21681A075BB00050185E /* GameViewController.h */,
+				93CB21691A075BB00050185E /* GameViewController.m */,
+				93CB20F61A0754590050185E /* AppDelegate.h */,
+				93CB20F71A0754590050185E /* AppDelegate.m */,
+				93CB20F91A0754590050185E /* MainMenuViewController.h */,
+				93CB20FA1A0754590050185E /* MainMenuViewController.m */,
+				93CB20FC1A0754590050185E /* Main.storyboard */,
+				93CB20FF1A0754590050185E /* Images.xcassets */,
+				93272F481A075F2A00D32070 /* Sounds */,
+				93272F4B1A075F2A00D32070 /* sprites.atlas */,
+				93CB21011A0754590050185E /* LaunchScreen.xib */,
+				93CB20F21A0754590050185E /* Supporting Files */,
+			);
+			path = FractionBlaster;
+			sourceTree = "<group>";
+		};
+		93CB20F21A0754590050185E /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				93CB20F31A0754590050185E /* Info.plist */,
+				93CB20F41A0754590050185E /* main.m */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		93CB210B1A0754590050185E /* FractionBlasterTests */ = {
+			isa = PBXGroup;
+			children = (
+				93CB210E1A0754590050185E /* FractionBlasterTests.m */,
+				93CB210C1A0754590050185E /* Supporting Files */,
+			);
+			path = FractionBlasterTests;
+			sourceTree = "<group>";
+		};
+		93CB210C1A0754590050185E /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				93CB210D1A0754590050185E /* Info.plist */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		93CB20EE1A0754590050185E /* FractionBlaster */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 93CB21121A0754590050185E /* Build configuration list for PBXNativeTarget "FractionBlaster" */;
+			buildPhases = (
+				93CB20EB1A0754590050185E /* Sources */,
+				93CB20EC1A0754590050185E /* Frameworks */,
+				93CB20ED1A0754590050185E /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = FractionBlaster;
+			productName = FractionBlaster;
+			productReference = 93CB20EF1A0754590050185E /* FractionBlaster.app */;
+			productType = "com.apple.product-type.application";
+		};
+		93CB21071A0754590050185E /* FractionBlasterTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 93CB21151A0754590050185E /* Build configuration list for PBXNativeTarget "FractionBlasterTests" */;
+			buildPhases = (
+				93CB21041A0754590050185E /* Sources */,
+				93CB21051A0754590050185E /* Frameworks */,
+				93CB21061A0754590050185E /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				93CB210A1A0754590050185E /* PBXTargetDependency */,
+			);
+			name = FractionBlasterTests;
+			productName = FractionBlasterTests;
+			productReference = 93CB21081A0754590050185E /* FractionBlasterTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		93CB20E71A0754590050185E /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0610;
+				ORGANIZATIONNAME = MatherTeresa;
+				TargetAttributes = {
+					93CB20EE1A0754590050185E = {
+						CreatedOnToolsVersion = 6.1;
+					};
+					93CB21071A0754590050185E = {
+						CreatedOnToolsVersion = 6.1;
+						TestTargetID = 93CB20EE1A0754590050185E;
+					};
+				};
+			};
+			buildConfigurationList = 93CB20EA1A0754590050185E /* Build configuration list for PBXProject "FractionBlaster" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 93CB20E61A0754590050185E;
+			productRefGroup = 93CB20F01A0754590050185E /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				93CB20EE1A0754590050185E /* FractionBlaster */,
+				93CB21071A0754590050185E /* FractionBlasterTests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		93CB20ED1A0754590050185E /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				93272F4C1A075F2A00D32070 /* background-music-aac.caf in Resources */,
+				93CB20FE1A0754590050185E /* Main.storyboard in Resources */,
+				93CB21031A0754590050185E /* LaunchScreen.xib in Resources */,
+				93272F521A075F4C00D32070 /* ryansnook__medium-explosion.wav in Resources */,
+				93272F501A075F3E00D32070 /* jobro__laser6.wav in Resources */,
+				93272F4E1A075F2A00D32070 /* sprites.atlas in Resources */,
+				93CB21001A0754590050185E /* Images.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		93CB21061A0754590050185E /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		93CB20EB1A0754590050185E /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				93CB20FB1A0754590050185E /* MainMenuViewController.m in Sources */,
+				93CB20F81A0754590050185E /* AppDelegate.m in Sources */,
+				93CB216A1A075BB00050185E /* GameViewController.m in Sources */,
+				93CB216D1A075C8F0050185E /* EquationGenerator.m in Sources */,
+				93CB21791A075D510050185E /* GameScene.m in Sources */,
+				93CB21701A075CC30050185E /* SideBarView.m in Sources */,
+				93CB21671A075B1F0050185E /* Projectile.m in Sources */,
+				93CB20F51A0754590050185E /* main.m in Sources */,
+				93CB21611A075AED0050185E /* Equation.m in Sources */,
+				93CB21731A075CCD0050185E /* HealthBarView.m in Sources */,
+				93CB217C1A075DB70050185E /* GameOverScene.m in Sources */,
+				93CB21641A075AFC0050185E /* Fraction.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		93CB21041A0754590050185E /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				93CB210F1A0754590050185E /* FractionBlasterTests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		93CB210A1A0754590050185E /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 93CB20EE1A0754590050185E /* FractionBlaster */;
+			targetProxy = 93CB21091A0754590050185E /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		93CB20FC1A0754590050185E /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				93CB20FD1A0754590050185E /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		93CB21011A0754590050185E /* LaunchScreen.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				93CB21021A0754590050185E /* Base */,
+			);
+			name = LaunchScreen.xib;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		93CB21101A0754590050185E /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = 2;
+			};
+			name = Debug;
+		};
+		93CB21111A0754590050185E /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = YES;
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = 2;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		93CB21131A0754590050185E /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				INFOPLIST_FILE = FractionBlaster/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		93CB21141A0754590050185E /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				INFOPLIST_FILE = FractionBlaster/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+		93CB21161A0754590050185E /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+				);
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = FractionBlasterTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/FractionBlaster.app/FractionBlaster";
+			};
+			name = Debug;
+		};
+		93CB21171A0754590050185E /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = FractionBlasterTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/FractionBlaster.app/FractionBlaster";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		93CB20EA1A0754590050185E /* Build configuration list for PBXProject "FractionBlaster" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				93CB21101A0754590050185E /* Debug */,
+				93CB21111A0754590050185E /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		93CB21121A0754590050185E /* Build configuration list for PBXNativeTarget "FractionBlaster" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				93CB21131A0754590050185E /* Debug */,
+				93CB21141A0754590050185E /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		93CB21151A0754590050185E /* Build configuration list for PBXNativeTarget "FractionBlasterTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				93CB21161A0754590050185E /* Debug */,
+				93CB21171A0754590050185E /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 93CB20E71A0754590050185E /* Project object */;
+}
