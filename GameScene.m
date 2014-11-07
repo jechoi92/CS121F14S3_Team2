@@ -8,7 +8,6 @@
 
 #import "GameScene.h"
 #import "GameOverScene.h"
-#import "Projectile.h"
 
 static const uint32_t laserCategory     =  0x1 << 0;
 static const uint32_t asteroidCategory  =  0x1 << 1;
@@ -47,8 +46,9 @@ static const uint32_t asteroidCategory  =  0x1 << 1;
     label.fontSize = 24;
     label.fontColor = [UIColor whiteColor];
     
-    Projectile* asteroid = [Projectile spriteNodeWithImageNamed:@"asteroid"];
-    [asteroid setValue:[equation getSolution]];
+    SKSpriteNode* asteroid = [SKSpriteNode spriteNodeWithImageNamed:@"asteroid"];
+    asteroid.userData = [NSMutableDictionary dictionary];
+    [asteroid userData][@"frequency"] = [equation getSolution];
     [asteroid addChild:label];
     
     asteroid.physicsBody = [SKPhysicsBody bodyWithCircleOfRadius:asteroid.size.width/2 - 5]; // 1
@@ -186,8 +186,9 @@ static const uint32_t asteroidCategory  =  0x1 << 1;
 }
 
 - (void)fireLaser:(Fraction*)value {
-    Projectile* projectile = [Projectile spriteNodeWithImageNamed:@"LaserBeamSprite"];
-    [projectile setValue:value];
+    SKSpriteNode* projectile = [SKSpriteNode spriteNodeWithImageNamed:@"LaserBeamSprite"];
+    projectile.userData = [NSMutableDictionary dictionary];
+    [projectile userData][@"frequency"] = value;
     
     projectile.position = self.player.position;
     projectile.physicsBody = [SKPhysicsBody bodyWithCircleOfRadius:projectile.size.width/2];
@@ -214,9 +215,11 @@ static const uint32_t asteroidCategory  =  0x1 << 1;
     
 }
 
-- (void)laser:(Projectile*)laser didCollideWithAsteroid:(Projectile*)asteroid {
+- (void)laser:(SKSpriteNode*)laser didCollideWithAsteroid:(SKSpriteNode*)asteroid {
     //NSLog(@"Hit");
-    if ([laser.value compare:asteroid.value] == NSOrderedSame) {
+    Fraction* laserFrequency = [laser userData][@"frequency"];
+    Fraction* asteroidFrequency = [asteroid userData][@"frequency"];
+    if ([laserFrequency compare:asteroidFrequency] == NSOrderedSame) {
         [self runAction:[SKAction playSoundFileNamed:@"ryansnook__medium-explosion.wav" waitForCompletion:NO]];
         [asteroid removeFromParent];
         self.asteroidsDestroyed++;
@@ -250,7 +253,7 @@ static const uint32_t asteroidCategory  =  0x1 << 1;
     if ((firstBody.categoryBitMask & laserCategory) != 0 &&
         (secondBody.categoryBitMask & asteroidCategory) != 0)
     {
-        [self laser:(Projectile*) firstBody.node didCollideWithAsteroid:(Projectile*) secondBody.node];
+        [self laser:(SKSpriteNode*) firstBody.node didCollideWithAsteroid:(SKSpriteNode*) secondBody.node];
         //NSLog(@"projectile x:%f y:%f monster x:%f y:%f", firstBody.node.position.x, firstBody.node.position.y, secondBody.node.position.x, secondBody.node.position.y);
     }
 }
