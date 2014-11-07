@@ -41,6 +41,8 @@
 		93CB21731A075CCD0050185E /* HealthBarView.m in Sources */ = {isa = PBXBuildFile; fileRef = 93CB21721A075CCD0050185E /* HealthBarView.m */; };
 		93CB21791A075D510050185E /* GameScene.m in Sources */ = {isa = PBXBuildFile; fileRef = 93CB21781A075D510050185E /* GameScene.m */; };
 		93CB217C1A075DB70050185E /* GameOverScene.m in Sources */ = {isa = PBXBuildFile; fileRef = 93CB217B1A075DB70050185E /* GameOverScene.m */; };
+		DAE395691A0D4FED00D55633 /* LevelSelectViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DAE395681A0D4FED00D55633 /* LevelSelectViewController.m */; };
+		DAE3956C1A0D553500D55633 /* LevelButtonView.m in Sources */ = {isa = PBXBuildFile; fileRef = DAE3956B1A0D553500D55633 /* LevelButtonView.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -89,6 +91,10 @@
 		93CB21781A075D510050185E /* GameScene.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GameScene.m; path = ../GameScene.m; sourceTree = "<group>"; };
 		93CB217A1A075DB70050185E /* GameOverScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GameOverScene.h; path = ../GameOverScene.h; sourceTree = "<group>"; };
 		93CB217B1A075DB70050185E /* GameOverScene.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GameOverScene.m; path = ../GameOverScene.m; sourceTree = "<group>"; };
+		DAE395671A0D4FED00D55633 /* LevelSelectViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LevelSelectViewController.h; sourceTree = "<group>"; };
+		DAE395681A0D4FED00D55633 /* LevelSelectViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LevelSelectViewController.m; sourceTree = "<group>"; };
+		DAE3956A1A0D553500D55633 /* LevelButtonView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LevelButtonView.h; sourceTree = "<group>"; };
+		DAE3956B1A0D553500D55633 /* LevelButtonView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LevelButtonView.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -141,6 +147,10 @@
 			isa = PBXGroup;
 			children = (
 				93CB215F1A075AED0050185E /* Equation.h */,
+				DAE395671A0D4FED00D55633 /* LevelSelectViewController.h */,
+				DAE3956A1A0D553500D55633 /* LevelButtonView.h */,
+				DAE3956B1A0D553500D55633 /* LevelButtonView.m */,
+				DAE395681A0D4FED00D55633 /* LevelSelectViewController.m */,
 				93CB21601A075AED0050185E /* Equation.m */,
 				93CB21621A075AFC0050185E /* Fraction.h */,
 				93CB21631A075AFC0050185E /* Fraction.m */,
@@ -329,6 +339,8 @@
 				93CB21791A075D510050185E /* GameScene.m in Sources */,
 				93CB21701A075CC30050185E /* SideBarView.m in Sources */,
 				93CB21671A075B1F0050185E /* Projectile.m in Sources */,
+				DAE3956C1A0D553500D55633 /* LevelButtonView.m in Sources */,
+				DAE395691A0D4FED00D55633 /* LevelSelectViewController.m in Sources */,
 				93CB20F51A0754590050185E /* main.m in Sources */,
 				93CB21611A075AED0050185E /* Equation.m in Sources */,
 				93CB21731A075CCD0050185E /* HealthBarView.m in Sources */,
@@ -566,6 +578,7 @@
 				DA16F6221A0874AA0029C773 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
