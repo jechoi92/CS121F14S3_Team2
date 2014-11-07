@@ -206,7 +206,7 @@ static const uint32_t asteroidCategory  =  0x1 << 1;
     CGPoint realDest = CGPointMake(projectile.position.x, self.size.height);
     
     // 9 - Create the actions
-    float velocity = 480.0/1.0;
+    float velocity = 800.0;
     float realMoveDuration = self.size.width / velocity;
     SKAction * actionMove = [SKAction moveTo:realDest duration:realMoveDuration];
     SKAction * actionMoveDone = [SKAction removeFromParent];
