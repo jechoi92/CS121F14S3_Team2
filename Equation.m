@@ -20,8 +20,10 @@
 // The value of the equation is computed and stored as well.
 -(id)initWithFraction1: (Fraction*)args1 andFraction2: (Fraction*)args2 andOperator: (char)operator
 {
+  self = [super init];
     _args1 = args1;
     _args2 = args2;
+    _value = args1;
     _operator = operator;
     switch (operator) {
         case '+':
@@ -43,7 +45,7 @@
     return self;
 }
 
--(Fraction*)getValue
+-(Fraction*)getSolution
 {
     return _value;
 }
@@ -67,6 +69,23 @@
     return [NSString stringWithFormat:@"%@ %c %@ = ", [_args1 description], _operator, [_args2 description]];
 }
 
+
+// For unit testing purposes
+
+-(Fraction*)getFraction1
+{
+    return _args1;
+}
+
+-(Fraction*)getFraction2
+{
+    return _args2;
+}
+
+-(char)getOperator
+{
+    return _operator;
+}
 
 @end
 

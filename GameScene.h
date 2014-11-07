@@ -9,12 +9,16 @@
 #import <SpriteKit/SpriteKit.h>
 #import "Equation.h"
 
+@protocol AsteroidReachedBottom <SKSceneDelegate>
+- (void)asteroidReachedBottom;
+@end
+
 @interface GameScene : SKScene
+
+@property (assign, nonatomic) id <AsteroidReachedBottom> delegate;
 
 - (void)createAsteroid: (Equation*)equation;
 - (void)fireLaser: (Fraction*)value;
--(void)setAction:(SEL)action
-      withTarget:(id)target;
--(void)gameOver;
+- (void)gameOver;
 
 @end

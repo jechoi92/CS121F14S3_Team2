@@ -207,6 +207,7 @@ int lcm(int a, int b)
 
 -(void)setDenominator: (int)num
 {
+    NSAssert(num != 0, @"Cannot set denominator to zero.");
     if ( num < 0 ) numerator = -numerator;
     denominator = abs(num);
 }

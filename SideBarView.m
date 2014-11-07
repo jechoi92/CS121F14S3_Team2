@@ -10,8 +10,6 @@
 
 @implementation SideBarView {
     NSMutableArray* _buttons;
-    id _target;
-    SEL _action;
 }
 
 
@@ -25,24 +23,14 @@
 }
 
 
-// Defines viewcontroller as the target class to return
-// information about the side bar
--(void)setAction:(SEL)action
-      withTarget:(id)target {
-    _target = target;
-    _action = action;
-    
-}
-
-
 // This returns information to the viewcontroller
 // about which button was pressed
 - (void)buttonPressed:(id)sender {
     // take the tag of button selected and send it back to the
     // target (which is viewcontroller)
     UIButton* button = (UIButton*) sender;
-    NSNumber* tag = [NSNumber numberWithInteger:[button tag] ];
-    [_target performSelector:_action withObject:tag];
+    NSNumber* buttonTag = [NSNumber numberWithInteger:[button tag] ];
+    [self.delegate laserFrequencyChosen:buttonTag];
 }
 
 

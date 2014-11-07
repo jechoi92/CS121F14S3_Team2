@@ -21,6 +21,8 @@ int TOTAL_INITIAL_FRACTIONS = 4;
 // Initializes the generator with valid operators and the upper bound on the denominator.
 - (id) initWithOperators: (NSArray*) operators andDenominatorLimit: (int)denominatorLimit andDifficulty: (int)difficulty
 {
+    self = [super init];
+  
     _denominatorLimit = denominatorLimit;
     _difficulty = difficulty;
     _initialFractions = [[NSMutableArray alloc] initWithCapacity:TOTAL_INITIAL_FRACTIONS];
@@ -166,6 +168,13 @@ int TOTAL_INITIAL_FRACTIONS = 4;
         }
     }
     return NO;
+}
+
+// For unit testing purposes
+
+- (int)getDenominatorLimit
+{
+    return _denominatorLimit;
 }
 
 @end

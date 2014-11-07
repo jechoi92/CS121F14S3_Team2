@@ -11,10 +11,10 @@
 @import AVFoundation;
 
 @interface GameViewController ()
-@property (nonatomic) AVAudioPlayer * backgroundMusicPlayer;
+//@property (nonatomic) AVAudioPlayer * backgroundMusicPlayer;
 @end
 
-int HEALTHPENALTY = 0;
+int HEALTHPENALTY = 20;
 
 @implementation GameViewController
 {
@@ -38,11 +38,11 @@ int HEALTHPENALTY = 0;
     [super viewWillLayoutSubviews];
     // Do any additional setup after loading the view, typically from a nib.
 
-    NSError *error;
-    NSURL * backgroundMusicURL = [[NSBundle mainBundle] URLForResource:@"background-music-aac" withExtension:@"caf"];
-    self.backgroundMusicPlayer = [[AVAudioPlayer alloc] initWithContentsOfURL:backgroundMusicURL error:&error];
-    self.backgroundMusicPlayer.numberOfLoops = -1;
-    [self.backgroundMusicPlayer prepareToPlay];
+    //NSError *error;
+    //NSURL * backgroundMusicURL = [[NSBundle mainBundle] URLForResource:@"background-music-aac" withExtension:@"caf"];
+    //self.backgroundMusicPlayer = [[AVAudioPlayer alloc] initWithContentsOfURL:backgroundMusicURL error:&error];
+    //self.backgroundMusicPlayer.numberOfLoops = -1;
+    //[self.backgroundMusicPlayer prepareToPlay];
     //[self.backgroundMusicPlayer play];
     
     // TO DO will create an array of operators that the user selects.
@@ -85,7 +85,7 @@ int HEALTHPENALTY = 0;
         [_sidebar setValueAtIndex:i withValue:toInsert];
     }
     
-    [_sidebar setAction:@selector(sideBarPressed:) withTarget:self];
+    [_sidebar setDelegate:self];
     [self.view addSubview:_sidebar];
 }
 
@@ -103,7 +103,7 @@ int HEALTHPENALTY = 0;
     _scene.scaleMode = SKSceneScaleModeAspectFill;
     
     // Present the scene.
-    [_scene setAction:@selector(asteroidReached) withTarget:self];
+    [_scene setDelegate:self];
     [skView presentScene:_scene];
 }
 
@@ -134,7 +134,7 @@ int HEALTHPENALTY = 0;
 
 // Decreases health level, and checks if health is equal to or lower than 0.
 // If so, then game over.
-- (void)asteroidReached
+- (void)asteroidReachedBottom
 {
     [_healthBar setHealthLevel:([_healthBar getHealthLevel] - HEALTHPENALTY)];
     if ([_healthBar getHealthLevel] <= 0) {
@@ -171,7 +171,7 @@ int HEALTHPENALTY = 0;
 }
 
 // Gets the tag of the pressed button and then fires a laser on the scene with that laser value.
-- (void)sideBarPressed:(NSNumber*)buttonTag {
+- (void)laserFrequencyChosen:(NSNumber*)buttonTag {
     int tag = [buttonTag intValue];
     Fraction* selected = [[Fraction alloc] initWithFraction:[_initialFractions objectAtIndex:tag]];
     [_scene fireLaser:selected];

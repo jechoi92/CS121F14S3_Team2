@@ -12,7 +12,7 @@
 
 static const uint32_t laserCategory     =  0x1 << 0;
 static const uint32_t asteroidCategory  =  0x1 << 1;
-static const uint32_t earthCategory     =  0x1 << 2;
+
 // TODO make a spritenode that represents the surface of the earth for asteroid collisions?
 
 @interface GameScene () <SKPhysicsContactDelegate>
@@ -23,10 +23,6 @@ static const uint32_t earthCategory     =  0x1 << 2;
 @end
 
 @implementation GameScene
-{
-    id _target;
-    SEL _action;
-}
 
 -(id)initWithSize:(CGSize)size {
     if (self = [super initWithSize:size]) {
@@ -52,7 +48,7 @@ static const uint32_t earthCategory     =  0x1 << 2;
     label.fontColor = [UIColor whiteColor];
     
     Projectile* asteroid = [Projectile spriteNodeWithImageNamed:@"asteroid"];
-    [asteroid setValue:[equation getValue]];
+    [asteroid setValue:[equation getSolution]];
     [asteroid addChild:label];
     
     asteroid.physicsBody = [SKPhysicsBody bodyWithCircleOfRadius:asteroid.size.width/2 - 5]; // 1
@@ -86,9 +82,14 @@ static const uint32_t earthCategory     =  0x1 << 2;
     SKAction * actionMove = [SKAction moveTo:CGPointMake(actualX, -asteroid.size.height/2) duration:actualDuration];
     SKAction * actionMoveDone = [SKAction removeFromParent];
     SKAction * loseAction = [SKAction runBlock:^{
-        [_target performSelector:_action];
+        [self asteroidHitBottom];
     }];
     [asteroid runAction:[SKAction sequence:@[actionMove, loseAction, actionMoveDone]]];
+}
+
+-(void)asteroidHitBottom
+{
+  [self.delegate asteroidReachedBottom];
 }
 
 
@@ -210,13 +211,6 @@ static const uint32_t earthCategory     =  0x1 << 2;
     SKAction * actionMove = [SKAction moveTo:realDest duration:realMoveDuration];
     SKAction * actionMoveDone = [SKAction removeFromParent];
     [projectile runAction:[SKAction sequence:@[actionMove, actionMoveDone]]];
-    
-}
-
--(void)setAction:(SEL)action
-      withTarget:(id)target {
-    _target = target;
-    _action = action;
     
 }
 

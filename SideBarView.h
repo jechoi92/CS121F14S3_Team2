@@ -9,8 +9,14 @@
 #import <UIKit/UIKit.h>
 #import "Fraction.h"
 
+@protocol LaserFrequencyChosen
+- (void)laserFrequencyChosen:(NSNumber *)buttonTag;
+@end
 
 @interface SideBarView : UIView
+
+@property (assign, nonatomic) id <LaserFrequencyChosen> delegate;
+
 
 // overwrites the method to initialize the creation of the side bar
 - (id)initWithFrame:(CGRect)frame;
@@ -26,10 +32,5 @@
 // button given the index of the array of intital fractions
 - (void)setValueAtIndex:(int)index
               withValue:(Fraction*)value;
-
-// Defines viewcontroller as the target class to return
-// information about the current frequency being selected.
--(void)setAction:(SEL)action
-      withTarget:(id)target;
 
 @end

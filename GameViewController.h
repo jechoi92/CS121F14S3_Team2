@@ -14,7 +14,8 @@
 #import "SideBarView.h"
 #import "GameOverScene.h"
 
-@interface GameViewController : UIViewController
+@interface GameViewController : UIViewController <AsteroidReachedBottom,
+                                                  LaserFrequencyChosen>
 
 - (void)createHealthBar;
 - (void)createScene;
