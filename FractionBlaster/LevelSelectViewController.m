@@ -7,16 +7,16 @@
 //
 
 #import "LevelSelectViewController.h"
-#import "LevelButtonView.h"
 
 @implementation LevelSelectViewController
 {
   LevelButtonView *_levelButtonView;
+  StartLevelButtonView *_startLevelButtonView;
 }
 
--(id)init
+-(void)viewDidLoad
 {
-  self = [super init];
+  [super viewDidLoad];
   
   // Get frame and frame dimensions
   CGRect frame = self.view.frame;
@@ -28,14 +28,38 @@
   CGFloat levelViewPctOfFrame = 0.80;
   CGFloat levelViewXOffset = 0.1 * frameWidth;
   CGFloat levelViewYOffset = 0.1 * frameHeight;
-  CGFloat levelViewSize = MIN(frameWidth, frameHeight) * levelViewPctOfFrame;
-  CGRect levelViewFrame = CGRectMake(levelViewXOffset, levelViewYOffset, levelViewSize, levelViewSize);
+  CGFloat levelViewWidth = frameWidth * levelViewPctOfFrame;
+  CGFloat levelViewHeight = levelViewWidth * 2 / 5;
+  
+  CGRect levelViewFrame = CGRectMake(levelViewXOffset, levelViewYOffset, levelViewWidth, levelViewHeight);
   
   // Create gameButton view
   _levelButtonView = [[LevelButtonView alloc] initWithFrame:levelViewFrame];
+  _levelButtonView.backgroundColor = [UIColor blackColor];
   [self.view addSubview:_levelButtonView];
   
-  return self;
+  // Create LevelDescription View
+  
+  // Create GameButtons View
+  CGFloat startButtonWidth  = frameWidth/5;
+  CGFloat startButtonHeight = 60;
+  CGFloat startButtonXOffset = (frameWidth-startButtonWidth)/2;
+  CGFloat startButtonYOffset = frameHeight-300;
+  CGRect startButtonFrame = CGRectMake(startButtonXOffset, startButtonYOffset, startButtonWidth, startButtonHeight);
+  
+  _startLevelButtonView = [[StartLevelButtonView alloc] initWithFrame:startButtonFrame];
+  [_startLevelButtonView setDelegate:self];
+  [self.view addSubview:_startLevelButtonView];
+}
+
+-(void)startLevel
+{
+  int currentLevel = [_levelButtonView currentLevelSelected] + 1;
+  NSLog(@"Starting level: %d", currentLevel);
+  //GameViewController *gvc = [[AddTaskViewController alloc]
+  //          initWithNibName:@"AddTaskView" bundle:nil];
+  //[self presentViewController:gvc animated:YES completion:nil];
+  // [initWithLevel:[_levelButtonView currentLevelSelected]]
 }
 
 @end

@@ -43,6 +43,8 @@
 		93CB217C1A075DB70050185E /* GameOverScene.m in Sources */ = {isa = PBXBuildFile; fileRef = 93CB217B1A075DB70050185E /* GameOverScene.m */; };
 		DAE395691A0D4FED00D55633 /* LevelSelectViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DAE395681A0D4FED00D55633 /* LevelSelectViewController.m */; };
 		DAE3956C1A0D553500D55633 /* LevelButtonView.m in Sources */ = {isa = PBXBuildFile; fileRef = DAE3956B1A0D553500D55633 /* LevelButtonView.m */; };
+		DAE3956F1A0F559D00D55633 /* UIImage+LevelButtonColorImage.m in Sources */ = {isa = PBXBuildFile; fileRef = DAE3956E1A0F559D00D55633 /* UIImage+LevelButtonColorImage.m */; };
+		DAE395721A0F65D400D55633 /* StartLevelButtonView.m in Sources */ = {isa = PBXBuildFile; fileRef = DAE395711A0F65D400D55633 /* StartLevelButtonView.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -95,6 +97,10 @@
 		DAE395681A0D4FED00D55633 /* LevelSelectViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LevelSelectViewController.m; sourceTree = "<group>"; };
 		DAE3956A1A0D553500D55633 /* LevelButtonView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LevelButtonView.h; sourceTree = "<group>"; };
 		DAE3956B1A0D553500D55633 /* LevelButtonView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LevelButtonView.m; sourceTree = "<group>"; };
+		DAE3956D1A0F559D00D55633 /* UIImage+LevelButtonColorImage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+LevelButtonColorImage.h"; sourceTree = "<group>"; };
+		DAE3956E1A0F559D00D55633 /* UIImage+LevelButtonColorImage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+LevelButtonColorImage.m"; sourceTree = "<group>"; };
+		DAE395701A0F65D400D55633 /* StartLevelButtonView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StartLevelButtonView.h; sourceTree = "<group>"; };
+		DAE395711A0F65D400D55633 /* StartLevelButtonView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StartLevelButtonView.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -146,11 +152,15 @@
 		93CB20F11A0754590050185E /* FractionBlaster */ = {
 			isa = PBXGroup;
 			children = (
-				93CB215F1A075AED0050185E /* Equation.h */,
 				DAE395671A0D4FED00D55633 /* LevelSelectViewController.h */,
+				DAE395681A0D4FED00D55633 /* LevelSelectViewController.m */,
+				DAE395701A0F65D400D55633 /* StartLevelButtonView.h */,
+				DAE395711A0F65D400D55633 /* StartLevelButtonView.m */,
 				DAE3956A1A0D553500D55633 /* LevelButtonView.h */,
 				DAE3956B1A0D553500D55633 /* LevelButtonView.m */,
-				DAE395681A0D4FED00D55633 /* LevelSelectViewController.m */,
+				DAE3956D1A0F559D00D55633 /* UIImage+LevelButtonColorImage.h */,
+				DAE3956E1A0F559D00D55633 /* UIImage+LevelButtonColorImage.m */,
+				93CB215F1A075AED0050185E /* Equation.h */,
 				93CB21601A075AED0050185E /* Equation.m */,
 				93CB21621A075AFC0050185E /* Fraction.h */,
 				93CB21631A075AFC0050185E /* Fraction.m */,
@@ -334,6 +344,7 @@
 			files = (
 				93CB20FB1A0754590050185E /* MainMenuViewController.m in Sources */,
 				93CB20F81A0754590050185E /* AppDelegate.m in Sources */,
+				DAE3956F1A0F559D00D55633 /* UIImage+LevelButtonColorImage.m in Sources */,
 				93CB216A1A075BB00050185E /* GameViewController.m in Sources */,
 				93CB216D1A075C8F0050185E /* EquationGenerator.m in Sources */,
 				93CB21791A075D510050185E /* GameScene.m in Sources */,
@@ -345,6 +356,7 @@
 				93CB21611A075AED0050185E /* Equation.m in Sources */,
 				93CB21731A075CCD0050185E /* HealthBarView.m in Sources */,
 				93CB217C1A075DB70050185E /* GameOverScene.m in Sources */,
+				DAE395721A0F65D400D55633 /* StartLevelButtonView.m in Sources */,
 				93CB21641A075AFC0050185E /* Fraction.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

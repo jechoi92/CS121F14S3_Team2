@@ -16,18 +16,24 @@
 
 int BUTTONS_PER_ROW = 5;
 int NUM_LEVELS = 10;
-UIColor *regularBGColor = nil;
-UIColor *highlightBGColor = nil;
+int IPAD_FONT_SIZE = 40;
+UIImage *regularBGImage = nil;
+UIImage *highlightBGImage = nil;
 
 +(void)initialize
 {
-  if (!regularBGColor){
-    regularBGColor = [UIColor colorWithRed:0.898 green:0.973
+  // Colors chosen arbitrarily for aesthetic pleasure
+  // Regular is blue
+  if (!regularBGImage){
+    UIColor *regularBGColor = [UIColor colorWithRed:0.898 green:0.973
                                       blue:1.0 alpha:1.0];
+    regularBGImage = [UIImage imageWithColor:regularBGColor];
   }
-  if (!highlightBGColor){
-    highlightBGColor = [UIColor colorWithRed:0.486 green:0.816
+  // Highlight is green
+  if (!highlightBGImage){
+    UIColor *highlightBGColor = [UIColor colorWithRed:0.486 green:0.816
                                          blue:0.447 alpha:1.0];
+    highlightBGImage = [UIImage imageWithColor:highlightBGColor];
   }
 }
 
@@ -38,30 +44,30 @@ UIColor *highlightBGColor = nil;
   if (self){
     // Set up rows of buttons
     int numRows = NUM_LEVELS/BUTTONS_PER_ROW;
+    _levelButtons = [[NSMutableArray alloc] initWithCapacity:numRows];
     for (int i = 0; i < numRows; ++i) {
       [_levelButtons addObject:[[NSMutableArray alloc] initWithCapacity:BUTTONS_PER_ROW]];
     }
     
     // Setup cell size and offset
-    CGFloat frameSize = MIN(CGRectGetHeight(frame), CGRectGetWidth(frame));
+    CGFloat frameWidth = CGRectGetWidth(frame);
     
-    // 5 buttons, plus 2.5 cellSize reserved for borders
-    CGFloat cellSize = frameSize/(5.0 + 2.5);
+    // 5 buttons, plus 1 cellSize reserved for borders
+    CGFloat buttonSize = frameWidth/(5.0 + 1.0);
     
     // 6 Borders for 5 buttons
-    CGFloat baseOffset = cellSize/(6.0);
-    CGFloat yOffset = baseOffset;
+    CGFloat baseOffset = buttonSize/(6.0);
+    CGFloat yOffset = baseOffset * 3 / 6;
     
     UIButton *levelButton;
     
-    for (int row = 0; row < 9; ++row){
+    for (int row = 0; row < numRows; ++row){
       // Set/reset xOffset for new column
       CGFloat xOffset = baseOffset;
       
-      for (int col = 0; col < 9; ++col){
-        
+      for (int col = 0; col < BUTTONS_PER_ROW; ++col){
         // Set up frame and cell
-        CGRect cellFrame = CGRectMake(xOffset, yOffset, cellSize, cellSize);
+        CGRect cellFrame = CGRectMake(xOffset, yOffset, buttonSize, buttonSize);
         levelButton = [[UIButton alloc] initWithFrame:cellFrame];
 
         [self addSubview: levelButton];
@@ -69,35 +75,35 @@ UIColor *highlightBGColor = nil;
         // Create target for cell
         [levelButton addTarget:self action:@selector(levelSelected:)
               forControlEvents:UIControlEventTouchUpInside];
-        levelButton.tag = (row * BUTTONS_PER_ROW) + col + 1;
         
-        // Highlight color arbitrarily chosen for aesthetic pleasure
-        // It's green
-        if (levelButton.tag == 1){
-          [levelButton setBackgroundColor:highlightBGColor];
-        } else {
-          [levelButton setBackgroundColor:regularBGColor];
+        // Set up button colors
+        levelButton.tag = (row * BUTTONS_PER_ROW) + col;
+        if (levelButton.tag == 0){
+          [self setCurrentLevelSelected:(int)levelButton.tag];
         }
         
-        [levelButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
-        levelButton.titleLabel.adjustsFontSizeToFitWidth = YES;
+        [levelButton setBackgroundImage: regularBGImage
+                               forState:UIControlStateNormal];
         
-        // Make the tag such that the first digit represents the row, and the
-        // second represents the column
-        levelButton.tag = (row * 10) + col;
+        // Set up title
+        [levelButton setTitle:[NSString stringWithFormat:@"%ld", (long)levelButton.tag+1]
+                forState:UIControlStateNormal];
+        [levelButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+        levelButton.titleLabel.font = [UIFont fontWithName:@"HelveticaNeue"
+                                                 size:IPAD_FONT_SIZE];
+        levelButton.titleLabel.adjustsFontSizeToFitWidth = YES;
         
         [[_levelButtons objectAtIndex:row] insertObject:levelButton atIndex:col];
         
         // Update column offset
-        xOffset += cellSize + baseOffset;
+        xOffset += buttonSize + baseOffset;
       }
       
       // Update row offset
-      yOffset += cellSize + baseOffset;
+      yOffset += buttonSize + baseOffset;
     }
   }
   
-
   return self;
 }
 
@@ -110,10 +116,12 @@ UIColor *highlightBGColor = nil;
   UIButton *oldButton = [[_levelButtons objectAtIndex:row] objectAtIndex:positionInRow];
   
   // Change the background colors appropriately
-  [oldButton setBackgroundColor:regularBGColor];
+  [oldButton setBackgroundImage:regularBGImage
+                       forState:UIControlStateNormal];
   
   // Delete button and numpad buttons are highlighted differently
-  [newButton setBackgroundColor:highlightBGColor];
+  [newButton setBackgroundImage:highlightBGImage
+                       forState:UIControlStateNormal];
   
   // Update which button is currently selected
   [self setCurrentLevelSelected:(int)newButton.tag];

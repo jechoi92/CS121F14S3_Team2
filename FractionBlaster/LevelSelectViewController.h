@@ -7,7 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "LevelButtonView.h"
+#import "StartLevelButtonView.h"
 
-@interface LevelSelectViewController : UIViewController
+@interface LevelSelectViewController : UIViewController <StartLevel>
 
 @end
