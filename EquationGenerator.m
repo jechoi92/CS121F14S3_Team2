@@ -9,6 +9,7 @@
 #import "EquationGenerator.h"
 
 int TOTAL_INITIAL_FRACTIONS = 4;
+int SCALAR_LIMIT = 10;
 
 @implementation EquationGenerator
 {
@@ -39,18 +40,22 @@ int TOTAL_INITIAL_FRACTIONS = 4;
         [_initialFractions addObject:currentFraction];
     }
     _operators = operators;
+    
+    // Sorts the fractions in ascending order, for convenience.
+    _initialFractions = [NSMutableArray arrayWithArray:[_initialFractions sortedArrayUsingSelector:@selector(compare:)]];
+    
     return self;
 }
 
 // Generates a random equation given the current array of solutions and operators.
 - (Equation*) generateRandomEquation
 {
+    // Randomly determines the difficulty of the Equation
     int randDifficulty = arc4random_uniform(4);
     BOOL easy = YES;
     if (randDifficulty < _difficulty) {
         easy = NO;
     }
-    
     
     // An operator is randomly chosen from the array of operators.
     int randOperator = arc4random_uniform((int) [_operators count] );
@@ -77,8 +82,10 @@ int TOTAL_INITIAL_FRACTIONS = 4;
     Fraction* solution = [_initialFractions objectAtIndex:arc4random_uniform((int) [_initialFractions count])];
     Fraction* arg1 = [self generateRandomFractionWithLimit:solution];
     Fraction* arg2 = [[Fraction alloc] initWithFraction:[solution sub:arg1]];
+    
+    // If the equation is easy, we limit the denominators of our fractions to be below the denominator limit.
     if (easy) {
-        while (([arg1 denominator] > _denominatorLimit) || ([arg2 denominator] > _denominatorLimit)) {
+        while ([arg1 denominator] > _denominatorLimit || [arg2 denominator] > _denominatorLimit) {
             solution = [_initialFractions objectAtIndex:arc4random_uniform((int) [_initialFractions count])];
             arg1 = [self generateRandomFractionWithLimit:solution];
             arg2 = [[Fraction alloc] initWithFraction:[solution sub:arg1]];
@@ -95,8 +102,10 @@ int TOTAL_INITIAL_FRACTIONS = 4;
     Fraction* solution = [_initialFractions objectAtIndex:arc4random_uniform((int) [_initialFractions count])];
     Fraction* arg2 = [self generateRandomFractionWithLimit:solution];
     Fraction* arg1 = [[Fraction alloc] initWithFraction:[solution add:arg2]];
+    
+    // If the equation is easy, we limit the denominators of our fractions to be below the denominator limit.
     if (easy) {
-        while (([arg1 denominator] > _denominatorLimit) || ([arg2 denominator] > _denominatorLimit)) {
+        while ([arg1 denominator] > _denominatorLimit || [arg2 denominator] > _denominatorLimit) {
             solution = [_initialFractions objectAtIndex:arc4random_uniform((int) [_initialFractions count])];
             arg2 = [self generateRandomFractionWithLimit:solution];
             arg1 = [[Fraction alloc] initWithFraction:[solution add:arg2]];
@@ -106,7 +115,7 @@ int TOTAL_INITIAL_FRACTIONS = 4;
     return equation;
 }
 
-// TODO
+// Generates a multiplication equation.
 - (Equation*) generateMultiplicationEquation
 {
     Fraction* solution = [_initialFractions objectAtIndex:arc4random_uniform((int) [_initialFractions count])];
@@ -116,7 +125,7 @@ int TOTAL_INITIAL_FRACTIONS = 4;
     return equation;
 }
 
-// TODO
+// Generates a division equation.
 - (Equation*) generateDivisionEquation
 {
     Fraction* solution = [_initialFractions objectAtIndex:arc4random_uniform((int) [_initialFractions count])];
@@ -131,7 +140,7 @@ int TOTAL_INITIAL_FRACTIONS = 4;
 {
     // Select a random solution, then multiply it with a scalar greater than 1.
     Fraction* solution = [_initialFractions objectAtIndex:arc4random_uniform((int) [_initialFractions count])];
-    int randScalar = arc4random_uniform(_denominatorLimit - 1) + 2;
+    int randScalar = arc4random_uniform(SCALAR_LIMIT) + 1;
     Fraction* value = [[Fraction alloc] initWithNumerator:[solution numerator] * randScalar
                                            andDenominator:[solution denominator] * randScalar andSimplify:NO];
     Equation* equation = [[Equation alloc] initWithFraction1:value andFraction2:NULL andOperator:'$'];

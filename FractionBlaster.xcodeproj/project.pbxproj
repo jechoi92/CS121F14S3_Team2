@@ -34,7 +34,6 @@
 		93CB210F1A0754590050185E /* FractionBlasterTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 93CB210E1A0754590050185E /* FractionBlasterTests.m */; };
 		93CB21611A075AED0050185E /* Equation.m in Sources */ = {isa = PBXBuildFile; fileRef = 93CB21601A075AED0050185E /* Equation.m */; };
 		93CB21641A075AFC0050185E /* Fraction.m in Sources */ = {isa = PBXBuildFile; fileRef = 93CB21631A075AFC0050185E /* Fraction.m */; };
-		93CB21671A075B1F0050185E /* Projectile.m in Sources */ = {isa = PBXBuildFile; fileRef = 93CB21661A075B1F0050185E /* Projectile.m */; };
 		93CB216A1A075BB00050185E /* GameViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 93CB21691A075BB00050185E /* GameViewController.m */; };
 		93CB216D1A075C8F0050185E /* EquationGenerator.m in Sources */ = {isa = PBXBuildFile; fileRef = 93CB216C1A075C8F0050185E /* EquationGenerator.m */; };
 		93CB21701A075CC30050185E /* SideBarView.m in Sources */ = {isa = PBXBuildFile; fileRef = 93CB216F1A075CC30050185E /* SideBarView.m */; };
@@ -79,8 +78,6 @@
 		93CB21601A075AED0050185E /* Equation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Equation.m; path = ../Equation.m; sourceTree = "<group>"; };
 		93CB21621A075AFC0050185E /* Fraction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Fraction.h; path = ../Fraction.h; sourceTree = "<group>"; };
 		93CB21631A075AFC0050185E /* Fraction.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Fraction.m; path = ../Fraction.m; sourceTree = "<group>"; };
-		93CB21651A075B1F0050185E /* Projectile.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Projectile.h; path = ../Projectile.h; sourceTree = "<group>"; };
-		93CB21661A075B1F0050185E /* Projectile.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Projectile.m; path = ../Projectile.m; sourceTree = "<group>"; };
 		93CB21681A075BB00050185E /* GameViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GameViewController.h; path = ../GameViewController.h; sourceTree = "<group>"; };
 		93CB21691A075BB00050185E /* GameViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GameViewController.m; path = ../GameViewController.m; sourceTree = "<group>"; };
 		93CB216B1A075C8F0050185E /* EquationGenerator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = EquationGenerator.h; path = ../EquationGenerator.h; sourceTree = "<group>"; };
@@ -164,8 +161,6 @@
 				93CB21601A075AED0050185E /* Equation.m */,
 				93CB21621A075AFC0050185E /* Fraction.h */,
 				93CB21631A075AFC0050185E /* Fraction.m */,
-				93CB21651A075B1F0050185E /* Projectile.h */,
-				93CB21661A075B1F0050185E /* Projectile.m */,
 				93CB216B1A075C8F0050185E /* EquationGenerator.h */,
 				93CB216C1A075C8F0050185E /* EquationGenerator.m */,
 				93CB216E1A075CC30050185E /* SideBarView.h */,

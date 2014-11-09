@@ -10,5 +10,7 @@
 
 @interface MainMenuViewController : UIViewController
 
+- (int)passInt;
+
 @end
 
