@@ -19,7 +19,7 @@
   self.backgroundColor = [UIColor blackColor];
   
   CGRect startButtonFrame = CGRectMake(0, 0, CGRectGetWidth(frame), CGRectGetHeight(frame));
-  UIButton *startButton = [[UIButton alloc] initWithFrame:startButtonFrames];
+  UIButton *startButton = [[UIButton alloc] initWithFrame:startButtonFrame];
   startButton.backgroundColor = [UIColor redColor];
   
   // Set up start button title
