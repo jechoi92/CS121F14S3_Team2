@@ -21,10 +21,6 @@
 /* End PBXAggregateTarget section */
 
 /* Begin PBXBuildFile section */
-		93272F4C1A075F2A00D32070 /* background-music-aac.caf in Resources */ = {isa = PBXBuildFile; fileRef = 93272F491A075F2A00D32070 /* background-music-aac.caf */; };
-		93272F4E1A075F2A00D32070 /* sprites.atlas in Resources */ = {isa = PBXBuildFile; fileRef = 93272F4B1A075F2A00D32070 /* sprites.atlas */; };
-		93272F501A075F3E00D32070 /* jobro__laser6.wav in Resources */ = {isa = PBXBuildFile; fileRef = 93272F4F1A075F3E00D32070 /* jobro__laser6.wav */; };
-		93272F521A075F4C00D32070 /* ryansnook__medium-explosion.wav in Resources */ = {isa = PBXBuildFile; fileRef = 93272F511A075F4C00D32070 /* ryansnook__medium-explosion.wav */; };
 		93CB20F51A0754590050185E /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 93CB20F41A0754590050185E /* main.m */; };
 		93CB20F81A0754590050185E /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 93CB20F71A0754590050185E /* AppDelegate.m */; };
 		93CB20FB1A0754590050185E /* MainMenuViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 93CB20FA1A0754590050185E /* MainMenuViewController.m */; };
@@ -74,10 +70,6 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		93272F491A075F2A00D32070 /* background-music-aac.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "background-music-aac.caf"; sourceTree = "<group>"; };
-		93272F4B1A075F2A00D32070 /* sprites.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = sprites.atlas; sourceTree = "<group>"; };
-		93272F4F1A075F3E00D32070 /* jobro__laser6.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = jobro__laser6.wav; sourceTree = "<group>"; };
-		93272F511A075F4C00D32070 /* ryansnook__medium-explosion.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = "ryansnook__medium-explosion.wav"; sourceTree = "<group>"; };
 		93CB20EF1A0754590050185E /* FractionBlaster.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FractionBlaster.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		93CB20F31A0754590050185E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		93CB20F41A0754590050185E /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -152,16 +144,6 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		93272F481A075F2A00D32070 /* Sounds */ = {
-			isa = PBXGroup;
-			children = (
-				93272F511A075F4C00D32070 /* ryansnook__medium-explosion.wav */,
-				93272F4F1A075F3E00D32070 /* jobro__laser6.wav */,
-				93272F491A075F2A00D32070 /* background-music-aac.caf */,
-			);
-			path = Sounds;
-			sourceTree = "<group>";
-		};
 		93CB20E61A0754590050185E = {
 			isa = PBXGroup;
 			children = (
@@ -214,8 +196,6 @@
 				93CB20FA1A0754590050185E /* MainMenuViewController.m */,
 				93CB20FC1A0754590050185E /* Main.storyboard */,
 				93CB20FF1A0754590050185E /* Images.xcassets */,
-				93272F481A075F2A00D32070 /* Sounds */,
-				93272F4B1A075F2A00D32070 /* sprites.atlas */,
 				93CB21011A0754590050185E /* LaunchScreen.xib */,
 				93CB20F21A0754590050185E /* Supporting Files */,
 			);
@@ -359,20 +339,16 @@
 			files = (
 				93EFADF01A102B9E00195D8E /* background-music-aac.caf in Resources */,
 				93EFADEF1A102B9E00195D8E /* asteroid@2x.png in Resources */,
-				93272F4C1A075F2A00D32070 /* background-music-aac.caf in Resources */,
 				93EFADF61A102B9E00195D8E /* goldlaserbeam@2x.png in Resources */,
 				93EFADFD1A102B9E00195D8E /* redlaserbeam@2x.png in Resources */,
 				93CB20FE1A0754590050185E /* Main.storyboard in Resources */,
 				93EFADEE1A102B9E00195D8E /* asteroid.png in Resources */,
 				93CB21031A0754590050185E /* LaunchScreen.xib in Resources */,
-				93272F521A075F4C00D32070 /* ryansnook__medium-explosion.wav in Resources */,
 				93EFADFC1A102B9E00195D8E /* redlaserbeam.png in Resources */,
 				93EFADF91A102B9E00195D8E /* hawtpinklaserbeam.png in Resources */,
 				93EFADF51A102B9E00195D8E /* goldlaserbeam.png in Resources */,
-				93272F501A075F3E00D32070 /* jobro__laser6.wav in Resources */,
 				93EFADFB1A102B9E00195D8E /* jobro__laser6.wav in Resources */,
 				93EFADF31A102B9E00195D8E /* bluelaserbeam.png in Resources */,
-				93272F4E1A075F2A00D32070 /* sprites.atlas in Resources */,
 				93EFADF11A102B9E00195D8E /* background.png in Resources */,
 				93EFADF41A102B9E00195D8E /* bluelaserbeam@2x.png in Resources */,
 				93EFADF21A102B9E00195D8E /* background@2x.png in Resources */,
@@ -554,7 +530,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				INFOPLIST_FILE = FractionBlaster/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TARGETED_DEVICE_FAMILY = 2;
@@ -567,7 +543,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				INFOPLIST_FILE = FractionBlaster/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TARGETED_DEVICE_FAMILY = 2;

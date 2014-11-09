@@ -55,7 +55,6 @@
 -(void)startLevel
 {
   int currentLevel = [_levelButtonView currentLevelSelected] + 1;
-  NSLog(@"Starting level: %d", currentLevel);
   GameViewController *gvc = [[GameViewController alloc]
             initWithLevel:currentLevel];
   [self presentViewController:gvc animated:YES completion:nil];

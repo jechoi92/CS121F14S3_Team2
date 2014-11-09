@@ -40,7 +40,6 @@ CGFloat INSET_RATIO = 0.02;
 {
     self = [super init];
     _level = level;
-    NSLog(@"%d", _level);
     return self;
 }
 
@@ -314,7 +313,6 @@ CGFloat INSET_RATIO = 0.02;
         [operators addObject:@"-"];
         [operators addObject:@"/"];
         [operators addObject:@"*"];
-        
     }
     
     return operators;
