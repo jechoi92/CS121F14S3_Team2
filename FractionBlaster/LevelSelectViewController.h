@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "LevelButtonView.h"
 #import "StartLevelButtonView.h"
+#import "GameViewController.h"
 
 @interface LevelSelectViewController : UIViewController <StartLevel>
 

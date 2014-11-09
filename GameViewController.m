@@ -24,6 +24,14 @@ int HEALTHPENALTY = 20;
     EquationGenerator* _equationGenerator;
     NSMutableArray* _initialFractions;
     NSTimer* asteroidGenerationTimer;
+    int _level;
+}
+
+-(id)initWithLevel:(int)level
+{
+  self = [super init];
+  _level = level;
+  return self;
 }
 
 - (void)loadView {

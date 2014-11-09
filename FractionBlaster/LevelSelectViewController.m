@@ -56,10 +56,9 @@
 {
   int currentLevel = [_levelButtonView currentLevelSelected] + 1;
   NSLog(@"Starting level: %d", currentLevel);
-  //GameViewController *gvc = [[AddTaskViewController alloc]
-  //          initWithNibName:@"AddTaskView" bundle:nil];
-  //[self presentViewController:gvc animated:YES completion:nil];
-  // [initWithLevel:[_levelButtonView currentLevelSelected]]
+  GameViewController *gvc = [[GameViewController alloc]
+            initWithLevel:currentLevel];
+  [self presentViewController:gvc animated:YES completion:nil];
 }
 
 @end

@@ -17,6 +17,7 @@
 @interface GameViewController : UIViewController <AsteroidReachedBottom,
                                                   LaserFrequencyChosen>
 
+- (id)initWithLevel:(int)level;
 - (void)createHealthBar;
 - (void)createScene;
 - (void)createSideBar;
