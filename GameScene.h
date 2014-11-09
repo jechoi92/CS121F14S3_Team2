@@ -17,8 +17,11 @@
 
 @property (assign, nonatomic) id <AsteroidReachedBottom> delegate;
 
+-(id)initWithSize:(CGSize)size andLevel:(int)level;
 - (void)createAsteroid: (Equation*)equation;
-- (void)fireLaser: (Fraction*)value;
+- (void)fireLaser: (Fraction*)value fromButton: (int)tag;
 - (void)gameOver;
+//-(int)findMinimumAsteroidDuration:(int)level;
+//-(int)findAsteroidsToDestroy:(int)level;
 
 @end

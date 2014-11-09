@@ -24,9 +24,4 @@
     // Dispose of any resources that can be recreated.
 }
 
--(int)passInt
-{
-    return 1;
-}
-
 @end

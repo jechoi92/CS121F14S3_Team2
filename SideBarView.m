@@ -6,6 +6,8 @@
 //  Copyright (c) 2014 MatherTeresa. All rights reserved.
 //
 
+int TOTAL_INITIAL_FRACTIONS;
+
 #import "SideBarView.h"
 
 @implementation SideBarView {
@@ -13,11 +15,12 @@
 }
 
 
+
 // Initialize the side bar
 - (id)initWithFrame:(CGRect)frame {
     self = [super initWithFrame:frame];
     if (self) {
-        [self makeButtonsWithFrame:frame];
+        [self makeButtonsWithFrame];
     }
     return self;
 }
@@ -35,47 +38,39 @@
 
 
 // Initializes all of the UIButtons and allocates them in a 1X4 frame
-- (void)makeButtonsWithFrame:(CGRect)frame{
-    _buttons = [ [NSMutableArray alloc] initWithCapacity:4];
+- (void)makeButtonsWithFrame
+{
+    CGRect frame = self.frame;
+    _buttons = [[NSMutableArray alloc] initWithCapacity:TOTAL_INITIAL_FRACTIONS];
     
-    // create fraction frame
-    CGFloat x = CGRectGetWidth(frame);
-    CGFloat y = CGRectGetHeight(frame);
-    CGRect buttonFrame = CGRectMake(0, 0, x, y);
-    CGFloat offset = .16*y;
     
-    // create fraction view
-    UIView* backgroundView;
-    backgroundView = [ [UIView alloc] initWithFrame:buttonFrame];
-    [backgroundView setBackgroundColor:[UIColor grayColor]];
-    [self addSubview:backgroundView];
     
-    // set initial values for buttons we will create
-    int currentTag = 0;
+    CGFloat width = CGRectGetWidth(frame);
+    CGFloat paddingSize = width * 0.1;
     
-    // Build the board and fill the NSMutable array with buttons
-    for (int i = 0; i < 4; i++) {
-        // create the button
-        UIButton* button;
-        CGFloat buttonSize = y/7;
-        CGRect buttonFrame = CGRectMake(5, .1*buttonSize+i*offset, x, buttonSize*.9);
+    CGFloat height = CGRectGetHeight(frame);
+    
+    CGFloat buttonWidth = width - (2.0 * paddingSize);
+    CGFloat buttonHeight = (height - ((TOTAL_INITIAL_FRACTIONS + 1) * paddingSize)) / (TOTAL_INITIAL_FRACTIONS);
+    
+    for (int i = 0; i < TOTAL_INITIAL_FRACTIONS; i++) {
+        CGFloat inset = (i + 1) * paddingSize + i * buttonHeight;
         
-        button = [ [UIButton alloc] initWithFrame:buttonFrame];
-        button.backgroundColor = [UIColor redColor];
-        [self addSubview:button];
+        CGRect buttonFrame = CGRectMake(paddingSize, inset, buttonWidth, buttonHeight);
+        UIButton* currentButton = [[UIButton alloc] initWithFrame:buttonFrame];
+        currentButton.backgroundColor = [UIColor clearColor];
+        [[currentButton layer] setBorderColor:[UIColor whiteColor].CGColor];
+        [[currentButton layer] setBorderWidth:2.5f];
+        [[currentButton layer] setCornerRadius:8.0f];
+        [currentButton.titleLabel setFont: [UIFont fontWithName:@"HelveticaNeue-Bold" size:20.0f]];
         
-        // give button correct attributes
-        [button addTarget:self action:@selector(buttonPressed:)
-         forControlEvents:UIControlEventTouchUpInside]; //make own version of this
-        [button setTitleColor:[UIColor blueColor] forState:UIControlStateNormal];
-        [button setTitleColor:[UIColor whiteColor] forState:UIControlStateHighlighted];
-        button.showsTouchWhenHighlighted = YES;
-        button.tag = currentTag;
-        
-        currentTag++;
         
         // insert the button
-        [_buttons insertObject:button atIndex:i];
+        [self addSubview:currentButton];
+        currentButton.tag = i;
+        [currentButton addTarget:self action:@selector(buttonPressed:)
+                forControlEvents:UIControlEventTouchUpInside]; //make own version of this
+        [_buttons insertObject:currentButton atIndex:i];
     }
 }
 

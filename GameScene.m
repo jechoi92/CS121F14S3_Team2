@@ -12,20 +12,29 @@
 static const uint32_t laserCategory     =  0x1 << 0;
 static const uint32_t asteroidCategory  =  0x1 << 1;
 
+int SLOW_SPEED = 35;
+int MEDIUM_SPEED = 30;
+int MAX_SPEED = 25;
+
 // TODO make a spritenode that represents the surface of the earth for asteroid collisions?
 
 @interface GameScene () <SKPhysicsContactDelegate>
 @property (nonatomic) SKSpriteNode* player;
-//@property (nonatomic) NSTimeInterval lastSpawnTimeInterval;
-//@property (nonatomic) NSTimeInterval lastUpdateTimeInterval;
-@property (nonatomic) int asteroidsDestroyed;
 @end
 
-@implementation GameScene
+@implementation GameScene {
+    int _minimumAsteroidDuration;
+    int _asteroidsToDestroy;
+}
 
--(id)initWithSize:(CGSize)size {
+-(id)initWithSize:(CGSize)size andLevel:(int)level {
     if (self = [super initWithSize:size]) {
-        self.backgroundColor = [SKColor blackColor];
+        
+        SKSpriteNode* background = [SKSpriteNode spriteNodeWithImageNamed:@"background"];
+        
+        background.position = CGPointMake(CGRectGetMidX(self.frame), CGRectGetMidY(self.frame));
+        background.name = @"BACKGROUND";
+        [self addChild:background];
         
         self.player = [SKSpriteNode spriteNodeWithImageNamed:@"Spaceship"];
         [self.player setScale:0.3];
@@ -35,8 +44,45 @@ static const uint32_t asteroidCategory  =  0x1 << 1;
         self.physicsWorld.gravity = CGVectorMake(0,0);
         self.physicsWorld.contactDelegate = self;
     }
+    
+    _minimumAsteroidDuration = [self findMinimumAsteroidDuration:(int)level];
+    _asteroidsToDestroy = [self findAsteroidsToDestroy:(int)level];
+    
     return self;
 }
+
+- (int)findMinimumAsteroidDuration:(int)level
+{
+    if (level < 5) {
+        return SLOW_SPEED;
+    }
+    else if (level < 9) {
+        return MEDIUM_SPEED;
+    }
+    else {
+        return MAX_SPEED;
+    }
+}
+
+- (int)findAsteroidsToDestroy:(int)level
+{
+    if (level < 2) {
+        return 10;
+    }
+    else if (level < 5) {
+        return 12;
+    }
+    else if (level < 8) {
+        return 16;
+    }
+    else if (level < 9) {
+        return 20;
+    }
+    else {
+        return 25;
+    }
+}
+
 
 - (void) createAsteroid: (Equation*) equation {
     NSString* text = [equation toString];
@@ -58,8 +104,8 @@ static const uint32_t asteroidCategory  =  0x1 << 1;
     asteroid.physicsBody.collisionBitMask = 0; // 5
     
     // Determine where to spawn the asteroid along the X axis
-    int minX = asteroid.size.width / 2;
-    int maxX = self.frame.size.width - asteroid.size.width / 2;
+    int minX = asteroid.size.width;
+    int maxX = self.frame.size.width - asteroid.size.width;
     int rangeX = maxX - minX;
     int actualX = (arc4random() % rangeX) + minX;
     
@@ -69,13 +115,8 @@ static const uint32_t asteroidCategory  =  0x1 << 1;
     [self addChild:asteroid];
     
     // Determine speed of the asteroid
-    // TODO this should be less hard-coded, and at some point should correspond roughly with difficulty level
-    //    int minDuration = 10.0;
-    //    int maxDuration = 14.0;
-    int minDuration = 30.0;
-    int maxDuration = 35.0;
-    
-    int rangeDuration = maxDuration - minDuration;
+    int minDuration = _minimumAsteroidDuration;
+    int rangeDuration = minDuration * 0.15;
     int actualDuration = (arc4random() % rangeDuration) + minDuration;
     
     // Create the actions
@@ -89,75 +130,14 @@ static const uint32_t asteroidCategory  =  0x1 << 1;
 
 -(void)asteroidHitBottom
 {
-  [self.delegate asteroidReachedBottom];
+    [self.delegate asteroidReachedBottom];
 }
-
-
-
-//- (void)addAsteroid {
-//    // Create sprite
-//    SKSpriteNode * asteroid = [SKSpriteNode spriteNodeWithImageNamed:@"asteroid"];
-//    asteroid.physicsBody = [SKPhysicsBody bodyWithCircleOfRadius:asteroid.size.width/2 - 5]; // 1
-//    asteroid.physicsBody.dynamic = YES; // 2
-//    asteroid.physicsBody.categoryBitMask = asteroidCategory; // 3
-//    asteroid.physicsBody.contactTestBitMask = laserCategory; // 4
-//    asteroid.physicsBody.collisionBitMask = 0; // 5
-//
-//    // Determine where to spawn the asteroid along the X axis
-//    int minX = asteroid.size.width / 2;
-//    int maxX = self.frame.size.width - asteroid.size.width / 2;
-//    int rangeX = maxX - minX;
-//    int actualX = (arc4random() % rangeX) + minX;
-//
-//    // Create the asteroid slightly off-screen along the top edge,
-//    // and along a random position along the X axis as calculated above
-//    asteroid.position = CGPointMake(actualX, self.frame.size.height + asteroid.size.height/2);
-//    [self addChild:asteroid];
-//
-//    // Determine speed of the asteroid
-//    // TODO this should be less hard-coded, and at some point should correspond roughly with difficulty level
-//    int minDuration = 10.0;
-//    int maxDuration = 14.0;
-//    int rangeDuration = maxDuration - minDuration;
-//    int actualDuration = (arc4random() % rangeDuration) + minDuration;
-//
-//    // Create the actions
-//    SKAction * actionMove = [SKAction moveTo:CGPointMake(actualX, -asteroid.size.height/2) duration:actualDuration];
-//    SKAction * actionMoveDone = [SKAction removeFromParent];
-//    SKAction * loseAction = [SKAction runBlock:^{
-//        SKTransition *reveal = [SKTransition flipHorizontalWithDuration:0.5];
-//        SKScene * gameOverScene = [[GameOverScene alloc] initWithSize:self.size won:NO];
-//        [self.view presentScene:gameOverScene transition: reveal];
-//    }];
-//    [asteroid runAction:[SKAction sequence:@[actionMove, loseAction, actionMoveDone]]];
-//}
-
-//- (void)updateWithTimeSinceLastUpdate:(CFTimeInterval)timeSinceLast {
-//    self.lastSpawnTimeInterval += timeSinceLast;
-//    if (self.lastSpawnTimeInterval > 4) {
-//        self.lastSpawnTimeInterval = 0;
-//        [self addAsteroid];
-//    }
-//}
-//
-//- (void)update:(NSTimeInterval)currentTime {
-//    // Handle time delta.
-//    // If we drop below 60fps, we still want everything to move the same distance.
-//    CFTimeInterval timeSinceLast = currentTime - self.lastUpdateTimeInterval;
-//    self.lastUpdateTimeInterval = currentTime;
-//    if (timeSinceLast > 1) { // more than a second since last update
-//        timeSinceLast = 1.0 / 60.0;
-//        self.lastUpdateTimeInterval = currentTime;
-//    }
-//
-//    [self updateWithTimeSinceLastUpdate:timeSinceLast];
-//}
 
 - (CGPoint)boundPlayerPos:(CGPoint)newPos {
     CGSize winSize = self.size;
     CGPoint retval = newPos;
     retval.x = MAX(retval.x, [self.player size].width);
-    retval.x = MIN(retval.x, -[self.player size].width + winSize.width);
+    retval.x = MIN(retval.x, winSize.width - [self.player size].width * 1.2);
     retval.y = self.player.position.y;
     return retval;
 }
@@ -185,8 +165,20 @@ static const uint32_t asteroidCategory  =  0x1 << 1;
     }
 }
 
-- (void)fireLaser:(Fraction*)value {
-    SKSpriteNode* projectile = [SKSpriteNode spriteNodeWithImageNamed:@"LaserBeamSprite"];
+- (void)fireLaser:(Fraction*)value fromButton:(int)tag{
+    SKSpriteNode *projectile;
+    if (tag==1) {
+        projectile = [SKSpriteNode spriteNodeWithImageNamed:@"bluelaserbeam"];
+    } else if (tag==2) {
+        projectile = [SKSpriteNode spriteNodeWithImageNamed:@"redlaserbeam"];
+    } else if (tag==3) {
+        projectile = [SKSpriteNode spriteNodeWithImageNamed:@"hawtpinklaserbeam"];
+    } else if (tag==4) {
+        projectile = [SKSpriteNode spriteNodeWithImageNamed:@"goldlaserbeam"];
+    } else {
+        projectile = [SKSpriteNode spriteNodeWithImageNamed:@"greenlaserbeam"];
+    }
+    
     projectile.userData = [NSMutableDictionary dictionary];
     [projectile userData][@"frequency"] = value;
     
@@ -216,16 +208,16 @@ static const uint32_t asteroidCategory  =  0x1 << 1;
 }
 
 - (void)laser:(SKSpriteNode*)laser didCollideWithAsteroid:(SKSpriteNode*)asteroid {
-    //NSLog(@"Hit");
     Fraction* laserFrequency = [laser userData][@"frequency"];
     Fraction* asteroidFrequency = [asteroid userData][@"frequency"];
     if ([laserFrequency compare:asteroidFrequency] == NSOrderedSame) {
         [self runAction:[SKAction playSoundFileNamed:@"ryansnook__medium-explosion.wav" waitForCompletion:NO]];
         [asteroid removeFromParent];
-        self.asteroidsDestroyed++;
-        if (self.asteroidsDestroyed > 10) {
+        _asteroidsToDestroy--;
+        if (_asteroidsToDestroy <= 0) {
             SKTransition *reveal = [SKTransition flipHorizontalWithDuration:0.5];
             SKScene * gameOverScene = [[GameOverScene alloc] initWithSize:self.size won:YES];
+            [self removeAllAsteroids];
             [self.view presentScene:gameOverScene transition: reveal];
         }
     } else {
@@ -253,9 +245,15 @@ static const uint32_t asteroidCategory  =  0x1 << 1;
     if ((firstBody.categoryBitMask & laserCategory) != 0 &&
         (secondBody.categoryBitMask & asteroidCategory) != 0)
     {
-        [self laser:(SKSpriteNode*) firstBody.node didCollideWithAsteroid:(SKSpriteNode*) secondBody.node];
-        //NSLog(@"projectile x:%f y:%f monster x:%f y:%f", firstBody.node.position.x, firstBody.node.position.y, secondBody.node.position.x, secondBody.node.position.y);
+        [self laser:(SKSpriteNode*) firstBody.node didCollideWithAsteroid:(SKSpriteNode*) secondBody.node];//NSLog(@"projectile x:%f y:%f monster x:%f y:%f", firstBody.node.position.x, firstBody.node.position.y, secondBody.node.position.x, secondBody.node.position.y);
     }
+}
+
+-(void)removeAllAsteroids
+{
+    [self enumerateChildNodesWithName:@"asteroid" usingBlock:^(SKNode *node, BOOL *stop) {
+        [node removeFromParent];
+    }];
 }
 
 - (void)gameOver

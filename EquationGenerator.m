@@ -8,7 +8,7 @@
 
 #import "EquationGenerator.h"
 
-int TOTAL_INITIAL_FRACTIONS = 4;
+int TOTAL_INITIAL_FRACTIONS;
 int SCALAR_LIMIT = 10;
 
 @implementation EquationGenerator
@@ -23,7 +23,7 @@ int SCALAR_LIMIT = 10;
 - (id) initWithOperators: (NSArray*) operators andDenominatorLimit: (int)denominatorLimit andDifficulty: (int)difficulty
 {
     self = [super init];
-  
+    
     _denominatorLimit = denominatorLimit;
     _difficulty = difficulty;
     _initialFractions = [[NSMutableArray alloc] initWithCapacity:TOTAL_INITIAL_FRACTIONS];
@@ -140,7 +140,7 @@ int SCALAR_LIMIT = 10;
 {
     // Select a random solution, then multiply it with a scalar greater than 1.
     Fraction* solution = [_initialFractions objectAtIndex:arc4random_uniform((int) [_initialFractions count])];
-    int randScalar = arc4random_uniform(SCALAR_LIMIT) + 1;
+    int randScalar = arc4random_uniform(SCALAR_LIMIT - 1) + 2;
     Fraction* value = [[Fraction alloc] initWithNumerator:[solution numerator] * randScalar
                                            andDenominator:[solution denominator] * randScalar andSimplify:NO];
     Equation* equation = [[Equation alloc] initWithFraction1:value andFraction2:NULL andOperator:'$'];
