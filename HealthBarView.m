@@ -7,7 +7,7 @@
 //
 
 #import "HealthBarView.h"
-#import <QuartzCore/QuartzCore.h>
+
 
 int NUM_OF_BARS = 5;
 int MAX_HEALTH = 100;

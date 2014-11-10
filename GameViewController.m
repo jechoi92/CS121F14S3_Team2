@@ -36,10 +36,11 @@ CGFloat INSET_RATIO = 0.02;
     UILabel* _fireLabel;
 }
 
--(id)initWithLevel:(int)level
+-(id)initWithLevel:(int)level andScore:(int)score
 {
     self = [super init];
     _level = level;
+    _score = score;
     return self;
 }
 
@@ -162,8 +163,7 @@ CGFloat INSET_RATIO = 0.02;
     
     _scoreValueLabel = [[UILabel alloc] initWithFrame:scoreValueLabelFrame];
     
-    [_scoreValueLabel setText:@"999999"];
-    //[_scoreValueLabel setText:[NSString stringWithFormat:@"%i", _score]];
+    [_scoreValueLabel setText:[[NSString alloc] initWithFormat:@"%d", _score]];
     [_scoreValueLabel setTextColor:[UIColor whiteColor]];
     [_scoreValueLabel setFont: [UIFont fontWithName:@"HelveticaNeue-Bold" size:18.0f]];
     
@@ -267,6 +267,12 @@ CGFloat INSET_RATIO = 0.02;
         //      [skView presentScene:_scene transition: reveal];
         
     }
+}
+
+- (void)incrementScore:(int)value
+{
+    _score += value;
+    [_scoreValueLabel setText:[[NSString alloc] initWithFormat:@"%d", _score]];
 }
 
 // Gets a random equation from the generator, and then creates an asteroid on the scene

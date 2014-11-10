@@ -26,6 +26,7 @@ int MAX_SPEED = 25;
 @implementation GameScene {
     int _minimumAsteroidDuration;
     int _asteroidsToDestroy;
+    int _score;
     SKLabelNode* _asteroidsLabel;
     SKLabelNode* _asteroidsValueLabel;
 }
@@ -260,6 +261,9 @@ int MAX_SPEED = 25;
         [self runAction:[SKAction playSoundFileNamed:@"ryansnook__medium-explosion.wav" waitForCompletion:NO]];
         [asteroid removeFromParent];
         _asteroidsToDestroy--;
+        int asteroidScore = (10 + (int) asteroid.position.y / 100) * 10;
+        [self asteroidDestroyed: (int)asteroidScore];
+        [self notifyWithPosition: asteroid.position andScore: asteroidScore];
         if (_asteroidsToDestroy <= 0) {
             SKTransition *reveal = [SKTransition flipHorizontalWithDuration:0.5];
             SKScene * gameOverScene = [[GameOverScene alloc] initWithSize:self.size won:YES];
@@ -271,6 +275,23 @@ int MAX_SPEED = 25;
         //NSLog(@"Miss! laser value: %@  asteroid value: %@", laser.value, asteroid.value);
     }
     [laser removeFromParent];
+}
+
+- (void)notifyWithPosition: (CGPoint)position andScore: (int)score
+{
+    SKLabelNode* label = [SKLabelNode labelNodeWithFontNamed:@"HelveticaNeue-Bold"];
+    label.fontSize = 18;
+    label.position =  CGPointMake(position.x, position.y);
+    label.text = [[NSString alloc] initWithFormat:@"+%d", score];
+    label.blendMode = YES;
+    label.zPosition = 1;
+    [self addChild:label];
+    [label runAction:[SKAction sequence:@[[SKAction fadeOutWithDuration:1.0f], [SKAction removeFromParent]]]];
+}
+
+- (void)asteroidDestroyed: (int)asteroidScore
+{
+    [self.delegate incrementScore: (int)asteroidScore];
 }
 
 - (void)didBeginContact:(SKPhysicsContact *)contact

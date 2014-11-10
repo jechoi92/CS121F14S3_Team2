@@ -14,10 +14,10 @@
 #import "SideBarView.h"
 #import "GameOverScene.h"
 
-@interface GameViewController : UIViewController <AsteroidReachedBottom,
+@interface GameViewController : UIViewController <AsteroidAction,
                                                   LaserFrequencyChosen>
 
-- (id)initWithLevel:(int)level;
+- (id)initWithLevel:(int)level andScore: (int)score;
 - (void)createHealthBar;
 - (void)createScene;
 - (void)createSideBar;

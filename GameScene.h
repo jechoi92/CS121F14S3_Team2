@@ -9,13 +9,14 @@
 #import <SpriteKit/SpriteKit.h>
 #import "Equation.h"
 
-@protocol AsteroidReachedBottom <SKSceneDelegate>
+@protocol AsteroidAction <SKSceneDelegate>
 - (void)asteroidReachedBottom;
+- (void)incrementScore: (int)value;
 @end
-
 @interface GameScene : SKScene
 
-@property (assign, nonatomic) id <AsteroidReachedBottom> delegate;
+@property (assign, nonatomic) id <AsteroidAction> delegate;
+
 
 -(id)initWithSize:(CGSize)size andLevel:(int)level;
 - (void)createAsteroid: (Equation*)equation;
