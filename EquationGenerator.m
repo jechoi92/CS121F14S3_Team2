@@ -103,6 +103,12 @@ int SCALAR_LIMIT = 10;
     Fraction* arg2 = [self generateRandomFractionWithLimit:solution];
     Fraction* arg1 = [[Fraction alloc] initWithFraction:[solution add:arg2]];
     
+    while ([arg1 integer] == 1) {
+        solution = [_initialFractions objectAtIndex:arc4random_uniform((int) [_initialFractions count])];
+        arg2 = [self generateRandomFractionWithLimit:solution];
+        arg1 = [[Fraction alloc] initWithFraction:[solution add:arg2]];
+    }
+    
     // If the equation is easy, we limit the denominators of our fractions to be below the denominator limit.
     if (easy) {
         while ([arg1 denominator] > _denominatorLimit || [arg2 denominator] > _denominatorLimit) {

@@ -15,7 +15,7 @@
 @end
 
 int TOTAL_INITIAL_FRACTIONS = 5;
-int HEALTHPENALTY = 100;
+int HEALTHPENALTY = 20;
 CGFloat INSET_RATIO = 0.02;
 
 @implementation GameViewController
@@ -78,7 +78,7 @@ CGFloat INSET_RATIO = 0.02;
         [self createTopButtonsAndLabels];
         
         // Timer that creates an asteroid every given time interval.
-        _asteroidGenerationTimer = [NSTimer scheduledTimerWithTimeInterval:8.0
+        _asteroidGenerationTimer = [NSTimer scheduledTimerWithTimeInterval:6.0
                                                                     target:self
                                                                   selector:@selector(createAsteroid:)
                                                                   userInfo:nil
@@ -255,6 +255,8 @@ CGFloat INSET_RATIO = 0.02;
         _scene = [GameScene sceneWithSize:skView.bounds.size];
         _scene.scaleMode = SKSceneScaleModeAspectFill;
         
+        [_asteroidGenerationTimer invalidate];
+        
         // Present the scene.
         [skView presentScene:_scene];
         GameOverScene *gameOverScene = [[GameOverScene alloc] initWithSize:_scene.size won:NO];
@@ -307,7 +309,7 @@ CGFloat INSET_RATIO = 0.02;
         [operators addObject:@"$"];
     }
     
-    if (_level == 0) {
+    if (_level == 10) {
         [operators addObject:@"$"];
         [operators addObject:@"+"];
         [operators addObject:@"-"];

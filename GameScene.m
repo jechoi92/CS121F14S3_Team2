@@ -12,6 +12,7 @@
 static const uint32_t laserCategory     =  0x1 << 0;
 static const uint32_t asteroidCategory  =  0x1 << 1;
 
+CGFloat INSET_RATIO;
 int SLOW_SPEED = 35;
 int MEDIUM_SPEED = 30;
 int MAX_SPEED = 25;
@@ -25,6 +26,8 @@ int MAX_SPEED = 25;
 @implementation GameScene {
     int _minimumAsteroidDuration;
     int _asteroidsToDestroy;
+    SKLabelNode* _asteroidsLabel;
+    SKLabelNode* _asteroidsValueLabel;
 }
 
 -(id)initWithSize:(CGSize)size andLevel:(int)level {
@@ -36,23 +39,62 @@ int MAX_SPEED = 25;
         background.name = @"BACKGROUND";
         [self addChild:background];
         
-        self.player = [SKSpriteNode spriteNodeWithImageNamed:@"Spaceship"];
-        [self.player setScale:0.3];
-        self.player.position = CGPointMake(self.frame.size.width/2, self.player.size.width/2);
-        [self addChild:self.player];
+        _minimumAsteroidDuration = [self findMinimumAsteroidDuration:(int)level];
+        _asteroidsToDestroy = [self findAsteroidsToDestroy:(int)level];
+        
+        [self createPlayer];
+        [self createLabel];
+        
         
         self.physicsWorld.gravity = CGVectorMake(0,0);
         self.physicsWorld.contactDelegate = self;
     }
     
-    _minimumAsteroidDuration = [self findMinimumAsteroidDuration:(int)level];
-    _asteroidsToDestroy = [self findAsteroidsToDestroy:(int)level];
-    
     return self;
+}
+
+- (void)createPlayer
+{
+    self.player = [SKSpriteNode spriteNodeWithImageNamed:@"Spaceship"];
+    [self.player setScale:0.3];
+    self.player.position = CGPointMake(self.frame.size.width/2, self.player.size.width/2);
+    self.player.zPosition = 1;
+    [self addChild:self.player];
+}
+
+- (void)createLabel
+{
+    CGRect frame = self.frame;
+    
+    CGFloat asteroidsLabelX = CGRectGetWidth(frame) * 0.84;
+    CGFloat asteroidsLabelY = CGRectGetHeight(frame) * 0.93;
+    
+    _asteroidsLabel = [SKLabelNode labelNodeWithFontNamed:@"HelveticaNeue-Bold"];
+    _asteroidsLabel.fontSize = 18;
+    _asteroidsLabel.position =  CGPointMake(asteroidsLabelX, asteroidsLabelY);
+    _asteroidsLabel.text = @"Asteroids remaining:";
+    _asteroidsLabel.blendMode = YES;
+    _asteroidsLabel.zPosition = 1;
+    [self addChild:_asteroidsLabel];
+    
+    CGFloat asteroidsValueLabelX = CGRectGetWidth(frame) * 0.97;
+    CGFloat asteroidsValueLabelY = CGRectGetHeight(frame) * 0.93;
+    
+    _asteroidsValueLabel = [SKLabelNode labelNodeWithFontNamed:@"HelveticaNeue-Bold"];
+    _asteroidsValueLabel.fontSize = 18;
+    _asteroidsValueLabel.position =  CGPointMake(asteroidsValueLabelX, asteroidsValueLabelY);
+    _asteroidsValueLabel.text = [[NSString alloc] initWithFormat:@"%d", _asteroidsToDestroy];
+    _asteroidsValueLabel.blendMode = YES;
+    _asteroidsValueLabel.zPosition = 1;
+    [self addChild:_asteroidsValueLabel];
 }
 
 - (int)findMinimumAsteroidDuration:(int)level
 {
+    if (level == 10) {
+        return 15;
+    }
+    
     if (level < 5) {
         return SLOW_SPEED;
     }
@@ -66,6 +108,10 @@ int MAX_SPEED = 25;
 
 - (int)findAsteroidsToDestroy:(int)level
 {
+    if (level == 10) {
+        return 2;
+    }
+    
     if (level < 2) {
         return 10;
     }
@@ -220,6 +266,7 @@ int MAX_SPEED = 25;
             [self removeAllAsteroids];
             [self.view presentScene:gameOverScene transition: reveal];
         }
+        _asteroidsValueLabel.text = [[NSString alloc] initWithFormat:@"%d", _asteroidsToDestroy];
     } else {
         //NSLog(@"Miss! laser value: %@  asteroid value: %@", laser.value, asteroid.value);
     }
