@@ -103,12 +103,13 @@ CGFloat INSET_RATIO = 0.02;
     CGRect backButtonFrame = CGRectMake(backButtonX, backButtonY, backButtonLength, backButtonWidth);
     
     _backButton = [[UIButton alloc] initWithFrame:backButtonFrame];
-    [_backButton setBackgroundColor:[UIColor yellowColor]];
+    [_backButton setBackgroundImage:[UIImage imageNamed:@"StartOverIcon"] forState:UIControlStateNormal];
     [[_backButton layer] setBorderWidth:2.5f];
     [[_backButton layer] setBorderColor:[UIColor blackColor].CGColor];
     [[_backButton layer] setCornerRadius:12.0f];
     
-    // TODO delegate pop whatever.
+    [_backButton addTarget:self action:@selector(backButtonPressed)
+          forControlEvents:UIControlEventTouchUpInside];
     
     [self.view addSubview:_backButton];
     
@@ -168,13 +169,33 @@ CGFloat INSET_RATIO = 0.02;
     [_scoreValueLabel setFont: [UIFont fontWithName:@"HelveticaNeue-Bold" size:18.0f]];
     
     [self.view addSubview:_scoreValueLabel];
-    
-    
-    
-    
-    
-    
 }
+
+- (void)backButtonPressed
+{
+    UIAlertView* pauseAlert = [[UIAlertView alloc] initWithTitle:@""
+                                                           message:@"Go back to main menu?"
+                                                          delegate:self
+                                                 cancelButtonTitle:@"Cancel"
+                                                 otherButtonTitles:@"Yes", nil];
+    [pauseAlert show];
+}
+
+- (void)alertView:(UIAlertView *)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex
+{
+    if (buttonIndex == 1) {
+        // GO BACK TO MAIN MENU
+    
+        CATransition* transition = [CATransition animation];
+        transition.type = kCATransitionFade;
+        transition.duration = 1;
+        transition.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseOut];
+        
+        [self.view.layer addAnimation:transition forKey:nil];
+    }
+}
+
+
 // Creates the sidebar.
 - (void)createSideBar
 {

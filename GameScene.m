@@ -279,6 +279,15 @@ int MAX_SPEED = 25;
 
 - (void)notifyWithPosition: (CGPoint)position andScore: (int)score
 {
+    SKTexture* explosion = [SKTexture textureWithImageNamed:@"explosion"];
+    SKSpriteNode* explosionn = [SKSpriteNode spriteNodeWithTexture:explosion];
+    
+    explosionn.position =  CGPointMake(position.x, position.y);
+    explosionn.zPosition = 1;
+    [self addChild:explosionn];
+    
+    
+    
     SKLabelNode* label = [SKLabelNode labelNodeWithFontNamed:@"HelveticaNeue-Bold"];
     label.fontSize = 18;
     label.position =  CGPointMake(position.x, position.y);
