@@ -23,6 +23,9 @@
 /* Begin PBXBuildFile section */
 		936589B51A1034B8005D6D8B /* Spaceship.png in Resources */ = {isa = PBXBuildFile; fileRef = 936589B31A1034B8005D6D8B /* Spaceship.png */; };
 		936589B61A1034B8005D6D8B /* Spaceship@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 936589B41A1034B8005D6D8B /* Spaceship@2x.png */; };
+		937335941A11C528001A0105 /* explosion.gif in Resources */ = {isa = PBXBuildFile; fileRef = 937335931A11C528001A0105 /* explosion.gif */; };
+		937335971A11D5B2001A0105 /* StartOverIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 937335951A11D5B2001A0105 /* StartOverIcon.png */; };
+		937335981A11D5B2001A0105 /* StartOverIcon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 937335961A11D5B2001A0105 /* StartOverIcon@2x.png */; };
 		93CB20F51A0754590050185E /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 93CB20F41A0754590050185E /* main.m */; };
 		93CB20F81A0754590050185E /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 93CB20F71A0754590050185E /* AppDelegate.m */; };
 		93CB20FB1A0754590050185E /* MainMenuViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 93CB20FA1A0754590050185E /* MainMenuViewController.m */; };
@@ -74,6 +77,9 @@
 /* Begin PBXFileReference section */
 		936589B31A1034B8005D6D8B /* Spaceship.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Spaceship.png; sourceTree = "<group>"; };
 		936589B41A1034B8005D6D8B /* Spaceship@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Spaceship@2x.png"; sourceTree = "<group>"; };
+		937335931A11C528001A0105 /* explosion.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = explosion.gif; sourceTree = "<group>"; };
+		937335951A11D5B2001A0105 /* StartOverIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = StartOverIcon.png; sourceTree = "<group>"; };
+		937335961A11D5B2001A0105 /* StartOverIcon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "StartOverIcon@2x.png"; sourceTree = "<group>"; };
 		93CB20EF1A0754590050185E /* FractionBlaster.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FractionBlaster.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		93CB20F31A0754590050185E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		93CB20F41A0754590050185E /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -235,6 +241,9 @@
 		93EFADDC1A102B9E00195D8E /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				937335951A11D5B2001A0105 /* StartOverIcon.png */,
+				937335961A11D5B2001A0105 /* StartOverIcon@2x.png */,
+				937335931A11C528001A0105 /* explosion.gif */,
 				936589B31A1034B8005D6D8B /* Spaceship.png */,
 				936589B41A1034B8005D6D8B /* Spaceship@2x.png */,
 				93EFADDD1A102B9E00195D8E /* asteroid.png */,
@@ -345,11 +354,13 @@
 			files = (
 				93EFADF01A102B9E00195D8E /* background-music-aac.caf in Resources */,
 				93EFADEF1A102B9E00195D8E /* asteroid@2x.png in Resources */,
+				937335981A11D5B2001A0105 /* StartOverIcon@2x.png in Resources */,
 				93EFADF61A102B9E00195D8E /* goldlaserbeam@2x.png in Resources */,
 				93EFADFD1A102B9E00195D8E /* redlaserbeam@2x.png in Resources */,
 				93CB20FE1A0754590050185E /* Main.storyboard in Resources */,
 				93EFADEE1A102B9E00195D8E /* asteroid.png in Resources */,
 				93CB21031A0754590050185E /* LaunchScreen.xib in Resources */,
+				937335941A11C528001A0105 /* explosion.gif in Resources */,
 				936589B51A1034B8005D6D8B /* Spaceship.png in Resources */,
 				93EFADFC1A102B9E00195D8E /* redlaserbeam.png in Resources */,
 				93EFADF91A102B9E00195D8E /* hawtpinklaserbeam.png in Resources */,
@@ -357,6 +368,7 @@
 				93EFADFB1A102B9E00195D8E /* jobro__laser6.wav in Resources */,
 				93EFADF31A102B9E00195D8E /* bluelaserbeam.png in Resources */,
 				93EFADF11A102B9E00195D8E /* background.png in Resources */,
+				937335971A11D5B2001A0105 /* StartOverIcon.png in Resources */,
 				93EFADF41A102B9E00195D8E /* bluelaserbeam@2x.png in Resources */,
 				936589B61A1034B8005D6D8B /* Spaceship@2x.png in Resources */,
 				93EFADF21A102B9E00195D8E /* background@2x.png in Resources */,

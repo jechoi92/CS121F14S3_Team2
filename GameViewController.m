@@ -103,12 +103,13 @@ CGFloat INSET_RATIO = 0.02;
     CGRect backButtonFrame = CGRectMake(backButtonX, backButtonY, backButtonLength, backButtonWidth);
     
     _backButton = [[UIButton alloc] initWithFrame:backButtonFrame];
-    [_backButton setBackgroundColor:[UIColor yellowColor]];
+    [_backButton setBackgroundImage:[UIImage imageNamed:@"StartOverIcon"] forState:UIControlStateNormal];
     [[_backButton layer] setBorderWidth:2.5f];
     [[_backButton layer] setBorderColor:[UIColor blackColor].CGColor];
     [[_backButton layer] setCornerRadius:12.0f];
     
-    // TODO delegate pop whatever.
+    [_backButton addTarget:self action:@selector(backButtonPressed)
+          forControlEvents:UIControlEventTouchUpInside];
     
     [self.view addSubview:_backButton];
     
