@@ -237,14 +237,7 @@ CGFloat INSET_RATIO = 0.02;
     [_asteroidGenerationTimer invalidate];
     [_sidebar removeFromSuperview];
     [_healthBar removeFromSuperview];
-    [_backButton removeFromSuperview];
-     // What all needs to get cleared?
-//    UIButton* _backButton;
-//    UILabel* _levelLabel;
-//    UILabel* _levelValueLabel;
-//    UILabel* _scoreLabel;
-//    UILabel* _scoreValueLabel;
-//    UILabel* _fireLabel;
+    //[_backButton removeFromSuperview];
   
     SKView * skView = (SKView *)self.view;
     _scene = [GameScene sceneWithSize:skView.bounds.size];
@@ -263,6 +256,12 @@ CGFloat INSET_RATIO = 0.02;
     [skView presentScene:gameOverScene];
 }
 
+// Delegate handler for when scene indicates that the level is over
+- (void)lastAsteroidDestroyed
+{
+  [self createGameOverSceneWithWin:YES];
+}
+
 // Decreases health level, and checks if health is equal to or lower than 0.
 // If so, then game over.
 - (void)asteroidReachedBottom
@@ -279,12 +278,6 @@ CGFloat INSET_RATIO = 0.02;
     [_scoreValueLabel setText:[[NSString alloc] initWithFormat:@"%d", _score]];
 }
 
-//
-- (void)lastAsteroidDestroyed
-{
-  [self createGameOverSceneWithWin:YES];
-}
-
 // Gets a random equation from the generator, and then creates an asteroid on the scene
 // with that asteroid on it.
 - (void)createAsteroid:(id)sender
@@ -298,6 +291,13 @@ CGFloat INSET_RATIO = 0.02;
                                                               selector:@selector(createAsteroid:)
                                                               userInfo:nil
                                                                repeats:YES];
+}
+
+// Selector for the back button
+-(void)backButtonPressed
+{
+  // [self.delegate removeGameViewController];
+  NSLog(@"Back button was pressed");
 }
 
 // Gets the tag of the pressed button and then fires a laser on the scene with that laser value.
