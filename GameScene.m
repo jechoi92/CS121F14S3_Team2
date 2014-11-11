@@ -264,12 +264,12 @@ int MAX_SPEED = 25;
         int asteroidScore = (10 + (int) asteroid.position.y / 100) * 10;
         [self asteroidDestroyed: (int)asteroidScore];
         [self notifyWithPosition: asteroid.position andScore: asteroidScore];
+      
         if (_asteroidsToDestroy <= 0) {
-            SKTransition *reveal = [SKTransition flipHorizontalWithDuration:0.5];
-            SKScene * gameOverScene = [[GameOverScene alloc] initWithSize:self.size won:YES];
             [self removeAllAsteroids];
-            [self.view presentScene:gameOverScene transition: reveal];
+            [self.delegate lastAsteroidDestroyed];
         }
+      
         _asteroidsValueLabel.text = [[NSString alloc] initWithFormat:@"%d", _asteroidsToDestroy];
     } else {
         //NSLog(@"Miss! laser value: %@  asteroid value: %@", laser.value, asteroid.value);

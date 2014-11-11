@@ -168,13 +168,8 @@ CGFloat INSET_RATIO = 0.02;
     [_scoreValueLabel setFont: [UIFont fontWithName:@"HelveticaNeue-Bold" size:18.0f]];
     
     [self.view addSubview:_scoreValueLabel];
-    
-    
-    
-    
-    
-    
 }
+
 // Creates the sidebar.
 - (void)createSideBar
 {
@@ -233,15 +228,37 @@ CGFloat INSET_RATIO = 0.02;
     [self.view addSubview:_healthBar];
 }
 
--(void)createGameOverScene
+
+// Creates the appropriate GameOverScene upon the end of a game
+-(void)createGameOverSceneWithWin:(BOOL)winning
 {
+    // Clean up before end of game
+    [_asteroidGenerationTimer invalidate];
+    [_sidebar removeFromSuperview];
+    [_healthBar removeFromSuperview];
+    [_backButton removeFromSuperview];
+     // What all needs to get cleared?
+//    UIButton* _backButton;
+//    UILabel* _levelLabel;
+//    UILabel* _levelValueLabel;
+//    UILabel* _scoreLabel;
+//    UILabel* _scoreValueLabel;
+//    UILabel* _fireLabel;
+  
     SKView * skView = (SKView *)self.view;
     _scene = [GameScene sceneWithSize:skView.bounds.size];
     _scene.scaleMode = SKSceneScaleModeAspectFill;
     
     // Present the scene.
     [skView presentScene:_scene];
-    GameOverScene *gameOverScene = [[GameOverScene alloc] initWithSize:_scene.size won:NO];
+  
+    GameOverScene *gameOverScene;
+    if (winning){
+        gameOverScene = [[GameOverScene alloc]
+                                      initWithSize:_scene.size won:YES];
+    } else {
+        gameOverScene = [[GameOverScene alloc] initWithSize:_scene.size won:NO];
+    }
     [skView presentScene:gameOverScene];
 }
 
@@ -251,21 +268,7 @@ CGFloat INSET_RATIO = 0.02;
 {
     [_healthBar setHealthLevel:([_healthBar getHealthLevel] - HEALTHPENALTY)];
     if ([_healthBar getHealthLevel] <= 0) {
-        SKView * skView = (SKView *)self.view;
-        _scene = [GameScene sceneWithSize:skView.bounds.size];
-        _scene.scaleMode = SKSceneScaleModeAspectFill;
-        
-        [_asteroidGenerationTimer invalidate];
-        
-        // Present the scene.
-        [skView presentScene:_scene];
-        GameOverScene *gameOverScene = [[GameOverScene alloc] initWithSize:_scene.size won:NO];
-        [skView presentScene:gameOverScene];
-        
-        //      SKTransition *reveal = [SKTransition flipHorizontalWithDuration:0.5];
-        //      _scene = [[MyScene alloc] initWithSize:_scene.size];
-        //      [skView presentScene:_scene transition: reveal];
-        
+      [self createGameOverSceneWithWin:NO];
     }
 }
 
@@ -275,15 +278,20 @@ CGFloat INSET_RATIO = 0.02;
     [_scoreValueLabel setText:[[NSString alloc] initWithFormat:@"%d", _score]];
 }
 
+//
+- (void)lastAsteroidDestroyed
+{
+  [self createGameOverSceneWithWin:YES];
+}
+
 // Gets a random equation from the generator, and then creates an asteroid on the scene
 // with that asteroid on it.
 - (void)createAsteroid:(id)sender
 {
     Equation* randomEquation = [_equationGenerator generateRandomEquation];
     [_scene createAsteroid: randomEquation];
-    
-    CGFloat rate = _asteroidGenerationTimer.timeInterval;
     [_asteroidGenerationTimer invalidate];
+    CGFloat rate = _asteroidGenerationTimer.timeInterval;
     _asteroidGenerationTimer = [NSTimer scheduledTimerWithTimeInterval:rate * 0.99
                                                                 target:self
                                                               selector:@selector(createAsteroid:)
