@@ -29,6 +29,7 @@ int MAX_SPEED = 25;
     int _score;
     SKLabelNode* _asteroidsLabel;
     SKLabelNode* _asteroidsValueLabel;
+    NSArray* _explosionFrames;
 }
 
 -(id)initWithSize:(CGSize)size andLevel:(int)level {
@@ -45,6 +46,7 @@ int MAX_SPEED = 25;
         
         [self createPlayer];
         [self createLabel];
+        [self initializeSprites];
         
         
         self.physicsWorld.gravity = CGVectorMake(0,0);
@@ -88,6 +90,23 @@ int MAX_SPEED = 25;
     _asteroidsValueLabel.blendMode = YES;
     _asteroidsValueLabel.zPosition = 1;
     [self addChild:_asteroidsValueLabel];
+}
+
+- (void)initializeSprites
+{
+    SKTextureAtlas* explosionAtlas = [SKTextureAtlas atlasNamed:@"explosionFrames"];
+    int numFrames = (int)explosionAtlas.textureNames.count/2;
+    // The texture atlas includes two sprite resolutions, so we need to divide by two
+    NSMutableArray* explosionFrames = [[NSMutableArray alloc] init];
+    for (int i = 0; i < numFrames; i++) {
+        NSString* frame = [NSString stringWithFormat:@"explosion_frame_%d", i];
+        SKTexture* temp = [explosionAtlas textureNamed:frame];
+        [explosionFrames addObject:temp];
+    }
+    NSLog(@"%d", (int)explosionFrames.count);
+    _explosionFrames = [[NSArray alloc] initWithArray:explosionFrames];
+    int size = [_explosionFrames count];
+    NSLog(@"Frames: %d",size);
 }
 
 - (int)findMinimumAsteroidDuration:(int)level
@@ -259,6 +278,8 @@ int MAX_SPEED = 25;
     Fraction* asteroidFrequency = [asteroid userData][@"frequency"];
     if ([laserFrequency compare:asteroidFrequency] == NSOrderedSame) {
         [self runAction:[SKAction playSoundFileNamed:@"ryansnook__medium-explosion.wav" waitForCompletion:NO]];
+        NSLog(@"About to spawn explosion");
+        [self spawnExplosion:[asteroid position]];
         [asteroid removeFromParent];
         _asteroidsToDestroy--;
         int asteroidScore = (10 + (int) asteroid.position.y / 100) * 10;
@@ -277,14 +298,30 @@ int MAX_SPEED = 25;
     [laser removeFromParent];
 }
 
+- (void)spawnExplosion: (CGPoint)position
+{
+    NSLog(@"a");
+    SKTexture* temp = _explosionFrames[0];
+    NSLog(@"b");
+    SKSpriteNode* explosion = [SKSpriteNode spriteNodeWithTexture:temp];
+    explosion.position = position;
+    NSLog(@"c");
+    [self addChild:explosion];
+    NSLog(@"d");
+    SKAction * playExplosion = [SKAction animateWithTextures:_explosionFrames
+                                                timePerFrame:0.1f];
+    SKAction * endAnimation = [SKAction removeFromParent];
+    [explosion runAction:[SKAction sequence:@[playExplosion, endAnimation]]];
+}
+
 - (void)notifyWithPosition: (CGPoint)position andScore: (int)score
 {
-    SKTexture* explosion = [SKTexture textureWithImageNamed:@"explosion"];
+    /*SKTexture* explosion = [SKTexture textureWithImageNamed:@"explosion"];
     SKSpriteNode* explosionn = [SKSpriteNode spriteNodeWithTexture:explosion];
     
     explosionn.position =  CGPointMake(position.x, position.y);
     explosionn.zPosition = 1;
-    [self addChild:explosionn];
+    [self addChild:explosionn];*/
     
     
     
