@@ -103,10 +103,7 @@ int MAX_SPEED = 25;
         SKTexture* temp = [explosionAtlas textureNamed:frame];
         [explosionFrames addObject:temp];
     }
-    NSLog(@"%d", (int)explosionFrames.count);
     _explosionFrames = [[NSArray alloc] initWithArray:explosionFrames];
-    int size = [_explosionFrames count];
-    NSLog(@"Frames: %d",size);
 }
 
 - (int)findMinimumAsteroidDuration:(int)level
@@ -278,14 +275,13 @@ int MAX_SPEED = 25;
     Fraction* asteroidFrequency = [asteroid userData][@"frequency"];
     if ([laserFrequency compare:asteroidFrequency] == NSOrderedSame) {
         [self runAction:[SKAction playSoundFileNamed:@"ryansnook__medium-explosion.wav" waitForCompletion:NO]];
-        NSLog(@"About to spawn explosion");
         [self spawnExplosion:[asteroid position]];
-        [asteroid removeFromParent];
         _asteroidsToDestroy--;
         int asteroidScore = (10 + (int) asteroid.position.y / 100) * 10;
         [self asteroidDestroyed: (int)asteroidScore];
         [self notifyWithPosition: asteroid.position andScore: asteroidScore];
-      
+        [asteroid removeFromParent];
+        
         if (_asteroidsToDestroy <= 0) {
             [self removeAllAsteroids];
             [self.delegate lastAsteroidDestroyed];
@@ -300,16 +296,13 @@ int MAX_SPEED = 25;
 
 - (void)spawnExplosion: (CGPoint)position
 {
-    NSLog(@"a");
     SKTexture* temp = _explosionFrames[0];
-    NSLog(@"b");
     SKSpriteNode* explosion = [SKSpriteNode spriteNodeWithTexture:temp];
     explosion.position = position;
-    NSLog(@"c");
+    explosion.zPosition = 1;
     [self addChild:explosion];
-    NSLog(@"d");
     SKAction * playExplosion = [SKAction animateWithTextures:_explosionFrames
-                                                timePerFrame:0.1f];
+                                                timePerFrame:0.05f];
     SKAction * endAnimation = [SKAction removeFromParent];
     [explosion runAction:[SKAction sequence:@[playExplosion, endAnimation]]];
 }
@@ -326,13 +319,14 @@ int MAX_SPEED = 25;
     
     
     SKLabelNode* label = [SKLabelNode labelNodeWithFontNamed:@"HelveticaNeue-Bold"];
-    label.fontSize = 18;
+    label.fontColor = [UIColor greenColor];
+    label.fontSize = 20;
     label.position =  CGPointMake(position.x, position.y);
     label.text = [[NSString alloc] initWithFormat:@"+%d", score];
     label.blendMode = YES;
-    label.zPosition = 1;
+    label.zPosition = 2;
     [self addChild:label];
-    [label runAction:[SKAction sequence:@[[SKAction fadeOutWithDuration:1.0f], [SKAction removeFromParent]]]];
+    [label runAction:[SKAction sequence:@[[SKAction fadeOutWithDuration:2.0f], [SKAction removeFromParent]]]];
 }
 
 - (void)asteroidDestroyed: (int)asteroidScore
