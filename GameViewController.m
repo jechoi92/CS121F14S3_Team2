@@ -144,7 +144,7 @@ CGFloat INSET_RATIO = 0.02;
     
     CGFloat scoreLabelLength = itemWidth * 2;
     CGFloat scoreLabelWidth = itemWidth;
-    CGFloat scoreLabelX = CGRectGetWidth(frame) * 0.83;
+    CGFloat scoreLabelX = CGRectGetWidth(frame) * 0.82;
     CGFloat scoreLabelY = itemY;
     CGRect scoreLabelFrame = CGRectMake(scoreLabelX, scoreLabelY, scoreLabelLength, scoreLabelWidth);
     
@@ -158,13 +158,13 @@ CGFloat INSET_RATIO = 0.02;
     
     CGFloat scoreValueLabelLength = itemWidth * 2;
     CGFloat scoreValueLabelWidth = itemWidth;
-    CGFloat scoreValueLabelX = CGRectGetWidth(frame) * 0.90;
+    CGFloat scoreValueLabelX = CGRectGetWidth(frame) * 0.89;
     CGFloat scoreValueLabelY = itemY;
     CGRect scoreValueLabelFrame = CGRectMake(scoreValueLabelX, scoreValueLabelY, scoreValueLabelLength, scoreValueLabelWidth);
     
     _scoreValueLabel = [[UILabel alloc] initWithFrame:scoreValueLabelFrame];
     
-    [_scoreValueLabel setText:[[NSString alloc] initWithFormat:@"%d", _score]];
+    [_scoreValueLabel setText:[NSString stringWithFormat:@"%007d", _score]];
     [_scoreValueLabel setTextColor:[UIColor whiteColor]];
     [_scoreValueLabel setFont: [UIFont fontWithName:@"HelveticaNeue-Bold" size:18.0f]];
     
@@ -297,7 +297,7 @@ CGFloat INSET_RATIO = 0.02;
 - (void)incrementScore:(int)value
 {
     _score += value;
-    [_scoreValueLabel setText:[[NSString alloc] initWithFormat:@"%d", _score]];
+    [_scoreValueLabel setText:[NSString stringWithFormat:@"%007d", _score]];
 }
 
 // Gets a random equation from the generator, and then creates an asteroid on the scene

@@ -75,7 +75,7 @@ int MAX_SPEED = 25;
     _asteroidsLabel = [SKLabelNode labelNodeWithFontNamed:@"HelveticaNeue-Bold"];
     _asteroidsLabel.fontSize = 18;
     _asteroidsLabel.position =  CGPointMake(asteroidsLabelX, asteroidsLabelY);
-    _asteroidsLabel.text = @"Asteroids remaining:";
+    _asteroidsLabel.text = @"Asteroids remaining";
     _asteroidsLabel.blendMode = YES;
     _asteroidsLabel.zPosition = 1;
     [self addChild:_asteroidsLabel];
