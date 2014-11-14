@@ -80,10 +80,12 @@ UIImage *highlightBGImage = nil;
         levelButton.tag = (row * BUTTONS_PER_ROW) + col;
         if (levelButton.tag == 0){
           [self setCurrentLevelSelected:(int)levelButton.tag];
+          [levelButton setBackgroundImage:highlightBGImage forState:UIControlStateNormal];
+        } else {
+          [levelButton setBackgroundImage: regularBGImage
+                                 forState:UIControlStateNormal];
         }
-        
-        [levelButton setBackgroundImage: regularBGImage
-                               forState:UIControlStateNormal];
+      
         
         // Set up title
         [levelButton setTitle:[NSString stringWithFormat:@"%ld", (long)levelButton.tag+1]

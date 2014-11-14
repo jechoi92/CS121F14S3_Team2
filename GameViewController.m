@@ -103,12 +103,13 @@ CGFloat INSET_RATIO = 0.02;
     CGRect backButtonFrame = CGRectMake(backButtonX, backButtonY, backButtonLength, backButtonWidth);
     
     _backButton = [[UIButton alloc] initWithFrame:backButtonFrame];
-    [_backButton setBackgroundColor:[UIColor yellowColor]];
+    [_backButton setBackgroundImage:[UIImage imageNamed:@"StartOverIcon"] forState:UIControlStateNormal];
     [[_backButton layer] setBorderWidth:2.5f];
     [[_backButton layer] setBorderColor:[UIColor blackColor].CGColor];
     [[_backButton layer] setCornerRadius:12.0f];
     
-    // TODO delegate pop whatever.
+    [_backButton addTarget:self action:@selector(backButtonPressed)
+          forControlEvents:UIControlEventTouchUpInside];
     
     [self.view addSubview:_backButton];
     
@@ -168,13 +169,8 @@ CGFloat INSET_RATIO = 0.02;
     [_scoreValueLabel setFont: [UIFont fontWithName:@"HelveticaNeue-Bold" size:18.0f]];
     
     [self.view addSubview:_scoreValueLabel];
-    
-    
-    
-    
-    
-    
 }
+
 // Creates the sidebar.
 - (void)createSideBar
 {
@@ -233,16 +229,37 @@ CGFloat INSET_RATIO = 0.02;
     [self.view addSubview:_healthBar];
 }
 
--(void)createGameOverScene
+
+// Creates the appropriate GameOverScene upon the end of a game
+-(void)createGameOverSceneWithWin:(BOOL)winning
 {
+    // Clean up before end of game
+    [_asteroidGenerationTimer invalidate];
+    [_sidebar removeFromSuperview];
+    [_healthBar removeFromSuperview];
+    //[_backButton removeFromSuperview];
+  
     SKView * skView = (SKView *)self.view;
     _scene = [GameScene sceneWithSize:skView.bounds.size];
     _scene.scaleMode = SKSceneScaleModeAspectFill;
     
     // Present the scene.
     [skView presentScene:_scene];
-    GameOverScene *gameOverScene = [[GameOverScene alloc] initWithSize:_scene.size won:NO];
+  
+    GameOverScene *gameOverScene;
+    if (winning){
+        gameOverScene = [[GameOverScene alloc]
+                                      initWithSize:_scene.size won:YES];
+    } else {
+        gameOverScene = [[GameOverScene alloc] initWithSize:_scene.size won:NO];
+    }
     [skView presentScene:gameOverScene];
+}
+
+// Delegate handler for when scene indicates that the level is over
+- (void)lastAsteroidDestroyed
+{
+  [self createGameOverSceneWithWin:YES];
 }
 
 // Decreases health level, and checks if health is equal to or lower than 0.
@@ -251,21 +268,7 @@ CGFloat INSET_RATIO = 0.02;
 {
     [_healthBar setHealthLevel:([_healthBar getHealthLevel] - HEALTHPENALTY)];
     if ([_healthBar getHealthLevel] <= 0) {
-        SKView * skView = (SKView *)self.view;
-        _scene = [GameScene sceneWithSize:skView.bounds.size];
-        _scene.scaleMode = SKSceneScaleModeAspectFill;
-        
-        [_asteroidGenerationTimer invalidate];
-        
-        // Present the scene.
-        [skView presentScene:_scene];
-        GameOverScene *gameOverScene = [[GameOverScene alloc] initWithSize:_scene.size won:NO];
-        [skView presentScene:gameOverScene];
-        
-        //      SKTransition *reveal = [SKTransition flipHorizontalWithDuration:0.5];
-        //      _scene = [[MyScene alloc] initWithSize:_scene.size];
-        //      [skView presentScene:_scene transition: reveal];
-        
+      [self createGameOverSceneWithWin:NO];
     }
 }
 
@@ -281,14 +284,20 @@ CGFloat INSET_RATIO = 0.02;
 {
     Equation* randomEquation = [_equationGenerator generateRandomEquation];
     [_scene createAsteroid: randomEquation];
-    
-    CGFloat rate = _asteroidGenerationTimer.timeInterval;
     [_asteroidGenerationTimer invalidate];
+    CGFloat rate = _asteroidGenerationTimer.timeInterval;
     _asteroidGenerationTimer = [NSTimer scheduledTimerWithTimeInterval:rate * 0.99
                                                                 target:self
                                                               selector:@selector(createAsteroid:)
                                                               userInfo:nil
                                                                repeats:YES];
+}
+
+// Selector for the back button
+-(void)backButtonPressed
+{
+  // [self.delegate removeGameViewController];
+  NSLog(@"Back button was pressed");
 }
 
 // Gets the tag of the pressed button and then fires a laser on the scene with that laser value.

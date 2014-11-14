@@ -12,7 +12,9 @@
 @protocol AsteroidAction <SKSceneDelegate>
 - (void)asteroidReachedBottom;
 - (void)incrementScore: (int)value;
+- (void)lastAsteroidDestroyed;
 @end
+
 @interface GameScene : SKScene
 
 @property (assign, nonatomic) id <AsteroidAction> delegate;
