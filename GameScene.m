@@ -132,17 +132,109 @@ int MAX_SPEED = 25;
 
 
 - (void) createAsteroid: (Equation*) equation {
-    NSString* text = [equation toString];
-    SKLabelNode* label = [[SKLabelNode alloc] initWithFontNamed:@"Helvetica-Bold"];
+    Fraction* first = [equation getFraction1];
+    Fraction* second = [equation getFraction2];
+    NSString* op = [NSString stringWithFormat:@"%c" , [equation getOperator]];
     
-    label.text = text;
-    label.fontSize = 24;
-    label.fontColor = [UIColor whiteColor];
+    NSString* num1 = [NSString stringWithFormat:@"%d", [first numerator]];
+    NSString* den1 = [NSString stringWithFormat:@"%d", [first denominator]];
+    NSString* num2 = [NSString stringWithFormat:@"%d", [second numerator]];
+    NSString* den2 = [NSString stringWithFormat:@"%d", [second denominator]];
     
+    NSString* numerator1 = [NSString stringWithFormat:@"%@",num1];
+    NSString* numerator2 = [NSString stringWithFormat:@"%@",num2];
+    NSString* denominator1 = [NSString stringWithFormat:@"%@",den1];
+    NSString* denominator2 = [NSString stringWithFormat:@"%@",den2];
+    
+    SKLabelNode* split = [[SKLabelNode alloc] initWithFontNamed:@"Bold"];
+    
+    //oper.position = CGPointMake(spit.position.x,split.position.y);
     SKSpriteNode* asteroid = [SKSpriteNode spriteNodeWithImageNamed:@"asteroid"];
-    asteroid.userData = [NSMutableDictionary dictionary];
-    [asteroid userData][@"frequency"] = [equation getSolution];
-    [asteroid addChild:label];
+    
+    if ([op isEqualToString:@"$"]) {
+        NSString* line = [NSString stringWithFormat:@"__"];
+        
+        split.text = line;
+        split.fontSize = 24;
+        split.fontColor = [UIColor whiteColor];
+        
+        SKLabelNode* numlabel1 = [[SKLabelNode alloc] initWithFontNamed:@"Helvetica-Bold"];
+        numlabel1.text = numerator1;
+        numlabel1.fontSize = 24;
+        numlabel1.fontColor = [UIColor whiteColor];
+        numlabel1.position = CGPointMake(numlabel1.position.x,numlabel1.position.y + 5);
+        
+        SKLabelNode* denlabel1 = [[SKLabelNode alloc] initWithFontNamed:@"Helvetica-Bold"];
+        denlabel1.text = denominator1;
+        denlabel1.fontSize = 24;
+        denlabel1.fontColor = [UIColor whiteColor];
+        denlabel1.position = CGPointMake(denlabel1.position.x,denlabel1.position.y - 30);
+        
+        
+        asteroid.userData = [NSMutableDictionary dictionary];
+        [asteroid userData][@"frequency"] = [equation getSolution];
+        [asteroid addChild:numlabel1];
+        [asteroid addChild:denlabel1];
+        [asteroid addChild:split];
+    }
+    else {
+        NSString* lines = [NSString stringWithFormat:@"__      __"];
+       
+        split.text = lines;
+        split.fontSize = 24;
+        split.fontColor = [UIColor whiteColor];
+        
+        SKLabelNode* oper = [[SKLabelNode alloc] initWithFontNamed:@"Helvetica-Bold"];
+        oper.text = op;
+        oper.fontSize = 30;
+        oper.fontColor = [UIColor whiteColor];
+        oper.position = CGPointMake(oper.position.x,oper.position.y - 20);
+        
+        SKLabelNode* numlabel1 = [[SKLabelNode alloc] initWithFontNamed:@"Helvetica-Bold"];
+        numlabel1.text = numerator1;
+        numlabel1.fontSize = 24;
+        numlabel1.fontColor = [UIColor whiteColor];
+        numlabel1.position = CGPointMake(numlabel1.position.x-30,numlabel1.position.y + 5);
+        
+        SKLabelNode* numlabel2 = [[SKLabelNode alloc] initWithFontNamed:@"Helvetica-Bold"];
+        numlabel2.text = numerator2;
+        numlabel2.fontSize = 24;
+        numlabel2.fontColor = [UIColor whiteColor];
+        numlabel2.position = CGPointMake(numlabel2.position.x+30,numlabel2.position.y + 5);
+        
+        SKLabelNode* denlabel1 = [[SKLabelNode alloc] initWithFontNamed:@"Helvetica-Bold"];
+        denlabel1.text = denominator1;
+        denlabel1.fontSize = 24;
+        denlabel1.fontColor = [UIColor whiteColor];
+        denlabel1.position = CGPointMake(denlabel1.position.x-30,denlabel1.position.y - 30);
+        
+        SKLabelNode* denlabel2 = [[SKLabelNode alloc] initWithFontNamed:@"Helvetica-Bold"];
+        denlabel2.text = denominator2;
+        denlabel2.fontSize = 24;
+        denlabel2.fontColor = [UIColor whiteColor];
+        denlabel2.position = CGPointMake(denlabel2.position.x+30,denlabel2.position.y - 30);
+        
+        
+        
+        asteroid.userData = [NSMutableDictionary dictionary];
+        [asteroid userData][@"frequency"] = [equation getSolution];
+        [asteroid addChild:numlabel1];
+        [asteroid addChild:numlabel2];
+        [asteroid addChild:denlabel1];
+        [asteroid addChild:denlabel2];
+        [asteroid addChild:split];
+        [asteroid addChild:oper];
+    }
+    
+    
+    
+//    [nerdText addChild:numlabel];
+//    [nerdText addChild:denlabel];
+//    [asteroid addChild:nerdText];
+//    [asteroid addChild:oper];
+    
+    
+    
     
     asteroid.physicsBody = [SKPhysicsBody bodyWithCircleOfRadius:asteroid.size.width/2 - 5]; // 1
     asteroid.physicsBody.dynamic = YES; // 2
