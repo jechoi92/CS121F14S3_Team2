@@ -16,6 +16,7 @@ CGFloat INSET_RATIO;
 int SLOW_SPEED = 35;
 int MEDIUM_SPEED = 30;
 int MAX_SPEED = 25;
+int ALLOWED_WRONG_ANSWERS = 2;
 
 // TODO make a spritenode that represents the surface of the earth for asteroid collisions?
 
@@ -142,6 +143,7 @@ int MAX_SPEED = 25;
     SKSpriteNode* asteroid = [SKSpriteNode spriteNodeWithImageNamed:@"asteroid"];
     asteroid.userData = [NSMutableDictionary dictionary];
     [asteroid userData][@"frequency"] = [equation getSolution];
+    [asteroid userData][@"attemptsLeft"] = [NSNumber numberWithInt:ALLOWED_WRONG_ANSWERS];
     [asteroid addChild:label];
     
     asteroid.physicsBody = [SKPhysicsBody bodyWithCircleOfRadius:asteroid.size.width/2 - 5]; // 1
@@ -272,7 +274,15 @@ int MAX_SPEED = 25;
       
         _asteroidsValueLabel.text = [[NSString alloc] initWithFormat:@"%d", _asteroidsToDestroy];
     } else {
-        //NSLog(@"Miss! laser value: %@  asteroid value: %@", laser.value, asteroid.value);
+        int attemptsLeft = [[asteroid userData][@"attemptsLeft"] intValue];
+        attemptsLeft--;
+        if (attemptsLeft <= 0) {
+            Equation* newEquation = [self.delegate wrongAnswerAttempt:laserFrequency];
+            [asteroid userData][@"frequency"] = [newEquation getSolution];
+            ((SKLabelNode*)[asteroid children][0]).text = [newEquation toString];
+            attemptsLeft = ALLOWED_WRONG_ANSWERS;
+        }
+        [asteroid userData][@"attemptsLeft"] = [NSNumber numberWithInt:attemptsLeft];
     }
     [laser removeFromParent];
 }

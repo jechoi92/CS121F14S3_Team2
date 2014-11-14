@@ -278,6 +278,17 @@ CGFloat INSET_RATIO = 0.02;
     [_scoreValueLabel setText:[[NSString alloc] initWithFormat:@"%d", _score]];
 }
 
+- (Equation*)wrongAnswerAttempt:(Fraction*)value
+{
+    Equation* randomEquation = [_equationGenerator generateRandomEquation];
+    while ([[randomEquation getSolution] compare:value] == NSOrderedSame) {
+        // Make sure that we end up with an equation whose solution doesn't match
+        // the failed answer attempt.  ...Pretty hackish.
+        randomEquation = [_equationGenerator generateRandomEquation];
+    }
+    return randomEquation;
+}
+
 // Gets a random equation from the generator, and then creates an asteroid on the scene
 // with that asteroid on it.
 - (void)createAsteroid:(id)sender
