@@ -248,12 +248,34 @@ CGFloat INSET_RATIO = 0.02;
   
     GameOverScene *gameOverScene;
     if (winning){
+        [self writeProgress];
         gameOverScene = [[GameOverScene alloc]
                                       initWithSize:_scene.size won:YES];
     } else {
         gameOverScene = [[GameOverScene alloc] initWithSize:_scene.size won:NO];
     }
     [skView presentScene:gameOverScene];
+    
+    
+    
+}
+
+-(void)writeProgress
+{
+    NSArray *paths = NSSearchPathForDirectoriesInDomains
+    (NSDocumentDirectory, NSUserDomainMask, YES);
+    NSString *documentsDirectory = [paths objectAtIndex:0];
+    
+    //make a file name to write the data to using the documents directory:
+    NSString *fileName = [NSString stringWithFormat:@"%@/Progress.txt",
+                          documentsDirectory];
+    //create content - four lines of text
+    NSString *content = [[NSString alloc] initWithFormat:@"%d", _level];
+    //save content to the documents directory
+    [content writeToFile:fileName
+              atomically:NO
+                encoding:NSStringEncodingConversionAllowLossy
+                   error:nil];
 }
 
 // Delegate handler for when scene indicates that the level is over
@@ -321,7 +343,7 @@ CGFloat INSET_RATIO = 0.02;
         [operators addObject:@"*"];
     }
     if (_level == 3 || _level == 6 || _level == 8 || _level == 9) {
-        [operators addObject:@"$"];
+        [operators addObject:@"/"];
     }
     
     if (_level == 10) {

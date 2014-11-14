@@ -60,6 +60,8 @@ UIImage *highlightBGImage = nil;
     CGFloat yOffset = baseOffset * 3 / 6;
     
     UIButton *levelButton;
+      
+      int unlockedLevel = [self readProgress];
     
     for (int row = 0; row < numRows; ++row){
       // Set/reset xOffset for new column
@@ -94,6 +96,9 @@ UIImage *highlightBGImage = nil;
         levelButton.titleLabel.font = [UIFont fontWithName:@"HelveticaNeue"
                                                  size:IPAD_FONT_SIZE];
         levelButton.titleLabel.adjustsFontSizeToFitWidth = YES;
+          if (levelButton.tag > unlockedLevel) {
+              levelButton.enabled = NO;
+          }
         
         [[_levelButtons objectAtIndex:row] insertObject:levelButton atIndex:col];
         
@@ -127,6 +132,24 @@ UIImage *highlightBGImage = nil;
   
   // Update which button is currently selected
   [self setCurrentLevelSelected:(int)newButton.tag];
+}
+
+- (int)readProgress
+{
+    NSArray *paths = NSSearchPathForDirectoriesInDomains
+    (NSDocumentDirectory, NSUserDomainMask, YES);
+    NSString *documentsDirectory = [paths objectAtIndex:0];
+    
+    //make a file name to write the data to using the documents directory:
+    NSString *fileName = [NSString stringWithFormat:@"%@/Progress.txt",
+                          documentsDirectory];
+    NSString *content = [[NSString alloc] initWithContentsOfFile:fileName
+                                                    usedEncoding:nil
+                                                           error:nil];
+    //use simple alert from my library (see previous post for details)
+
+    
+    return [content intValue];;
 }
 
 @end

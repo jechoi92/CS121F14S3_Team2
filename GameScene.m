@@ -271,11 +271,26 @@ int MAX_SPEED = 25;
     
     // Determine speed of the asteroid
     int minDuration = _minimumAsteroidDuration;
-    int rangeDuration = minDuration * 0.15;
+    int rangeDuration = minDuration * 0.1;
     int actualDuration = (arc4random() % rangeDuration) + minDuration;
     
+    
+    
+    int endX = actualX;
+    
+    endX += arc4random_uniform(self.frame.size.width);
+    endX -= arc4random_uniform(self.frame.size.width);
+    
+    if (endX < minX) {
+        endX = minX;
+    }
+    if (endX > maxX) {
+        endX = maxX;
+    }
+    
+    
     // Create the actions
-    SKAction * actionMove = [SKAction moveTo:CGPointMake(actualX, -asteroid.size.height/2) duration:actualDuration];
+    SKAction * actionMove = [SKAction moveTo:CGPointMake(endX, -asteroid.size.height/2) duration:actualDuration];
     SKAction * actionMoveDone = [SKAction removeFromParent];
     SKAction * loseAction = [SKAction runBlock:^{
         [self asteroidHitBottom];
