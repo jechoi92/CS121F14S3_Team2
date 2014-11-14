@@ -146,7 +146,7 @@ int MAX_SPEED = 25;
     NSString* denominator1 = [NSString stringWithFormat:@"%@",den1];
     NSString* denominator2 = [NSString stringWithFormat:@"%@",den2];
     
-    SKLabelNode* split = [[SKLabelNode alloc] initWithFontNamed:@"Bold"];
+    SKLabelNode* split = [[SKLabelNode alloc] initWithFontNamed:@"Arial Bold"];
     
     //oper.position = CGPointMake(spit.position.x,split.position.y);
     SKSpriteNode* asteroid = [SKSpriteNode spriteNodeWithImageNamed:@"asteroid"];
@@ -184,11 +184,20 @@ int MAX_SPEED = 25;
         split.fontSize = 24;
         split.fontColor = [UIColor whiteColor];
         
-        SKLabelNode* oper = [[SKLabelNode alloc] initWithFontNamed:@"Helvetica-Bold"];
-        oper.text = op;
+        SKLabelNode* oper = [[SKLabelNode alloc] initWithFontNamed:@"Arial Bold"];
+        if ([op isEqualToString:@"/"]) {
+            oper.text = @"÷";
+        } else if ([op isEqualToString:@"+"]) {
+            oper.text = @"+";
+        } else if ([op isEqualToString:@"-"]) {
+            oper.text = @"-";
+        } else {
+            oper.text = @"x";
+        }
         oper.fontSize = 30;
         oper.fontColor = [UIColor whiteColor];
-        oper.position = CGPointMake(oper.position.x,oper.position.y - 20);
+        oper.position = CGPointMake(oper.position.x,oper.position.y - 15);
+        
         
         SKLabelNode* numlabel1 = [[SKLabelNode alloc] initWithFontNamed:@"Helvetica-Bold"];
         numlabel1.text = numerator1;
@@ -225,16 +234,6 @@ int MAX_SPEED = 25;
         [asteroid addChild:split];
         [asteroid addChild:oper];
     }
-    
-    
-    
-//    [nerdText addChild:numlabel];
-//    [nerdText addChild:denlabel];
-//    [asteroid addChild:nerdText];
-//    [asteroid addChild:oper];
-    
-    
-    
     
     asteroid.physicsBody = [SKPhysicsBody bodyWithCircleOfRadius:asteroid.size.width/2 - 5]; // 1
     asteroid.physicsBody.dynamic = YES; // 2

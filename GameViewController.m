@@ -321,7 +321,7 @@ CGFloat INSET_RATIO = 0.02;
         [operators addObject:@"*"];
     }
     if (_level == 3 || _level == 6 || _level == 8 || _level == 9) {
-        [operators addObject:@"$"];
+        [operators addObject:@"/"];
     }
     
     if (_level == 10) {
