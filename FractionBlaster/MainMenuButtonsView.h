@@ -8,7 +8,13 @@
 
 #import <UIKit/UIKit.h>
 
+@protocol ButtonSelected
+- (void)buttonSelected:(id)sender;
+@end
+
 @interface MainMenuButtonsView : UIView
+
+@property (assign, nonatomic) id <ButtonSelected> delegate;
 
 -(id)initWithFrame:(CGRect)frame;
 

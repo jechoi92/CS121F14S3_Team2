@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "MainMenuButtonsView.h"
 
-@interface MainMenuViewController : UIViewController
+@interface MainMenuViewController : UIViewController <ButtonSelected>
 
 @end
 

@@ -10,8 +10,9 @@
 
 @implementation LevelSelectViewController
 {
-  LevelButtonView *_levelButtonView;
-  StartLevelButtonView *_startLevelButtonView;
+    LevelButtonView *_levelButtonView;
+    StartLevelButtonView *_startLevelButtonView;
+    UIButton *_backButton;
 }
 
 -(void)viewDidLoad
@@ -50,14 +51,52 @@
   _startLevelButtonView = [[StartLevelButtonView alloc] initWithFrame:startButtonFrame];
   [_startLevelButtonView setDelegate:self];
   [self.view addSubview:_startLevelButtonView];
+    
+    // Create back button
+    [self createTopButtonsAndLabels];
+}
+
+- (void)createTopButtonsAndLabels
+{
+    // TODO: Figure out what to do with this constant
+    CGFloat INSET_RATIO = 0.02;
+    
+    CGRect frame = self.view.frame;
+    CGFloat size = MIN(CGRectGetWidth(frame), CGRectGetHeight(frame));
+    
+    CGFloat itemWidth = size / 15;
+    
+    CGFloat backButtonLength = itemWidth;
+    CGFloat backButtonWidth = itemWidth;
+    CGFloat backButtonX = CGRectGetWidth(frame) * INSET_RATIO;
+    CGFloat backButtonY = CGRectGetHeight(frame) * INSET_RATIO;
+    CGRect backButtonFrame = CGRectMake(backButtonX, backButtonY, backButtonLength, backButtonWidth);
+    
+    _backButton = [[UIButton alloc] initWithFrame:backButtonFrame];
+    [_backButton setBackgroundImage:[UIImage imageNamed:@"StartOverIcon"] forState:UIControlStateNormal];
+    [[_backButton layer] setBorderWidth:2.5f];
+    [[_backButton layer] setBorderColor:[UIColor blackColor].CGColor];
+    [[_backButton layer] setCornerRadius:12.0f];
+    
+    [_backButton addTarget:self action:@selector(backButtonPressed)
+          forControlEvents:UIControlEventTouchUpInside];
+    
+    [self.view addSubview:_backButton];
+}
+
+-(void)backButtonPressed
+{
+    NSLog(@"Back button was pressed");
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 -(void)startLevel
 {
-  int currentLevel = [_levelButtonView currentLevelSelected] + 1;
-  GameViewController *gvc = [[GameViewController alloc]
+    int currentLevel = [_levelButtonView currentLevelSelected] + 1;
+    GameViewController *gvc = [[GameViewController alloc]
                              initWithLevel:currentLevel andScore:0];
-  [self presentViewController:gvc animated:YES completion:nil];
+  //[self presentViewController:gvc animated:YES completion:nil];
+    [self.navigationController pushViewController:gvc animated:YES];
 }
 
 @end

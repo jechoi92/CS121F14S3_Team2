@@ -296,8 +296,8 @@ CGFloat INSET_RATIO = 0.02;
 // Selector for the back button
 -(void)backButtonPressed
 {
-  // [self.delegate removeGameViewController];
-  NSLog(@"Back button was pressed");
+    [self.navigationController popViewControllerAnimated:YES];
+    NSLog(@"Back button was pressed");
 }
 
 // Gets the tag of the pressed button and then fires a laser on the scene with that laser value.

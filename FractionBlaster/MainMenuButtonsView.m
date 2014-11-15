@@ -89,29 +89,7 @@
 
 -(void)buttonSelected:(id)sender
 {
-    // Figure out button navigation
-    UIButton *button = (UIButton *)sender;
-    int tag = button.tag;
-    
-    // Is there a way to generate a range of cases to check on
-    // based on a variable? (generate based on numButtons?)
-    switch (tag){
-        case 0:
-            // Go to LevelSelectViewController
-            NSLog(@"Start game pressed");
-            break;
-        case 1:
-            // Go to InstrViewController
-            NSLog(@"Instr button pressed");
-            break;
-        case 2:
-            // Go to Leaderboard??
-            NSLog(@"Leaderboard pressed");
-            break;
-        default:
-            NSLog(@"This button shouldn't exist");
-            break;
-    }
+    [self.delegate buttonSelected:sender];
 }
 
 @end
