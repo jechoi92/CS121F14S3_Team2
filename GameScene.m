@@ -16,6 +16,7 @@ int SLOW_SPEED = 35;
 int MEDIUM_SPEED = 30;
 int MAX_SPEED = 25;
 int HELL_MODE = 15;
+int ALLOWED_WRONG_ANSWERS = 2;
 
 // TODO make a spritenode that represents the surface of the earth for asteroid collisions?
 
@@ -148,6 +149,62 @@ int HELL_MODE = 15;
 
 
 - (void) createAsteroid: (Equation*) equation {
+    SKSpriteNode* asteroid = [SKSpriteNode spriteNodeWithImageNamed:@"asteroid"];
+    asteroid.userData = [NSMutableDictionary dictionary];
+    [asteroid userData][@"frequency"] = [equation getSolution];
+    [asteroid userData][@"attemptsLeft"] = [NSNumber numberWithInt:ALLOWED_WRONG_ANSWERS];
+    
+    
+    [self printEquation:equation onAsteroid:asteroid];
+    
+    asteroid.physicsBody = [SKPhysicsBody bodyWithCircleOfRadius:asteroid.size.width/2 - 5]; // 1
+    asteroid.physicsBody.dynamic = YES; // 2
+    asteroid.physicsBody.categoryBitMask = asteroidCategory; // 3
+    asteroid.physicsBody.contactTestBitMask = laserCategory; // 4
+    asteroid.physicsBody.collisionBitMask = 0; // 5
+    
+    // Determine where to spawn the asteroid along the X axis
+    int minX = asteroid.size.width * 1.2;
+    int maxX = self.frame.size.width - asteroid.size.width * 1.2;
+    int rangeX = maxX - minX;
+    int actualX = (arc4random() % rangeX) + minX;
+    
+    // Create the asteroid slightly off-screen along the top edge,
+    // and along a random position along the X axis as calculated above
+    asteroid.position = CGPointMake(actualX, self.frame.size.height + asteroid.size.height/2);
+    [self addChild:asteroid];
+    
+    // Determine speed of the asteroid
+    int minDuration = _minimumAsteroidDuration;
+    int rangeDuration = minDuration * 0.1;
+    int actualDuration = (arc4random() % rangeDuration) + minDuration;
+    
+    
+    
+    int endX = actualX;
+    
+    endX += arc4random_uniform(self.frame.size.width);
+    endX -= arc4random_uniform(self.frame.size.width);
+    
+    if (endX < minX) {
+        endX = minX;
+    }
+    if (endX > maxX) {
+        endX = maxX;
+    }
+    
+    
+    // Create the actions
+    SKAction * actionMove = [SKAction moveTo:CGPointMake(endX, -asteroid.size.height/2) duration:actualDuration];
+    SKAction * actionMoveDone = [SKAction removeFromParent];
+    SKAction * loseAction = [SKAction runBlock:^{
+        [self asteroidHitBottom];
+    }];
+    [asteroid runAction:[SKAction sequence:@[actionMove, loseAction, actionMoveDone]]];
+}
+
+-(void)printEquation:(Equation*)equation onAsteroid:(SKSpriteNode*)asteroid
+{
     Fraction* first = [equation getFraction1];
     Fraction* second = [equation getFraction2];
     NSString* op = [NSString stringWithFormat:@"%c" , [equation getOperator]];
@@ -165,7 +222,8 @@ int HELL_MODE = 15;
     SKLabelNode* split = [[SKLabelNode alloc] initWithFontNamed:@"Arial Bold"];
     
     //oper.position = CGPointMake(spit.position.x,split.position.y);
-    SKSpriteNode* asteroid = [SKSpriteNode spriteNodeWithImageNamed:@"asteroid"];
+    
+    //[asteroid addChild:label];
     
     if ([op isEqualToString:@"$"]) {
         NSString* line = [NSString stringWithFormat:@"__"];
@@ -195,7 +253,7 @@ int HELL_MODE = 15;
     }
     else {
         NSString* lines = [NSString stringWithFormat:@"__      __"];
-       
+        
         split.text = lines;
         split.fontSize = 24;
         split.fontColor = [UIColor whiteColor];
@@ -250,51 +308,6 @@ int HELL_MODE = 15;
         [asteroid addChild:split];
         [asteroid addChild:oper];
     }
-    
-    asteroid.physicsBody = [SKPhysicsBody bodyWithCircleOfRadius:asteroid.size.width/2 - 5]; // 1
-    asteroid.physicsBody.dynamic = YES; // 2
-    asteroid.physicsBody.categoryBitMask = asteroidCategory; // 3
-    asteroid.physicsBody.contactTestBitMask = laserCategory; // 4
-    asteroid.physicsBody.collisionBitMask = 0; // 5
-    
-    // Determine where to spawn the asteroid along the X axis
-    int minX = asteroid.size.width * 1.2;
-    int maxX = self.frame.size.width - asteroid.size.width * 1.2;
-    int rangeX = maxX - minX;
-    int actualX = (arc4random() % rangeX) + minX;
-    
-    // Create the asteroid slightly off-screen along the top edge,
-    // and along a random position along the X axis as calculated above
-    asteroid.position = CGPointMake(actualX, self.frame.size.height + asteroid.size.height/2);
-    [self addChild:asteroid];
-    
-    // Determine speed of the asteroid
-    int minDuration = _minimumAsteroidDuration;
-    int rangeDuration = minDuration * 0.1;
-    int actualDuration = (arc4random() % rangeDuration) + minDuration;
-    
-    
-    
-    int endX = actualX;
-    
-    endX += arc4random_uniform(self.frame.size.width);
-    endX -= arc4random_uniform(self.frame.size.width);
-    
-    if (endX < minX) {
-        endX = minX;
-    }
-    if (endX > maxX) {
-        endX = maxX;
-    }
-    
-    
-    // Create the actions
-    SKAction * actionMove = [SKAction moveTo:CGPointMake(endX, -asteroid.size.height/2) duration:actualDuration];
-    SKAction * actionMoveDone = [SKAction removeFromParent];
-    SKAction * loseAction = [SKAction runBlock:^{
-        [self asteroidHitBottom];
-    }];
-    [asteroid runAction:[SKAction sequence:@[actionMove, loseAction, actionMoveDone]]];
 }
 
 -(void)asteroidHitBottom
@@ -400,7 +413,8 @@ int HELL_MODE = 15;
         if (attemptsLeft <= 0) {
             Equation* newEquation = [self.delegate wrongAnswerAttempt:laserFrequency];
             [asteroid userData][@"frequency"] = [newEquation getSolution];
-            ((SKLabelNode*)[asteroid children][0]).text = [newEquation toString];
+            [asteroid removeAllChildren];
+            [self printEquation:newEquation onAsteroid:asteroid];
             attemptsLeft = ALLOWED_WRONG_ANSWERS;
         }
         [asteroid userData][@"attemptsLeft"] = [NSNumber numberWithInt:attemptsLeft];
