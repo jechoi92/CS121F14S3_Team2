@@ -23,7 +23,7 @@ CGFloat INSET_RATIO;
     if (self) {
         [self createLabelandButton];
         [self createScoreLabels];
-        [self setBackgroundColor:[UIColor blackColor]];
+        [self setBackgroundColor:[[UIColor alloc] initWithPatternImage:[UIImage imageNamed:@"main_background"]]];
     }
     return self;
 }
@@ -102,7 +102,7 @@ CGFloat INSET_RATIO;
 
 -(void)backButtonPressed
 {
-    [self.delegate goBack];
+    [self.delegate backToMainMenu];
 }
 
 

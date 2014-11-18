@@ -20,7 +20,7 @@ CGFloat INSET_RATIO;
     UILabel* _fireLabel;
 }
 
-- (id)initWithFrame:(CGRect)frame andLevel:(int)level
+- (id)initWithFrame:(CGRect)frame andLevel:(int)level andScore:(int)score
 {
     self = [super initWithFrame:frame];
     if (self) {
@@ -98,7 +98,7 @@ CGFloat INSET_RATIO;
         
         _scoreValueLabel = [[UILabel alloc] initWithFrame:scoreValueLabelFrame];
         
-        [_scoreValueLabel setText:[NSString stringWithFormat:@"%007d", 0]];
+        [_scoreValueLabel setText:[NSString stringWithFormat:@"%007d", score]];
         [_scoreValueLabel setTextColor:[UIColor whiteColor]];
         [_scoreValueLabel setFont: [UIFont fontWithName:@"HelveticaNeue-Bold" size:18.0f]];
         
@@ -139,10 +139,9 @@ CGFloat INSET_RATIO;
 
 - (void)alertView:(UIAlertView *)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex
 {
-
+    // Yes, go back to main menu
     if (buttonIndex == 0) {
-        // TODO Go back to main menu
-        NSLog(@"We need to go back.");
+        [self.delegate backToMainMenu];
     }
 }
 

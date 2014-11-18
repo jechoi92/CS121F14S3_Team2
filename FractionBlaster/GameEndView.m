@@ -110,19 +110,19 @@
 // Selector for the back button
 -(void)backButtonPressed
 {
-    // [self.delegate removeGameViewController];
+    [self.delegate backToMainMenu];
     NSLog(@"Back button was pressed");
 }
 
 -(void)nextLevelSelected
 {
-    // [self.delegate removeGameViewController];
+    [self.delegate backToGameWithNextLevel:YES];
     NSLog(@"Lets go to the next level");
 }
 
 -(void)tryAgainSelected
 {
-    // [self.delegate removeGameViewController];
+    [self.delegate backToGameWithNextLevel:NO];
     NSLog(@"Lets try again");
 }
 
