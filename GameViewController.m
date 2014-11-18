@@ -8,11 +8,6 @@
 
 #import "GameViewController.h"
 #import <QuartzCore/QuartzCore.h>
-@import AVFoundation;
-
-@interface GameViewController ()
-@property (nonatomic) AVAudioPlayer * backgroundMusicPlayer;
-@end
 
 int TOTAL_INITIAL_FRACTIONS = 5;
 int HEALTHPENALTY = 20;
@@ -50,7 +45,6 @@ CGFloat INSET_RATIO = 0.02;
     SKView *skView = [[SKView alloc] initWithFrame:applicationFrame];
     self.view = skView;
 }
-
 
 - (void)viewWillLayoutSubviews
 {
@@ -296,8 +290,12 @@ CGFloat INSET_RATIO = 0.02;
 // Selector for the back button
 -(void)backButtonPressed
 {
+    [_asteroidGenerationTimer invalidate];
+    SKView * skView = (SKView *)self.view;
+    [skView presentScene:nil];
     [self.navigationController popViewControllerAnimated:YES];
     NSLog(@"Back button was pressed");
+    NSLog(@"%@",self.navigationController.viewControllers);
 }
 
 // Gets the tag of the pressed button and then fires a laser on the scene with that laser value.
