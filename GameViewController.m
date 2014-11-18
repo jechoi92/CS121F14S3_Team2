@@ -10,7 +10,7 @@
 #import <QuartzCore/QuartzCore.h>
 
 int TOTAL_INITIAL_FRACTIONS = 5;
-int HEALTHPENALTY = 100;
+int HEALTHPENALTY = 20;
 CGFloat INSET_RATIO = 0.02;
 
 @implementation GameViewController
@@ -130,10 +130,10 @@ CGFloat INSET_RATIO = 0.02;
 - (void)createHealthBar
 {
     CGRect frame = self.view.frame;
-    CGFloat width = CGRectGetWidth(frame) * 0.05;
+    CGFloat width = CGRectGetWidth(frame);
     CGFloat height = CGRectGetHeight(frame);
     
-    CGRect healthBarFrame = CGRectMake(width * 0.1, height * 0.48, width, height * 0.45);
+    CGRect healthBarFrame = CGRectMake(width * 0.005, height * 0.55, width  * 0.075, height * 0.4);
     
     
     _healthBar = [[HealthBarView alloc] initWithFrame:healthBarFrame];
@@ -362,7 +362,7 @@ CGFloat INSET_RATIO = 0.02;
     CGFloat height = CGRectGetHeight(frame);
     
     CGRect gameEndViewFrame = CGRectMake(0, 0, width, height);
-    _gameEndView = [[GameEndView alloc] initWithFrame:gameEndViewFrame andWin:win];
+    _gameEndView = [[GameEndView alloc] initWithFrame:gameEndViewFrame withLevel:_level andScore:_score andWin:win];
     [self.view addSubview:_gameEndView];
     [self.view sendSubviewToBack:_gameView];
 }

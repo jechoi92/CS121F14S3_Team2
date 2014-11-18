@@ -10,6 +10,6 @@
 
 @interface GameEndView : UIView
 
--(id)initWithFrame:(CGRect)frame andWin:(BOOL)win;
+-(id)initWithFrame:(CGRect)frame withLevel:(int)level andScore:(int)score andWin:(BOOL)win;
 
 @end
