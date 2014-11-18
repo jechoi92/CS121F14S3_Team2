@@ -62,6 +62,14 @@
 		93EFADFC1A102B9E00195D8E /* redlaserbeam.png in Resources */ = {isa = PBXBuildFile; fileRef = 93EFADEB1A102B9E00195D8E /* redlaserbeam.png */; };
 		93EFADFD1A102B9E00195D8E /* redlaserbeam@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 93EFADEC1A102B9E00195D8E /* redlaserbeam@2x.png */; };
 		93EFADFE1A102B9E00195D8E /* ryansnook__medium-explosion.wav in Resources */ = {isa = PBXBuildFile; fileRef = 93EFADED1A102B9E00195D8E /* ryansnook__medium-explosion.wav */; };
+		DA3109141A1B130C00C5A3C4 /* InstructionsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DA3109131A1B130C00C5A3C4 /* InstructionsViewController.m */; };
+		DA31091C1A1B1EA100C5A3C4 /* icon 1024.png in Resources */ = {isa = PBXBuildFile; fileRef = DA3109151A1B1EA100C5A3C4 /* icon 1024.png */; };
+		DA31091D1A1B1EA100C5A3C4 /* icon.png in Resources */ = {isa = PBXBuildFile; fileRef = DA3109161A1B1EA100C5A3C4 /* icon.png */; };
+		DA31091E1A1B1EA100C5A3C4 /* icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = DA3109171A1B1EA100C5A3C4 /* icon@2x.png */; };
+		DA31091F1A1B1EA100C5A3C4 /* logo.png in Resources */ = {isa = PBXBuildFile; fileRef = DA3109181A1B1EA100C5A3C4 /* logo.png */; };
+		DA3109201A1B1EA100C5A3C4 /* logo@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = DA3109191A1B1EA100C5A3C4 /* logo@2x.png */; };
+		DA3109211A1B1EA100C5A3C4 /* main_background.png in Resources */ = {isa = PBXBuildFile; fileRef = DA31091A1A1B1EA100C5A3C4 /* main_background.png */; };
+		DA3109221A1B1EA100C5A3C4 /* main_background@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = DA31091B1A1B1EA100C5A3C4 /* main_background@2x.png */; };
 		DAAA17A61A167BB000D84A96 /* MainMenuButtonsView.m in Sources */ = {isa = PBXBuildFile; fileRef = DAAA17A51A167BB000D84A96 /* MainMenuButtonsView.m */; };
 		DAD128561A1306FB00237071 /* explosionFrames.atlas in Resources */ = {isa = PBXBuildFile; fileRef = DAD128551A1306FB00237071 /* explosionFrames.atlas */; };
 		DAE395691A0D4FED00D55633 /* LevelSelectViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DAE395681A0D4FED00D55633 /* LevelSelectViewController.m */; };
@@ -137,6 +145,15 @@
 		93EFADEB1A102B9E00195D8E /* redlaserbeam.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = redlaserbeam.png; sourceTree = "<group>"; };
 		93EFADEC1A102B9E00195D8E /* redlaserbeam@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "redlaserbeam@2x.png"; sourceTree = "<group>"; };
 		93EFADED1A102B9E00195D8E /* ryansnook__medium-explosion.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = "ryansnook__medium-explosion.wav"; sourceTree = "<group>"; };
+		DA3109121A1B130C00C5A3C4 /* InstructionsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InstructionsViewController.h; sourceTree = "<group>"; };
+		DA3109131A1B130C00C5A3C4 /* InstructionsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InstructionsViewController.m; sourceTree = "<group>"; };
+		DA3109151A1B1EA100C5A3C4 /* icon 1024.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon 1024.png"; sourceTree = "<group>"; };
+		DA3109161A1B1EA100C5A3C4 /* icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon.png; sourceTree = "<group>"; };
+		DA3109171A1B1EA100C5A3C4 /* icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon@2x.png"; sourceTree = "<group>"; };
+		DA3109181A1B1EA100C5A3C4 /* logo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = logo.png; sourceTree = "<group>"; };
+		DA3109191A1B1EA100C5A3C4 /* logo@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "logo@2x.png"; sourceTree = "<group>"; };
+		DA31091A1A1B1EA100C5A3C4 /* main_background.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = main_background.png; sourceTree = "<group>"; };
+		DA31091B1A1B1EA100C5A3C4 /* main_background@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "main_background@2x.png"; sourceTree = "<group>"; };
 		DAAA17A41A167BB000D84A96 /* MainMenuButtonsView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainMenuButtonsView.h; sourceTree = "<group>"; };
 		DAAA17A51A167BB000D84A96 /* MainMenuButtonsView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MainMenuButtonsView.m; sourceTree = "<group>"; };
 		DAD128551A1306FB00237071 /* explosionFrames.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = explosionFrames.atlas; sourceTree = "<group>"; };
@@ -189,6 +206,8 @@
 		93CB20F11A0754590050185E /* FractionBlaster */ = {
 			isa = PBXGroup;
 			children = (
+				DA3109121A1B130C00C5A3C4 /* InstructionsViewController.h */,
+				DA3109131A1B130C00C5A3C4 /* InstructionsViewController.m */,
 				DAE395671A0D4FED00D55633 /* LevelSelectViewController.h */,
 				DAE395681A0D4FED00D55633 /* LevelSelectViewController.m */,
 				DAE395701A0F65D400D55633 /* StartLevelButtonView.h */,
@@ -258,6 +277,13 @@
 		93EFADDC1A102B9E00195D8E /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				DA3109151A1B1EA100C5A3C4 /* icon 1024.png */,
+				DA3109161A1B1EA100C5A3C4 /* icon.png */,
+				DA3109171A1B1EA100C5A3C4 /* icon@2x.png */,
+				DA3109181A1B1EA100C5A3C4 /* logo.png */,
+				DA3109191A1B1EA100C5A3C4 /* logo@2x.png */,
+				DA31091A1A1B1EA100C5A3C4 /* main_background.png */,
+				DA31091B1A1B1EA100C5A3C4 /* main_background@2x.png */,
 				93EB31D21A1AE7120075BD53 /* background_defeat.png */,
 				93EB31D31A1AE7130075BD53 /* background_defeat@2x.png */,
 				937335951A11D5B2001A0105 /* StartOverIcon.png */,
@@ -371,7 +397,9 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DA3109211A1B1EA100C5A3C4 /* main_background.png in Resources */,
 				93EFADF01A102B9E00195D8E /* background-music-aac.caf in Resources */,
+				DA3109201A1B1EA100C5A3C4 /* logo@2x.png in Resources */,
 				93EFADEF1A102B9E00195D8E /* asteroid@2x.png in Resources */,
 				937335981A11D5B2001A0105 /* StartOverIcon@2x.png in Resources */,
 				93EFADF61A102B9E00195D8E /* goldlaserbeam@2x.png in Resources */,
@@ -381,7 +409,10 @@
 				93EFADEE1A102B9E00195D8E /* asteroid.png in Resources */,
 				93CB21031A0754590050185E /* LaunchScreen.xib in Resources */,
 				93EB31D51A1AE7130075BD53 /* background_defeat@2x.png in Resources */,
+				DA31091E1A1B1EA100C5A3C4 /* icon@2x.png in Resources */,
 				937335941A11C528001A0105 /* explosion.gif in Resources */,
+				DA31091F1A1B1EA100C5A3C4 /* logo.png in Resources */,
+				DA3109221A1B1EA100C5A3C4 /* main_background@2x.png in Resources */,
 				936589B51A1034B8005D6D8B /* Spaceship.png in Resources */,
 				93EFADFC1A102B9E00195D8E /* redlaserbeam.png in Resources */,
 				93EFADF91A102B9E00195D8E /* hawtpinklaserbeam.png in Resources */,
@@ -389,6 +420,7 @@
 				93EFADFB1A102B9E00195D8E /* jobro__laser6.wav in Resources */,
 				93EFADF31A102B9E00195D8E /* bluelaserbeam.png in Resources */,
 				93EFADF11A102B9E00195D8E /* background.png in Resources */,
+				DA31091C1A1B1EA100C5A3C4 /* icon 1024.png in Resources */,
 				937335971A11D5B2001A0105 /* StartOverIcon.png in Resources */,
 				93EFADF41A102B9E00195D8E /* bluelaserbeam@2x.png in Resources */,
 				936589B61A1034B8005D6D8B /* Spaceship@2x.png in Resources */,
@@ -396,6 +428,7 @@
 				93EFADF81A102B9E00195D8E /* greenlaserbeam@2x.png in Resources */,
 				93EFADFE1A102B9E00195D8E /* ryansnook__medium-explosion.wav in Resources */,
 				93EFADF71A102B9E00195D8E /* greenlaserbeam.png in Resources */,
+				DA31091D1A1B1EA100C5A3C4 /* icon.png in Resources */,
 				93CB21001A0754590050185E /* Images.xcassets in Resources */,
 				93EFADFA1A102B9E00195D8E /* hawtpinklaserbeam@2x.png in Resources */,
 				93EB31D41A1AE7130075BD53 /* background_defeat.png in Resources */,
@@ -449,6 +482,7 @@
 				DAE395721A0F65D400D55633 /* StartLevelButtonView.m in Sources */,
 				93CB21641A075AFC0050185E /* Fraction.m in Sources */,
 				93EB31D11A1ADACA0075BD53 /* GameEndView.m in Sources */,
+				DA3109141A1B130C00C5A3C4 /* InstructionsViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

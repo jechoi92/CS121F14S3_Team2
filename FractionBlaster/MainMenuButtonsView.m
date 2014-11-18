@@ -17,7 +17,7 @@
 {
     self = [super initWithFrame:frame];
     
-    self.backgroundColor = [UIColor blackColor];
+    self.backgroundColor = [UIColor clearColor];
     
     int IPAD_FONT_SIZE = 40;
     
