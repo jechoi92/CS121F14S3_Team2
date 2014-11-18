@@ -21,34 +21,32 @@
     
     
     CGFloat INSET_RATIO = 0.02;
+    int IPAD_FONT_SIZE = 20;
     
     CGFloat frameHeight = CGRectGetHeight(self.view.frame);
     CGFloat frameWidth = CGRectGetWidth(self.view.frame);
-    CGFloat textViewHeight = frameHeight/2;
-    CGFloat textViewWidth = frameWidth/2;
+    
+    // Text view frame setup
+    CGFloat textViewHeightRatio = 0.75;
+    CGFloat textViewWidthRatio = 0.75;
+    CGFloat textViewHeight = frameHeight*textViewHeightRatio;
+    CGFloat textViewWidth = frameWidth*textViewWidthRatio;
     CGFloat textViewXOffset = (frameWidth-textViewWidth)/2;
-    CGFloat textViewYOffset = (frameWidth-textViewHeight)/2;
+    CGFloat textViewYOffset = (frameHeight-textViewHeight)/2;
     
     CGRect textViewFrame = CGRectMake(textViewXOffset, textViewYOffset, textViewWidth, textViewHeight);
 
-    // Read text from instructions.txt
+    // Text container creation
     _instrText = [[UITextView alloc] initWithFrame:textViewFrame];
     _instrText.backgroundColor = [UIColor clearColor];
-    NSFileManager *fileManager = [NSFileManager defaultManager];
+    
+    // Reading instructions from file
     NSString* path = [[NSBundle mainBundle] pathForResource:@"instructions"
                                                      ofType:@"txt"];
     NSString *myText = [NSString stringWithContentsOfFile:path encoding:NSUTF8StringEncoding error:nil];
-    NSLog(@"%@", myText);
-    
-    if ([fileManager fileExistsAtPath:path]){
-        NSLog(@"It exists");
-    }
-    else {
-        NSLog(@"Doesn't exist");
-    }
-    
     _instrText.text  = myText;
     _instrText.textColor = [UIColor whiteColor];
+    [_instrText setFont:[UIFont fontWithName:@"Futura-Medium" size:IPAD_FONT_SIZE]];
     
     [self.view addSubview:_instrText];
     

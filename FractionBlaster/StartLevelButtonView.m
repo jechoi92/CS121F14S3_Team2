@@ -12,35 +12,27 @@
 
 -(id)initWithFrame:(CGRect)frame
 {
-  self = [super initWithFrame:frame];
-  
-  int IPAD_FONT_SIZE = 40;
-  
-  self.backgroundColor = [UIColor blackColor];
-  
-  CGRect startButtonFrame = CGRectMake(0, 0, CGRectGetWidth(frame), CGRectGetHeight(frame));
-  UIButton *startButton = [[UIButton alloc] initWithFrame:startButtonFrame];
-  startButton.backgroundColor = [UIColor redColor];
-  
-  // Set up start button title
-  [startButton setTitle:@"Start Game" forState:UIControlStateNormal];
-  [startButton setTitleColor:[UIColor blackColor]
-                    forState:UIControlStateNormal];
-  startButton.titleLabel.font = [UIFont fontWithName:@"HelveticaNeue"
-                                                size:IPAD_FONT_SIZE];
-  startButton.titleLabel.adjustsFontSizeToFitWidth = YES;
-  
-  // Set up selector
-  [startButton addTarget:self action:@selector(startLevelPressed)
-        forControlEvents:UIControlEventTouchUpInside];
-  [self addSubview:startButton];
-  
-  return self;
+    self = [super initWithFrame:frame];
+    
+    CGRect startButtonFrame = CGRectMake(0, 0, CGRectGetWidth(frame), CGRectGetHeight(frame));
+    UIButton *startButton = [[UIButton alloc] initWithFrame:startButtonFrame];
+    
+    // Set up start button title
+    UIImage *btnImage = [UIImage imageNamed:@"launch2.png"];
+    [startButton setImage:btnImage forState:UIControlStateNormal];
+    
+    
+    // Set up selector
+    [startButton addTarget:self action:@selector(startLevelPressed)
+          forControlEvents:UIControlEventTouchUpInside];
+    [self addSubview:startButton];
+    
+    return self;
 }
 
 -(void)startLevelPressed
 {
-  [self.delegate startLevel];
+    [self.delegate startLevel];
 }
 
 @end

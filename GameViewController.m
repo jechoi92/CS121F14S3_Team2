@@ -164,6 +164,7 @@ CGFloat INSET_RATIO = 0.02;
 
 -(void)cleanup
 {
+    [_backgroundMusicPlayer stop];
     [_asteroidGenerationTimer invalidate];
     [_sidebar removeFromSuperview];
     [_healthBar removeFromSuperview];
