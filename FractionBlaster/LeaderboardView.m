@@ -66,7 +66,7 @@ CGFloat INSET_RATIO;
     CGFloat labelLength = itemWidth * 5;
     CGFloat labelWidth = itemWidth * 2;
     CGFloat labelX = CGRectGetWidth(frame) * 0.37;
-    CGFloat labelY = CGRectGetHeight(frame) * 0.2;
+    CGFloat labelY = CGRectGetHeight(frame) * 0.1;
     CGRect labelFrame = CGRectMake(labelX, labelY, labelLength, labelWidth);
     
     _highScoreLabel = [[UILabel alloc] initWithFrame:labelFrame];
@@ -89,11 +89,15 @@ CGFloat INSET_RATIO;
     
     for (int i = 0; i < 5; i++) {
         
-        CGRect labelFrame = CGRectMake(width * 0.35, height * 0.35 + i * labelHeight, labelWidth, labelHeight);
+        CGRect labelFrame = CGRectMake(width * 0.35, height * 0.25 + i * labelHeight, labelWidth, labelHeight);
         UILabel* currentLabel = [[UILabel alloc] initWithFrame:labelFrame];
         currentLabel.backgroundColor = [UIColor clearColor];
         [currentLabel setFont: [UIFont fontWithName:@"HelveticaNeue-Bold" size:24.0f]];
         [currentLabel setTextColor:[UIColor whiteColor]];
+        
+        if (i == 0) {
+            [currentLabel setTextColor:[UIColor yellowColor]];
+        }
         
         [self addSubview:currentLabel];
         [_highScoreLabels insertObject:currentLabel atIndex:i];
