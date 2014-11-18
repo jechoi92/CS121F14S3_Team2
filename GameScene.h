@@ -13,6 +13,7 @@
 - (void)asteroidReachedBottom;
 - (void)incrementScore: (int)value;
 - (void)lastAsteroidDestroyed;
+- (Equation*)wrongAnswerAttempt: (Fraction*)value;
 @end
 
 @interface GameScene : SKScene

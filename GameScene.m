@@ -395,7 +395,15 @@ int HELL_MODE = 15;
       
         _asteroidsValueLabel.text = [[NSString alloc] initWithFormat:@"%d", _asteroidsToDestroy];
     } else {
-        //NSLog(@"Miss! laser value: %@  asteroid value: %@", laser.value, asteroid.value);
+        int attemptsLeft = [[asteroid userData][@"attemptsLeft"] intValue];
+        attemptsLeft--;
+        if (attemptsLeft <= 0) {
+            Equation* newEquation = [self.delegate wrongAnswerAttempt:laserFrequency];
+            [asteroid userData][@"frequency"] = [newEquation getSolution];
+            ((SKLabelNode*)[asteroid children][0]).text = [newEquation toString];
+            attemptsLeft = ALLOWED_WRONG_ANSWERS;
+        }
+        [asteroid userData][@"attemptsLeft"] = [NSNumber numberWithInt:attemptsLeft];
     }
     [laser removeFromParent];
 }
