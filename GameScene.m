@@ -312,7 +312,7 @@ int ALLOWED_WRONG_ANSWERS = 2;
 
 -(void)asteroidHitBottom
 {
-    [self.delegate asteroidReachedBottom];
+    [self.deli asteroidReachedBottom];
 }
 
 - (CGPoint)boundPlayerPos:(CGPoint)newPos {
@@ -403,7 +403,7 @@ int ALLOWED_WRONG_ANSWERS = 2;
         
         if (_asteroidsToDestroy <= 0) {
             [self removeAllAsteroids];
-            [self.delegate lastAsteroidDestroyed];
+            [self.deli lastAsteroidDestroyed];
         }
       
         _asteroidsValueLabel.text = [[NSString alloc] initWithFormat:@"%d", _asteroidsToDestroy];
@@ -411,7 +411,7 @@ int ALLOWED_WRONG_ANSWERS = 2;
         int attemptsLeft = [[asteroid userData][@"attemptsLeft"] intValue];
         attemptsLeft--;
         if (attemptsLeft <= 0) {
-            Equation* newEquation = [self.delegate wrongAnswerAttempt:laserFrequency];
+            Equation* newEquation = [self.deli wrongAnswerAttempt:laserFrequency];
             [asteroid userData][@"frequency"] = [newEquation getSolution];
             [asteroid removeAllChildren];
             [self printEquation:newEquation onAsteroid:asteroid];
@@ -459,7 +459,7 @@ int ALLOWED_WRONG_ANSWERS = 2;
 
 - (void)asteroidDestroyed: (int)asteroidScore
 {
-    [self.delegate incrementScore: (int)asteroidScore];
+    [self.deli incrementScore: (int)asteroidScore];
 }
 
 - (void)didBeginContact:(SKPhysicsContact *)contact

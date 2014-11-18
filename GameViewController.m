@@ -123,7 +123,7 @@ CGFloat INSET_RATIO = 0.02;
     _scene.scaleMode = SKSceneScaleModeAspectFill;
     
     // Present the scene.
-    [_scene setDelegate:self];
+    [(GameScene*)_scene setDeli:self];
     [skView presentScene:_scene];
 }
 

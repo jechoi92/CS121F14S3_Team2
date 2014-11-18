@@ -47,7 +47,7 @@
     _instrText.text  = myText;
     _instrText.textColor = [UIColor whiteColor];
     [_instrText setFont:[UIFont fontWithName:@"Futura-Medium" size:IPAD_FONT_SIZE]];
-    
+    _instrText.editable = NO;
     [self.view addSubview:_instrText];
     
     

@@ -72,11 +72,11 @@ int IPAD_FONT_SIZE = 40;
                 }
                 else {
                     if (levelButton.tag-1 < unlockedLevel) {
-                        NSString *deselect = [[NSString alloc] initWithFormat:@"button%ld.png", levelButton.tag+1];
+                        NSString *deselect = [[NSString alloc] initWithFormat:@"button%d.png", levelButton.tag+1];
                         UIImage *deselectImage = [[UIImage imageNamed:deselect] stretchableImageWithLeftCapWidth:12 topCapHeight:0];
                         [levelButton setBackgroundImage:deselectImage forState:UIControlStateNormal];
                     } else {
-                        NSString *deselect = [[NSString alloc] initWithFormat:@"!button%ld.png", levelButton.tag+1];
+                        NSString *deselect = [[NSString alloc] initWithFormat:@"!button%d.png", levelButton.tag+1];
                         UIImage *deselectImage = [[UIImage imageNamed:deselect] stretchableImageWithLeftCapWidth:12 topCapHeight:0];
                         [levelButton setBackgroundImage:deselectImage forState:UIControlStateNormal];
                     }
@@ -121,8 +121,8 @@ int IPAD_FONT_SIZE = 40;
     // long oldbuttonIndex = oldButton.tag+1;
     // long newbuttonIndex = newButton.tag+1;
     
-    NSString *deselect = [[NSString alloc] initWithFormat:@"button%ld.png", oldButton.tag+1];
-    NSString *select = [[NSString alloc] initWithFormat:@"button%ldhighlight.png", newButton.tag+1];
+    NSString *deselect = [[NSString alloc] initWithFormat:@"button%d.png", oldButton.tag+1];
+    NSString *select = [[NSString alloc] initWithFormat:@"button%dhighlight.png", newButton.tag+1];
     
     UIImage *deselectImage = [[UIImage imageNamed:deselect] stretchableImageWithLeftCapWidth:12 topCapHeight:0];
     [oldButton setBackgroundImage:deselectImage forState:UIControlStateNormal];
