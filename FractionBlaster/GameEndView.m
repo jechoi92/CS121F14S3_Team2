@@ -149,19 +149,16 @@
 -(void)backButtonPressed
 {
     [self.delegate backToMainMenu];
-    NSLog(@"Back button was pressed");
 }
 
 -(void)nextLevelSelected
 {
     [self.delegate backToGameWithNextLevel:YES];
-    NSLog(@"Lets go to the next level");
 }
 
 -(void)tryAgainSelected
 {
     [self.delegate backToGameWithNextLevel:NO];
-    NSLog(@"Lets try again");
 }
 
 @end
