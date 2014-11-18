@@ -10,7 +10,7 @@
 #import <QuartzCore/QuartzCore.h>
 
 int TOTAL_INITIAL_FRACTIONS = 5;
-int HEALTHPENALTY = 100;
+int HEALTHPENALTY = 20;
 CGFloat INSET_RATIO = 0.02;
 
 @implementation GameViewController
@@ -146,14 +146,20 @@ CGFloat INSET_RATIO = 0.02;
 -(void)createGameOverSceneWithWin:(BOOL)winning
 {
     [self cleanup];
-    [self createGameEndView:winning];
+    
     
     if (winning) {
         [self updateProgress];
+        if (_level == 10) {
+            [self updateHighScores];
+            [self createGameEndViewVictory];
+            return;
+        }
     }
     else {
         [self updateHighScores];
     }
+    [self createGameEndView:winning];
 }
 
 -(void)cleanup
@@ -213,7 +219,7 @@ CGFloat INSET_RATIO = 0.02;
 - (NSArray*)findOperators
 {
     NSMutableArray* operators = [[NSMutableArray alloc] initWithCapacity:1];
-    if (_level == 1 || _level == 8 || _level == 9) {
+    if (_level == 1 || _level == 5 || _level == 8 || _level == 9) {
         [operators addObject:@"$"];
     }
     if (_level == 4 || _level == 7 || _level == 8 || _level == 9) {
@@ -227,6 +233,7 @@ CGFloat INSET_RATIO = 0.02;
         [operators addObject:@"/"];
     }
     
+    // TODO: Implement boss level for lvl 5 and 10!
     if (_level == 10) {
         [operators addObject:@"$"];
         [operators addObject:@"+"];
@@ -369,6 +376,18 @@ CGFloat INSET_RATIO = 0.02;
     [self.view sendSubviewToBack:_gameView];
 }
 
+-(void)createGameEndViewVictory
+{
+    CGRect frame = self.view.frame;
+    CGFloat width = CGRectGetWidth(frame);
+    CGFloat height = CGRectGetHeight(frame);
+    
+    CGRect gameEndViewFrame = CGRectMake(0, 0, width, height);
+    _gameEndView = [[GameEndView alloc] initWithFrameVictory:gameEndViewFrame];
+    [_gameEndView setDelegate:self];
+    [self.view addSubview:_gameEndView];
+    [self.view sendSubviewToBack:_gameView];
+}
 
 // Back button to main menu
 -(void)backToMainMenu
@@ -381,13 +400,10 @@ CGFloat INSET_RATIO = 0.02;
 {
     if (won){
         ++_level;
-        NSLog(@"Creating next level");
     }
     else {
         _score = 0;
-        NSLog(@"Retrying level");
     }
-    //[self setup];
     [_gameEndView removeFromSuperview];
     [self viewDidLoad];
 }

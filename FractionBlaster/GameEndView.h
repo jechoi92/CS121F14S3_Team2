@@ -14,5 +14,6 @@
 @property (assign, nonatomic) id <GoBack> delegate;
 
 -(id)initWithFrame:(CGRect)frame withLevel:(int)level andScore:(int)score andWin:(BOOL)win;
+-(id)initWithFrameVictory:(CGRect)frame;
 
 @end

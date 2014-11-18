@@ -13,6 +13,7 @@
     UIButton* _backButton;
     UIButton* _continueButton;
     UILabel* _endMessageLabel;
+    UILabel* _endMessageVictoryLabel;
     UILabel* _levelLabel;
     UILabel* _scoreLabel;
     
@@ -62,7 +63,7 @@
                       forControlEvents:UIControlEventTouchUpInside];
         }
         else {
-            endMessageLabelFrame = CGRectMake(width * 0.20, height * 0.3, width * 0.6, height * 0.1);
+            endMessageLabelFrame = CGRectMake(width * 0.21, height * 0.3, width * 0.6, height * 0.1);
             _endMessageLabel = [[UILabel alloc] initWithFrame:endMessageLabelFrame];
             [_endMessageLabel setText: @"YOU HAVE FAILED HUMANITY..."];
             [self setBackgroundColor:[[UIColor alloc] initWithPatternImage:[UIImage imageNamed:@"background_defeat"]]];
@@ -76,14 +77,51 @@
         
         [self setOpaque:NO];
     }
-    CATransition* transition = [CATransition animation];
-    transition.type = kCATransitionFade;
-    transition.duration = 2;
-    transition.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseOut];
-    
-    [self.layer addAnimation:transition forKey:nil];
     return self;
 }
+
+- (id)initWithFrameVictory:(CGRect)frame
+{
+    self = [super initWithFrame:frame];
+    if (self) {
+        
+        CGFloat width = CGRectGetWidth(frame);
+        CGFloat height = CGRectGetHeight(frame);
+
+        
+        CGRect backButtonFrame = CGRectMake(width * 0.41,height * 0.6,width * 0.2, height * 0.08);
+        _backButton = [[UIButton alloc] initWithFrame:backButtonFrame];
+        [_backButton setTitle:@"Main Menu" forState:UIControlStateNormal];
+        [_backButton.titleLabel setFont:[UIFont fontWithName:@"HelveticaNeue-Bold" size:24.0f]];
+        [_backButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+        [[_backButton layer] setBorderWidth:2.5f];
+        [[_backButton layer] setBorderColor:[UIColor whiteColor].CGColor];
+        [[_backButton layer] setCornerRadius:18.0f];
+        [_backButton addTarget:self action:@selector(backButtonPressed)
+              forControlEvents:UIControlEventTouchUpInside];
+        [self addSubview:_backButton];
+        
+    
+        CGRect endMessageLabelFrame = CGRectMake(width * 0.3, height * 0.1, width * 0.5, height * 0.5);
+        _endMessageLabel = [[UILabel alloc] initWithFrame:endMessageLabelFrame];
+        [_endMessageLabel setText: @"Congratulations Cadet!"];
+        [_endMessageLabel setFont:[UIFont fontWithName:@"HelveticaNeue-Bold" size:30.0f]];
+        [_endMessageLabel setTextColor:[UIColor whiteColor]];
+        [self addSubview:_endMessageLabel];
+        
+        CGRect endMessageLabelVictoryFrame = CGRectMake(width * 0.31, height * 0.2, width * 0.5, height * 0.5);
+        _endMessageVictoryLabel = [[UILabel alloc] initWithFrame:endMessageLabelVictoryFrame];
+        [_endMessageVictoryLabel setText: @"You have saved Earth!"];
+        [_endMessageVictoryLabel setFont:[UIFont fontWithName:@"HelveticaNeue-Bold" size:30.0f]];
+        [_endMessageVictoryLabel setTextColor:[UIColor whiteColor]];
+        [self addSubview:_endMessageVictoryLabel];
+        
+        [self setBackgroundColor:[[UIColor alloc] initWithPatternImage:[UIImage imageNamed:@"background"]]];
+        
+    }
+    return self;
+}
+
 
 -(void)createTopLabelsWithFrame:(CGRect)frame andLevel:(int)level andScore:(int)score
 {
