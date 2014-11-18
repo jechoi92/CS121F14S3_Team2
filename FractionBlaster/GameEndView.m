@@ -19,14 +19,12 @@
 {
     self = [super initWithFrame:frame];
     if (self) {
+        
         CGFloat width = CGRectGetWidth(frame);
         CGFloat height = CGRectGetHeight(frame);
         
         CGRect endMessageLabelFrame;
-        
-        
-        
-        
+       
         CGRect backButtonFrame = CGRectMake(width * 0.25,height * 0.5,width * 0.2, height * 0.08);
         _backButton = [[UIButton alloc] initWithFrame:backButtonFrame];
         [_backButton setTitle:@"Main Menu" forState:UIControlStateNormal];
@@ -64,6 +62,7 @@
         [_endMessageLabel setTextColor:[UIColor whiteColor]];
         [self addSubview:_endMessageLabel];
         
+        [self setOpaque:NO];
     }
     return self;
 }

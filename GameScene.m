@@ -108,7 +108,7 @@ int MAX_SPEED = 25;
 - (int)findMinimumAsteroidDuration:(int)level
 {
     if (level == 10) {
-        return 15;
+        return 10   ;
     }
     
     if (level < 5) {

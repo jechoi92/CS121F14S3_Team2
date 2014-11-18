@@ -41,10 +41,11 @@
 		93CB21731A075CCD0050185E /* HealthBarView.m in Sources */ = {isa = PBXBuildFile; fileRef = 93CB21721A075CCD0050185E /* HealthBarView.m */; };
 		93CB21791A075D510050185E /* GameScene.m in Sources */ = {isa = PBXBuildFile; fileRef = 93CB21781A075D510050185E /* GameScene.m */; };
 		93EB31CA1A1AD13E0075BD53 /* GameView.m in Sources */ = {isa = PBXBuildFile; fileRef = 93EB31C91A1AD13E0075BD53 /* GameView.m */; };
-		93EB31CE1A1AD8C50075BD53 /* GameEndViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 93EB31CD1A1AD8C50075BD53 /* GameEndViewController.m */; };
 		93EB31D11A1ADACA0075BD53 /* GameEndView.m in Sources */ = {isa = PBXBuildFile; fileRef = 93EB31D01A1ADACA0075BD53 /* GameEndView.m */; };
 		93EB31D41A1AE7130075BD53 /* background_defeat.png in Resources */ = {isa = PBXBuildFile; fileRef = 93EB31D21A1AE7120075BD53 /* background_defeat.png */; };
 		93EB31D51A1AE7130075BD53 /* background_defeat@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 93EB31D31A1AE7130075BD53 /* background_defeat@2x.png */; };
+		93EB31D81A1AFA3F0075BD53 /* LeaderboardViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 93EB31D71A1AFA3F0075BD53 /* LeaderboardViewController.m */; };
+		93EB31DB1A1AFAA60075BD53 /* LeaderboardView.m in Sources */ = {isa = PBXBuildFile; fileRef = 93EB31DA1A1AFAA60075BD53 /* LeaderboardView.m */; };
 		93EFADEE1A102B9E00195D8E /* asteroid.png in Resources */ = {isa = PBXBuildFile; fileRef = 93EFADDD1A102B9E00195D8E /* asteroid.png */; };
 		93EFADEF1A102B9E00195D8E /* asteroid@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 93EFADDE1A102B9E00195D8E /* asteroid@2x.png */; };
 		93EFADF01A102B9E00195D8E /* background-music-aac.caf in Resources */ = {isa = PBXBuildFile; fileRef = 93EFADDF1A102B9E00195D8E /* background-music-aac.caf */; };
@@ -114,12 +115,14 @@
 		93CB21781A075D510050185E /* GameScene.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; name = GameScene.m; path = ../GameScene.m; sourceTree = "<group>"; };
 		93EB31C81A1AD13E0075BD53 /* GameView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameView.h; sourceTree = "<group>"; };
 		93EB31C91A1AD13E0075BD53 /* GameView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameView.m; sourceTree = "<group>"; };
-		93EB31CC1A1AD8C50075BD53 /* GameEndViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameEndViewController.h; sourceTree = "<group>"; };
-		93EB31CD1A1AD8C50075BD53 /* GameEndViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameEndViewController.m; sourceTree = "<group>"; };
 		93EB31CF1A1ADACA0075BD53 /* GameEndView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameEndView.h; sourceTree = "<group>"; };
 		93EB31D01A1ADACA0075BD53 /* GameEndView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameEndView.m; sourceTree = "<group>"; };
 		93EB31D21A1AE7120075BD53 /* background_defeat.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = background_defeat.png; sourceTree = "<group>"; };
 		93EB31D31A1AE7130075BD53 /* background_defeat@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "background_defeat@2x.png"; sourceTree = "<group>"; };
+		93EB31D61A1AFA3F0075BD53 /* LeaderboardViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LeaderboardViewController.h; sourceTree = "<group>"; };
+		93EB31D71A1AFA3F0075BD53 /* LeaderboardViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LeaderboardViewController.m; sourceTree = "<group>"; };
+		93EB31D91A1AFAA60075BD53 /* LeaderboardView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LeaderboardView.h; sourceTree = "<group>"; };
+		93EB31DA1A1AFAA60075BD53 /* LeaderboardView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LeaderboardView.m; sourceTree = "<group>"; };
 		93EFADDD1A102B9E00195D8E /* asteroid.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = asteroid.png; sourceTree = "<group>"; };
 		93EFADDE1A102B9E00195D8E /* asteroid@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "asteroid@2x.png"; sourceTree = "<group>"; };
 		93EFADDF1A102B9E00195D8E /* background-music-aac.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "background-music-aac.caf"; sourceTree = "<group>"; };
@@ -201,14 +204,16 @@
 				93CB21621A075AFC0050185E /* Fraction.h */,
 				93CB216B1A075C8F0050185E /* EquationGenerator.h */,
 				93CB216C1A075C8F0050185E /* EquationGenerator.m */,
+				93EB31D61A1AFA3F0075BD53 /* LeaderboardViewController.h */,
+				93EB31D91A1AFAA60075BD53 /* LeaderboardView.h */,
+				93EB31DA1A1AFAA60075BD53 /* LeaderboardView.m */,
+				93EB31D71A1AFA3F0075BD53 /* LeaderboardViewController.m */,
 				93CB216E1A075CC30050185E /* SideBarView.h */,
 				93CB216F1A075CC30050185E /* SideBarView.m */,
 				93CB21711A075CCD0050185E /* HealthBarView.h */,
 				93CB21721A075CCD0050185E /* HealthBarView.m */,
 				93CB21771A075D510050185E /* GameScene.h */,
 				93CB21781A075D510050185E /* GameScene.m */,
-				93EB31CC1A1AD8C50075BD53 /* GameEndViewController.h */,
-				93EB31CD1A1AD8C50075BD53 /* GameEndViewController.m */,
 				93EB31CF1A1ADACA0075BD53 /* GameEndView.h */,
 				93EB31D01A1ADACA0075BD53 /* GameEndView.m */,
 				93EB31C81A1AD13E0075BD53 /* GameView.h */,
@@ -432,9 +437,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				93EB31D81A1AFA3F0075BD53 /* LeaderboardViewController.m in Sources */,
 				93CB20FB1A0754590050185E /* MainMenuViewController.m in Sources */,
 				93CB20F81A0754590050185E /* AppDelegate.m in Sources */,
-				93EB31CE1A1AD8C50075BD53 /* GameEndViewController.m in Sources */,
 				93CB216A1A075BB00050185E /* GameViewController.m in Sources */,
 				DAAA17A61A167BB000D84A96 /* MainMenuButtonsView.m in Sources */,
 				93CB216D1A075C8F0050185E /* EquationGenerator.m in Sources */,
@@ -449,6 +454,7 @@
 				DAE395721A0F65D400D55633 /* StartLevelButtonView.m in Sources */,
 				93CB21641A075AFC0050185E /* Fraction.m in Sources */,
 				93EB31D11A1ADACA0075BD53 /* GameEndView.m in Sources */,
+				93EB31DB1A1AFAA60075BD53 /* LeaderboardView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

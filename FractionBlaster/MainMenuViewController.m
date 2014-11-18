@@ -7,7 +7,7 @@
 //
 
 #import "MainMenuViewController.h"
-#import "LevelSelectViewController.h"
+
 
 @interface MainMenuViewController ()
 
@@ -51,7 +51,6 @@
         case 0:
         {
             // Go to LevelSelectViewController
-            NSLog(@"Start game pressed");
             LevelSelectViewController *lsvc = [[LevelSelectViewController alloc] init];
             [self.navigationController pushViewController:lsvc animated:YES];
             break;
@@ -59,13 +58,13 @@
         case 1:
         {
             // Go to InstrViewController
-            NSLog(@"Instr button pressed");
             break;
         }
         case 2:
         {
             // Go to Leaderboard??
-            NSLog(@"Leaderboard pressed");
+            LeaderboardViewController *lbvc = [[LeaderboardViewController alloc] init];
+            [self.navigationController pushViewController:lbvc animated:YES];
             break;
         }
         default:

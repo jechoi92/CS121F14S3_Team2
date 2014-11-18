@@ -8,6 +8,8 @@
 
 #import <UIKit/UIKit.h>
 #import "MainMenuButtonsView.h"
+#import "LevelSelectViewController.h"
+#import "LeaderboardViewController.h"
 
 @interface MainMenuViewController : UIViewController <ButtonSelected>
 
