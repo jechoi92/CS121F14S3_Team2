@@ -15,6 +15,7 @@ CGFloat INSET_RATIO;
 int SLOW_SPEED = 35;
 int MEDIUM_SPEED = 30;
 int MAX_SPEED = 25;
+int HELL_MODE = 15;
 
 // TODO make a spritenode that represents the surface of the earth for asteroid collisions?
 
@@ -108,7 +109,7 @@ int MAX_SPEED = 25;
 - (int)findMinimumAsteroidDuration:(int)level
 {
     if (level == 10) {
-        return 10   ;
+        return HELL_MODE;
     }
     
     if (level < 5) {
@@ -124,9 +125,9 @@ int MAX_SPEED = 25;
 
 - (int)findAsteroidsToDestroy:(int)level
 {
-    if (level == 10) {
-        return 2;
-    }
+//    if (level == 10) {
+//        return 2;
+//    }
     
     if (level < 2) {
         return 10;
