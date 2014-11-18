@@ -49,6 +49,8 @@ UIColor *highlightBGColor;
       UIButton *levelButton;
       
       int unlockedLevel = [self readProgress];
+        unlockedLevel = 10;
+        
       
       for (int row = 0; row < numRows; ++row){
         // Set/reset xOffset for new column

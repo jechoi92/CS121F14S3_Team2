@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface LabelsAndButtonsView : UIView
+@interface GameView : UIView
 
 -(id)initWithFrame:(CGRect)frame andLevel:(int)level;
 -(void)updateScore:(int)score;

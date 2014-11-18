@@ -7,7 +7,6 @@
 //
 
 #import "GameScene.h"
-#import "GameOverScene.h"
 
 static const uint32_t laserCategory     =  0x1 << 0;
 static const uint32_t asteroidCategory  =  0x1 << 1;
@@ -470,14 +469,5 @@ int MAX_SPEED = 25;
     }];
 }
 
-- (void)gameOver
-{
-    SKAction* gameOver = [SKAction runBlock:^{
-        SKTransition *reveal = [SKTransition flipHorizontalWithDuration:0.5];
-        SKScene* gameOverScene = [[GameOverScene alloc] initWithSize:self.size won:NO];
-        [self.view presentScene:gameOverScene transition:reveal];
-    }];
-    [self runAction:[SKAction sequence:@[gameOver]]];
-}
 
 @end

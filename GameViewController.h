@@ -12,8 +12,8 @@
 #import "HealthBarView.h"
 #import "EquationGenerator.h"
 #import "SideBarView.h"
-#import "GameOverScene.h"
-#import "LabelsAndButtonsView.h"
+#import "GameView.h"
+#import "GameEndViewController.h"
 
 @interface GameViewController : UIViewController <AsteroidAction,
                                                   LaserFrequencyChosen>

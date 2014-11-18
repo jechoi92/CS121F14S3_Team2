@@ -15,7 +15,7 @@
 @end
 
 int TOTAL_INITIAL_FRACTIONS = 5;
-int HEALTHPENALTY = 20;
+int HEALTHPENALTY = 100;
 CGFloat INSET_RATIO = 0.02;
 
 @implementation GameViewController
@@ -24,7 +24,7 @@ CGFloat INSET_RATIO = 0.02;
     SideBarView* _sidebar;
     GameScene* _scene;
     EquationGenerator* _equationGenerator;
-    LabelsAndButtonsView* _labelsAndButtonsView;
+    GameView* _gameView;
     NSMutableArray* _initialFractions;
     NSTimer* _asteroidGenerationTimer;
     int _level;
@@ -93,8 +93,8 @@ CGFloat INSET_RATIO = 0.02;
     CGRect labelsAndButtonsFrame = CGRectMake(0, 0, width, height);
     
     
-    _labelsAndButtonsView= [[LabelsAndButtonsView alloc] initWithFrame:labelsAndButtonsFrame andLevel:_level];
-    [self.view addSubview:_labelsAndButtonsView];
+    _gameView= [[GameView alloc] initWithFrame:labelsAndButtonsFrame andLevel:_level];
+    [self.view addSubview:_gameView];
 }
 
 // Creates the sidebar.
@@ -153,24 +153,17 @@ CGFloat INSET_RATIO = 0.02;
     [_asteroidGenerationTimer invalidate];
     [_sidebar removeFromSuperview];
     [_healthBar removeFromSuperview];
-    //[_backButton removeFromSuperview];
-  
-    SKView * skView = (SKView *)self.view;
-    _scene = [GameScene sceneWithSize:skView.bounds.size];
-    _scene.scaleMode = SKSceneScaleModeAspectFill;
+    [_gameView removeFromSuperview];
     
-    // Present the scene.
-    [skView presentScene:_scene];
-  
-    GameOverScene *gameOverScene;
-    if (winning){
-        [self writeProgress];
-        gameOverScene = [[GameOverScene alloc]
-                                      initWithSize:_scene.size won:YES];
-    } else {
-        gameOverScene = [[GameOverScene alloc] initWithSize:_scene.size won:NO];
+    GameEndViewController* gevc;
+    if (winning) {
+        gevc = [[GameEndViewController alloc] initWithLevel:_level andScore:_score andWin:YES];
     }
-    [skView presentScene:gameOverScene];
+    else {
+        gevc = [[GameEndViewController alloc] initWithLevel:_level andScore:_score andWin:NO];
+    }
+    
+    [self presentViewController:gevc animated:YES completion:nil];
 }
 
 -(void)writeProgress
@@ -210,7 +203,7 @@ CGFloat INSET_RATIO = 0.02;
 - (void)incrementScore:(int)value
 {
     _score += value;
-    [_labelsAndButtonsView updateScore:_score];
+    [_gameView updateScore:_score];
 }
 
 // Gets a random equation from the generator, and then creates an asteroid on the scene
