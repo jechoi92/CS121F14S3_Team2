@@ -22,7 +22,7 @@
 - (id)initWithFrame:(CGRect)frame;
 
 // initializes all of the UIButtons and allocates them in a 1x4 frame
-- (void)makeButtonsWithFrame;
+- (void)makeButtons;
 
 // Returns the button in the NSMutable array of all the
 // buttons placed on the side bar

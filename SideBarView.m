@@ -20,7 +20,7 @@ int TOTAL_INITIAL_FRACTIONS;
 - (id)initWithFrame:(CGRect)frame {
     self = [super initWithFrame:frame];
     if (self) {
-        [self makeButtonsWithFrame];
+        [self makeButtons];
     }
     return self;
 }
@@ -38,7 +38,7 @@ int TOTAL_INITIAL_FRACTIONS;
 
 
 // Initializes all of the UIButtons and allocates them in a 1X4 frame
-- (void)makeButtonsWithFrame
+- (void)makeButtons
 {
     CGRect frame = self.frame;
     _buttons = [[NSMutableArray alloc] initWithCapacity:TOTAL_INITIAL_FRACTIONS];

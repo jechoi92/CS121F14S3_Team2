@@ -87,7 +87,6 @@
 
 -(void)backButtonPressed
 {
-    NSLog(@"Back button was pressed");
     [self.navigationController popViewControllerAnimated:YES];
 }
 

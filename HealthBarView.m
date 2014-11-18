@@ -9,13 +9,14 @@
 #import "HealthBarView.h"
 
 
-int NUM_OF_BARS = 5;
+int NUM_OF_BARS = 10;
 int MAX_HEALTH = 100;
 
 @implementation HealthBarView
 {
     int _healthLevel;
     NSMutableArray* _healthBar;
+    UIImageView* _container;
 }
 
 // Initializes the health bar (array of blank labels) and health level.
@@ -27,17 +28,23 @@ int MAX_HEALTH = 100;
         _healthBar = [[NSMutableArray alloc] initWithCapacity:NUM_OF_BARS];
         CGFloat height = CGRectGetHeight(frame);
         CGFloat width = CGRectGetWidth(frame);
-        CGFloat labelHeight = height / NUM_OF_BARS;
+        CGFloat labelHeight = 5.1 * height / 7 / NUM_OF_BARS;
         
         for (int i = 0; i < NUM_OF_BARS; i++) {
-            CGRect labelFrame = CGRectMake(0, i * labelHeight, width, labelHeight);
+            CGRect labelFrame = CGRectMake(0, 1.0 / 7.0 * height + i * labelHeight, width, labelHeight);
             UILabel* currentLabel = [[UILabel alloc] initWithFrame:labelFrame];
             
             [self addSubview:currentLabel];
             [_healthBar addObject:currentLabel];
         }
+        //[self setBackgroundColor:[[UIColor alloc] initWithPatternImage:[UIImage imageNamed:@"shields"]]];
+        _container = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"shields.png"]];
+        [_container setFrame:CGRectMake(0,0,width, height)];
+        [self addSubview:_container];
     }
+    
     [self updateHealthBar];
+    
     return self;
 }
 

@@ -1,5 +1,5 @@
 //
-//  GameEndView.h
+//  LeaderboardViewController.h
 //  FractionBlaster
 //
 //  Created by CS121 on 11/17/14.
@@ -7,9 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "LeaderboardView.h"
 
-@interface GameEndView : UIView
-
--(id)initWithFrame:(CGRect)frame withLevel:(int)level andScore:(int)score andWin:(BOOL)win;
+@interface LeaderboardViewController : UIViewController <GoBack>
 
 @end

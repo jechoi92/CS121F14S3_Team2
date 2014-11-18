@@ -108,7 +108,7 @@ int MAX_SPEED = 25;
 - (int)findMinimumAsteroidDuration:(int)level
 {
     if (level == 10) {
-        return 15;
+        return 10   ;
     }
     
     if (level < 5) {
@@ -257,8 +257,8 @@ int MAX_SPEED = 25;
     asteroid.physicsBody.collisionBitMask = 0; // 5
     
     // Determine where to spawn the asteroid along the X axis
-    int minX = asteroid.size.width;
-    int maxX = self.frame.size.width - asteroid.size.width;
+    int minX = asteroid.size.width * 1.2;
+    int maxX = self.frame.size.width - asteroid.size.width * 1.2;
     int rangeX = maxX - minX;
     int actualX = (arc4random() % rangeX) + minX;
     
@@ -304,7 +304,7 @@ int MAX_SPEED = 25;
 - (CGPoint)boundPlayerPos:(CGPoint)newPos {
     CGSize winSize = self.size;
     CGPoint retval = newPos;
-    retval.x = MAX(retval.x, [self.player size].width);
+    retval.x = MAX(retval.x, [self.player size].width * 1.2);
     retval.x = MIN(retval.x, winSize.width - [self.player size].width * 1.2);
     retval.y = self.player.position.y;
     return retval;

@@ -64,7 +64,6 @@
         case 0:
         {
             // Go to LevelSelectViewController
-            NSLog(@"Start game pressed");
             LevelSelectViewController *lsvc = [[LevelSelectViewController alloc] init];
             [self.navigationController pushViewController:lsvc animated:YES];
             break;
@@ -79,7 +78,8 @@
         case 2:
         {
             // Go to Leaderboard??
-            NSLog(@"Leaderboard pressed");
+            LeaderboardViewController *lbvc = [[LeaderboardViewController alloc] init];
+            [self.navigationController pushViewController:lbvc animated:YES];
             break;
         }
         default:
