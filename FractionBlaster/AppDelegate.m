@@ -7,16 +7,26 @@
 //
 
 #import "AppDelegate.h"
-
-@interface AppDelegate ()
-
-@end
+#import "MainMenuViewController.h"
 
 @implementation AppDelegate
 
+@synthesize navController;
+
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-    // Override point for customization after application launch.
+    
+    // Set up view/nav controller
+    MainMenuViewController *mmvc = [MainMenuViewController new];
+    navController = [[UINavigationController alloc] initWithRootViewController:mmvc];
+    navController.navigationBarHidden = YES;
+    
+    // Set up window with navController as root
+    self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
+    [self.window setRootViewController:navController];
+    [self.window setBackgroundColor:[UIColor whiteColor]];
+    [self.window makeKeyAndVisible];
+    
     return YES;
 }
 

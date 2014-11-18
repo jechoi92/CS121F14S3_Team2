@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import <SpriteKit/SpriteKit.h>
+#import <AVFoundation/AVFoundation.h>
 #import "GameScene.h"
 #import "HealthBarView.h"
 #import "EquationGenerator.h"
@@ -17,6 +18,8 @@
 
 @interface GameViewController : UIViewController <AsteroidAction,
                                                   LaserFrequencyChosen>
+
+@property (nonatomic) AVAudioPlayer *backgroundMusicPlayer;
 
 - (id)initWithLevel:(int)level andScore: (int)score;
 - (void)createHealthBar;

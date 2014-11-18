@@ -17,7 +17,7 @@
 
 @interface GameScene : SKScene
 
-@property (assign, nonatomic) id <AsteroidAction> delegate;
+@property (nonatomic, weak) id <AsteroidAction> delegate;
 
 
 -(id)initWithSize:(CGSize)size andLevel:(int)level;

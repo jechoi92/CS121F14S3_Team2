@@ -8,11 +8,6 @@
 
 #import "GameViewController.h"
 #import <QuartzCore/QuartzCore.h>
-@import AVFoundation;
-
-@interface GameViewController ()
-@property (nonatomic) AVAudioPlayer * backgroundMusicPlayer;
-@end
 
 int TOTAL_INITIAL_FRACTIONS = 5;
 int HEALTHPENALTY = 100;
@@ -45,7 +40,6 @@ CGFloat INSET_RATIO = 0.02;
     SKView *skView = [[SKView alloc] initWithFrame:applicationFrame];
     self.view = skView;
 }
-
 
 - (void)viewWillLayoutSubviews
 {

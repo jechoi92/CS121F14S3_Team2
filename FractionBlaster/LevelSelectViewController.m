@@ -10,8 +10,9 @@
 
 @implementation LevelSelectViewController
 {
-  LevelButtonView *_levelButtonView;
-  StartLevelButtonView *_startLevelButtonView;
+    LevelButtonView *_levelButtonView;
+    StartLevelButtonView *_startLevelButtonView;
+    UIButton *_backButton;
 }
 
 -(void)viewDidLoad
