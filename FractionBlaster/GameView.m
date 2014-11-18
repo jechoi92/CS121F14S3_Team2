@@ -127,8 +127,24 @@ CGFloat INSET_RATIO;
 // Selector for the back button
 -(void)backButtonPressed
 {
-    // [self.delegate removeGameViewController];
-    NSLog(@"Back button was pressed");
+    UIAlertView* alert = [[UIAlertView alloc] initWithTitle:@""
+                                                    message:@"Go back to main menu? Your progress will be lost!"
+                                                   delegate:self
+                                          cancelButtonTitle:nil
+                                          otherButtonTitles:nil];
+    [alert addButtonWithTitle:@"Yes"];
+    [alert addButtonWithTitle:@"Cancel"];
+    [alert show];
 }
+
+- (void)alertView:(UIAlertView *)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex
+{
+
+    if (buttonIndex == 0) {
+        // TODO Go back to main menu
+        NSLog(@"We need to go back.");
+    }
+}
+
 
 @end

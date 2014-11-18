@@ -47,11 +47,11 @@ CGFloat INSET_RATIO = 0.02;
     // Do any additional setup after loading the view, typically from a nib.
     
     NSError *error;
-    //NSURL * backgroundMusicURL = [[NSBundle mainBundle] URLForResource:@"background-music-aac" withExtension:@"caf"];
-    //self.backgroundMusicPlayer = [[AVAudioPlayer alloc] initWithContentsOfURL:backgroundMusicURL error:&error];
-  //  self.backgroundMusicPlayer.numberOfLoops = -1;
-   // [self.backgroundMusicPlayer prepareToPlay];
-   // [self.backgroundMusicPlayer play];
+    NSURL * backgroundMusicURL = [[NSBundle mainBundle] URLForResource:@"background-music-aac" withExtension:@"caf"];
+    self.backgroundMusicPlayer = [[AVAudioPlayer alloc] initWithContentsOfURL:backgroundMusicURL error:&error];
+    self.backgroundMusicPlayer.numberOfLoops = -1;
+    [self.backgroundMusicPlayer prepareToPlay];
+    [self.backgroundMusicPlayer play];
     
     
     
@@ -148,6 +148,8 @@ CGFloat INSET_RATIO = 0.02;
     [_sidebar removeFromSuperview];
     [_healthBar removeFromSuperview];
     [_gameView removeFromSuperview];
+    SKView* skView = (SKView *)self.view;
+    [skView presentScene:nil];
     
     GameEndViewController* gevc;
     if (winning) {

@@ -42,15 +42,7 @@
     [self.view addSubview:_gameEndView];
 }
 
--(void)goBackToMainMenu
-{
-    
-}
 
--(void)continueNextLevel
-{
-    
-}
 
 
 @end
