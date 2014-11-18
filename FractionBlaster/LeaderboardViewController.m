@@ -59,9 +59,14 @@ CGFloat INSET_RATIO;
     return [[NSArray alloc] initWithArray:scores];
 }
 
--(void)goBack
+-(void)backToMainMenu
 {
     [self.navigationController popViewControllerAnimated:YES];
+}
+
+-(void)backToGameWithNextLevel:(BOOL)won
+{
+    //dummy implementation
 }
 
 @end

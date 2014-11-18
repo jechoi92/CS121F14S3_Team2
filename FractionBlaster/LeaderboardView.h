@@ -7,11 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-
-
-@protocol GoBack
-- (void)goBack;
-@end
+#import "GameView.h"
 
 @interface LeaderboardView : UIView
 

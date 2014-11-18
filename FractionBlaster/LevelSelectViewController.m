@@ -18,6 +18,8 @@
 -(void)viewDidLoad
 {
   [super viewDidLoad];
+    
+    [self.view setBackgroundColor:[[UIColor alloc] initWithPatternImage:[UIImage imageNamed:@"main_background"]]];
   
   // Get frame and frame dimensions
   CGRect frame = self.view.frame;

@@ -10,7 +10,7 @@
 #import <QuartzCore/QuartzCore.h>
 
 int TOTAL_INITIAL_FRACTIONS = 5;
-int HEALTHPENALTY = 20;
+int HEALTHPENALTY = 100;
 CGFloat INSET_RATIO = 0.02;
 
 @implementation GameViewController
@@ -88,7 +88,8 @@ CGFloat INSET_RATIO = 0.02;
     CGRect labelsAndButtonsFrame = CGRectMake(0, 0, width, height);
     
     
-    _gameView= [[GameView alloc] initWithFrame:labelsAndButtonsFrame andLevel:_level];
+    _gameView= [[GameView alloc] initWithFrame:labelsAndButtonsFrame andLevel:_level andScore:_score];
+    [_gameView setDelegate:self];
     [self.view addSubview:_gameView];
 }
 
@@ -363,8 +364,32 @@ CGFloat INSET_RATIO = 0.02;
     
     CGRect gameEndViewFrame = CGRectMake(0, 0, width, height);
     _gameEndView = [[GameEndView alloc] initWithFrame:gameEndViewFrame withLevel:_level andScore:_score andWin:win];
+    [_gameEndView setDelegate:self];
     [self.view addSubview:_gameEndView];
     [self.view sendSubviewToBack:_gameView];
+}
+
+
+// Back button to main menu
+-(void)backToMainMenu
+{
+    [self cleanup];
+    [self.navigationController popToRootViewControllerAnimated:YES];
+}
+
+-(void)backToGameWithNextLevel:(BOOL)won
+{
+    if (won){
+        ++_level;
+        NSLog(@"Creating next level");
+    }
+    else {
+        _score = 0;
+        NSLog(@"Retrying level");
+    }
+    //[self setup];
+    [_gameEndView removeFromSuperview];
+    [self viewDidLoad];
 }
 
 - (BOOL)shouldAutorotate

@@ -17,7 +17,8 @@
 #import "GameEndView.h"
 
 @interface GameViewController : UIViewController <AsteroidAction,
-                                                  LaserFrequencyChosen>
+                                                  LaserFrequencyChosen,
+                                                  GoBack>
 
 @property (nonatomic) AVAudioPlayer *backgroundMusicPlayer;
 

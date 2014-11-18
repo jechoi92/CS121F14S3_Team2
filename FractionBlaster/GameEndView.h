@@ -7,8 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "GameView.h"
 
 @interface GameEndView : UIView
+
+@property (assign, nonatomic) id <GoBack> delegate;
 
 -(id)initWithFrame:(CGRect)frame withLevel:(int)level andScore:(int)score andWin:(BOOL)win;
 
