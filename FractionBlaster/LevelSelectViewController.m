@@ -8,6 +8,8 @@
 
 #import "LevelSelectViewController.h"
 
+
+
 @implementation LevelSelectViewController
 {
     LevelButtonView *_levelButtonView;
@@ -15,10 +17,15 @@
     UIButton *_backButton;
 }
 
+// Constant to dtermine the placement of top view icons
+static CGFloat INSET_RATIO = 0.02;
+
+// Initialize the level seclect view controller
 -(void)viewDidLoad
 {
-  [super viewDidLoad];
+    [super viewDidLoad];
     
+    // Set the background to the default space theme
     [self.view setBackgroundColor:[[UIColor alloc] initWithPatternImage:[UIImage imageNamed:@"main_background"]]];
   
     // Get frame and frame dimensions
@@ -33,64 +40,61 @@
     CGFloat levelViewYOffset = 0.5 * frameHeight;
     CGFloat levelViewWidth = frameWidth * levelViewPctOfFrame;
     CGFloat levelViewHeight = levelViewWidth * 2 / 5;
-    
-    // Create LevelDescription View
-    CGRect title = CGRectMake(0, -50, frameWidth, frameHeight*.5);
-    UIImageView *imageView = [[UIImageView alloc] initWithFrame:title];
-    imageView.image = [UIImage imageNamed:@"Levels.png"];
-    [self.view addSubview:imageView];
-    
     CGRect levelViewFrame = CGRectMake(levelViewXOffset, levelViewYOffset, levelViewWidth, levelViewHeight);
     
-    // Create gameButton view
+    // Creates the title on the screen
+    [self createLevelTitleWithWidth:frameWidth andHeight:frameHeight];
+    
+    // Create start button with the appropriate delegate
     _levelButtonView = [[LevelButtonView alloc] initWithFrame:levelViewFrame];
     [self.view addSubview:_levelButtonView];
-    
-    // Create GameButtons View
     CGRect startButtonFrame = CGRectMake(frameWidth*.1, frameHeight*.8, frameWidth*.8, frameHeight*.15);
-    
     _startLevelButtonView = [[StartLevelButtonView alloc] initWithFrame:startButtonFrame];
     [_startLevelButtonView setDelegate:self];
     [self.view addSubview:_startLevelButtonView];
     
     // Create back button
-    [self createTopButtonsAndLabels];
+    [self createTopButtonsAndLabelsWithFrame:frame];
 }
 
-- (void)createTopButtonsAndLabels
+// Creates the level select title image at the top of the screen
+-(void)createLevelTitleWithWidth:(CGFloat)width andHeight:(CGFloat)height
 {
-    // TODO: Figure out what to do with this constant
-    CGFloat INSET_RATIO = 0.02;
-    
-    CGRect frame = self.view.frame;
+    // Add the level select image to the top of the view
+    CGRect title = CGRectMake(0, -50, width, height*.5);
+    UIImageView *imageView = [[UIImageView alloc] initWithFrame:title];
+    imageView.image = [UIImage imageNamed:@"Levels.png"];
+    [self.view addSubview:imageView];
+}
+
+// Creates the back button on the top of the level view screen
+- (void)createTopButtonsAndLabelsWithFrame:(CGRect)frame
+{
+    // Get all of the parameters of the frame to build the button
     CGFloat size = MIN(CGRectGetWidth(frame), CGRectGetHeight(frame));
-    
-    CGFloat itemWidth = size / 15;
-    
-    CGFloat backButtonLength = itemWidth;
-    CGFloat backButtonWidth = itemWidth;
+    CGFloat iconParam = size / 15;
     CGFloat backButtonX = CGRectGetWidth(frame) * INSET_RATIO;
     CGFloat backButtonY = CGRectGetHeight(frame) * INSET_RATIO;
-    CGRect backButtonFrame = CGRectMake(backButtonX, backButtonY, backButtonLength, backButtonWidth);
+    CGRect backButtonFrame = CGRectMake(backButtonX, backButtonY, iconParam, iconParam);
     
+    // Initailze the back button with these certain images and and icons
     _backButton = [[UIButton alloc] initWithFrame:backButtonFrame];
     [_backButton setBackgroundImage:[UIImage imageNamed:@"StartOverIcon"] forState:UIControlStateNormal];
-    [[_backButton layer] setBorderWidth:2.5f];
-    [[_backButton layer] setBorderColor:[UIColor blackColor].CGColor];
-    [[_backButton layer] setCornerRadius:12.0f];
     
+    // Set the delegate of when the button is clicked
     [_backButton addTarget:self action:@selector(backButtonPressed)
           forControlEvents:UIControlEventTouchUpInside];
     
     [self.view addSubview:_backButton];
-
 }
 
+// Tells the navigator controller to pop back to the main menu screen
 -(void)backButtonPressed
 {
     [self.navigationController popViewControllerAnimated:YES];
 }
 
+// Tells the navigator controller to progress to the game screen
 -(void)startLevel
 {
     int currentLevel = [_levelButtonView currentLevelSelected] + 1;
