@@ -6,9 +6,9 @@
 //  Copyright (c) 2014 MatherTeresa. All rights reserved.
 //
 
-#import "GameEndView.h"
+#import "GameEndLabelAndButtonsView.h"
 
-@implementation GameEndView
+@implementation GameEndLabelAndButtonsView
 {
     UIButton* _backButton;
     UIButton* _continueButton;

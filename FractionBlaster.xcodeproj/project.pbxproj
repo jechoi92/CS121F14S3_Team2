@@ -41,8 +41,8 @@
 		93CB21701A075CC30050185E /* SideBarView.m in Sources */ = {isa = PBXBuildFile; fileRef = 93CB216F1A075CC30050185E /* SideBarView.m */; };
 		93CB21731A075CCD0050185E /* HealthBarView.m in Sources */ = {isa = PBXBuildFile; fileRef = 93CB21721A075CCD0050185E /* HealthBarView.m */; };
 		93CB21791A075D510050185E /* GameScene.m in Sources */ = {isa = PBXBuildFile; fileRef = 93CB21781A075D510050185E /* GameScene.m */; };
-		93EB31CA1A1AD13E0075BD53 /* GameView.m in Sources */ = {isa = PBXBuildFile; fileRef = 93EB31C91A1AD13E0075BD53 /* GameView.m */; };
-		93EB31D11A1ADACA0075BD53 /* GameEndView.m in Sources */ = {isa = PBXBuildFile; fileRef = 93EB31D01A1ADACA0075BD53 /* GameEndView.m */; };
+		93EB31CA1A1AD13E0075BD53 /* GameLabelsAndButtonsView.m in Sources */ = {isa = PBXBuildFile; fileRef = 93EB31C91A1AD13E0075BD53 /* GameLabelsAndButtonsView.m */; };
+		93EB31D11A1ADACA0075BD53 /* GameEndLabelAndButtonsView.m in Sources */ = {isa = PBXBuildFile; fileRef = 93EB31D01A1ADACA0075BD53 /* GameEndLabelAndButtonsView.m */; };
 		93EB31D41A1AE7130075BD53 /* background_defeat.png in Resources */ = {isa = PBXBuildFile; fileRef = 93EB31D21A1AE7120075BD53 /* background_defeat.png */; };
 		93EB31D51A1AE7130075BD53 /* background_defeat@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 93EB31D31A1AE7130075BD53 /* background_defeat@2x.png */; };
 		93EB31D81A1AFA3F0075BD53 /* LeaderboardViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 93EB31D71A1AFA3F0075BD53 /* LeaderboardViewController.m */; };
@@ -156,10 +156,10 @@
 		93CB21721A075CCD0050185E /* HealthBarView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = HealthBarView.m; path = ../HealthBarView.m; sourceTree = "<group>"; };
 		93CB21771A075D510050185E /* GameScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GameScene.h; path = ../GameScene.h; sourceTree = "<group>"; };
 		93CB21781A075D510050185E /* GameScene.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; name = GameScene.m; path = ../GameScene.m; sourceTree = "<group>"; };
-		93EB31C81A1AD13E0075BD53 /* GameView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameView.h; sourceTree = "<group>"; };
-		93EB31C91A1AD13E0075BD53 /* GameView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameView.m; sourceTree = "<group>"; };
-		93EB31CF1A1ADACA0075BD53 /* GameEndView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameEndView.h; sourceTree = "<group>"; };
-		93EB31D01A1ADACA0075BD53 /* GameEndView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameEndView.m; sourceTree = "<group>"; };
+		93EB31C81A1AD13E0075BD53 /* GameLabelsAndButtonsView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameLabelsAndButtonsView.h; sourceTree = "<group>"; };
+		93EB31C91A1AD13E0075BD53 /* GameLabelsAndButtonsView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameLabelsAndButtonsView.m; sourceTree = "<group>"; };
+		93EB31CF1A1ADACA0075BD53 /* GameEndLabelAndButtonsView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameEndLabelAndButtonsView.h; sourceTree = "<group>"; };
+		93EB31D01A1ADACA0075BD53 /* GameEndLabelAndButtonsView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameEndLabelAndButtonsView.m; sourceTree = "<group>"; };
 		93EB31D21A1AE7120075BD53 /* background_defeat.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = background_defeat.png; sourceTree = "<group>"; };
 		93EB31D31A1AE7130075BD53 /* background_defeat@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "background_defeat@2x.png"; sourceTree = "<group>"; };
 		93EB31D61A1AFA3F0075BD53 /* LeaderboardViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LeaderboardViewController.h; sourceTree = "<group>"; };
@@ -310,10 +310,10 @@
 				93CB21721A075CCD0050185E /* HealthBarView.m */,
 				93CB21771A075D510050185E /* GameScene.h */,
 				93CB21781A075D510050185E /* GameScene.m */,
-				93EB31C81A1AD13E0075BD53 /* GameView.h */,
-				93EB31C91A1AD13E0075BD53 /* GameView.m */,
-				93EB31CF1A1ADACA0075BD53 /* GameEndView.h */,
-				93EB31D01A1ADACA0075BD53 /* GameEndView.m */,
+				93EB31C81A1AD13E0075BD53 /* GameLabelsAndButtonsView.h */,
+				93EB31C91A1AD13E0075BD53 /* GameLabelsAndButtonsView.m */,
+				93EB31CF1A1ADACA0075BD53 /* GameEndLabelAndButtonsView.h */,
+				93EB31D01A1ADACA0075BD53 /* GameEndLabelAndButtonsView.m */,
 				93CB20F61A0754590050185E /* AppDelegate.h */,
 				93CB20F71A0754590050185E /* AppDelegate.m */,
 				93CB20FC1A0754590050185E /* Main.storyboard */,
@@ -625,11 +625,11 @@
 				DAE395691A0D4FED00D55633 /* LevelSelectViewController.m in Sources */,
 				93CB20F51A0754590050185E /* main.m in Sources */,
 				93CB21611A075AED0050185E /* Equation.m in Sources */,
-				93EB31CA1A1AD13E0075BD53 /* GameView.m in Sources */,
+				93EB31CA1A1AD13E0075BD53 /* GameLabelsAndButtonsView.m in Sources */,
 				93CB21731A075CCD0050185E /* HealthBarView.m in Sources */,
 				DAE395721A0F65D400D55633 /* StartLevelButtonView.m in Sources */,
 				93CB21641A075AFC0050185E /* Fraction.m in Sources */,
-				93EB31D11A1ADACA0075BD53 /* GameEndView.m in Sources */,
+				93EB31D11A1ADACA0075BD53 /* GameEndLabelAndButtonsView.m in Sources */,
 				DA3109141A1B130C00C5A3C4 /* InstructionsViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
