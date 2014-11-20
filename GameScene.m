@@ -76,6 +76,7 @@ CGFloat LASER_VELOCITY = 800.0;
     CGFloat asteroidsLabelX = CGRectGetWidth(frame) * 0.84;
     CGFloat asteroidsLabelY = CGRectGetHeight(frame) * 0.93;
     
+    // Create label with "Asteroids remaining" text
     _asteroidsLabel = [SKLabelNode labelNodeWithFontNamed:@"HelveticaNeue-Bold"];
     _asteroidsLabel.fontSize = 18;
     _asteroidsLabel.position =  CGPointMake(asteroidsLabelX, asteroidsLabelY);
@@ -87,6 +88,7 @@ CGFloat LASER_VELOCITY = 800.0;
     CGFloat asteroidsValueLabelX = CGRectGetWidth(frame) * 0.97;
     CGFloat asteroidsValueLabelY = CGRectGetHeight(frame) * 0.93;
     
+    // Create label displaying the actual number of asteroids left
     _asteroidsValueLabel = [SKLabelNode labelNodeWithFontNamed:@"HelveticaNeue-Bold"];
     _asteroidsValueLabel.fontSize = 18;
     _asteroidsValueLabel.position =  CGPointMake(asteroidsValueLabelX, asteroidsValueLabelY);

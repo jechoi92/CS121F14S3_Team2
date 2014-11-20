@@ -70,6 +70,7 @@ CGFloat INSET_RATIO;
     CGFloat textX = frameWidth * 0.45;
     CGFloat valueX = frameWidth * 0.52;
     
+    // Create label with "Level" text
     CGRect levelTextFrame = CGRectMake(textX, labelY, labelHeight * 2, labelHeight);
     _levelTextLabel = [[UILabel alloc] initWithFrame:levelTextFrame];
     
@@ -78,6 +79,7 @@ CGFloat INSET_RATIO;
     [_levelTextLabel setFont: [UIFont fontWithName:@"HelveticaNeue-Bold" size:18.0f]];
     [self addSubview:_levelTextLabel];
     
+    // Create label displaying actual current level value
     CGRect levelValueFrame = CGRectMake(valueX, labelY, labelHeight * 2, labelHeight);
     _levelValueLabel = [[UILabel alloc] initWithFrame:levelValueFrame];
     
@@ -97,6 +99,7 @@ CGFloat INSET_RATIO;
     CGFloat textX = frameWidth * 0.82;
     CGFloat valueX = frameWidth * 0.89;
     
+    // Create label with "Score" text
     CGRect scoreTextFrame = CGRectMake(textX, labelY, labelHeight * 2, labelHeight);
     _scoreTextLabel = [[UILabel alloc] initWithFrame:scoreTextFrame];
     
@@ -105,6 +108,7 @@ CGFloat INSET_RATIO;
     [_scoreTextLabel setFont: [UIFont fontWithName:@"HelveticaNeue-Bold" size:18.0f]];
     [self addSubview:_scoreTextLabel];
     
+    // Create label with player's actual current score value
     CGRect scoreValueFrame = CGRectMake(valueX, labelY, labelHeight * 2, labelHeight);
     _scoreValueLabel = [[UILabel alloc] initWithFrame:scoreValueFrame];
     
