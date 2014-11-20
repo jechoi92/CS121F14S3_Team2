@@ -12,6 +12,7 @@
 @interface LeaderboardView : UIView
 
 @property (assign, nonatomic) id <GoBack> delegate;
+
 -(void)setLabelAtIndex:(int)i withString:(NSString*)score;
 
 @end

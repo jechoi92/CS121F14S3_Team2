@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 #import <SpriteKit/SpriteKit.h>
 #import <AVFoundation/AVFoundation.h>
+#import <QuartzCore/QuartzCore.h>
 #import "GameScene.h"
 #import "HealthBarView.h"
 #import "EquationGenerator.h"
@@ -23,8 +24,5 @@
 @property (nonatomic) AVAudioPlayer *backgroundMusicPlayer;
 
 - (id)initWithLevel:(int)level andScore: (int)score;
-- (void)createHealthBar;
-- (void)createScene;
-- (void)createSideBar;
 
 @end

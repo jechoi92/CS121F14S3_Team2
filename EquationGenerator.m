@@ -16,19 +16,18 @@ int SCALAR_LIMIT = 10;
     NSMutableArray* _initialFractions; // An array of the solutions generated initially.
     NSArray* _operators;               // An array of all the current operators being used.
     int _difficulty;                   // An int storing the level difficulty.
-    // (0 == easy, 1 == medium, 2 == hard)
+                                       // (0 == easy, 1 == medium, 2 == hard)
 }
 
 // Initializes the generator with valid operators and the upper bound on the denominator.
-- (id) initWithOperators: (NSArray*) operators andDenominatorLimit: (int)denominatorLimit andDifficulty: (int)difficulty
+- (id)initWithOperators:(NSArray*) operators andDenominatorLimit:(int)denominatorLimit andDifficulty:(int)difficulty
 {
     self = [super init];
-    
     _denominatorLimit = denominatorLimit;
     _difficulty = difficulty;
     _initialFractions = [[NSMutableArray alloc] initWithCapacity:TOTAL_INITIAL_FRACTIONS];
     for (int i = 0; i < TOTAL_INITIAL_FRACTIONS; i++) {
-        
+
         // Generates random fractions for the initial solutions.
         Fraction* currentFraction = [self generateRandomFractionWithLimit:[[Fraction alloc] initWithInteger:1]];
         
@@ -102,7 +101,6 @@ int SCALAR_LIMIT = 10;
     Fraction* solution = [_initialFractions objectAtIndex:arc4random_uniform((int) [_initialFractions count])];
     Fraction* arg2 = [self generateRandomFractionWithLimit:solution];
     Fraction* arg1 = [[Fraction alloc] initWithFraction:[solution add:arg2]];
-    
     while ([arg1 integer] == 1) {
         solution = [_initialFractions objectAtIndex:arc4random_uniform((int) [_initialFractions count])];
         arg2 = [self generateRandomFractionWithLimit:solution];

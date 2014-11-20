@@ -23,13 +23,13 @@
 {
     self = [super initWithFrame:frame];
     if (self) {
+        // First creates the labels that are not dependent on victory.
         [self createTopLabelsWithFrame:frame andLevel: level andScore:score];
         
+        // Create the two buttons and message labels, dependent on victory.
         CGFloat width = CGRectGetWidth(frame);
         CGFloat height = CGRectGetHeight(frame);
-        
         CGRect endMessageLabelFrame;
-       
         CGRect backButtonFrame = CGRectMake(width * 0.25,height * 0.6,width * 0.2, height * 0.08);
         _backButton = [[UIButton alloc] initWithFrame:backButtonFrame];
         [_backButton setTitle:@"Main Menu" forState:UIControlStateNormal];
@@ -41,8 +41,7 @@
         [_backButton addTarget:self action:@selector(backButtonPressed)
                 forControlEvents:UIControlEventTouchUpInside];
         [self addSubview:_backButton];
-            
-            
+        
         CGRect continueButtonFrame = CGRectMake(width * 0.55 ,height * 0.6,width * 0.2, height * 0.08);
         _continueButton = [[UIButton alloc] initWithFrame:continueButtonFrame];
         [_continueButton setTitle:@"Next Level" forState:UIControlStateNormal];
@@ -53,6 +52,7 @@
         [[_continueButton layer] setCornerRadius:18.0f];
         [self addSubview:_continueButton];
         
+        // Depending on whether the user won or lost, have separate texts on buttons and labels.
         if (win) {
             endMessageLabelFrame = CGRectMake(width * 0.42, height * 0.3, width * 0.3, height * 0.1);
             _endMessageLabel = [[UILabel alloc] initWithFrame:endMessageLabelFrame];
@@ -71,24 +71,21 @@
             [_continueButton addTarget:self action:@selector(tryAgainSelected)
                       forControlEvents:UIControlEventTouchUpInside];
         }
+        
         [_endMessageLabel setFont:[UIFont fontWithName:@"HelveticaNeue-Bold" size:30.0f]];
         [_endMessageLabel setTextColor:[UIColor whiteColor]];
         [self addSubview:_endMessageLabel];
-        
-        [self setOpaque:NO];
     }
     return self;
 }
 
+// Initialization function for the final victory view.
 - (id)initWithFrameVictory:(CGRect)frame
 {
     self = [super initWithFrame:frame];
     if (self) {
-        
         CGFloat width = CGRectGetWidth(frame);
         CGFloat height = CGRectGetHeight(frame);
-
-        
         CGRect backButtonFrame = CGRectMake(width * 0.41,height * 0.6,width * 0.2, height * 0.08);
         _backButton = [[UIButton alloc] initWithFrame:backButtonFrame];
         [_backButton setTitle:@"Main Menu" forState:UIControlStateNormal];
@@ -101,28 +98,26 @@
               forControlEvents:UIControlEventTouchUpInside];
         [self addSubview:_backButton];
         
-    
         CGRect endMessageLabelFrame = CGRectMake(width * 0.3, height * 0.1, width * 0.5, height * 0.5);
         _endMessageLabel = [[UILabel alloc] initWithFrame:endMessageLabelFrame];
         [_endMessageLabel setText: @"Congratulations Cadet!"];
         [_endMessageLabel setFont:[UIFont fontWithName:@"HelveticaNeue-Bold" size:30.0f]];
         [_endMessageLabel setTextColor:[UIColor whiteColor]];
         [self addSubview:_endMessageLabel];
-        
+
         CGRect endMessageLabelVictoryFrame = CGRectMake(width * 0.31, height * 0.2, width * 0.5, height * 0.5);
         _endMessageVictoryLabel = [[UILabel alloc] initWithFrame:endMessageLabelVictoryFrame];
         [_endMessageVictoryLabel setText: @"You have saved Earth!"];
         [_endMessageVictoryLabel setFont:[UIFont fontWithName:@"HelveticaNeue-Bold" size:30.0f]];
         [_endMessageVictoryLabel setTextColor:[UIColor whiteColor]];
         [self addSubview:_endMessageVictoryLabel];
-        
         [self setBackgroundColor:[[UIColor alloc] initWithPatternImage:[UIImage imageNamed:@"background"]]];
-        
     }
+    
     return self;
 }
 
-
+// Function to create the labels independent of victory.
 -(void)createTopLabelsWithFrame:(CGRect)frame andLevel:(int)level andScore:(int)score
 {
     CGFloat width = CGRectGetWidth(frame);
@@ -145,7 +140,6 @@
     [self addSubview:_scoreLabel];
 }
 
-// Selector for the back button
 -(void)backButtonPressed
 {
     [self.delegate backToMainMenu];

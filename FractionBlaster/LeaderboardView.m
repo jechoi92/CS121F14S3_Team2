@@ -19,15 +19,15 @@ CGFloat INSET_RATIO;
 -(id)initWithFrame:(CGRect)frame
 {
     self = [super initWithFrame:frame];
-    
     if (self) {
-        [self createLabelandButton];
+        [self createLabelAndButton];
         [self createScoreLabels];
         [self setBackgroundColor:[[UIColor alloc] initWithPatternImage:[UIImage imageNamed:@"main_background"]]];
     }
     return self;
 }
 
+// Sets the label at the provided index with the provided score.
 -(void)setLabelAtIndex:(int)i withString:(NSString*)score
 {
     UILabel* currentLabel = [_highScoreLabels objectAtIndex:i];
@@ -37,30 +37,23 @@ CGFloat INSET_RATIO;
     [currentLabel setText:text];
 }
 
-
--(void) createLabelandButton
+-(void)createLabelAndButton
 {
     CGRect frame = self.frame;
     CGFloat size = MIN(CGRectGetWidth(frame), CGRectGetHeight(frame));
-    
     CGFloat itemWidth = size / 15;
-    
     CGFloat backButtonLength = itemWidth;
     CGFloat backButtonWidth = itemWidth;
     CGFloat backButtonX = CGRectGetWidth(frame) * INSET_RATIO;
     CGFloat backButtonY = CGRectGetHeight(frame) * INSET_RATIO;
     CGRect backButtonFrame = CGRectMake(backButtonX, backButtonY, backButtonLength, backButtonWidth);
-    
     _backButton = [[UIButton alloc] initWithFrame:backButtonFrame];
     [_backButton setBackgroundImage:[UIImage imageNamed:@"StartOverIcon"] forState:UIControlStateNormal];
     [[_backButton layer] setBorderWidth:2.5f];
     [[_backButton layer] setBorderColor:[UIColor blackColor].CGColor];
     [[_backButton layer] setCornerRadius:12.0f];
-    
-    
     [_backButton addTarget:self action:@selector(backButtonPressed)
           forControlEvents:UIControlEventTouchUpInside];
-    
     [self addSubview:_backButton];
     
     CGFloat labelLength = itemWidth * 5;
@@ -68,7 +61,6 @@ CGFloat INSET_RATIO;
     CGFloat labelX = CGRectGetWidth(frame) * 0.37;
     CGFloat labelY = CGRectGetHeight(frame) * 0.1;
     CGRect labelFrame = CGRectMake(labelX, labelY, labelLength, labelWidth);
-    
     _highScoreLabel = [[UILabel alloc] initWithFrame:labelFrame];
     [_highScoreLabel setText:@"High Scores"];
     [_highScoreLabel setTextColor:[UIColor whiteColor]];
@@ -76,29 +68,27 @@ CGFloat INSET_RATIO;
     [self addSubview:_highScoreLabel];
 }
 
--(void) createScoreLabels
+-(void)createScoreLabels
 {
     CGRect frame = self.frame;
-    
     _highScoreLabels = [[NSMutableArray alloc] initWithCapacity:5];
-    
     CGFloat width = CGRectGetWidth(frame);
     CGFloat height = CGRectGetHeight(frame);
     CGFloat labelWidth = width;
     CGFloat labelHeight = height / 20;
-    
+
+    // Creates all score labels.
     for (int i = 0; i < 5; i++) {
-        
         CGRect labelFrame = CGRectMake(width * 0.35, height * 0.25 + i * labelHeight, labelWidth, labelHeight);
         UILabel* currentLabel = [[UILabel alloc] initWithFrame:labelFrame];
         currentLabel.backgroundColor = [UIColor clearColor];
         [currentLabel setFont: [UIFont fontWithName:@"HelveticaNeue-Bold" size:24.0f]];
         [currentLabel setTextColor:[UIColor whiteColor]];
-        
+        // For the highest score, make the text color yellow.
         if (i == 0) {
             [currentLabel setTextColor:[UIColor yellowColor]];
         }
-        
+
         [self addSubview:currentLabel];
         [_highScoreLabels insertObject:currentLabel atIndex:i];
     }

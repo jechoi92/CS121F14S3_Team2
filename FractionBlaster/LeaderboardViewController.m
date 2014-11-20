@@ -25,6 +25,7 @@ CGFloat INSET_RATIO;
     [self setLabels];
 }
 
+// Read in highscores and set labels accordingly.
 -(void)setLabels
 {
     NSArray* scores = [self loadHighScores];
@@ -33,26 +34,26 @@ CGFloat INSET_RATIO;
     }
 }
 
+// Read highscores from text file, return array of 5 scores.
 -(NSArray*) loadHighScores
 {
     NSArray *paths = NSSearchPathForDirectoriesInDomains
     (NSDocumentDirectory, NSUserDomainMask, YES);
     NSString *documentsDirectory = [paths objectAtIndex:0];
-    
     NSString *fileName = [NSString stringWithFormat:@"%@/HighScores.txt",
                           documentsDirectory];
     NSString *content = [[NSString alloc] initWithContentsOfFile:fileName
                                                     usedEncoding:nil
                                                            error:nil];
     
+    // If there is no such text file, then set it by default.
     if (content == NULL) {
         content = @"0000000   \n0000000   \n0000000   \n0000000   \n0000000   \n";
     }
-    
     NSMutableArray* scores = [[NSMutableArray alloc] initWithCapacity:5];
     
+    // Store into an array.
     for (int i = 0; i < 5; i++) {
-        
         NSString* score = [content substringWithRange:NSMakeRange(11 * i, 10)];
         [scores addObject:score];
     }
@@ -64,9 +65,9 @@ CGFloat INSET_RATIO;
     [self.navigationController popViewControllerAnimated:YES];
 }
 
+// Dummy declaration required for protocol.
 -(void)backToGameWithNextLevel:(BOOL)won
 {
-    //dummy implementation
 }
 
 @end

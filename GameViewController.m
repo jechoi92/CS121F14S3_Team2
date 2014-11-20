@@ -7,7 +7,6 @@
 //
 
 #import "GameViewController.h"
-#import <QuartzCore/QuartzCore.h>
 
 int TOTAL_INITIAL_FRACTIONS = 5;
 int HEALTHPENALTY = 20;
@@ -35,40 +34,33 @@ CGFloat INSET_RATIO = 0.02;
     return self;
 }
 
-- (void)loadView {
-    
+// Function required to keep the SKScene from crashing the program.
+-(void)loadView {
     CGRect applicationFrame = [[UIScreen mainScreen] applicationFrame];
     SKView *skView = [[SKView alloc] initWithFrame:applicationFrame];
     self.view = skView;
 }
 
-- (void)viewDidLoad
+-(void)viewDidLoad
 {
     [super viewDidLoad];
-    // Do any additional setup after loading the view, typically from a nib.
-    
     NSError *error;
     NSURL * backgroundMusicURL = [[NSBundle mainBundle] URLForResource:@"background-music-aac" withExtension:@"caf"];
     self.backgroundMusicPlayer = [[AVAudioPlayer alloc] initWithContentsOfURL:backgroundMusicURL error:&error];
     self.backgroundMusicPlayer.numberOfLoops = -1;
     [self.backgroundMusicPlayer prepareToPlay];
     [self.backgroundMusicPlayer play];
-    
-    
-    
-    // TO DO will create an array of operators that the user selects.
     NSArray* operators = [self findOperators];
-    
     SKView * skView = (SKView *)self.view;
     if (!skView.scene) {
+        // Create all necessary data members.
         _equationGenerator = [[EquationGenerator alloc] initWithOperators:operators andDenominatorLimit:12 andDifficulty:0];
         _initialFractions = [_equationGenerator getInitialFractions];
-        [self createLabelsAndButtons];
+        [self createGameView];
         [self createSideBar];
         [self createHealthBar];
         [self createScene];
-        
-        
+
         // Timer that creates an asteroid every given time interval.
         _asteroidGenerationTimer = [NSTimer scheduledTimerWithTimeInterval:7.0
                                                                     target:self
@@ -78,16 +70,13 @@ CGFloat INSET_RATIO = 0.02;
     }
 }
 
-
-- (void)createLabelsAndButtons
+// Creates the gameview.
+- (void)createGameView
 {
     CGRect frame = self.view.frame;
     CGFloat width = CGRectGetWidth(frame);
     CGFloat height = CGRectGetHeight(frame);
-    
     CGRect labelsAndButtonsFrame = CGRectMake(0, 0, width, height);
-    
-    
     _gameView= [[GameView alloc] initWithFrame:labelsAndButtonsFrame andLevel:_level andScore:_score];
     [_gameView setDelegate:self];
     [self.view addSubview:_gameView];
@@ -100,9 +89,7 @@ CGFloat INSET_RATIO = 0.02;
     CGFloat width = CGRectGetWidth(frame);
     CGFloat height = CGRectGetHeight(frame);
     CGRect sideBarFrame = CGRectMake(width * 0.90, height * 0.58, width  * 0.095, height * 0.35);
-    
     _sidebar = [[SideBarView alloc] initWithFrame:sideBarFrame];
-    
     for (int i = 0; i < [_initialFractions count]; i++) {
         Fraction *toInsert = [[Fraction alloc] initWithFraction:[_initialFractions objectAtIndex:i]];
         [_sidebar setValueAtIndex:i withValue:toInsert];
@@ -117,12 +104,8 @@ CGFloat INSET_RATIO = 0.02;
 - (void)createScene
 {
     SKView * skView = (SKView *)self.view;
-    
-    //_scene = [GameScene sceneWithSize:skView.bounds.size];
     _scene = [[GameScene alloc] initWithSize:skView.bounds.size andLevel:_level];
     _scene.scaleMode = SKSceneScaleModeAspectFill;
-    
-    // Present the scene.
     [(GameScene*)_scene setDeli:self];
     [skView presentScene:_scene];
 }
@@ -133,35 +116,38 @@ CGFloat INSET_RATIO = 0.02;
     CGRect frame = self.view.frame;
     CGFloat width = CGRectGetWidth(frame);
     CGFloat height = CGRectGetHeight(frame);
-    
     CGRect healthBarFrame = CGRectMake(width * 0.005, height * 0.55, width  * 0.075, height * 0.4);
-    
-    
     _healthBar = [[HealthBarView alloc] initWithFrame:healthBarFrame];
     [self.view addSubview:_healthBar];
 }
 
-
 // Creates the appropriate GameOverScene upon the end of a game
 -(void)createGameOverSceneWithWin:(BOOL)winning
 {
+    // First cleanup the data members.
     [self cleanup];
     
-    
+    // If we have won, then update game progress.
     if (winning) {
         [self updateProgress];
+        
+        // But if we have beaten the last level, then we load the final end view.
         if (_level == 10) {
             [self updateHighScores];
             [self createGameEndViewVictory];
             return;
         }
     }
+    // If we have lost, then update highscores accordingly.
     else {
         [self updateHighScores];
     }
+    
+    // Load the end view.
     [self createGameEndView:winning];
 }
 
+// General cleanup of all data members.
 -(void)cleanup
 {
     [_backgroundMusicPlayer stop];
@@ -195,12 +181,13 @@ CGFloat INSET_RATIO = 0.02;
     [_gameView updateScore:_score];
 }
 
+// Function to get a random equation whose solution is not value.
 - (Equation*)wrongAnswerAttempt:(Fraction*)value
 {
     Equation* randomEquation = [_equationGenerator generateRandomEquation];
+    
+    // Make sure that we end up with an equation whose solution doesn't match the failed answer attempt
     while ([[randomEquation getSolution] compare:value] == NSOrderedSame) {
-        // Make sure that we end up with an equation whose solution doesn't match
-        // the failed answer attempt.  ...Pretty hackish.
         randomEquation = [_equationGenerator generateRandomEquation];
     }
     return randomEquation;
@@ -228,6 +215,7 @@ CGFloat INSET_RATIO = 0.02;
     [_scene fireLaser:selected fromButton:tag];
 }
 
+// Returns our array of operators depending on our current level.
 - (NSArray*)findOperators
 {
     NSMutableArray* operators = [[NSMutableArray alloc] initWithCapacity:1];
@@ -257,32 +245,29 @@ CGFloat INSET_RATIO = 0.02;
     return operators;
 }
 
-
-
+// Writes the highest level beaten so that progress can be saved.
 -(void)updateProgress
 {
     NSArray *paths = NSSearchPathForDirectoriesInDomains
     (NSDocumentDirectory, NSUserDomainMask, YES);
     NSString *documentsDirectory = [paths objectAtIndex:0];
-    
-    //make a file name to write the data to using the documents directory:
     NSString *fileName = [NSString stringWithFormat:@"%@/Progress.txt",
                           documentsDirectory];
-    //create content - four lines of text
     NSString *content = [[NSString alloc] initWithFormat:@"%d", _level];
-    //save content to the documents directory
     [content writeToFile:fileName
               atomically:NO
                 encoding:NSStringEncodingConversionAllowLossy
                    error:nil];
 }
 
+// Function to update high scores, if any are changed.
 -(void)updateHighScores
 {
     NSArray* currentHighScores = [self loadHighScores];
     NSString* lowestScoreString = [currentHighScores objectAtIndex:4];
     int lowestScore = [self getScoreFromString:lowestScoreString];
     
+    // If our score is greater than the lowest highscore, then first ask for username.
     if (_score > lowestScore) {
         [self requestUserName];
     }
@@ -293,31 +278,33 @@ CGFloat INSET_RATIO = 0.02;
     return [[scoreString substringToIndex:7] intValue];
 }
 
+// Read highscores from text file, return array of 5 scores.
 -(NSArray*) loadHighScores
 {
-    NSArray* paths = NSSearchPathForDirectoriesInDomains
+    NSArray *paths = NSSearchPathForDirectoriesInDomains
     (NSDocumentDirectory, NSUserDomainMask, YES);
-    NSString* documentsDirectory = [paths objectAtIndex:0];
-    
-    NSString* fileName = [NSString stringWithFormat:@"%@/HighScores.txt",
+    NSString *documentsDirectory = [paths objectAtIndex:0];
+    NSString *fileName = [NSString stringWithFormat:@"%@/HighScores.txt",
                           documentsDirectory];
-    NSString* content = [[NSString alloc] initWithContentsOfFile:fileName
+    NSString *content = [[NSString alloc] initWithContentsOfFile:fileName
                                                     usedEncoding:nil
                                                            error:nil];
+    
+    // If there is no such text file, then set it by default.
     if (content == NULL) {
         content = @"0000000   \n0000000   \n0000000   \n0000000   \n0000000   \n";
     }
-    
     NSMutableArray* scores = [[NSMutableArray alloc] initWithCapacity:5];
     
+    // Store into an array.
     for (int i = 0; i < 5; i++) {
         NSString* score = [content substringWithRange:NSMakeRange(11 * i, 10)];
         [scores addObject:score];
     }
-    
     return [[NSArray alloc] initWithArray:scores];
 }
 
+// Prompts user for username, to store for highscore.
 -(void)requestUserName
 {
     UIAlertView* alert = [[UIAlertView alloc] initWithTitle:@"High Score!"
@@ -329,23 +316,27 @@ CGFloat INSET_RATIO = 0.02;
     [alert show];
 }
 
+// Alertview function to prompt user for username.
 - (void)alertView:(UIAlertView *)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex
 {
     NSString* name = [alertView textFieldAtIndex:0].text;
     if ([name length] == 3) {
         [self writeScore:[name uppercaseString]];
     }
+    // If user does not input a 3 character long string, then request again.
     else {
         [self requestUserName];
     }
 }
 
+// Writes the new highscore with the username.
 -(void)writeScore: (NSString*)name
 {
     NSMutableArray* currentHighScores = [[NSMutableArray alloc] initWithArray:[self loadHighScores]];
     NSString* scoreString = [NSString stringWithFormat:@"%007d", _score];
     NSString* scoreAndNameString = [[NSString alloc] initWithFormat:@"%@%@", scoreString, name];
     
+    // Loop to insert the new high score in the array depending on its score.
     for (int i = 0; i < 5; i++) {
         NSString* currentScoreString = [currentHighScores objectAtIndex:i];
         if (_score > [self getScoreFromString:currentScoreString]) {
@@ -354,6 +345,7 @@ CGFloat INSET_RATIO = 0.02;
         }
     }
     
+    // Creates an output string from the array to write it onto a txt file.
     NSMutableString* output = [[NSMutableString alloc] initWithString:@""];
     for (int j = 0; j < 5; j++) {
         NSString* scoreString = [currentHighScores objectAtIndex:j];
@@ -361,26 +353,24 @@ CGFloat INSET_RATIO = 0.02;
         [output appendString:@"\n"];
     }
     
+    // Write the string onto the file destination.
     NSArray *paths = NSSearchPathForDirectoriesInDomains
     (NSDocumentDirectory, NSUserDomainMask, YES);
     NSString *documentsDirectory = [paths objectAtIndex:0];
-    
-    //make a file name to write the data to using the documents directory:
     NSString *fileName = [NSString stringWithFormat:@"%@/HighScores.txt",
                           documentsDirectory];
-    //save content to the documents directory
     [output writeToFile:fileName
              atomically:NO
                encoding:NSStringEncodingConversionAllowLossy
                   error:nil];
 }
 
+// Creates the gameEndView.
 -(void)createGameEndView:(BOOL)win
 {
     CGRect frame = self.view.frame;
     CGFloat width = CGRectGetWidth(frame);
     CGFloat height = CGRectGetHeight(frame);
-    
     CGRect gameEndViewFrame = CGRectMake(0, 0, width, height);
     _gameEndView = [[GameEndView alloc] initWithFrame:gameEndViewFrame withLevel:_level andScore:_score andWin:win];
     [_gameEndView setDelegate:self];
@@ -388,12 +378,12 @@ CGFloat INSET_RATIO = 0.02;
     [self.view sendSubviewToBack:_gameView];
 }
 
+// Creates the gameEndView when we have finished the game.
 -(void)createGameEndViewVictory
 {
     CGRect frame = self.view.frame;
     CGFloat width = CGRectGetWidth(frame);
     CGFloat height = CGRectGetHeight(frame);
-    
     CGRect gameEndViewFrame = CGRectMake(0, 0, width, height);
     _gameEndView = [[GameEndView alloc] initWithFrameVictory:gameEndViewFrame];
     [_gameEndView setDelegate:self];
@@ -401,13 +391,14 @@ CGFloat INSET_RATIO = 0.02;
     [self.view sendSubviewToBack:_gameView];
 }
 
-// Back button to main menu
+// Back button to main menu.
 -(void)backToMainMenu
 {
     [self cleanup];
     [self.navigationController popToRootViewControllerAnimated:YES];
 }
 
+// Reload the gameVC with the next level if won, or a score of 0 if lost.
 -(void)backToGameWithNextLevel:(BOOL)won
 {
     if (won){
@@ -416,6 +407,7 @@ CGFloat INSET_RATIO = 0.02;
     else {
         _score = 0;
     }
+    
     [_gameEndView removeFromSuperview];
     [self viewDidLoad];
 }
@@ -437,7 +429,6 @@ CGFloat INSET_RATIO = 0.02;
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
-    // Release any cached data, images, etc that aren't in use.
 }
 
 @end

@@ -8,7 +8,6 @@
 
 #import "HealthBarView.h"
 
-
 int NUM_OF_BARS = 10;
 int MAX_HEALTH = 100;
 
@@ -30,21 +29,21 @@ int MAX_HEALTH = 100;
         CGFloat width = CGRectGetWidth(frame);
         CGFloat labelHeight = 5.1 * height / 7 / NUM_OF_BARS;
         
+        // Creates the array of blank labels to represent the health levels.
         for (int i = 0; i < NUM_OF_BARS; i++) {
             CGRect labelFrame = CGRectMake(0, 1.0 / 7.0 * height + i * labelHeight, width, labelHeight);
             UILabel* currentLabel = [[UILabel alloc] initWithFrame:labelFrame];
-            
             [self addSubview:currentLabel];
             [_healthBar addObject:currentLabel];
         }
-        //[self setBackgroundColor:[[UIColor alloc] initWithPatternImage:[UIImage imageNamed:@"shields"]]];
+        
+        // Container for aesthetic purposes. This "holds" the health bar.
         _container = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"shields.png"]];
         [_container setFrame:CGRectMake(0,0,width, height)];
         [self addSubview:_container];
     }
     
     [self updateHealthBar];
-    
     return self;
 }
 
@@ -73,11 +72,12 @@ int MAX_HEALTH = 100;
             [currentLabel setBackgroundColor: [UIColor whiteColor]];
         }
     }
+    
+    // Transition to make the healthbar decreasing smoother.
     CATransition* transition = [CATransition animation];
     transition.type = kCATransitionFade;
     transition.duration = 1;
     transition.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseOut];
-    
     [self.layer addAnimation:transition forKey:nil];
 }
 

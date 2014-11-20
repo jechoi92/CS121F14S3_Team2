@@ -13,7 +13,7 @@
 
 @property (nonatomic) int denominatorLimit;
 
-- (id) initWithOperators: (NSArray*) operators andDenominatorLimit: (int)denominatorLimit andDifficulty: (int)difficulty;
+- (id)initWithOperators: (NSArray*)operators andDenominatorLimit: (int)denominatorLimit andDifficulty: (int)difficulty;
 - (Equation*)generateRandomEquation;
 - (NSMutableArray*)getInitialFractions;
 - (Fraction*) generateRandomFractionWithLimit: (Fraction*)upper;
