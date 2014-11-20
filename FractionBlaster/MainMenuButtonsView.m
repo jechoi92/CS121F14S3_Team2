@@ -9,25 +9,25 @@
 #import "MainMenuButtonsView.h"
 
 @implementation MainMenuButtonsView
-{
-    NSMutableArray *_buttons;
-}
+//{
+//    NSMutableArray *_buttons;
+//}
 
 -(id)initWithFrame:(CGRect)frame
 {
     self = [super initWithFrame:frame];
     
-    self.backgroundColor = [UIColor clearColor];
-    
     int IPAD_FONT_SIZE = 40;
     
+    // Transparent so can see actual background
+    self.backgroundColor = [UIColor clearColor];
     
     // Make 2 buttons for now
     int numButtons = 3;
     int buttonsPerRow = 1;
     int rows = numButtons / buttonsPerRow;
     
-    _buttons = [[NSMutableArray alloc] initWithCapacity:numButtons];
+    // _buttons = [[NSMutableArray alloc] initWithCapacity:numButtons];
     
     // Set up borders - currently each border will be 1/4 of button size
     int baseBorder = 0.25;
@@ -79,7 +79,7 @@
         button.tag = i;
         
         [self addSubview:button];
-        [_buttons addObject:button];
+        //[_buttons addObject:button];
         
         yOffset += buttonHeight;
     }
