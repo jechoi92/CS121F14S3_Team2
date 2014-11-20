@@ -77,7 +77,9 @@ CGFloat INSET_RATIO = 0.02;
     CGFloat width = CGRectGetWidth(frame);
     CGFloat height = CGRectGetHeight(frame);
     CGRect labelsAndButtonsFrame = CGRectMake(0, 0, width, height);
-    _gameView= [[GameView alloc] initWithFrame:labelsAndButtonsFrame andLevel:_level andScore:_score];
+    
+    
+    _gameView= [[GameLabelsAndButtonsView alloc] initWithFrame:labelsAndButtonsFrame andLevel:_level andScore:_score];
     [_gameView setDelegate:self];
     [self.view addSubview:_gameView];
 }
