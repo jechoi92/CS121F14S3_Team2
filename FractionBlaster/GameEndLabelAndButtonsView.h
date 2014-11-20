@@ -7,9 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "GameView.h"
+#import "GameLabelsAndButtonsView.h"
 
-@interface GameEndView : UIView
+@interface GameEndLabelAndButtonsView : UIView
 
 @property (assign, nonatomic) id <GoBack> delegate;
 

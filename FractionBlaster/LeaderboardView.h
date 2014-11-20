@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "GameView.h"
+#import "GameLabelsAndButtonsView.h"
 
 @interface LeaderboardView : UIView
 

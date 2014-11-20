@@ -13,7 +13,7 @@
 - (void)backToGameWithNextLevel:(BOOL)won;
 @end
 
-@interface GameView : UIView
+@interface GameLabelsAndButtonsView : UIView
 
 @property (assign, nonatomic) id <GoBack> delegate;
 

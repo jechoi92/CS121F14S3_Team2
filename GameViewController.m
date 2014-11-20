@@ -19,8 +19,8 @@ CGFloat INSET_RATIO = 0.02;
     SideBarView* _sidebar;
     GameScene* _scene;
     EquationGenerator* _equationGenerator;
-    GameView* _gameView;
-    GameEndView* _gameEndView;
+    GameLabelsAndButtonsView* _gameView;
+    GameEndLabelAndButtonsView* _gameEndView;
     NSMutableArray* _initialFractions;
     NSTimer* _asteroidGenerationTimer;
     int _level;
@@ -88,7 +88,7 @@ CGFloat INSET_RATIO = 0.02;
     CGRect labelsAndButtonsFrame = CGRectMake(0, 0, width, height);
     
     
-    _gameView= [[GameView alloc] initWithFrame:labelsAndButtonsFrame andLevel:_level andScore:_score];
+    _gameView= [[GameLabelsAndButtonsView alloc] initWithFrame:labelsAndButtonsFrame andLevel:_level andScore:_score];
     [_gameView setDelegate:self];
     [self.view addSubview:_gameView];
 }
@@ -382,7 +382,7 @@ CGFloat INSET_RATIO = 0.02;
     CGFloat height = CGRectGetHeight(frame);
     
     CGRect gameEndViewFrame = CGRectMake(0, 0, width, height);
-    _gameEndView = [[GameEndView alloc] initWithFrame:gameEndViewFrame withLevel:_level andScore:_score andWin:win];
+    _gameEndView = [[GameEndLabelAndButtonsView alloc] initWithFrame:gameEndViewFrame withLevel:_level andScore:_score andWin:win];
     [_gameEndView setDelegate:self];
     [self.view addSubview:_gameEndView];
     [self.view sendSubviewToBack:_gameView];
@@ -395,7 +395,7 @@ CGFloat INSET_RATIO = 0.02;
     CGFloat height = CGRectGetHeight(frame);
     
     CGRect gameEndViewFrame = CGRectMake(0, 0, width, height);
-    _gameEndView = [[GameEndView alloc] initWithFrameVictory:gameEndViewFrame];
+    _gameEndView = [[GameEndLabelAndButtonsView alloc] initWithFrameVictory:gameEndViewFrame];
     [_gameEndView setDelegate:self];
     [self.view addSubview:_gameEndView];
     [self.view sendSubviewToBack:_gameView];

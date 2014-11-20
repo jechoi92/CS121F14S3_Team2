@@ -27,7 +27,19 @@ static CGFloat INSET_RATIO = 0.02;
     
     // Set the background to the default space theme
     [self.view setBackgroundColor:[[UIColor alloc] initWithPatternImage:[UIImage imageNamed:@"main_background"]]];
-  
+    
+    // Create level buttons
+    [self createLevelButtonView];
+    
+    // Create title
+    [self createLevelTitle];
+    
+    // Create back button
+    [self createTopButtonsAndLabelsWithFrame:self.view.frame];
+}
+
+-(void)createLevelButtonView
+{
     // Get frame and frame dimensions
     CGRect frame = self.view.frame;
     CGFloat frameWidth = CGRectGetWidth(frame);
@@ -42,9 +54,6 @@ static CGFloat INSET_RATIO = 0.02;
     CGFloat levelViewHeight = levelViewWidth * 2 / 5;
     CGRect levelViewFrame = CGRectMake(levelViewXOffset, levelViewYOffset, levelViewWidth, levelViewHeight);
     
-    // Creates the title on the screen
-    [self createLevelTitleWithWidth:frameWidth andHeight:frameHeight];
-    
     // Create start button with the appropriate delegate
     _levelButtonView = [[LevelButtonView alloc] initWithFrame:levelViewFrame];
     [self.view addSubview:_levelButtonView];
@@ -52,16 +61,18 @@ static CGFloat INSET_RATIO = 0.02;
     _startLevelButtonView = [[StartLevelButtonView alloc] initWithFrame:startButtonFrame];
     [_startLevelButtonView setDelegate:self];
     [self.view addSubview:_startLevelButtonView];
-    
-    // Create back button
-    [self createTopButtonsAndLabelsWithFrame:frame];
 }
 
 // Creates the level select title image at the top of the screen
--(void)createLevelTitleWithWidth:(CGFloat)width andHeight:(CGFloat)height
+-(void)createLevelTitle
 {
+    // Get frame and frame dimensions
+    CGRect frame = self.view.frame;
+    CGFloat frameWidth = CGRectGetWidth(frame);
+    CGFloat frameHeight = CGRectGetHeight(frame);
+    
     // Add the level select image to the top of the view
-    CGRect title = CGRectMake(0, -50, width, height*.5);
+    CGRect title = CGRectMake(0, -50, frameWidth, frameHeight*.5);
     UIImageView *imageView = [[UIImageView alloc] initWithFrame:title];
     imageView.image = [UIImage imageNamed:@"Levels.png"];
     [self.view addSubview:imageView];
