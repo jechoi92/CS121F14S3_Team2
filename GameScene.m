@@ -17,8 +17,7 @@ int MEDIUM_SPEED = 30;
 int MAX_SPEED = 25;
 int HELL_MODE = 15;
 int ALLOWED_WRONG_ANSWERS = 2;
-
-// TODO make a spritenode that represents the surface of the earth for asteroid collisions?
+CGFloat LASER_VELOCITY = 800.0;
 
 @interface GameScene () <SKPhysicsContactDelegate>
 @property (nonatomic) SKSpriteNode* player;
@@ -42,7 +41,9 @@ int ALLOWED_WRONG_ANSWERS = 2;
         background.name = @"BACKGROUND";
         [self addChild:background];
         
+        // store the minimum time an asteroid can spend on screen for this level
         _minimumAsteroidDuration = [self findMinimumAsteroidDuration:(int)level];
+        // Store the number of asteroids that must be destroyed to clear the level
         _asteroidsToDestroy = [self findAsteroidsToDestroy:(int)level];
         
         [self createPlayer];
@@ -57,6 +58,7 @@ int ALLOWED_WRONG_ANSWERS = 2;
     return self;
 }
 
+// Create node for the player's ship sprite
 - (void)createPlayer
 {
     self.player = [SKSpriteNode spriteNodeWithImageNamed:@"Spaceship"];
@@ -66,6 +68,7 @@ int ALLOWED_WRONG_ANSWERS = 2;
     [self addChild:self.player];
 }
 
+// Create labels displaying the number of asteroids left in the level
 - (void)createLabel
 {
     CGRect frame = self.frame;
@@ -93,6 +96,7 @@ int ALLOWED_WRONG_ANSWERS = 2;
     [self addChild:_asteroidsValueLabel];
 }
 
+// Prepare the frames of the explosion animation for when asteroids are destroyed
 - (void)initializeSprites
 {
     SKTextureAtlas* explosionAtlas = [SKTextureAtlas atlasNamed:@"explosionFrames"];
@@ -107,6 +111,7 @@ int ALLOWED_WRONG_ANSWERS = 2;
     _explosionFrames = [[NSArray alloc] initWithArray:explosionFrames];
 }
 
+// Used to determine the speed of asteroids for a given level
 - (int)findMinimumAsteroidDuration:(int)level
 {
     if (level == 10) {
@@ -124,40 +129,38 @@ int ALLOWED_WRONG_ANSWERS = 2;
     }
 }
 
+// Returns the number of asteroids that must be destroyed in the given level
 - (int)findAsteroidsToDestroy:(int)level
 {
-//    if (level == 10) {
-//        return 2;
-//    }
+    NSAssert(level >= 1, @"Level must be positive");
     
     if (level < 2) {
         return 10;
-    }
-    else if (level < 5) {
+    } else if (level < 5) {
         return 12;
-    }
-    else if (level < 8) {
+    } else if (level < 8) {
         return 16;
-    }
-    else if (level < 9) {
+    } else if (level < 9) {
         return 20;
-    }
-    else {
+    } else {
         return 25;
     }
 }
 
-
+// Spawns an asteroid with a corresponding equation at a random x location
 - (void) createAsteroid: (Equation*) equation {
     SKSpriteNode* asteroid = [SKSpriteNode spriteNodeWithImageNamed:@"asteroid"];
     asteroid.userData = [NSMutableDictionary dictionary];
+    // Store the solution for the equation, the laser frequency which will destroy the asteroid
     [asteroid userData][@"frequency"] = [equation getSolution];
+    // Store the number of wrong answers left before the asteroid will change its equation
     [asteroid userData][@"attemptsLeft"] = [NSNumber numberWithInt:ALLOWED_WRONG_ANSWERS];
     
+    // Display the equation on the asteroid sprite
+    [asteroid addChild:[self createLabelForEquation:equation]];
     
-    [self printEquation:equation onAsteroid:asteroid];
-    
-    asteroid.physicsBody = [SKPhysicsBody bodyWithCircleOfRadius:asteroid.size.width/2 - 5]; // 1
+    // Set up the asteroid's contact detection body
+    asteroid.physicsBody = [SKPhysicsBody bodyWithCircleOfRadius:asteroid.size.width/2];
     asteroid.physicsBody.dynamic = YES; // 2
     asteroid.physicsBody.categoryBitMask = asteroidCategory; // 3
     asteroid.physicsBody.contactTestBitMask = laserCategory; // 4
@@ -166,8 +169,7 @@ int ALLOWED_WRONG_ANSWERS = 2;
     // Determine where to spawn the asteroid along the X axis
     int minX = asteroid.size.width * 1.2;
     int maxX = self.frame.size.width - asteroid.size.width * 1.2;
-    int rangeX = maxX - minX;
-    int actualX = (arc4random() % rangeX) + minX;
+    int actualX = minX + (arc4random() % (maxX - minX));
     
     // Create the asteroid slightly off-screen along the top edge,
     // and along a random position along the X axis as calculated above
@@ -179,22 +181,18 @@ int ALLOWED_WRONG_ANSWERS = 2;
     int rangeDuration = minDuration * 0.1;
     int actualDuration = (arc4random() % rangeDuration) + minDuration;
     
-    
-    
+    // Determine a slight random x offset so the asteroids will not just travel straight down
     int endX = actualX;
-    
     endX += arc4random_uniform(self.frame.size.width);
     endX -= arc4random_uniform(self.frame.size.width);
     
     if (endX < minX) {
         endX = minX;
-    }
-    if (endX > maxX) {
+    } else if (endX > maxX) {
         endX = maxX;
     }
     
-    
-    // Create the actions
+    // Create the actions and animate the asteroid's motion
     SKAction * actionMove = [SKAction moveTo:CGPointMake(endX, -asteroid.size.height/2) duration:actualDuration];
     SKAction * actionMoveDone = [SKAction removeFromParent];
     SKAction * loseAction = [SKAction runBlock:^{
@@ -203,118 +201,92 @@ int ALLOWED_WRONG_ANSWERS = 2;
     [asteroid runAction:[SKAction sequence:@[actionMove, loseAction, actionMoveDone]]];
 }
 
--(void)printEquation:(Equation*)equation onAsteroid:(SKSpriteNode*)asteroid
+// Create an SKNode with text representing an equation
+- (SKNode*)createLabelForEquation:(Equation*)equation
 {
-    Fraction* first = [equation getFraction1];
-    Fraction* second = [equation getFraction2];
+    SKNode* eqn = [SKNode node];
+    SKNode* first = [self createLabelForFraction:[equation getFraction1]];
     NSString* op = [NSString stringWithFormat:@"%c" , [equation getOperator]];
+    // Add the first fraction to the equation node
+    [eqn addChild:first];
     
-    NSString* num1 = [NSString stringWithFormat:@"%d", [first numerator]];
-    NSString* den1 = [NSString stringWithFormat:@"%d", [first denominator]];
-    NSString* num2 = [NSString stringWithFormat:@"%d", [second numerator]];
-    NSString* den2 = [NSString stringWithFormat:@"%d", [second denominator]];
-    
-    NSString* numerator1 = [NSString stringWithFormat:@"%@",num1];
-    NSString* numerator2 = [NSString stringWithFormat:@"%@",num2];
-    NSString* denominator1 = [NSString stringWithFormat:@"%@",den1];
-    NSString* denominator2 = [NSString stringWithFormat:@"%@",den2];
-    
-    SKLabelNode* split = [[SKLabelNode alloc] initWithFontNamed:@"Arial Bold"];
-    
-    //oper.position = CGPointMake(spit.position.x,split.position.y);
-    
-    //[asteroid addChild:label];
-    
-    if ([op isEqualToString:@"$"]) {
-        NSString* line = [NSString stringWithFormat:@"__"];
+    // If the operator isn't simplification, there will be more things to place
+    if (![op isEqualToString:@"$"]) {
+        SKNode* oper = [self createLabelForOperator:op];
+        SKNode* second = [self createLabelForFraction:[equation getFraction2]];
         
-        split.text = line;
-        split.fontSize = 24;
-        split.fontColor = [UIColor whiteColor];
+        // Adjust the positions of the fractions and the operator in their parent node
+        first.position = CGPointMake(-30.0, 0.0);
+        oper.position = CGPointMake(0.0, -15.0);
+        second.position = CGPointMake(30.0, 0.0);
         
-        SKLabelNode* numlabel1 = [[SKLabelNode alloc] initWithFontNamed:@"Helvetica-Bold"];
-        numlabel1.text = numerator1;
-        numlabel1.fontSize = 24;
-        numlabel1.fontColor = [UIColor whiteColor];
-        numlabel1.position = CGPointMake(numlabel1.position.x,numlabel1.position.y + 5);
-        
-        SKLabelNode* denlabel1 = [[SKLabelNode alloc] initWithFontNamed:@"Helvetica-Bold"];
-        denlabel1.text = denominator1;
-        denlabel1.fontSize = 24;
-        denlabel1.fontColor = [UIColor whiteColor];
-        denlabel1.position = CGPointMake(denlabel1.position.x,denlabel1.position.y - 30);
-        
-        
-        asteroid.userData = [NSMutableDictionary dictionary];
-        [asteroid userData][@"frequency"] = [equation getSolution];
-        [asteroid addChild:numlabel1];
-        [asteroid addChild:denlabel1];
-        [asteroid addChild:split];
+        [eqn addChild:oper];
+        [eqn addChild:second];
     }
-    else {
-        NSString* lines = [NSString stringWithFormat:@"__      __"];
-        
-        split.text = lines;
-        split.fontSize = 24;
-        split.fontColor = [UIColor whiteColor];
-        
-        SKLabelNode* oper = [[SKLabelNode alloc] initWithFontNamed:@"Arial Bold"];
-        if ([op isEqualToString:@"/"]) {
-            oper.text = @"÷";
-        } else if ([op isEqualToString:@"+"]) {
-            oper.text = @"+";
-        } else if ([op isEqualToString:@"-"]) {
-            oper.text = @"-";
-        } else {
-            oper.text = @"x";
-        }
-        oper.fontSize = 30;
-        oper.fontColor = [UIColor whiteColor];
-        oper.position = CGPointMake(oper.position.x,oper.position.y - 15);
-        
-        
-        SKLabelNode* numlabel1 = [[SKLabelNode alloc] initWithFontNamed:@"Helvetica-Bold"];
-        numlabel1.text = numerator1;
-        numlabel1.fontSize = 24;
-        numlabel1.fontColor = [UIColor whiteColor];
-        numlabel1.position = CGPointMake(numlabel1.position.x-30,numlabel1.position.y + 5);
-        
-        SKLabelNode* numlabel2 = [[SKLabelNode alloc] initWithFontNamed:@"Helvetica-Bold"];
-        numlabel2.text = numerator2;
-        numlabel2.fontSize = 24;
-        numlabel2.fontColor = [UIColor whiteColor];
-        numlabel2.position = CGPointMake(numlabel2.position.x+30,numlabel2.position.y + 5);
-        
-        SKLabelNode* denlabel1 = [[SKLabelNode alloc] initWithFontNamed:@"Helvetica-Bold"];
-        denlabel1.text = denominator1;
-        denlabel1.fontSize = 24;
-        denlabel1.fontColor = [UIColor whiteColor];
-        denlabel1.position = CGPointMake(denlabel1.position.x-30,denlabel1.position.y - 30);
-        
-        SKLabelNode* denlabel2 = [[SKLabelNode alloc] initWithFontNamed:@"Helvetica-Bold"];
-        denlabel2.text = denominator2;
-        denlabel2.fontSize = 24;
-        denlabel2.fontColor = [UIColor whiteColor];
-        denlabel2.position = CGPointMake(denlabel2.position.x+30,denlabel2.position.y - 30);
-        
-        
-        
-        asteroid.userData = [NSMutableDictionary dictionary];
-        [asteroid userData][@"frequency"] = [equation getSolution];
-        [asteroid addChild:numlabel1];
-        [asteroid addChild:numlabel2];
-        [asteroid addChild:denlabel1];
-        [asteroid addChild:denlabel2];
-        [asteroid addChild:split];
-        [asteroid addChild:oper];
-    }
+    
+    return eqn;
 }
 
+// Create an SKNode with text representing a fraction
+- (SKNode*)createLabelForFraction:(Fraction*)fraction
+{
+    // Create the line dividing the numerator and denominator
+    SKLabelNode* line = [[SKLabelNode alloc] initWithFontNamed:@"Arial Bold"];
+    line.text = @"__";
+    line.fontSize = 24;
+    line.fontColor = [UIColor whiteColor];
+    
+    // Create a label for the numerator
+    SKLabelNode* numer = [[SKLabelNode alloc] initWithFontNamed:@"Helvetica-Bold"];
+    numer.text = [NSString stringWithFormat:@"%d", [fraction numerator]];
+    numer.fontSize = 24;
+    numer.fontColor = [UIColor whiteColor];
+    numer.position = CGPointMake(0.0, 5.0);
+    
+    // Create a label for the denominator
+    SKLabelNode* denom = [[SKLabelNode alloc] initWithFontNamed:@"Helvetica-Bold"];
+    denom.text = [NSString stringWithFormat:@"%d", [fraction denominator]];
+    denom.fontSize = 24;
+    denom.fontColor = [UIColor whiteColor];
+    denom.position = CGPointMake(0.0, -30.0);
+    
+    // Add them all to a single node to return
+    SKNode* verticalFraction = [SKNode node];
+    [verticalFraction addChild:numer];
+    [verticalFraction addChild:line];
+    [verticalFraction addChild:denom];
+    
+    return verticalFraction;
+}
+
+// Creates a node with the corresponding nice-looking symbol for each operator string
+- (SKNode*)createLabelForOperator:(NSString*)operator
+{
+    SKLabelNode* oper = [[SKLabelNode alloc] initWithFontNamed:@"Arial Bold"];
+    
+    if ([operator isEqualToString:@"/"]) {
+        oper.text = @"÷";
+    } else if ([operator isEqualToString:@"+"]) {
+        oper.text = @"+";
+    } else if ([operator isEqualToString:@"-"]) {
+        oper.text = @"-";
+    } else {
+        oper.text = @"x";
+    }
+    
+    oper.fontSize = 30;
+    oper.fontColor = [UIColor whiteColor];
+    
+    return oper;
+}
+
+// Inform the deligate that the player failed to destroy an asteroid in time
 -(void)asteroidHitBottom
 {
     [self.deli asteroidReachedBottom];
 }
 
+// Calculate acceptable locations for the player sprite to prevent it from sliding off screen
 - (CGPoint)boundPlayerPos:(CGPoint)newPos {
     CGSize winSize = self.size;
     CGPoint retval = newPos;
@@ -324,6 +296,7 @@ int ALLOWED_WRONG_ANSWERS = 2;
     return retval;
 }
 
+// Update the player sprite's location horizontally
 - (void)translatePlayer:(CGPoint)translation {
     CGPoint position = [self.player position];
     CGPoint newPos = CGPointMake(position.x + translation.x, position.y + translation.y);
@@ -331,6 +304,8 @@ int ALLOWED_WRONG_ANSWERS = 2;
 }
 
 - (void)didMoveToView:(SKView *)view {
+    // gestureRecognizer is used to distinguish when the player is dragging on the screen
+    // versus tapping
     UIPanGestureRecognizer* gestureRecognizer = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(handlePanFrom:)];
     [[self view] addGestureRecognizer:gestureRecognizer];
 }
@@ -347,8 +322,13 @@ int ALLOWED_WRONG_ANSWERS = 2;
     }
 }
 
-- (void)fireLaser:(Fraction*)value fromButton:(int)tag{
+// Spawns a laser sprite with the frequency and color corresponding to a given
+// Fire button.
+- (void)fireLaser:(Fraction*)value fromButton:(int)tag
+{
     SKSpriteNode *projectile;
+    
+    // Determine the color of the laser beam sprite based on the button tag
     if (tag==1) {
         projectile = [SKSpriteNode spriteNodeWithImageNamed:@"bluelaserbeam"];
     } else if (tag==2) {
@@ -361,9 +341,11 @@ int ALLOWED_WRONG_ANSWERS = 2;
         projectile = [SKSpriteNode spriteNodeWithImageNamed:@"greenlaserbeam"];
     }
     
+    // Set the frequency of the laser
     projectile.userData = [NSMutableDictionary dictionary];
     [projectile userData][@"frequency"] = value;
     
+    // Set up the laser's contact detection body
     projectile.position = self.player.position;
     projectile.physicsBody = [SKPhysicsBody bodyWithCircleOfRadius:projectile.size.width/2];
     projectile.physicsBody.dynamic = YES;
@@ -375,46 +357,66 @@ int ALLOWED_WRONG_ANSWERS = 2;
     
     [self addChild:projectile];
     
+    // Play laser sound effect
     [self runAction:[SKAction playSoundFileNamed:@"jobro__laser6.wav" waitForCompletion:NO]];
     
-    // 8 - Add the shoot amount to the current position
+    // Create the endpoint of the laser's trajectory
     CGPoint realDest = CGPointMake(projectile.position.x, self.size.height);
     
-    // 9 - Create the actions
-    float velocity = 800.0;
-    float realMoveDuration = self.size.width / velocity;
+    // Create the actions and animate the laser's motion
+    CGFloat realMoveDuration = self.size.width / LASER_VELOCITY;
     SKAction * actionMove = [SKAction moveTo:realDest duration:realMoveDuration];
     SKAction * actionMoveDone = [SKAction removeFromParent];
     [projectile runAction:[SKAction sequence:@[actionMove, actionMoveDone]]];
-    
 }
 
-- (void)laser:(SKSpriteNode*)laser didCollideWithAsteroid:(SKSpriteNode*)asteroid {
+// Handle laser and asteroid collision.  If the laser's frequency solves the
+// asteroid's equation, they should both be destroyed.
+- (void)laser:(SKSpriteNode*)laser didCollideWithAsteroid:(SKSpriteNode*)asteroid
+{
     Fraction* laserFrequency = [laser userData][@"frequency"];
     Fraction* asteroidFrequency = [asteroid userData][@"frequency"];
+    
+    // If the frequencies are the same, destroy both sprites and increment score
     if ([laserFrequency compare:asteroidFrequency] == NSOrderedSame) {
+        // Play explosion sound effect
         [self runAction:[SKAction playSoundFileNamed:@"ryansnook__medium-explosion.wav" waitForCompletion:NO]];
+        
+        // Spawn animated explosion sprite
         [self spawnExplosion:[asteroid position]];
+        
+        // Decrement our counter of asteroids remaining in the level
         _asteroidsToDestroy--;
+        
+        // Calculate the score for the destroyed asteroid and spawn a notice with that score
         int asteroidScore = (10 + (int) asteroid.position.y / 100) * 10;
         [self asteroidDestroyed: (int)asteroidScore];
         [self notifyWithPosition: asteroid.position andScore: asteroidScore];
-        [asteroid removeFromParent];
         
+        // Remove the asteroid sprite
+        [asteroid removeFromParent];
         if (_asteroidsToDestroy <= 0) {
+            // If the victory condition is met, destroy all asteroids left in the scene...
             [self removeAllAsteroids];
+            // ...and inform the delegate
             [self.deli lastAsteroidDestroyed];
         }
-      
+        
+        // Update the label of asteroids remaining
         _asteroidsValueLabel.text = [[NSString alloc] initWithFormat:@"%d", _asteroidsToDestroy];
     } else {
+        // Check how many wrong attempts are left for this asteroid
         int attemptsLeft = [[asteroid userData][@"attemptsLeft"] intValue];
         attemptsLeft--;
+        
+        // If all attempts are used, change the equation for this asteroid to prevent spamming
         if (attemptsLeft <= 0) {
             Equation* newEquation = [self.deli wrongAnswerAttempt:laserFrequency];
             [asteroid userData][@"frequency"] = [newEquation getSolution];
             [asteroid removeAllChildren];
-            [self printEquation:newEquation onAsteroid:asteroid];
+            [asteroid addChild:[self createLabelForEquation:newEquation]];
+            
+            // Reset the number of attempts left
             attemptsLeft = ALLOWED_WRONG_ANSWERS;
         }
         [asteroid userData][@"attemptsLeft"] = [NSNumber numberWithInt:attemptsLeft];
@@ -422,30 +424,25 @@ int ALLOWED_WRONG_ANSWERS = 2;
     [laser removeFromParent];
 }
 
+// Creates an animated explosion sprite at the provided position
 - (void)spawnExplosion: (CGPoint)position
 {
     SKTexture* temp = _explosionFrames[0];
     SKSpriteNode* explosion = [SKSpriteNode spriteNodeWithTexture:temp];
     explosion.position = position;
-    explosion.zPosition = 1;
+    explosion.zPosition = 1; // Set zPosition explicitly to ensure visibility of all elements
     [self addChild:explosion];
+    
+    // Animate over the explosion frames
     SKAction * playExplosion = [SKAction animateWithTextures:_explosionFrames
                                                 timePerFrame:0.05f];
     SKAction * endAnimation = [SKAction removeFromParent];
     [explosion runAction:[SKAction sequence:@[playExplosion, endAnimation]]];
 }
 
+// Spawn a label with the number of points earned from an asteroid
 - (void)notifyWithPosition: (CGPoint)position andScore: (int)score
 {
-    /*SKTexture* explosion = [SKTexture textureWithImageNamed:@"explosion"];
-    SKSpriteNode* explosionn = [SKSpriteNode spriteNodeWithTexture:explosion];
-    
-    explosionn.position =  CGPointMake(position.x, position.y);
-    explosionn.zPosition = 1;
-    [self addChild:explosionn];*/
-    
-    
-    
     SKLabelNode* label = [SKLabelNode labelNodeWithFontNamed:@"HelveticaNeue-Bold"];
     label.fontColor = [UIColor greenColor];
     label.fontSize = 20;
@@ -454,26 +451,26 @@ int ALLOWED_WRONG_ANSWERS = 2;
     label.blendMode = YES;
     label.zPosition = 2;
     [self addChild:label];
+    
+    // Have the label fade and then disappear
     [label runAction:[SKAction sequence:@[[SKAction fadeOutWithDuration:2.0f], [SKAction removeFromParent]]]];
 }
 
+// Notify delegate of score updates
 - (void)asteroidDestroyed: (int)asteroidScore
 {
     [self.deli incrementScore: (int)asteroidScore];
 }
 
+// Distinguish between contact of different physics bodies and respond
 - (void)didBeginContact:(SKPhysicsContact *)contact
 {
-    // 1
     SKPhysicsBody *firstBody, *secondBody;
     
-    if (contact.bodyA.categoryBitMask < contact.bodyB.categoryBitMask)
-    {
+    if (contact.bodyA.categoryBitMask < contact.bodyB.categoryBitMask) {
         firstBody = contact.bodyA;
         secondBody = contact.bodyB;
-    }
-    else
-    {
+    } else {
         firstBody = contact.bodyB;
         secondBody = contact.bodyA;
     }
@@ -481,10 +478,11 @@ int ALLOWED_WRONG_ANSWERS = 2;
     if ((firstBody.categoryBitMask & laserCategory) != 0 &&
         (secondBody.categoryBitMask & asteroidCategory) != 0)
     {
-        [self laser:(SKSpriteNode*) firstBody.node didCollideWithAsteroid:(SKSpriteNode*) secondBody.node];//NSLog(@"projectile x:%f y:%f monster x:%f y:%f", firstBody.node.position.x, firstBody.node.position.y, secondBody.node.position.x, secondBody.node.position.y);
+        [self laser:(SKSpriteNode*) firstBody.node didCollideWithAsteroid:(SKSpriteNode*) secondBody.node];
     }
 }
 
+// Clear the remaining asteroids in the scene
 -(void)removeAllAsteroids
 {
     [self enumerateChildNodesWithName:@"asteroid" usingBlock:^(SKNode *node, BOOL *stop) {

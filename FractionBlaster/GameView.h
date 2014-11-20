@@ -9,15 +9,15 @@
 #import <UIKit/UIKit.h>
 
 @protocol GoBack
--(void)backToMainMenu;
--(void)backToGameWithNextLevel:(BOOL)won;
+- (void)backToMainMenu;
+- (void)backToGameWithNextLevel:(BOOL)won;
 @end
 
 @interface GameView : UIView
 
 @property (assign, nonatomic) id <GoBack> delegate;
 
--(id)initWithFrame:(CGRect)frame andLevel:(int)level andScore:(int)score;
--(void)updateScore:(int)score;
+- (id)initWithFrame:(CGRect)frame andLevel:(int)level andScore:(int)score;
+- (void)updateScore:(int)score;
 
 @end
