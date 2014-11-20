@@ -19,7 +19,6 @@
 - (Fraction*) generateRandomFractionWithLimit: (Fraction*)upper;
 
 // For unit testing purposes
-
 -(Equation*)generateAdditionEquation: (BOOL)easy;
 -(Equation*)generateSubtractionEquation: (BOOL)easy;
 -(Equation*)generateMultiplicationEquation;
