@@ -179,13 +179,18 @@ CGFloat INSET_RATIO = 0.02;
 
 - (void)incrementScore:(int)value
 {
+    
     _score += value;
+    if (_score < 0) {
+        _score = 0;
+    }
     [_gameView updateScore:_score];
 }
 
 // Function to get a random equation whose solution is not value.
 - (Equation*)wrongAnswerAttempt:(Fraction*)value
 {
+    [self incrementScore:-50];
     Equation* randomEquation = [_equationGenerator generateRandomEquation];
     
     // Make sure that we end up with an equation whose solution doesn't match the failed answer attempt

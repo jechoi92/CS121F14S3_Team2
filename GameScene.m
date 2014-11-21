@@ -393,7 +393,7 @@ CGFloat LASER_VELOCITY = 800.0;
         // Calculate the score for the destroyed asteroid and spawn a notice with that score
         int asteroidScore = (10 + (int) asteroid.position.y / 100) * 10;
         [self asteroidDestroyed: (int)asteroidScore];
-        [self notifyWithPosition: asteroid.position andScore: asteroidScore];
+        [self notifyWithPosition: asteroid.position andScore: asteroidScore andPositive:YES];
         
         // Remove the asteroid sprite
         [asteroid removeFromParent];
@@ -414,6 +414,7 @@ CGFloat LASER_VELOCITY = 800.0;
         // If all attempts are used, change the equation for this asteroid to prevent spamming
         if (attemptsLeft <= 0) {
             Equation* newEquation = [self.deli wrongAnswerAttempt:laserFrequency];
+            [self notifyWithPosition: asteroid.position andScore: 50 andPositive:NO];
             [asteroid userData][@"frequency"] = [newEquation getSolution];
             [asteroid removeAllChildren];
             [asteroid addChild:[self createLabelForEquation:newEquation]];
@@ -443,13 +444,20 @@ CGFloat LASER_VELOCITY = 800.0;
 }
 
 // Spawn a label with the number of points earned from an asteroid
-- (void)notifyWithPosition: (CGPoint)position andScore: (int)score
+- (void)notifyWithPosition: (CGPoint)position andScore: (int)score andPositive:(BOOL)plus
 {
     SKLabelNode* label = [SKLabelNode labelNodeWithFontNamed:@"HelveticaNeue-Bold"];
-    label.fontColor = [UIColor greenColor];
+    
     label.fontSize = 20;
     label.position =  CGPointMake(position.x, position.y);
-    label.text = [[NSString alloc] initWithFormat:@"+%d", score];
+    if (plus) {
+        label.fontColor = [UIColor greenColor];
+        label.text = [[NSString alloc] initWithFormat:@"+%d", score];
+    }
+    else {
+        label.fontColor = [UIColor redColor];
+        label.text = [[NSString alloc] initWithFormat:@"-%d", score];
+    }
     label.blendMode = YES;
     label.zPosition = 2;
     [self addChild:label];
