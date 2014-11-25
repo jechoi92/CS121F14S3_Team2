@@ -16,7 +16,6 @@
 -(NSString*)toString;
 
 // For unit-testing purposes
-
 -(Fraction*)getFraction1;
 -(Fraction*)getFraction2;
 -(char)getOperator;

@@ -8,17 +8,21 @@
 
 #import <UIKit/UIKit.h>
 #import <SpriteKit/SpriteKit.h>
+#import <AVFoundation/AVFoundation.h>
+#import <QuartzCore/QuartzCore.h>
 #import "GameScene.h"
 #import "HealthBarView.h"
 #import "EquationGenerator.h"
 #import "SideBarView.h"
-#import "GameOverScene.h"
+#import "GameLabelsAndButtonsView.h"
+#import "GameEndLabelAndButtonsView.h"
 
-@interface GameViewController : UIViewController <AsteroidReachedBottom,
-                                                  LaserFrequencyChosen>
+@interface GameViewController : UIViewController <AsteroidAction,
+                                                  LaserFrequencyChosen,
+                                                  GoBack>
 
-- (void)createHealthBar;
-- (void)createScene;
-- (void)createSideBar;
+@property (nonatomic) AVAudioPlayer *backgroundMusicPlayer;
+
+- (id)initWithLevel:(int)level andScore: (int)score;
 
 @end

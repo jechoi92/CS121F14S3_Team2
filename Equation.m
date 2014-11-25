@@ -12,8 +12,8 @@
 {
     Fraction *_args1;
     Fraction *_args2;
-    char _operator;
     Fraction *_value;
+    char _operator;
 }
 
 // Initializes an equation with two fractions and one operator in between.

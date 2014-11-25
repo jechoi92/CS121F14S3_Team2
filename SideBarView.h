@@ -18,11 +18,11 @@
 @property (assign, nonatomic) id <LaserFrequencyChosen> delegate;
 
 
-// overwrites the method to initialize the creation of the side bar
+// Overwrites the method to initialize the creation of the side bar
 - (id)initWithFrame:(CGRect)frame;
 
-// initializes all of the UIButtons and allocates them in a 1x4 frame
-- (void)makeButtonsWithFrame:(CGRect)frame;
+// Initializes all of the UIButtons and allocates them in a 1x4 frame
+- (void)makeButtons;
 
 // Returns the button in the NSMutable array of all the
 // buttons placed on the side bar

@@ -1,0 +1,13 @@
+Get ready, Space Cadet!
+
+The Earth is in danger! Asteroids are flying towards us, and we need you to destroy them before they reach the Earth at the bottom of the screen.
+
+These aren't your every-day asteroids. No, they're much more vicious. Each asteroid has an expression of fractions that you need to solve. The expression could have addition, subtraction, multiplication, division, or simplification. If there's just one fraction, you need to simplify it.
+
+If an asteroid makes it to the bottom of the screen without being destroyed, Earth's health bar on the left hand side of the screen will decrease. The Earth can only withstand 10 asteroids, so don't let 10 asteroids reach the bottom!
+
+To destroy an asteroid, you need to solve the expression on it. Move your ship underneath the asteroid by dragging it along the bottom of the screen, and then you can fire a laser by choosing a laser frequency in the bottom right corner of the screen.
+
+If you chose the right fraction, the asteroid will be destroyed!
+
+Are you ready to save the Earth?
