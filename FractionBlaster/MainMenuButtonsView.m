@@ -38,7 +38,7 @@
     CGFloat frameWidth = CGRectGetWidth(frame);
     CGFloat frameHeight = CGRectGetWidth(frame);
     CGFloat buttonWidth = frameWidth / (buttonsPerRow + totalBorderPerRow);
-    CGFloat buttonHeight = frameHeight / (rows + totalBorderPerCol);
+    CGFloat buttonHeight = frameHeight / ((rows + totalBorderPerCol) * 2);
     
     CGFloat xOffset = baseBorder;
     CGFloat yOffset = baseBorder;
@@ -55,25 +55,30 @@
         
         // Set up title
         NSString *titleString;
+        NSString *title;
         switch (i){
             case 0:
                 titleString = @"Start Game";
+                title = @"start_mission";
                 break;
             case 1:
                 titleString = @"Instructions";
+                title = @"instructions";
                 break;
             case 2:
                 titleString = @"Leaderboard";
+                title = @"leaderboards";
                 break;
             default:
                 titleString = @"Unassigned";
                 break;
         }
-        [button setTitle:titleString forState:UIControlStateNormal];
-        [button setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-        button.titleLabel.font = [UIFont fontWithName:@"HelveticaNeue"
-                                                      size:IPAD_FONT_SIZE];
-        button.titleLabel.adjustsFontSizeToFitWidth = YES;
+        [button setBackgroundImage:[UIImage imageNamed:title] forState:UIControlStateNormal];
+       // [button setTitle:titleString forState:UIControlStateNormal];
+       // [button setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+       // button.titleLabel.font = [UIFont fontWithName:@"HelveticaNeue"
+        //                                              size:IPAD_FONT_SIZE];
+      //  button.titleLabel.adjustsFontSizeToFitWidth = YES;
         
         // Tag the button for identification
         button.tag = i;

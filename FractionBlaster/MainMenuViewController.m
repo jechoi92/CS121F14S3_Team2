@@ -35,14 +35,14 @@
     [self.view addSubview:_titleView];
     
     // Constants for button size
-    CGFloat buttonsFramePctWidth = 0.25;
+    CGFloat buttonsFramePctWidth = 0.7;
     CGFloat buttonsFramePctHeight = 0.40;
     
     // Set up x-centered frame for buttons
     CGFloat buttonsFrameHeight = frameHeight * buttonsFramePctHeight;
     CGFloat buttonsFrameWidth = frameWidth * buttonsFramePctWidth;
     CGFloat buttonsFrameYOffset = titleYOffset+titleImage.size.height+30;
-    CGFloat buttonsFrameXOffset = (frameWidth-buttonsFrameWidth)/2;
+    CGFloat buttonsFrameXOffset = frameWidth*.15;
     
     CGRect buttonsFrame = CGRectMake(buttonsFrameXOffset, buttonsFrameYOffset, buttonsFrameWidth, buttonsFrameHeight);
     

@@ -55,7 +55,7 @@ CGFloat INSET_RATIO;
 // Create all the labels for the view
 - (void)createLabelsWithLevel:(int)level andScore:(int)score
 {
-    [self createLevelLabels:level];
+  //  [self createLevelLabels:level]; getting moved to GameScene
     [self createScoreLabels:score];
     [self createFireLabel];
 }

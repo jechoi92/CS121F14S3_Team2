@@ -24,5 +24,6 @@
 - (id)initWithSize:(CGSize)size andLevel:(int)level;
 - (void)createAsteroid: (Equation*)equation;
 - (void)fireLaser: (Fraction*)value fromButton: (int)tag;
+- (void)startLevelAnimation;
 
 @end

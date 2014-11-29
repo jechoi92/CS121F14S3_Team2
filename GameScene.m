@@ -29,6 +29,7 @@ CGFloat LASER_VELOCITY = 800.0;
     int _score;
     SKLabelNode* _asteroidsLabel;
     SKLabelNode* _asteroidsValueLabel;
+    SKNode* _levelNode;
     NSArray* _explosionFrames;
 }
 
@@ -47,6 +48,7 @@ CGFloat LASER_VELOCITY = 800.0;
         _asteroidsToDestroy = [self findAsteroidsToDestroy:(int)level];
         
         [self createPlayer];
+        [self displayLevel:level];
         [self createLabel];
         [self initializeSprites];
         
@@ -54,6 +56,8 @@ CGFloat LASER_VELOCITY = 800.0;
         self.physicsWorld.gravity = CGVectorMake(0,0);
         self.physicsWorld.contactDelegate = self;
     }
+    
+    
     
     return self;
 }
@@ -72,7 +76,6 @@ CGFloat LASER_VELOCITY = 800.0;
 - (void)createLabel
 {
     CGRect frame = self.frame;
-    
     CGFloat asteroidsLabelX = CGRectGetWidth(frame) * 0.84;
     CGFloat asteroidsLabelY = CGRectGetHeight(frame) * 0.93;
     
@@ -96,6 +99,37 @@ CGFloat LASER_VELOCITY = 800.0;
     _asteroidsValueLabel.blendMode = YES;
     _asteroidsValueLabel.zPosition = 1;
     [self addChild:_asteroidsValueLabel];
+}
+
+// Creates the label node on the scene
+-(void) displayLevel:(int)level
+{
+    CGRect frame = self.frame;
+    CGFloat screenWidth = CGRectGetWidth(frame) ;
+    CGFloat screenHeight = CGRectGetHeight(frame);
+    
+    NSString* levelDisp = [[NSString alloc] initWithFormat:@"level%d", level];
+    _levelNode = [SKSpriteNode spriteNodeWithImageNamed:levelDisp];
+    //_levelNode = [SKLabelNode labelNodeWithFontNamed:@"SPACE AGE"];
+    //_levelNode.text = [[NSString alloc] initWithFormat:@"Level %d", level];
+    _levelNode.position = CGPointMake(screenWidth*0.5 , screenHeight*0.93);
+    _levelNode.physicsBody.dynamic = YES;
+    
+    [self addChild:_levelNode];
+}
+
+// Runs the animation of moving around the level node
+-(void) startLevelAnimation
+{
+    CGPoint midDest = CGPointMake(_levelNode.position.x, self.size.height*0.6);
+    CGPoint finalDest = CGPointMake(_levelNode.position.x, self.size.height*0.96);
+    
+    SKAction * moveDown = [SKAction moveTo:midDest  duration:1];
+    SKAction * moveUp = [SKAction moveTo:finalDest  duration:1.2];
+    SKAction * scaleDown = [SKAction scaleBy:0.5 duration:1.2];
+    SKAction *group = [SKAction group:@[moveUp, scaleDown]];
+    
+    [_levelNode runAction:[SKAction sequence:@[moveDown, group]]];
 }
 
 // Prepare the frames of the explosion animation for when asteroids are destroyed

@@ -60,13 +60,14 @@ CGFloat INSET_RATIO = 0.02;
         [self createSideBar];
         [self createHealthBar];
         [self createScene];
-
+        
         // Timer that creates an asteroid every given time interval.
         _asteroidGenerationTimer = [NSTimer scheduledTimerWithTimeInterval:7.0
                                                                     target:self
                                                                   selector:@selector(createAsteroid:)
                                                                   userInfo:nil
                                                                    repeats:YES];
+        [_scene startLevelAnimation];
     }
 }
 
@@ -77,7 +78,6 @@ CGFloat INSET_RATIO = 0.02;
     CGFloat width = CGRectGetWidth(frame);
     CGFloat height = CGRectGetHeight(frame);
     CGRect labelsAndButtonsFrame = CGRectMake(0, 0, width, height);
-    
     
     _gameView= [[GameLabelsAndButtonsView alloc] initWithFrame:labelsAndButtonsFrame andLevel:_level andScore:_score];
     [_gameView setDelegate:self];
@@ -179,7 +179,6 @@ CGFloat INSET_RATIO = 0.02;
 
 - (void)incrementScore:(int)value
 {
-    
     _score += value;
     if (_score < 0) {
         _score = 0;
