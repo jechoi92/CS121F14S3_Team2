@@ -35,7 +35,8 @@ CGFloat INSET_RATIO = 0.02;
 }
 
 // Function required to keep the SKScene from crashing the program.
--(void)loadView {
+-(void)loadView
+{
     CGRect applicationFrame = [[UIScreen mainScreen] applicationFrame];
     SKView *skView = [[SKView alloc] initWithFrame:applicationFrame];
     self.view = skView;
