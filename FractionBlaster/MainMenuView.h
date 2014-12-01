@@ -12,7 +12,7 @@
 - (void)buttonSelected:(id)sender;
 @end
 
-@interface MainMenuButtonsView : UIView
+@interface MainMenuView : UIView
 
 @property (assign, nonatomic) id <ButtonSelected> delegate;
 

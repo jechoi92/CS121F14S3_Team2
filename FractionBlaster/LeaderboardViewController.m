@@ -13,7 +13,6 @@ CGFloat INSET_RATIO;
 
 @implementation LeaderboardViewController {
     LeaderboardView* _leaderboardView;
-
 }
 
 -(void)viewDidLoad
@@ -63,11 +62,6 @@ CGFloat INSET_RATIO;
 -(void)backToMainMenu
 {
     [self.navigationController popViewControllerAnimated:YES];
-}
-
-// Dummy declaration required for protocol.
--(void)backToGameWithNextLevel:(BOOL)won
-{
 }
 
 @end

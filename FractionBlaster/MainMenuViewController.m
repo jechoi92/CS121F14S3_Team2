@@ -7,14 +7,10 @@
 //
 
 #import "MainMenuViewController.h"
-#import "LevelSelectViewController.h"
-#import "InstructionsViewController.h"
-#import "LeaderboardViewController.h"
 
 @implementation MainMenuViewController
 {
-    MainMenuButtonsView *_buttonsView;
-    UIImageView *_titleView;
+    MainMenuView *_buttonsView;
 }
 
 - (void)viewDidLoad {
@@ -22,40 +18,10 @@
     
     [self.view setBackgroundColor:[[UIColor alloc] initWithPatternImage:[UIImage imageNamed:@"main_background"]]];
     
-    // Get frame stats
-    CGFloat frameHeight = CGRectGetHeight(self.view.frame);
-    CGFloat frameWidth  = CGRectGetWidth(self.view.frame);
-    
-    // Title image
-    UIImage *titleImage =[UIImage imageNamed:@"logo.png"];
-    CGFloat titleXOffset = (frameWidth-titleImage.size.width)/2;
-    CGFloat titleYOffset = 0.2 * frameHeight;
-    _titleView = [[UIImageView alloc] initWithFrame:CGRectMake(titleXOffset, titleYOffset, titleImage.size.width, titleImage.size.height)];
-    [_titleView setImage:titleImage];
-    [self.view addSubview:_titleView];
-    
-    // Constants for button size
-    CGFloat buttonsFramePctWidth = 0.7;
-    CGFloat buttonsFramePctHeight = 0.40;
-    
-    // Set up x-centered frame for buttons
-    CGFloat buttonsFrameHeight = frameHeight * buttonsFramePctHeight;
-    CGFloat buttonsFrameWidth = frameWidth * buttonsFramePctWidth;
-    CGFloat buttonsFrameYOffset = titleYOffset+titleImage.size.height+30;
-    CGFloat buttonsFrameXOffset = frameWidth*.15;
-    
-    CGRect buttonsFrame = CGRectMake(buttonsFrameXOffset, buttonsFrameYOffset, buttonsFrameWidth, buttonsFrameHeight);
-    
     // Add the subview
-    _buttonsView = [[MainMenuButtonsView alloc] initWithFrame:buttonsFrame];
+    _buttonsView = [[MainMenuView alloc] initWithFrame:self.view.frame];
     [_buttonsView setDelegate:self];
     [self.view addSubview: _buttonsView];
-    
-}
-
-- (void)createTitle
-{
-    
 }
 
 - (void)buttonSelected:(id)sender
@@ -68,8 +34,9 @@
         case 0:
         {
             // Go to LevelSelectViewController
-            LevelSelectViewController *lsvc = [[LevelSelectViewController alloc] init];
-            [self.navigationController pushViewController:lsvc animated:YES];
+            //LevelSelectViewController *lsvc = [[LevelSelectViewController alloc] init];
+            ModeSelectViewController* msvc = [[ModeSelectViewController alloc] init];
+            [self.navigationController pushViewController:msvc animated:YES];
             break;
         }
         case 1:

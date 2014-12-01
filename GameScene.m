@@ -15,7 +15,6 @@ CGFloat INSET_RATIO;
 int SLOW_SPEED = 35;
 int MEDIUM_SPEED = 30;
 int MAX_SPEED = 25;
-int HELL_MODE = 15;
 int ALLOWED_WRONG_ANSWERS = 2;
 CGFloat LASER_VELOCITY = 800.0;
 
@@ -75,30 +74,32 @@ CGFloat LASER_VELOCITY = 800.0;
 // Create labels displaying the number of asteroids left in the level
 - (void)createLabel
 {
-    CGRect frame = self.frame;
-    CGFloat asteroidsLabelX = CGRectGetWidth(frame) * 0.84;
-    CGFloat asteroidsLabelY = CGRectGetHeight(frame) * 0.93;
+    if (_asteroidsToDestroy > 0) {
+        CGRect frame = self.frame;
+        CGFloat asteroidsLabelX = CGRectGetWidth(frame) * 0.84;
+        CGFloat asteroidsLabelY = CGRectGetHeight(frame) * 0.93;
     
-    // Create label with "Asteroids remaining" text
-    _asteroidsLabel = [SKLabelNode labelNodeWithFontNamed:@"HelveticaNeue-Bold"];
-    _asteroidsLabel.fontSize = 18;
-    _asteroidsLabel.position =  CGPointMake(asteroidsLabelX, asteroidsLabelY);
-    _asteroidsLabel.text = @"Asteroids remaining";
-    _asteroidsLabel.blendMode = YES;
-    _asteroidsLabel.zPosition = 1;
-    [self addChild:_asteroidsLabel];
+        // Create label with "Asteroids remaining" text
+        _asteroidsLabel = [SKLabelNode labelNodeWithFontNamed:@"HelveticaNeue-Bold"];
+        _asteroidsLabel.fontSize = 18;
+        _asteroidsLabel.position =  CGPointMake(asteroidsLabelX, asteroidsLabelY);
+        _asteroidsLabel.text = @"Asteroids remaining";
+        _asteroidsLabel.blendMode = YES;
+        _asteroidsLabel.zPosition = 1;
+        [self addChild:_asteroidsLabel];
     
-    CGFloat asteroidsValueLabelX = CGRectGetWidth(frame) * 0.97;
-    CGFloat asteroidsValueLabelY = CGRectGetHeight(frame) * 0.93;
+        CGFloat asteroidsValueLabelX = CGRectGetWidth(frame) * 0.97;
+        CGFloat asteroidsValueLabelY = CGRectGetHeight(frame) * 0.93;
     
-    // Create label displaying the actual number of asteroids left
-    _asteroidsValueLabel = [SKLabelNode labelNodeWithFontNamed:@"HelveticaNeue-Bold"];
-    _asteroidsValueLabel.fontSize = 18;
-    _asteroidsValueLabel.position =  CGPointMake(asteroidsValueLabelX, asteroidsValueLabelY);
-    _asteroidsValueLabel.text = [[NSString alloc] initWithFormat:@"%d", _asteroidsToDestroy];
-    _asteroidsValueLabel.blendMode = YES;
-    _asteroidsValueLabel.zPosition = 1;
-    [self addChild:_asteroidsValueLabel];
+        // Create label displaying the actual number of asteroids left
+        _asteroidsValueLabel = [SKLabelNode labelNodeWithFontNamed:@"HelveticaNeue-Bold"];
+        _asteroidsValueLabel.fontSize = 18;
+        _asteroidsValueLabel.position =  CGPointMake(asteroidsValueLabelX, asteroidsValueLabelY);
+        _asteroidsValueLabel.text = [[NSString alloc] initWithFormat:@"%d", _asteroidsToDestroy];
+        _asteroidsValueLabel.blendMode = YES;
+        _asteroidsValueLabel.zPosition = 1;
+        [self addChild:_asteroidsValueLabel];
+    }
 }
 
 // Creates the label node on the scene
@@ -150,10 +151,9 @@ CGFloat LASER_VELOCITY = 800.0;
 // Used to determine the speed of asteroids for a given level
 - (int)findMinimumAsteroidDuration:(int)level
 {
-    if (level == 10) {
-        return HELL_MODE;
+    if (level == -1) {
+        return MEDIUM_SPEED;
     }
-    
     if (level < 5) {
         return SLOW_SPEED;
     }
@@ -168,9 +168,9 @@ CGFloat LASER_VELOCITY = 800.0;
 // Returns the number of asteroids that must be destroyed in the given level
 - (int)findAsteroidsToDestroy:(int)level
 {
-    NSAssert(level >= 1, @"Level must be positive");
-    
-    if (level < 2) {
+    if (level  < 0) {
+        return -1;
+    } else if (level < 2) {
         return 10;
     } else if (level < 5) {
         return 12;
@@ -431,7 +431,7 @@ CGFloat LASER_VELOCITY = 800.0;
         
         // Remove the asteroid sprite
         [asteroid removeFromParent];
-        if (_asteroidsToDestroy <= 0) {
+        if (_asteroidsToDestroy == 0) {
             // If the victory condition is met, destroy all asteroids left in the scene...
             [self removeAllAsteroids];
             // ...and inform the delegate

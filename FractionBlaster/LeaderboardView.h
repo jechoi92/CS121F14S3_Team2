@@ -7,7 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "GameLabelsAndButtonsView.h"
+
+@protocol GoBack
+- (void)backToMainMenu;
+@end
 
 @interface LeaderboardView : UIView
 

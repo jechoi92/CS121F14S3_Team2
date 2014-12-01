@@ -12,7 +12,7 @@
 
 @implementation LevelSelectViewController
 {
-    LevelButtonView *_levelButtonView;
+    LevelSelectView* _levelButtonView;
     StartLevelButtonView *_startLevelButtonView;
     UIButton *_backButton;
 }
@@ -55,7 +55,7 @@ static CGFloat INSET_RATIO = 0.02;
     CGRect levelViewFrame = CGRectMake(levelViewXOffset, levelViewYOffset, levelViewWidth, levelViewHeight);
     
     // Create start button with the appropriate delegate
-    _levelButtonView = [[LevelButtonView alloc] initWithFrame:levelViewFrame];
+    _levelButtonView = [[LevelSelectView alloc] initWithFrame:levelViewFrame];
     [self.view addSubview:_levelButtonView];
     CGRect startButtonFrame = CGRectMake(frameWidth*.1, frameHeight*.8, frameWidth*.8, frameHeight*.15);
     _startLevelButtonView = [[StartLevelButtonView alloc] initWithFrame:startButtonFrame];
@@ -110,7 +110,7 @@ static CGFloat INSET_RATIO = 0.02;
 {
     int currentLevel = [_levelButtonView currentLevelSelected] + 1;
     GameViewController *gvc = [[GameViewController alloc]
-                             initWithLevel:currentLevel andScore:0];
+                             initWithLevel:currentLevel andOperators:NULL];
     [self.navigationController pushViewController:gvc animated:YES];
 }
 

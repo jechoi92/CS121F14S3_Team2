@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface LevelButtonView : UIView
+@interface LevelSelectView : UIView
 
 @property (assign, nonatomic) int currentLevelSelected;
 

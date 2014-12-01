@@ -6,11 +6,11 @@
 //  Copyright (c) 2014 MatherTeresa. All rights reserved.
 //
 
-#import "GameLabelsAndButtonsView.h"
+#import "GameView.h"
 
 CGFloat INSET_RATIO;
 
-@implementation GameLabelsAndButtonsView
+@implementation GameView
 {
     UIButton* _backButton;
     UILabel* _levelTextLabel;

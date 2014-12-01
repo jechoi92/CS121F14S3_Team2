@@ -18,19 +18,22 @@ CGFloat INSET_RATIO = 0.02;
     SideBarView* _sidebar;
     GameScene* _scene;
     EquationGenerator* _equationGenerator;
-    GameLabelsAndButtonsView* _gameView;
-    GameEndLabelAndButtonsView* _gameEndView;
+    GameView* _gameView;
+    GameEndView* _gameEndView;
     NSMutableArray* _initialFractions;
     NSTimer* _asteroidGenerationTimer;
     int _level;
     int _score;
 }
 
--(id)initWithLevel:(int)level andScore:(int)score
+-(id)initWithLevel:(int)level andOperators:(NSArray*)operators
 {
     self = [super init];
     _level = level;
-    _score = score;
+    if (operators == NULL) {
+        operators = [self findOperators];
+    }
+    _equationGenerator = [[EquationGenerator alloc] initWithOperators:operators andDenominatorLimit:12 andDifficulty:0];
     return self;
 }
 
@@ -51,11 +54,10 @@ CGFloat INSET_RATIO = 0.02;
     self.backgroundMusicPlayer.numberOfLoops = -1;
     [self.backgroundMusicPlayer prepareToPlay];
     [self.backgroundMusicPlayer play];
-    NSArray* operators = [self findOperators];
     SKView * skView = (SKView *)self.view;
     if (!skView.scene) {
         // Create all necessary data members.
-        _equationGenerator = [[EquationGenerator alloc] initWithOperators:operators andDenominatorLimit:12 andDifficulty:0];
+        
         _initialFractions = [_equationGenerator getInitialFractions];
         [self createGameView];
         [self createSideBar];
@@ -80,7 +82,7 @@ CGFloat INSET_RATIO = 0.02;
     CGFloat height = CGRectGetHeight(frame);
     CGRect labelsAndButtonsFrame = CGRectMake(0, 0, width, height);
     
-    _gameView= [[GameLabelsAndButtonsView alloc] initWithFrame:labelsAndButtonsFrame andLevel:_level andScore:_score];
+    _gameView= [[GameView alloc] initWithFrame:labelsAndButtonsFrame andLevel:_level andScore:_score];
     [_gameView setDelegate:self];
     [self.view addSubview:_gameView];
 }
@@ -132,6 +134,7 @@ CGFloat INSET_RATIO = 0.02;
     
     // If we have won, then update game progress.
     if (winning) {
+        _score += _level * 1000;
         [self updateProgress];
         
         // But if we have beaten the last level, then we load the final end view.
@@ -379,7 +382,7 @@ CGFloat INSET_RATIO = 0.02;
     CGFloat width = CGRectGetWidth(frame);
     CGFloat height = CGRectGetHeight(frame);
     CGRect gameEndViewFrame = CGRectMake(0, 0, width, height);
-    _gameEndView = [[GameEndLabelAndButtonsView alloc] initWithFrame:gameEndViewFrame withLevel:_level andScore:_score andWin:win];
+    _gameEndView = [[GameEndView alloc] initWithFrame:gameEndViewFrame withLevel:_level andScore:_score andWin:win];
     [_gameEndView setDelegate:self];
     [self.view addSubview:_gameEndView];
     [self.view sendSubviewToBack:_gameView];
@@ -392,7 +395,7 @@ CGFloat INSET_RATIO = 0.02;
     CGFloat width = CGRectGetWidth(frame);
     CGFloat height = CGRectGetHeight(frame);
     CGRect gameEndViewFrame = CGRectMake(0, 0, width, height);
-    _gameEndView = [[GameEndLabelAndButtonsView alloc] initWithFrameVictory:gameEndViewFrame];
+    _gameEndView = [[GameEndView alloc] initWithFrameVictory:gameEndViewFrame];
     [_gameEndView setDelegate:self];
     [self.view addSubview:_gameEndView];
     [self.view sendSubviewToBack:_gameView];
