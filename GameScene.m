@@ -109,10 +109,17 @@ CGFloat LASER_VELOCITY = 800.0;
     CGFloat screenWidth = CGRectGetWidth(frame) ;
     CGFloat screenHeight = CGRectGetHeight(frame);
     
-    NSString* levelDisp = [[NSString alloc] initWithFormat:@"level%d", level];
+    NSLog([[NSString alloc] initWithFormat:@"%d", level]);
+    
+    NSString* levelDisp;
+    if (level == -1) {
+        levelDisp = [[NSString alloc] initWithFormat:@"survival_mode"];
+    } else {
+        levelDisp = [[NSString alloc] initWithFormat:@"level%d", level];
+    }
+    
+    //NSString* levelDisp = [[NSString alloc] initWithFormat:@"level%d", level];
     _levelNode = [SKSpriteNode spriteNodeWithImageNamed:levelDisp];
-    //_levelNode = [SKLabelNode labelNodeWithFontNamed:@"SPACE AGE"];
-    //_levelNode.text = [[NSString alloc] initWithFormat:@"Level %d", level];
     _levelNode.position = CGPointMake(screenWidth*0.5 , screenHeight*0.93);
     _levelNode.physicsBody.dynamic = YES;
     
