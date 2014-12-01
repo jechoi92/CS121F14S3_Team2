@@ -14,15 +14,15 @@
 #import "HealthBarView.h"
 #import "EquationGenerator.h"
 #import "SideBarView.h"
-#import "GameLabelsAndButtonsView.h"
-#import "GameEndLabelAndButtonsView.h"
+#import "GameView.h"
+#import "GameEndView.h"
 
 @interface GameViewController : UIViewController <AsteroidAction,
                                                   LaserFrequencyChosen,
-                                                  GoBack>
+                                                  GoBackGame>
 
 @property (nonatomic) AVAudioPlayer *backgroundMusicPlayer;
 
-- (id)initWithLevel:(int)level andScore: (int)score;
+- (id)initWithLevel:(int)level andOperators: (NSArray*)operators;
 
 @end

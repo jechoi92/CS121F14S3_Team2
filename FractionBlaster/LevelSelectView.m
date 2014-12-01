@@ -6,20 +6,15 @@
 //  Copyright (c) 2014 MatherTeresa. All rights reserved.
 //
 
-#import "LevelButtonView.h"
+#import "LevelSelectView.h"
 
-@implementation LevelButtonView
+@implementation LevelSelectView
 {
     NSMutableArray *_levelButtons;
-    int _currentLevelSelected;
-    UIColor *_regularBGColor;
-    UIColor *_highlightBGColor;
-    
 }
 
 int BUTTONS_PER_ROW = 5;
 int NUM_LEVELS = 10;
-int IPAD_FONT_SIZE = 40;
 
 // Create the subview with all of these buttons on the level select view controller
 -(id)initWithFrame:(CGRect)frame
@@ -159,19 +154,14 @@ int IPAD_FONT_SIZE = 40;
 // after  the player closes and reopens the game
 - (int)readProgress
 {
-    // Retrieve the path to the location of where to place the file
     NSArray *paths = NSSearchPathForDirectoriesInDomains
     (NSDocumentDirectory, NSUserDomainMask, YES);
     NSString *documentsDirectory = [paths objectAtIndex:0];
-    
-    // Make a file name to write the data to using the documents directory:
     NSString *fileName = [NSString stringWithFormat:@"%@/Progress.txt",
                           documentsDirectory];
     NSString *content = [[NSString alloc] initWithContentsOfFile:fileName
                                                     usedEncoding:nil
                                                            error:nil];
-    
-    // Use simple alert from my library (see previous post for details)
     return [content intValue];;
 }
 

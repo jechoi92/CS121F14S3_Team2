@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "LevelButtonView.h"
+#import "LevelSelectView.h"
 #import "StartLevelButtonView.h"
 #import "GameViewController.h"
 

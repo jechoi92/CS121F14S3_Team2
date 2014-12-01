@@ -6,9 +6,9 @@
 //  Copyright (c) 2014 MatherTeresa. All rights reserved.
 //
 
-#import "GameEndLabelAndButtonsView.h"
+#import "GameEndView.h"
 
-@implementation GameEndLabelAndButtonsView
+@implementation GameEndView
 {
     UIButton* _backButton;
     UIButton* _continueButton;
@@ -123,9 +123,18 @@
     CGFloat width = CGRectGetWidth(frame);
     CGFloat height = CGRectGetHeight(frame);
     
-    CGRect levelLabelFrame = CGRectMake(width * 0.44,height * 0.43,width * 0.5, height * 0.08);
+    CGRect levelLabelFrame;
+    
+    NSString* levelLabel;
+    if (level > 0) {
+        levelLabel = [[NSString alloc] initWithFormat:@"Level: %d", level];
+        levelLabelFrame = CGRectMake(width * 0.44,height * 0.43,width * 0.5, height * 0.08);
+    }
+    else {
+        levelLabel = @"Survival Mode";
+        levelLabelFrame = CGRectMake(width * 0.40,height * 0.43,width * 0.5, height * 0.08);
+    }
     _levelLabel = [[UILabel alloc] initWithFrame:levelLabelFrame];
-    NSString* levelLabel = [[NSString alloc] initWithFormat:@"Level: %d", level];
     [_levelLabel setText:levelLabel];
     [_levelLabel setFont:[UIFont fontWithName:@"HelveticaNeue-Bold" size:24.0f]];
     [_levelLabel setTextColor:[UIColor whiteColor]];

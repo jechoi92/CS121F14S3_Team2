@@ -8,14 +8,14 @@
 
 #import <UIKit/UIKit.h>
 
-@protocol GoBack
+@protocol GoBackGame
 - (void)backToMainMenu;
 - (void)backToGameWithNextLevel:(BOOL)won;
 @end
 
-@interface GameLabelsAndButtonsView : UIView
+@interface GameView : UIView
 
-@property (assign, nonatomic) id <GoBack> delegate;
+@property (assign, nonatomic) id <GoBackGame> delegate;
 
 - (id)initWithFrame:(CGRect)frame andLevel:(int)level andScore:(int)score;
 - (void)updateScore:(int)score;
