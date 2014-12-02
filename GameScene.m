@@ -84,7 +84,6 @@ CGFloat LASER_VELOCITY = 800.0;
         _asteroidsLabel.fontSize = 18;
         _asteroidsLabel.position =  CGPointMake(asteroidsLabelX, asteroidsLabelY);
         _asteroidsLabel.text = @"Asteroids remaining";
-        _asteroidsLabel.blendMode = YES;
         _asteroidsLabel.zPosition = 1;
         [self addChild:_asteroidsLabel];
     
@@ -96,7 +95,6 @@ CGFloat LASER_VELOCITY = 800.0;
         _asteroidsValueLabel.fontSize = 18;
         _asteroidsValueLabel.position =  CGPointMake(asteroidsValueLabelX, asteroidsValueLabelY);
         _asteroidsValueLabel.text = [[NSString alloc] initWithFormat:@"%d", _asteroidsToDestroy];
-        _asteroidsValueLabel.blendMode = YES;
         _asteroidsValueLabel.zPosition = 1;
         [self addChild:_asteroidsValueLabel];
     }
@@ -492,7 +490,6 @@ CGFloat LASER_VELOCITY = 800.0;
         label.fontColor = [UIColor redColor];
         label.text = [[NSString alloc] initWithFormat:@"-%d", score];
     }
-    label.blendMode = YES;
     label.zPosition = 2;
     [self addChild:label];
     
