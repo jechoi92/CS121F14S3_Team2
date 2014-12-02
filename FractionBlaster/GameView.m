@@ -17,7 +17,6 @@ CGFloat INSET_RATIO;
     UILabel* _levelValueLabel;
     UILabel* _scoreTextLabel;
     UILabel* _scoreValueLabel;
-    UILabel* _fireLabel;
 }
 
 - (id)initWithFrame:(CGRect)frame andLevel:(int)level andScore:(int)score
@@ -57,7 +56,6 @@ CGFloat INSET_RATIO;
 {
   //  [self createLevelLabels:level]; getting moved to GameScene
     [self createScoreLabels:score];
-    [self createFireLabel];
 }
 
 // Create labels displaying the current game level
@@ -116,21 +114,6 @@ CGFloat INSET_RATIO;
     [_scoreValueLabel setTextColor:[UIColor whiteColor]];
     [_scoreValueLabel setFont: [UIFont fontWithName:@"HelveticaNeue-Bold" size:18.0f]];
     [self addSubview:_scoreValueLabel];
-}
-
-// Create label over the fire buttons
-- (void)createFireLabel
-{
-    CGFloat width = CGRectGetWidth(self.frame);
-    CGFloat height = CGRectGetHeight(self.frame);
-    
-    CGRect fireLabelFrame = CGRectMake(width * 0.91, height * 0.55, width  * 0.09, height * 0.03);
-    _fireLabel = [[UILabel alloc] initWithFrame:fireLabelFrame];
-    
-    [_fireLabel setText:@"Fire!"];
-    [_fireLabel setTextColor:[UIColor whiteColor]];
-    [_fireLabel setFont: [UIFont fontWithName:@"HelveticaNeue-Bold" size:24.0f]];
-    [self addSubview:_fireLabel];
 }
 
 // Update the text of the score value label upon score changes

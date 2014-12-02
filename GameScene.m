@@ -277,14 +277,14 @@ CGFloat LASER_VELOCITY = 800.0;
     line.fontColor = [UIColor whiteColor];
     
     // Create a label for the numerator
-    SKLabelNode* numer = [[SKLabelNode alloc] initWithFontNamed:@"Helvetica-Bold"];
+    SKLabelNode* numer = [[SKLabelNode alloc] initWithFontNamed:@"SpaceAge"];
     numer.text = [NSString stringWithFormat:@"%d", [fraction numerator]];
     numer.fontSize = 24;
     numer.fontColor = [UIColor whiteColor];
     numer.position = CGPointMake(0.0, 5.0);
     
     // Create a label for the denominator
-    SKLabelNode* denom = [[SKLabelNode alloc] initWithFontNamed:@"Helvetica-Bold"];
+    SKLabelNode* denom = [[SKLabelNode alloc] initWithFontNamed:@"SpaceAge"];
     denom.text = [NSString stringWithFormat:@"%d", [fraction denominator]];
     denom.fontSize = 24;
     denom.fontColor = [UIColor whiteColor];
