@@ -28,8 +28,6 @@
         [[backButton layer] setBorderWidth:2.5f];
         [[backButton layer] setBorderColor:[UIColor whiteColor].CGColor];
         [[backButton layer] setCornerRadius:18.0f];
-        [backButton addTarget:self action:@selector(backButtonPressed)
-                forControlEvents:UIControlEventTouchUpInside];
         [self addSubview:backButton];
         
         CGRect continueButtonFrame = CGRectMake(width * 0.55 ,height * 0.6,width * 0.2, height * 0.08);
@@ -45,6 +43,8 @@
         UILabel *endMessageLabel;
         // Depending on whether the user won or lost, have separate texts on buttons and labels.
         if (win) {
+            [backButton addTarget:self action:@selector(backButtonPressedWithoutSave)
+                 forControlEvents:UIControlEventTouchUpInside];
             CGRect endMessageLabelFrame = CGRectMake(width * 0.42, height * 0.3, width * 0.3, height * 0.1);
             endMessageLabel = [[UILabel alloc] initWithFrame:endMessageLabelFrame];
             [endMessageLabel setText: @"VICTORY!"];
@@ -54,6 +54,8 @@
                       forControlEvents:UIControlEventTouchUpInside];
         }
         else {
+            [backButton addTarget:self action:@selector(backButtonPressed)
+                 forControlEvents:UIControlEventTouchUpInside];
             CGRect endMessageLabelFrame = CGRectMake(width * 0.21, height * 0.3, width * 0.6, height * 0.1);
             endMessageLabel = [[UILabel alloc] initWithFrame:endMessageLabelFrame];
             [endMessageLabel setText: @"YOU HAVE FAILED HUMANITY..."];
@@ -143,6 +145,27 @@
 -(void)backButtonPressed
 {
     [self.delegate backToMainMenu];
+}
+
+// Selector for the back button
+- (void)backButtonPressedWithoutSave
+{
+    UIAlertView* alert = [[UIAlertView alloc] initWithTitle:@""
+                                                    message:@"Go back to main menu? Your current score will be lost!"
+                                                   delegate:self
+                                          cancelButtonTitle:nil
+                                          otherButtonTitles:nil];
+    [alert addButtonWithTitle:@"Yes"];
+    [alert addButtonWithTitle:@"Cancel"];
+    [alert show];
+}
+
+- (void)alertView:(UIAlertView *)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex
+{
+    // Yes, go back to main menu
+    if (buttonIndex == 0) {
+        [self.delegate backToMainMenu];
+    }
 }
 
 -(void)nextLevelSelected
