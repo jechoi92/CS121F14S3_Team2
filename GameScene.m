@@ -36,9 +36,7 @@ CGFloat LASER_VELOCITY = 1500.0;
     if (self = [super initWithSize:size]) {
         
         SKSpriteNode* background = [SKSpriteNode spriteNodeWithImageNamed:@"background"];
-        
         background.position = CGPointMake(CGRectGetMidX(self.frame), CGRectGetMidY(self.frame));
-        background.name = @"BACKGROUND";
         [self addChild:background];
         
         // store the minimum time an asteroid can spend on screen for this level

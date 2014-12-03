@@ -33,9 +33,9 @@ int NUM_LEVELS = 10;
             [_levelButtons addObject:[[NSMutableArray alloc] initWithCapacity:BUTTONS_PER_ROW]];
         }
         
-        [self createEachButtonWithButton:[UIButton alloc] andUnlockedLevel:level andNumRows:numRows];
-        [self createLevelTitle];
-        [self createLevelButtonView];
+        [self createEachButton:[UIButton alloc] withUnlockedLevel:level andNumRows:numRows];
+        [self createTitle];
+        [self createButtons];
         [self createBackButton];
     }
     
@@ -44,8 +44,8 @@ int NUM_LEVELS = 10;
 
 // Goes through each slot in the nested array and places a button
 // in the slot with its designated parameters
--(void)createEachButtonWithButton:(UIButton*)button
-                 andUnlockedLevel:(int)unlockedLevel
+-(void)createEachButton:(UIButton*)button
+                 withUnlockedLevel:(int)unlockedLevel
                        andNumRows:(int)numRows
 {
     CGFloat buttonSize = CGRectGetWidth(self.frame) / 8;
@@ -118,7 +118,7 @@ int NUM_LEVELS = 10;
     }
 }
 
--(void)createLevelButtonView
+-(void)createButtons
 {
     // Get frame and frame dimensions
     CGRect frame = self.frame;
@@ -139,7 +139,7 @@ int NUM_LEVELS = 10;
 }
 
 // Creates the level select title image at the top of the screen
--(void)createLevelTitle
+-(void)createTitle
 {
     // Get frame and frame dimensions
     CGRect frame = self.frame;
