@@ -61,18 +61,27 @@ int INSTR_FONT_SIZE = 20;
 
 - (void)createBackButton
 {
+    // Set up size of a button relative to the size of the frame
     CGFloat size = MIN(CGRectGetWidth(self.frame), CGRectGetHeight(self.frame));
     CGFloat itemWidth = size / 15;
     CGFloat backButtonLength = itemWidth;
     CGFloat backButtonWidth = itemWidth;
+    
+    // Set up button offsets
     CGFloat backButtonX = CGRectGetWidth(self.frame) * INSET_RATIO;
     CGFloat backButtonY = CGRectGetHeight(self.frame) * INSET_RATIO;
+    
+    // Create back button
     CGRect backButtonFrame = CGRectMake(backButtonX, backButtonY, backButtonLength, backButtonWidth);
     UIButton *backButton = [[UIButton alloc] initWithFrame:backButtonFrame];
+    
+    // Style back button
     [backButton setBackgroundImage:[UIImage imageNamed:@"StartOverIcon"] forState:UIControlStateNormal];
     [[backButton layer] setBorderWidth:2.5f];
     [[backButton layer] setBorderColor:[UIColor blackColor].CGColor];
     [[backButton layer] setCornerRadius:12.0f];
+    
+    // Add target action for button
     [backButton addTarget:self action:@selector(backButtonPressed)
          forControlEvents:UIControlEventTouchUpInside];
     [self addSubview:backButton];

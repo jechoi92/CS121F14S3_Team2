@@ -63,6 +63,9 @@ CGFloat INSET_RATIO = 0.02;
         [self createSideBar];
         [self createHealthBar];
         [self createScene];
+        [_scene startLevelAnimation];
+        
+        // Create timer upon dismissal of tip view
         
         // Timer that creates an asteroid every given time interval.
         _asteroidGenerationTimer = [NSTimer scheduledTimerWithTimeInterval:7.0
@@ -70,7 +73,7 @@ CGFloat INSET_RATIO = 0.02;
                                                                   selector:@selector(createAsteroid:)
                                                                   userInfo:nil
                                                                    repeats:YES];
-        [_scene startLevelAnimation];
+        
     }
 }
 
