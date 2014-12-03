@@ -316,6 +316,12 @@ CGFloat LASER_VELOCITY = 1500.0;
 // Inform the deligate that the player failed to destroy an asteroid in time
 -(void)asteroidHitBottom
 {
+    SKSpriteNode* background = [SKSpriteNode spriteNodeWithColor:[UIColor redColor] size:self.size];
+    background.position = CGPointMake(CGRectGetMidX(self.frame), CGRectGetMidY(self.frame));
+    [self addChild:background];
+    
+    
+    
     [self.deli asteroidReachedBottom];
 }
 
