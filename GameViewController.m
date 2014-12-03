@@ -255,6 +255,21 @@ CGFloat INSET_RATIO = 0.02;
     return operators;
 }
 
+// Updates the Progress text file to save the progress of the player
+// after  the player closes and reopens the game
+- (int)readProgress
+{
+    NSArray *paths = NSSearchPathForDirectoriesInDomains
+    (NSDocumentDirectory, NSUserDomainMask, YES);
+    NSString *documentsDirectory = [paths objectAtIndex:0];
+    NSString *fileName = [NSString stringWithFormat:@"%@/Progress.txt",
+                          documentsDirectory];
+    NSString *content = [[NSString alloc] initWithContentsOfFile:fileName
+                                                    usedEncoding:nil
+                                                           error:nil];
+    return [content intValue];
+}
+
 // Writes the highest level beaten so that progress can be saved.
 -(void)updateProgress
 {
@@ -263,7 +278,7 @@ CGFloat INSET_RATIO = 0.02;
     NSString *documentsDirectory = [paths objectAtIndex:0];
     NSString *fileName = [NSString stringWithFormat:@"%@/Progress.txt",
                           documentsDirectory];
-    NSString *content = [[NSString alloc] initWithFormat:@"%d", _level];
+    NSString *content = [[NSString alloc] initWithFormat:@"%d", MAX([self readProgress],_level)];
     [content writeToFile:fileName
               atomically:NO
                 encoding:NSStringEncodingConversionAllowLossy
@@ -419,6 +434,7 @@ CGFloat INSET_RATIO = 0.02;
     }
     
     [_gameEndView removeFromSuperview];
+    _equationGenerator = [[EquationGenerator alloc] initWithOperators:[self findOperators] andDenominatorLimit:12 andDifficulty:0];
     [self viewDidLoad];
 }
 

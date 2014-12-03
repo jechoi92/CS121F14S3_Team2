@@ -10,7 +10,7 @@
 
 @implementation MainMenuViewController
 {
-    MainMenuView *_buttonsView;
+    MainMenuView *_mainMenuView;
 }
 
 - (void)viewDidLoad {
@@ -19,23 +19,22 @@
     [self.view setBackgroundColor:[[UIColor alloc] initWithPatternImage:[UIImage imageNamed:@"main_background"]]];
     
     // Add the subview
-    _buttonsView = [[MainMenuView alloc] initWithFrame:self.view.frame];
-    [_buttonsView setDelegate:self];
-    [self.view addSubview: _buttonsView];
+    _mainMenuView = [[MainMenuView alloc] initWithFrame:self.view.frame];
+    [_mainMenuView setDelegate:self];
+    [self.view addSubview: _mainMenuView];
 }
 
 - (void)buttonSelected:(id)sender
 {
     // Figure out button navigation
-    UIButton *button = (UIButton *)sender;
+    UIButton *button = (UIButton*)sender;
     int tag = (int)button.tag;
     
     switch (tag){
         case 0:
         {
-            // Go to LevelSelectViewController
-            //LevelSelectViewController *lsvc = [[LevelSelectViewController alloc] init];
-            ModeSelectViewController* msvc = [[ModeSelectViewController alloc] init];
+            // Go to ModeSelectViewController
+            ModeSelectViewController *msvc = [[ModeSelectViewController alloc] init];
             [self.navigationController pushViewController:msvc animated:YES];
             break;
         }
@@ -64,7 +63,6 @@
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
 }
 
 @end

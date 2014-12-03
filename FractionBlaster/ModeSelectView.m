@@ -11,13 +11,23 @@
 CGFloat INSET_RATIO;
 
 @implementation ModeSelectView
-{
-    UIButton* _backButton;
-}
 
--(id)initWithFrame:(CGRect)frame
+- (id)initWithFrame:(CGRect)frame
 {
     self = [super initWithFrame:frame];
+    [self createTitle];
+    [self createSelectionButtons];
+    [self createBackButton];
+    return self;
+}
+
+- (void)createTitle
+{
+    // TODODOTODOTOOTODODO
+}
+
+- (void)createSelectionButtons
+{
     CGFloat buttonWidth = CGRectGetWidth(self.frame) * 0.6;
     CGFloat buttonHeight = CGRectGetHeight(self.frame) * 0.02;
     CGFloat xOffset = CGRectGetWidth(self.frame) * 0.2;
@@ -27,7 +37,7 @@ CGFloat INSET_RATIO;
         yOffset += buttonHeight * 2;
         CGRect buttonFrame = CGRectMake(xOffset, yOffset, buttonWidth, buttonHeight);
         
-        UIButton* button = [[UIButton alloc] initWithFrame:buttonFrame];
+        UIButton *button = [[UIButton alloc] initWithFrame:buttonFrame];
         
         // Create target for cell
         [button addTarget:self action:@selector(buttonSelected:)
@@ -46,29 +56,29 @@ CGFloat INSET_RATIO;
         
         [self addSubview:button];
     }
-    
+}
 
-    CGFloat size = MIN(CGRectGetWidth(frame), CGRectGetHeight(frame));
+- (void)createBackButton
+{
+    CGFloat size = MIN(CGRectGetWidth(self.frame), CGRectGetHeight(self.frame));
     CGFloat itemWidth = size / 15;
     CGFloat backButtonLength = itemWidth;
     CGFloat backButtonWidth = itemWidth;
-    CGFloat backButtonX = CGRectGetWidth(frame) * INSET_RATIO;
-    CGFloat backButtonY = CGRectGetHeight(frame) * INSET_RATIO;
+    CGFloat backButtonX = CGRectGetWidth(self.frame) * INSET_RATIO;
+    CGFloat backButtonY = CGRectGetHeight(self.frame) * INSET_RATIO;
     CGRect backButtonFrame = CGRectMake(backButtonX, backButtonY, backButtonLength, backButtonWidth);
-    _backButton = [[UIButton alloc] initWithFrame:backButtonFrame];
-    [_backButton setBackgroundImage:[UIImage imageNamed:@"StartOverIcon"] forState:UIControlStateNormal];
-    [[_backButton layer] setBorderWidth:2.5f];
-    [[_backButton layer] setBorderColor:[UIColor blackColor].CGColor];
-    [[_backButton layer] setCornerRadius:12.0f];
-    [_backButton addTarget:self action:@selector(buttonSelected:)
+    UIButton *backButton = [[UIButton alloc] initWithFrame:backButtonFrame];
+    [backButton setBackgroundImage:[UIImage imageNamed:@"StartOverIcon"] forState:UIControlStateNormal];
+    [[backButton layer] setBorderWidth:2.5f];
+    [[backButton layer] setBorderColor:[UIColor blackColor].CGColor];
+    [[backButton layer] setCornerRadius:12.0f];
+    [backButton addTarget:self action:@selector(buttonSelected:)
           forControlEvents:UIControlEventTouchUpInside];
-    _backButton.tag = 2;
-    [self addSubview:_backButton];
-    
-    return self;
+    backButton.tag = 2;
+    [self addSubview:backButton];
 }
 
--(void)buttonSelected:(id)sender
+- (void)buttonSelected:(id)sender
 {
     [self.delegate buttonSelected:sender];
 }

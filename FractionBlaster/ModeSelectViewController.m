@@ -10,7 +10,7 @@
 
 @implementation ModeSelectViewController
 {
-    ModeSelectView* _modeSelectView;
+    ModeSelectView *_modeSelectView;
 }
 
 - (void)viewDidLoad {

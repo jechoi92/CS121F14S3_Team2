@@ -8,9 +8,8 @@
 
 #import <UIKit/UIKit.h>
 #import "LevelSelectView.h"
-#import "StartLevelButtonView.h"
 #import "GameViewController.h"
 
-@interface LevelSelectViewController : UIViewController <StartLevel>
+@interface LevelSelectViewController : UIViewController <ButtonSelected>
 
 @end

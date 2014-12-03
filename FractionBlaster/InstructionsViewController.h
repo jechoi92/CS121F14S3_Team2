@@ -7,7 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "InstructionsView.h"
 
-@interface InstructionsViewController : UIViewController
+@interface InstructionsViewController : UIViewController<GoBack>
 
 @end

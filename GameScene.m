@@ -16,7 +16,7 @@ int SLOW_SPEED = 35;
 int MEDIUM_SPEED = 30;
 int MAX_SPEED = 25;
 int ALLOWED_WRONG_ANSWERS = 2;
-CGFloat LASER_VELOCITY = 800.0;
+CGFloat LASER_VELOCITY = 1500.0;
 
 @interface GameScene () <SKPhysicsContactDelegate>
 @property (nonatomic) SKSpriteNode* player;

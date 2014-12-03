@@ -7,9 +7,14 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "MainMenuView.h"
 
 @interface LevelSelectView : UIView
 
 @property (assign, nonatomic) int currentLevelSelected;
+@property (assign, nonatomic) id <ButtonSelected> delegate;
+
+- (id)initWithFrame:(CGRect)frame andUnlockedLevel:(int)level;
+
 
 @end

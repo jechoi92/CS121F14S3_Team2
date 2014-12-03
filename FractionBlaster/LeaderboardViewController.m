@@ -12,10 +12,10 @@ CGFloat INSET_RATIO;
 
 
 @implementation LeaderboardViewController {
-    LeaderboardView* _leaderboardView;
+    LeaderboardView *_leaderboardView;
 }
 
--(void)viewDidLoad
+- (void)viewDidLoad
 {
     [super viewDidLoad];
     _leaderboardView = [[LeaderboardView alloc] initWithFrame:self.view.frame];
@@ -25,16 +25,16 @@ CGFloat INSET_RATIO;
 }
 
 // Read in highscores and set labels accordingly.
--(void)setLabels
+- (void)setLabels
 {
-    NSArray* scores = [self loadHighScores];
+    NSArray *scores = [self loadHighScores];
     for (int i = 0; i < 5; i++) {
         [_leaderboardView setLabelAtIndex:i withString:[scores objectAtIndex:i]];
     }
 }
 
 // Read highscores from text file, return array of 5 scores.
--(NSArray*) loadHighScores
+- (NSArray*)loadHighScores
 {
     NSArray *paths = NSSearchPathForDirectoriesInDomains
     (NSDocumentDirectory, NSUserDomainMask, YES);
@@ -49,17 +49,17 @@ CGFloat INSET_RATIO;
     if (content == NULL) {
         content = @"0000000   \n0000000   \n0000000   \n0000000   \n0000000   \n";
     }
-    NSMutableArray* scores = [[NSMutableArray alloc] initWithCapacity:5];
+    NSMutableArray *scores = [[NSMutableArray alloc] initWithCapacity:5];
     
     // Store into an array.
     for (int i = 0; i < 5; i++) {
-        NSString* score = [content substringWithRange:NSMakeRange(11 * i, 10)];
+        NSString *score = [content substringWithRange:NSMakeRange(11 * i, 10)];
         [scores addObject:score];
     }
     return [[NSArray alloc] initWithArray:scores];
 }
 
--(void)backToMainMenu
+- (void)backToMainMenu
 {
     [self.navigationController popViewControllerAnimated:YES];
 }

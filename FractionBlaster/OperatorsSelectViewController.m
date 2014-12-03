@@ -37,7 +37,7 @@
             [self.navigationController pushViewController:gvc animated:YES];
             break;
         }
-        case 6:
+        case -1:
         {
             [self.navigationController popViewControllerAnimated:YES];
             break;
