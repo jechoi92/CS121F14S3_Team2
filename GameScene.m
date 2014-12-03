@@ -53,9 +53,7 @@ CGFloat LASER_VELOCITY = 1500.0;
         self.physicsWorld.gravity = CGVectorMake(0,0);
         self.physicsWorld.contactDelegate = self;
     }
-    
-    
-    
+
     return self;
 }
 
@@ -203,8 +201,8 @@ CGFloat LASER_VELOCITY = 1500.0;
     asteroid.physicsBody.collisionBitMask = 0; // 5
     
     // Determine where to spawn the asteroid along the X axis
-    int minX = asteroid.size.width * 1.2;
-    int maxX = self.frame.size.width - asteroid.size.width * 1.2;
+    int minX = self.player.size.width * 1.5;
+    int maxX = self.frame.size.width - self.player.size.width * 1.5;
     int actualX = minX + (arc4random() % (maxX - minX));
     
     // Create the asteroid slightly off-screen along the top edge,
@@ -219,8 +217,7 @@ CGFloat LASER_VELOCITY = 1500.0;
     
     // Determine a slight random x offset so the asteroids will not just travel straight down
     int endX = actualX;
-    endX += arc4random_uniform(self.frame.size.width);
-    endX -= arc4random_uniform(self.frame.size.width);
+    endX += arc4random_uniform(self.frame.size.width) * 2 - self.frame.size.width;
     
     if (endX < minX) {
         endX = minX;
@@ -326,8 +323,8 @@ CGFloat LASER_VELOCITY = 1500.0;
 - (CGPoint)boundPlayerPos:(CGPoint)newPos {
     CGSize winSize = self.size;
     CGPoint retval = newPos;
-    retval.x = MAX(retval.x, [self.player size].width * 1.2);
-    retval.x = MIN(retval.x, winSize.width - [self.player size].width * 1.2);
+    retval.x = MAX(retval.x, self.player.size.width * 1.5);
+    retval.x = MIN(retval.x, winSize.width - self.player.size.width * 1.5);
     retval.y = self.player.position.y;
     return retval;
 }
@@ -382,7 +379,7 @@ CGFloat LASER_VELOCITY = 1500.0;
     [projectile userData][@"frequency"] = value;
     
     // Set up the laser's contact detection body
-    projectile.position = self.player.position;
+    projectile.position = CGPointMake(self.player.position.x, self.player.position.y + self.player.size.height / 2);
     projectile.physicsBody = [SKPhysicsBody bodyWithCircleOfRadius:projectile.size.width/2];
     projectile.physicsBody.dynamic = YES;
     projectile.physicsBody.categoryBitMask = laserCategory;

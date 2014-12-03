@@ -14,19 +14,19 @@ CGFloat INSET_RATIO = 0.02;
 
 @implementation GameViewController
 {
-    HealthBarView* _healthBar;
-    SideBarView* _sidebar;
-    GameScene* _scene;
-    EquationGenerator* _equationGenerator;
-    GameView* _gameView;
-    GameEndView* _gameEndView;
-    NSMutableArray* _initialFractions;
-    NSTimer* _asteroidGenerationTimer;
+    HealthBarView *_healthBar;
+    SideBarView *_sidebar;
+    GameScene *_scene;
+    EquationGenerator *_equationGenerator;
+    GameView *_gameView;
+    GameEndView *_gameEndView;
+    NSMutableArray *_initialFractions;
+    NSTimer *_asteroidGenerationTimer;
     int _level;
     int _score;
 }
 
--(id)initWithLevel:(int)level andOperators:(NSArray*)operators
+- (id)initWithLevel:(int)level andOperators:(NSArray*)operators
 {
     self = [super init];
     _level = level;
@@ -38,26 +38,30 @@ CGFloat INSET_RATIO = 0.02;
 }
 
 // Function required to keep the SKScene from crashing the program.
--(void)loadView
+- (void)loadView
 {
     CGRect applicationFrame = [[UIScreen mainScreen] applicationFrame];
     SKView *skView = [[SKView alloc] initWithFrame:applicationFrame];
     self.view = skView;
 }
 
--(void)viewDidLoad
+- (void)viewDidAppear:(BOOL)animated
 {
-    [super viewDidLoad];
+    [super viewDidAppear:animated];
+    [self initialize];
+}
+
+- (void)initialize
+{
     NSError *error;
-    NSURL * backgroundMusicURL = [[NSBundle mainBundle] URLForResource:@"background-music-aac" withExtension:@"caf"];
+    NSURL *backgroundMusicURL = [[NSBundle mainBundle] URLForResource:@"background-music-aac" withExtension:@"caf"];
     self.backgroundMusicPlayer = [[AVAudioPlayer alloc] initWithContentsOfURL:backgroundMusicURL error:&error];
     self.backgroundMusicPlayer.numberOfLoops = -1;
     [self.backgroundMusicPlayer prepareToPlay];
     [self.backgroundMusicPlayer play];
-    SKView * skView = (SKView *)self.view;
+    SKView *skView = (SKView *)self.view;
     if (!skView.scene) {
         // Create all necessary data members.
-        
         _initialFractions = [_equationGenerator getInitialFractions];
         [self createGameView];
         [self createSideBar];
@@ -72,6 +76,7 @@ CGFloat INSET_RATIO = 0.02;
                                                                    repeats:YES];
         [_scene startLevelAnimation];
     }
+    self.view.multipleTouchEnabled = YES;
 }
 
 // Creates the gameview.
@@ -93,7 +98,7 @@ CGFloat INSET_RATIO = 0.02;
     CGRect frame = self.view.frame;
     CGFloat width = CGRectGetWidth(frame);
     CGFloat height = CGRectGetHeight(frame);
-    CGRect sideBarFrame = CGRectMake(width * 0.84, height * 0.55, width*0.15, height* 0.45);
+    CGRect sideBarFrame = CGRectMake(0,0,width,height);
     _sidebar = [[SideBarView alloc] initWithFrame:sideBarFrame];
     for (int i = 0; i < [_initialFractions count]; i++) {
         Fraction *toInsert = [[Fraction alloc] initWithFraction:[_initialFractions objectAtIndex:i]];
@@ -104,27 +109,27 @@ CGFloat INSET_RATIO = 0.02;
     [self.view addSubview:_sidebar];
 }
 
-
-// Creates the scene.
-- (void)createScene
-{
-    SKView * skView = (SKView *)self.view;
-    _scene = [[GameScene alloc] initWithSize:skView.bounds.size andLevel:_level];
-    _scene.scaleMode = SKSceneScaleModeAspectFill;
-    [(GameScene*)_scene setDeli:self];
-    [skView presentScene:_scene];
-}
-
 // Creates the health bar.
 - (void)createHealthBar
 {
     CGRect frame = self.view.frame;
     CGFloat width = CGRectGetWidth(frame);
     CGFloat height = CGRectGetHeight(frame);
-    CGRect healthBarFrame = CGRectMake(width * 0.005, height * 0.55, width  * 0.075, height * 0.4);
+    CGRect healthBarFrame = CGRectMake(width * 0.005, height * 0.55, width * 0.1, height * 0.42);
     _healthBar = [[HealthBarView alloc] initWithFrame:healthBarFrame];
     [self.view addSubview:_healthBar];
 }
+
+// Creates the scene.
+- (void)createScene
+{
+    SKView *skView = (SKView *)self.view;
+    _scene = [[GameScene alloc] initWithSize:skView.bounds.size andLevel:_level];
+    _scene.scaleMode = SKSceneScaleModeAspectFill;
+    [(GameScene*)_scene setDeli:self];
+    [skView presentScene:_scene];
+}
+
 
 // Creates the appropriate GameOverScene upon the end of a game
 -(void)createGameOverSceneWithWin:(BOOL)winning
@@ -154,14 +159,14 @@ CGFloat INSET_RATIO = 0.02;
 }
 
 // General cleanup of all data members.
--(void)cleanup
+- (void)cleanup
 {
     [_backgroundMusicPlayer stop];
     [_asteroidGenerationTimer invalidate];
     [_sidebar removeFromSuperview];
     [_healthBar removeFromSuperview];
     [_gameView removeFromSuperview];
-    SKView* skView = (SKView *)self.view;
+    SKView *skView = (SKView *)self.view;
     [skView presentScene:nil];
 }
 
@@ -211,7 +216,7 @@ CGFloat INSET_RATIO = 0.02;
     [_scene createAsteroid: randomEquation];
     [_asteroidGenerationTimer invalidate];
     CGFloat rate = _asteroidGenerationTimer.timeInterval;
-    _asteroidGenerationTimer = [NSTimer scheduledTimerWithTimeInterval:rate * 0.99
+    _asteroidGenerationTimer = [NSTimer scheduledTimerWithTimeInterval:rate * 0.98
                                                                 target:self
                                                               selector:@selector(createAsteroid:)
                                                               userInfo:nil
@@ -434,8 +439,10 @@ CGFloat INSET_RATIO = 0.02;
     }
     
     [_gameEndView removeFromSuperview];
-    _equationGenerator = [[EquationGenerator alloc] initWithOperators:[self findOperators] andDenominatorLimit:12 andDifficulty:0];
-    [self viewDidLoad];
+    if (_level > 0) {
+        _equationGenerator = [[EquationGenerator alloc] initWithOperators:[self findOperators] andDenominatorLimit:12 andDifficulty:0];
+    }
+    [self initialize];
 }
 
 - (BOOL)shouldAutorotate

@@ -14,8 +14,7 @@ int MAX_HEALTH = 100;
 @implementation HealthBarView
 {
     int _healthLevel;
-    NSMutableArray* _healthBar;
-    UIImageView* _container;
+    NSMutableArray *_healthBar;
 }
 
 // Initializes the health bar (array of blank labels) and health level.
@@ -25,26 +24,35 @@ int MAX_HEALTH = 100;
     if (self) {
         _healthLevel = MAX_HEALTH;
         _healthBar = [[NSMutableArray alloc] initWithCapacity:NUM_OF_BARS];
-        CGFloat height = CGRectGetHeight(frame);
-        CGFloat width = CGRectGetWidth(frame);
-        CGFloat labelHeight = 5.1 * height / 7 / NUM_OF_BARS;
-        
-        // Creates the array of blank labels to represent the health levels.
-        for (int i = 0; i < NUM_OF_BARS; i++) {
-            CGRect labelFrame = CGRectMake(0, 1.0 / 7.0 * height + i * labelHeight, width, labelHeight);
-            UILabel* currentLabel = [[UILabel alloc] initWithFrame:labelFrame];
-            [self addSubview:currentLabel];
-            [_healthBar addObject:currentLabel];
-        }
-        
-        // Container for aesthetic purposes. This "holds" the health bar.
-        _container = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"shields.png"]];
-        [_container setFrame:CGRectMake(0,0,width, height)];
-        [self addSubview:_container];
+        [self createHealthLabels];
+        [self createContainer];
     }
-    
     [self updateHealthBar];
     return self;
+}
+
+- (void)createHealthLabels
+{
+    CGFloat height = CGRectGetHeight(self.frame);
+    CGFloat width = CGRectGetWidth(self.frame) * 0.9;
+    CGFloat labelHeight = 5.1 * height / 7 / NUM_OF_BARS;
+    
+    // Creates the array of blank labels to represent the health levels.
+    for (int i = 0; i < NUM_OF_BARS; i++) {
+        CGRect labelFrame = CGRectMake(0, 1.0 / 7.0 * height + i * labelHeight, width, labelHeight);
+        UILabel* currentLabel = [[UILabel alloc] initWithFrame:labelFrame];
+        [self addSubview:currentLabel];
+        [_healthBar addObject:currentLabel];
+    }
+}
+
+- (void)createContainer
+{
+    CGFloat height = CGRectGetHeight(self.frame);
+    CGFloat width = CGRectGetWidth(self.frame);
+    UIImageView *container = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"shields.png"]];
+    [container setFrame:CGRectMake(0,0,width, height)];
+    [self addSubview:container];
 }
 
 - (int)getHealthLevel
@@ -74,7 +82,7 @@ int MAX_HEALTH = 100;
     }
     
     // Transition to make the healthbar decreasing smoother.
-    CATransition* transition = [CATransition animation];
+    CATransition *transition = [CATransition animation];
     transition.type = kCATransitionFade;
     transition.duration = 1;
     transition.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseOut];
