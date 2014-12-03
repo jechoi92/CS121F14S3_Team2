@@ -72,7 +72,7 @@ int TOTAL_INITIAL_FRACTIONS;
         [[currentButton layer] setBorderColor:[UIColor whiteColor].CGColor];
         [[currentButton layer] setBorderWidth:2.5f];
         [[currentButton layer] setCornerRadius:8.0f];
-        [currentButton.titleLabel setFont: [UIFont fontWithName:@"SpaceAge" size:30.0f]];
+        [currentButton.titleLabel setFont: [UIFont fontWithName:@"HelveticaNeue-Bold" size:30.0f]];
         
         // Add background buttons for printing of the fractions
         CGRect backgroundFrame = CGRectMake(paddingSize + initialXInset, inset + initialYInset + 5, buttonWidth, buttonHeight);
@@ -121,11 +121,9 @@ int TOTAL_INITIAL_FRACTIONS;
     
     NSString* fracToFill;
     if (denominator > 9) {
-        fracToFill = [NSString stringWithFormat:@"%d\r%d", numerator, denominator];
+        fracToFill = [NSString stringWithFormat:@" %d\r%d", numerator, denominator];
     } else if (numerator > 9) {
         fracToFill = [NSString stringWithFormat:@"%d\r %d", numerator, denominator];
-    } else if (numerator == 1) {
-        fracToFill = [NSString stringWithFormat:@" %d\r%d", numerator, denominator];
     } else {
         fracToFill = [NSString stringWithFormat:@"%d\r%d", numerator, denominator];
     }
