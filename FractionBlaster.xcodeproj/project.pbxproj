@@ -86,6 +86,7 @@
 		A962BCEE1A2D878600F2AD79 /* laser_panel.png in Resources */ = {isa = PBXBuildFile; fileRef = A962BCEC1A2D878500F2AD79 /* laser_panel.png */; };
 		A962BCEF1A2D878600F2AD79 /* laser_panel@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A962BCED1A2D878500F2AD79 /* laser_panel@2x.png */; };
 		A962BCF11A2DAA7D00F2AD79 /* space_age.ttf in Resources */ = {isa = PBXBuildFile; fileRef = A962BCF01A2DA98F00F2AD79 /* space_age.ttf */; };
+		DA19D1431A2ECFED00068F40 /* DestroyingAsteroid.gif in Resources */ = {isa = PBXBuildFile; fileRef = DA19D1421A2ECFED00068F40 /* DestroyingAsteroid.gif */; };
 		DA3109141A1B130C00C5A3C4 /* InstructionsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DA3109131A1B130C00C5A3C4 /* InstructionsViewController.m */; };
 		DA31091C1A1B1EA100C5A3C4 /* icon 1024.png in Resources */ = {isa = PBXBuildFile; fileRef = DA3109151A1B1EA100C5A3C4 /* icon 1024.png */; };
 		DA31091D1A1B1EA100C5A3C4 /* icon.png in Resources */ = {isa = PBXBuildFile; fileRef = DA3109161A1B1EA100C5A3C4 /* icon.png */; };
@@ -94,6 +95,8 @@
 		DA3109201A1B1EA100C5A3C4 /* logo@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = DA3109191A1B1EA100C5A3C4 /* logo@2x.png */; };
 		DA3109211A1B1EA100C5A3C4 /* main_background.png in Resources */ = {isa = PBXBuildFile; fileRef = DA31091A1A1B1EA100C5A3C4 /* main_background.png */; };
 		DA3109221A1B1EA100C5A3C4 /* main_background@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = DA31091B1A1B1EA100C5A3C4 /* main_background@2x.png */; };
+		DA8D13421A2EC93B00BE47AA /* ImageIO.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DA8D13411A2EC93B00BE47AA /* ImageIO.framework */; };
+		DA8D13451A2EC9AF00BE47AA /* UIImage+animatedGIF.m in Sources */ = {isa = PBXBuildFile; fileRef = DA8D13441A2EC9AF00BE47AA /* UIImage+animatedGIF.m */; };
 		DA9F79891A1B3F8500E03D88 /* instructions.txt in Resources */ = {isa = PBXBuildFile; fileRef = DA9F79881A1B3F8500E03D88 /* instructions.txt */; };
 		DA9F79AB1A1B4F3200E03D88 /* !button1.png in Resources */ = {isa = PBXBuildFile; fileRef = DA9F798A1A1B4F3200E03D88 /* !button1.png */; };
 		DA9F79AC1A1B4F3200E03D88 /* !button2.png in Resources */ = {isa = PBXBuildFile; fileRef = DA9F798B1A1B4F3200E03D88 /* !button2.png */; };
@@ -233,6 +236,7 @@
 		A962BCEC1A2D878500F2AD79 /* laser_panel.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = laser_panel.png; sourceTree = "<group>"; };
 		A962BCED1A2D878500F2AD79 /* laser_panel@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "laser_panel@2x.png"; sourceTree = "<group>"; };
 		A962BCF01A2DA98F00F2AD79 /* space_age.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = space_age.ttf; sourceTree = "<group>"; };
+		DA19D1421A2ECFED00068F40 /* DestroyingAsteroid.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = DestroyingAsteroid.gif; sourceTree = "<group>"; };
 		DA3109121A1B130C00C5A3C4 /* InstructionsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InstructionsViewController.h; sourceTree = "<group>"; };
 		DA3109131A1B130C00C5A3C4 /* InstructionsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InstructionsViewController.m; sourceTree = "<group>"; };
 		DA3109151A1B1EA100C5A3C4 /* icon 1024.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon 1024.png"; sourceTree = "<group>"; };
@@ -242,6 +246,9 @@
 		DA3109191A1B1EA100C5A3C4 /* logo@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "logo@2x.png"; sourceTree = "<group>"; };
 		DA31091A1A1B1EA100C5A3C4 /* main_background.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = main_background.png; sourceTree = "<group>"; };
 		DA31091B1A1B1EA100C5A3C4 /* main_background@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "main_background@2x.png"; sourceTree = "<group>"; };
+		DA8D13411A2EC93B00BE47AA /* ImageIO.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ImageIO.framework; path = System/Library/Frameworks/ImageIO.framework; sourceTree = SDKROOT; };
+		DA8D13431A2EC9AF00BE47AA /* UIImage+animatedGIF.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+animatedGIF.h"; sourceTree = "<group>"; };
+		DA8D13441A2EC9AF00BE47AA /* UIImage+animatedGIF.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+animatedGIF.m"; sourceTree = "<group>"; };
 		DA9F79881A1B3F8500E03D88 /* instructions.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = instructions.txt; sourceTree = "<group>"; };
 		DA9F798A1A1B4F3200E03D88 /* !button1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "!button1.png"; sourceTree = "<group>"; };
 		DA9F798B1A1B4F3200E03D88 /* !button2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "!button2.png"; sourceTree = "<group>"; };
@@ -290,6 +297,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DA8D13421A2EC93B00BE47AA /* ImageIO.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -306,6 +314,7 @@
 		93CB20E61A0754590050185E = {
 			isa = PBXGroup;
 			children = (
+				DA8D13411A2EC93B00BE47AA /* ImageIO.framework */,
 				DAD128551A1306FB00237071 /* explosionFrames.atlas */,
 				93EFADDC1A102B9E00195D8E /* Resources */,
 				93CB20F11A0754590050185E /* FractionBlaster */,
@@ -334,6 +343,8 @@
 				DA3109131A1B130C00C5A3C4 /* InstructionsViewController.m */,
 				93B4CD9B1A2EBC1900DF9E69 /* InstructionsView.h */,
 				93B4CD9C1A2EBC1900DF9E69 /* InstructionsView.m */,
+				DA8D13431A2EC9AF00BE47AA /* UIImage+animatedGIF.h */,
+				DA8D13441A2EC9AF00BE47AA /* UIImage+animatedGIF.m */,
 				93EB31D61A1AFA3F0075BD53 /* LeaderboardViewController.h */,
 				93EB31D71A1AFA3F0075BD53 /* LeaderboardViewController.m */,
 				93EB31D91A1AFAA60075BD53 /* LeaderboardView.h */,
@@ -424,6 +435,7 @@
 				A962BCD01A2A58DA00F2AD79 /* instructions.png */,
 				A962BCD11A2A58DA00F2AD79 /* leaderboards.png */,
 				A962BCD21A2A58DA00F2AD79 /* start_mission.png */,
+				DA19D1421A2ECFED00068F40 /* DestroyingAsteroid.gif */,
 				DA9F798A1A1B4F3200E03D88 /* !button1.png */,
 				DA9F798B1A1B4F3200E03D88 /* !button2.png */,
 				DA9F798C1A1B4F3200E03D88 /* !button3.png */,
@@ -593,6 +605,7 @@
 				DA9F79B21A1B4F3200E03D88 /* !button8.png in Resources */,
 				DA9F79C61A1B4F3200E03D88 /* button9highlight.png in Resources */,
 				A962BCE01A2BE60900F2AD79 /* level1.png in Resources */,
+				DA19D1431A2ECFED00068F40 /* DestroyingAsteroid.gif in Resources */,
 				DA9F79BC1A1B4F3200E03D88 /* button4highlight.png in Resources */,
 				DA9F79B91A1B4F3200E03D88 /* button3.png in Resources */,
 				A962BCE21A2BE60900F2AD79 /* level3.png in Resources */,
@@ -716,6 +729,7 @@
 				DAE395691A0D4FED00D55633 /* LevelSelectViewController.m in Sources */,
 				93AFEC8D1A2BF0B800CC6692 /* OperatorsSelectViewController.m in Sources */,
 				93CB20F51A0754590050185E /* main.m in Sources */,
+				DA8D13451A2EC9AF00BE47AA /* UIImage+animatedGIF.m in Sources */,
 				93CB21611A075AED0050185E /* Equation.m in Sources */,
 				93AFEC871A2BEC5000CC6692 /* ModeSelectViewController.m in Sources */,
 				93EB31CA1A1AD13E0075BD53 /* GameView.m in Sources */,

@@ -6,7 +6,12 @@
 //  Copyright (c) 2014 MatherTeresa. All rights reserved.
 //
 
+// TODO: Answer the following questions
+//     - Separate gif and textview?
+//     - Separate tutorial into parts (Solving equation vs Destroying Asteroid)?
+
 #import "InstructionsView.h"
+#import "UIImage+animatedGIF.h"
 
 CGFloat INSET_RATIO;
 int INSTR_FONT_SIZE = 20;
@@ -15,9 +20,11 @@ int INSTR_FONT_SIZE = 20;
 
 - (id)initWithFrame:(CGRect)frame
 {
+    NSLog(@"called");
     self = [super initWithFrame:frame];
     if (self) {
         [self createInstructions];
+        //[self createInstructionsGif];
         [self createBackButton];
         [self setBackgroundColor:[[UIColor alloc] initWithPatternImage:[UIImage imageNamed:@"main_background"]]];
     }
@@ -29,35 +36,93 @@ int INSTR_FONT_SIZE = 20;
     // Get frame size
     CGFloat frameWidth = CGRectGetWidth(self.frame);
     CGFloat frameHeight = CGRectGetHeight(self.frame);
-    CGFloat textViewHeightRatio = 0.75;
-    CGFloat textViewWidthRatio = 0.75;
     
-    // Text view frame setup
-    CGFloat textViewHeight = frameHeight*textViewHeightRatio;
-    CGFloat textViewWidth = frameWidth*textViewWidthRatio;
-    CGFloat textViewXOffset = (frameWidth-textViewWidth)/2;
-    CGFloat textViewYOffset = (frameHeight-textViewHeight)/2;
+    CGFloat instrHeightRatio = (float)14/20;
+    CGFloat instrWidthRatio = (float)3/7;
     
-    CGRect textViewFrame = CGRectMake(textViewXOffset, textViewYOffset, textViewWidth, textViewHeight);
+    CGFloat baseXOffset = (float)1/21 * frameWidth;
+    CGFloat baseYOffset = (float)1/21 * frameHeight;
     
-    // Text container creation
+    // Instr dimensions setup
+    CGFloat instrHeight = frameHeight * instrHeightRatio;
+    CGFloat instrWidth = frameWidth * instrWidthRatio;
+    
+    // Y Offset has enough room for the height and the buffer
+    CGFloat instrYOffset = frameHeight - (instrHeight + baseYOffset);
+    
+    // X Offsets - Gif offset is baseOffset away from end of text view
+    CGFloat gifXOffset = (baseXOffset + instrWidth) + baseXOffset;
+    
+    // Create frames
+    CGRect textViewFrame = CGRectMake(baseXOffset, instrYOffset, instrWidth, instrHeight);
+    CGRect gifFrame = CGRectMake(gifXOffset, instrYOffset, instrWidth, instrHeight);
+    
+    // Text view - text container creation
     UITextView *instrText = [[UITextView alloc] initWithFrame:textViewFrame];
     instrText.backgroundColor = [UIColor clearColor];
     
-    // Read instructions from file
-    NSString* path = [[NSBundle mainBundle] pathForResource:@"instructions"
+    // Text view - Read instructions from file
+    NSString *path = [[NSBundle mainBundle] pathForResource:@"instructions"
                                                      ofType:@"txt"];
     NSString *myText = [NSString stringWithContentsOfFile:path encoding:NSUTF8StringEncoding error:nil];
-    instrText.text  = myText;
     
-    // Style the text
-    instrText.textColor = [UIColor whiteColor];
-    [instrText setFont:[UIFont fontWithName:@"Futura-Medium" size:INSTR_FONT_SIZE]];
+    // Text view - Style the text with a black-outlined border
+    NSAttributedString *yourString = [[NSAttributedString alloc] initWithString:myText
+      attributes:@{ NSStrokeColorAttributeName:[UIColor blackColor],
+                    NSStrokeWidthAttributeName:[NSNumber numberWithFloat:-2.0],
+                    NSFontAttributeName:[UIFont systemFontOfSize:24.0f]
+                    ,NSForegroundColorAttributeName:[UIColor whiteColor]
+                  }];
+    instrText.attributedText = yourString;
     instrText.editable = NO;
     
-    // Add as subview
+    // Gif
+    UIImageView *instrGifView = [[UIImageView alloc] initWithFrame:gifFrame];
+    NSURL *gifURL2 = [[NSBundle mainBundle]
+                      URLForResource: @"DestroyingAsteroid" withExtension:@"gif"];
+    UIImage *instrImg = [UIImage animatedImageWithAnimatedGIFURL:(NSURL *)gifURL2];
+    [instrGifView setImage:instrImg];
+    
+    // Add subviews
     [self addSubview:instrText];
+    [self addSubview:instrGifView];
 }
+
+//- (void)createInstructionsGif
+//{
+//    // Get frame size
+//    CGFloat frameWidth = CGRectGetWidth(self.frame);
+//    CGFloat frameHeight = CGRectGetHeight(self.frame);
+//    CGFloat instrHeightRatio = 12/20;
+//    CGFloat instrWidthRatio = 7/20;
+//    CGFloat baseOffset = 1/10;
+//    
+//    // Width
+//    CGFloat instrWidth = instrWidthRatio * width;
+//    CGFloat instrGifXOffset = 2*baseOffset + instrGifWidth;
+//    
+//    // For height buffering
+//    CGFloat minHeightBuffer = 0.05 * height;
+//
+//    // Height
+//    // Add buffer between text and gif
+//    CGFloat bottomTextOffset = 420;
+//    CGFloat instrGifYOffset = bottomTextOffset + minHeightBuffer;
+//    // Add buffer between gif and bottom of screen
+//    CGFloat instrGifHeight = height - instrGifYOffset - minHeightBuffer;
+//    
+//    
+//    CGRect instrGifFrame = CGRectMake(instrGifXOffset, instrGifYOffset, instrGifWidth, instrGifHeight);
+//    UIImageView *instrGifView = [[UIImageView alloc] initWithFrame:instrGifFrame];
+//    
+//    // Set instructions view
+//    NSURL *gifURL2 = [[NSBundle mainBundle]
+//                      URLForResource: @"DestroyingAsteroid" withExtension:@"gif"];
+//    UIImage *instrImg = [UIImage animatedImageWithAnimatedGIFURL:(NSURL *)gifURL2];
+//    [instrGifView setImage:instrImg];
+//    
+//    [self addSubview:instrGifView];
+//}
 
 - (void)createBackButton
 {

@@ -23,6 +23,7 @@
     [self.view setBackgroundColor:[[UIColor alloc] initWithPatternImage:[UIImage imageNamed:@"main_background"]]];
     
     // Set up
+    NSLog(@"width: %f", CGRectGetWidth(self.view.frame));
     _instructionsView = [[InstructionsView alloc] initWithFrame:self.view.frame];
     [_instructionsView setDelegate:self];
     [self.view addSubview:_instructionsView];
