@@ -70,11 +70,23 @@ int MAX_HEALTH = 100;
 // Updates the health bar by setting appropriate background colors.
 - (void)updateHealthBar
 {
+    UIColor* currentColor;
+    float healthPercentage = (float)_healthLevel / (float)MAX_HEALTH;
+    if (healthPercentage > 0.67) {
+        currentColor = [UIColor greenColor];
+    }
+    else if (healthPercentage > 0.33) {
+        currentColor = [UIColor yellowColor];
+    }
+    else {
+        currentColor = [UIColor redColor];
+    }
+    
     float level = (float) _healthLevel / (float) MAX_HEALTH * NUM_OF_BARS;
     for (int i = 0; i < NUM_OF_BARS; i++) {
         UILabel* currentLabel = [_healthBar objectAtIndex:i];
         if (NUM_OF_BARS - i <= level) {
-            [currentLabel setBackgroundColor: [UIColor greenColor]];
+            [currentLabel setBackgroundColor: currentColor];
         }
         else {
             [currentLabel setBackgroundColor: [UIColor whiteColor]];
