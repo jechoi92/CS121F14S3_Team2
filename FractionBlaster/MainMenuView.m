@@ -13,8 +13,11 @@
 - (id)initWithFrame:(CGRect)frame
 {
     self = [super initWithFrame:frame];
-    [self createTitle];
-    [self createSelectionButtons];
+    if (self) {
+        [self createTitle];
+        [self createSelectionButtons];
+        [self setBackgroundColor:[[UIColor alloc] initWithPatternImage:[UIImage imageNamed:@"main_background"]]];
+    }
     return self;
 }
 

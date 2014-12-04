@@ -37,6 +37,7 @@ int NUM_LEVELS = 10;
         [self createTitle];
         [self createButtons];
         [self createBackButton];
+        [self setBackgroundColor:[[UIColor alloc] initWithPatternImage:[UIImage imageNamed:@"main_background"]]];
     }
     
     return self;

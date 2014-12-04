@@ -20,9 +20,6 @@
 {
     [super viewDidLoad];
     
-    // Set the background to the default space theme
-    [self.view setBackgroundColor:[[UIColor alloc] initWithPatternImage:[UIImage imageNamed:@"main_background"]]];
-    
     // Add the subview
     _levelSelectView = [[LevelSelectView alloc] initWithFrame:self.view.frame andUnlockedLevel:[self readProgress]];
     [_levelSelectView setDelegate:self];

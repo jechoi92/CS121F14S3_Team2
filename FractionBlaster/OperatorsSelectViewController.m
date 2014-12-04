@@ -16,8 +16,6 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    [self.view setBackgroundColor:[[UIColor alloc] initWithPatternImage:[UIImage imageNamed:@"main_background"]]];
-    
     // Add the subview
     _operatorsSelectView = [[OperatorsSelectView alloc] initWithFrame:self.view.frame];
     [_operatorsSelectView setDelegate:self];

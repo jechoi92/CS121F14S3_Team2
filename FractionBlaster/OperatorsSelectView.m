@@ -22,6 +22,7 @@ CGFloat INSET_RATIO;
         _operatorsSelected = [[NSMutableArray alloc] init];
         [self createOperatorButtons];
         [self createBackButton];
+        [self setBackgroundColor:[[UIColor alloc] initWithPatternImage:[UIImage imageNamed:@"main_background"]]];
     }
     return self;
 }
