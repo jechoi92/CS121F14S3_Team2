@@ -18,10 +18,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    
-    // Set background to same as main menu
-    [self.view setBackgroundColor:[[UIColor alloc] initWithPatternImage:[UIImage imageNamed:@"main_background"]]];
-    
+
     // Set up
     _instructionsView = [[InstructionsView alloc] initWithFrame:self.view.frame];
     [_instructionsView setDelegate:self];

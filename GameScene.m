@@ -199,8 +199,8 @@ CGFloat LASER_VELOCITY = 1500.0;
     asteroid.physicsBody.collisionBitMask = 0; // 5
     
     // Determine where to spawn the asteroid along the X axis
-    int minX = self.player.size.width * 1.5;
-    int maxX = self.frame.size.width - self.player.size.width * 1.5;
+    int minX = self.player.size.width * 1.2;
+    int maxX = self.frame.size.width - self.player.size.width * 2;
     int actualX = minX + (arc4random() % (maxX - minX));
     
     // Create the asteroid slightly off-screen along the top edge,
@@ -327,8 +327,8 @@ CGFloat LASER_VELOCITY = 1500.0;
 - (CGPoint)boundPlayerPos:(CGPoint)newPos {
     CGSize winSize = self.size;
     CGPoint retval = newPos;
-    retval.x = MAX(retval.x, self.player.size.width * 1.5);
-    retval.x = MIN(retval.x, winSize.width - self.player.size.width * 1.5);
+    retval.x = MAX(retval.x, self.player.size.width * 1.2);
+    retval.x = MIN(retval.x, winSize.width - self.player.size.width * 1.2);
     retval.y = self.player.position.y;
     return retval;
 }
@@ -450,7 +450,7 @@ CGFloat LASER_VELOCITY = 1500.0;
         attemptsLeft--;
         
         // If all attempts are used, change the equation for this asteroid to prevent spamming
-        if (attemptsLeft <= 0) {
+        if (attemptsLeft < 0) {
             Equation* newEquation = [self.deli wrongAnswerAttempt:laserFrequency];
             [self notifyWithPosition: asteroid.position andScore: 50 andPositive:NO];
             [asteroid userData][@"frequency"] = [newEquation getSolution];

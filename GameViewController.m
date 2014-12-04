@@ -98,13 +98,24 @@ CGFloat INSET_RATIO = 0.02;
     [self.view addSubview:_gameView];
 }
 
+// Creates the healthbar.
+- (void)createHealthBar
+{
+    CGRect frame = self.view.frame;
+    CGFloat width = CGRectGetWidth(frame);
+    CGFloat height = CGRectGetHeight(frame);
+    CGRect healthBarFrame = CGRectMake(width * 0.005, height * 0.56, width*0.1, height* 0.38);
+    _healthBar = [[HealthBarView alloc] initWithFrame:healthBarFrame];
+    [self.view addSubview:_healthBar];
+}
+
 // Creates the sidebar.
 - (void)createSideBar
 {
     CGRect frame = self.view.frame;
     CGFloat width = CGRectGetWidth(frame);
     CGFloat height = CGRectGetHeight(frame);
-    CGRect sideBarFrame = CGRectMake(width * 0.875, height * 0.645, width*0.125, height* 0.375);
+    CGRect sideBarFrame = CGRectMake(width * 0.875, height * 0.55, width*0.13, height* 0.42);
     _sidebar = [[SideBarView alloc] initWithFrame:sideBarFrame];
     for (int i = 0; i < [_initialFractions count]; i++) {
         Fraction *toInsert = [[Fraction alloc] initWithFraction:[_initialFractions objectAtIndex:i]];
