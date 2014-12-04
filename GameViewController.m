@@ -27,7 +27,7 @@ CGFloat INSET_RATIO = 0.02;
     int _numAsteroid;
 }
 
--(id)initWithLevel:(int)level andOperators:(NSArray*)operators
+- (id)initWithLevel:(int)level andOperators:(NSArray*)operators
 {
     self = [super init];
     _level = level;
@@ -39,18 +39,23 @@ CGFloat INSET_RATIO = 0.02;
 }
 
 // Function required to keep the SKScene from crashing the program.
--(void)loadView
+- (void)loadView
 {
     CGRect applicationFrame = [[UIScreen mainScreen] applicationFrame];
     SKView *skView = [[SKView alloc] initWithFrame:applicationFrame];
     self.view = skView;
 }
 
--(void)viewDidLoad
+- (void)viewDidAppear:(BOOL)animated
 {
-    [super viewDidLoad];
+    [super viewDidAppear:animated];
+    [self initialize];
+}
+
+- (void)initialize
+{
     NSError *error;
-    NSURL * backgroundMusicURL = [[NSBundle mainBundle] URLForResource:@"background-music-aac" withExtension:@"caf"];
+    NSURL *backgroundMusicURL = [[NSBundle mainBundle] URLForResource:@"background-music-aac" withExtension:@"caf"];
     self.backgroundMusicPlayer = [[AVAudioPlayer alloc] initWithContentsOfURL:backgroundMusicURL error:&error];
  //   self.backgroundMusicPlayer.numberOfLoops = -1;
  //   [self.backgroundMusicPlayer prepareToPlay];
@@ -64,6 +69,9 @@ CGFloat INSET_RATIO = 0.02;
         [self createSideBar];
         [self createHealthBar];
         [self createScene];
+        [_scene startLevelAnimation];
+        
+        // Create timer upon dismissal of tip view
         
         // Timer that creates an asteroid every given time interval.
         _asteroidGenerationTimer = [NSTimer scheduledTimerWithTimeInterval:7.0
@@ -71,8 +79,9 @@ CGFloat INSET_RATIO = 0.02;
                                                                   selector:@selector(createAsteroid:)
                                                                   userInfo:nil
                                                                    repeats:YES];
-        [_scene startLevelAnimation];
+        
     }
+    self.view.multipleTouchEnabled = YES;
 }
 
 // Creates the gameview.
@@ -109,23 +118,13 @@ CGFloat INSET_RATIO = 0.02;
 // Creates the scene.
 - (void)createScene
 {
-    SKView * skView = (SKView *)self.view;
+    SKView *skView = (SKView *)self.view;
     _scene = [[GameScene alloc] initWithSize:skView.bounds.size andLevel:_level];
     _scene.scaleMode = SKSceneScaleModeAspectFill;
     [(GameScene*)_scene setDeli:self];
     [skView presentScene:_scene];
 }
 
-// Creates the health bar.
-- (void)createHealthBar
-{
-    CGRect frame = self.view.frame;
-    CGFloat width = CGRectGetWidth(frame);
-    CGFloat height = CGRectGetHeight(frame);
-    CGRect healthBarFrame = CGRectMake(width * 0.005, height * 0.55, width  * 0.075, height * 0.4);
-    _healthBar = [[HealthBarView alloc] initWithFrame:healthBarFrame];
-    [self.view addSubview:_healthBar];
-}
 
 // Creates the appropriate GameOverScene upon the end of a game
 -(void)createGameOverSceneWithWin:(BOOL)winning
@@ -155,14 +154,14 @@ CGFloat INSET_RATIO = 0.02;
 }
 
 // General cleanup of all data members.
--(void)cleanup
+- (void)cleanup
 {
     [_backgroundMusicPlayer stop];
     [_asteroidGenerationTimer invalidate];
     [_sidebar removeFromSuperview];
     [_healthBar removeFromSuperview];
     [_gameView removeFromSuperview];
-    SKView* skView = (SKView *)self.view;
+    SKView *skView = (SKView *)self.view;
     [skView presentScene:nil];
 }
 
@@ -245,7 +244,7 @@ CGFloat INSET_RATIO = 0.02;
     [_scene createAsteroid: randomEquation];
     [_asteroidGenerationTimer invalidate];
     CGFloat rate = _asteroidGenerationTimer.timeInterval;
-    _asteroidGenerationTimer = [NSTimer scheduledTimerWithTimeInterval:rate * 0.99
+    _asteroidGenerationTimer = [NSTimer scheduledTimerWithTimeInterval:rate * 0.98
                                                                 target:self
                                                               selector:@selector(createAsteroid:)
                                                               userInfo:nil
@@ -289,6 +288,21 @@ CGFloat INSET_RATIO = 0.02;
     return operators;
 }
 
+// Updates the Progress text file to save the progress of the player
+// after  the player closes and reopens the game
+- (int)readProgress
+{
+    NSArray *paths = NSSearchPathForDirectoriesInDomains
+    (NSDocumentDirectory, NSUserDomainMask, YES);
+    NSString *documentsDirectory = [paths objectAtIndex:0];
+    NSString *fileName = [NSString stringWithFormat:@"%@/Progress.txt",
+                          documentsDirectory];
+    NSString *content = [[NSString alloc] initWithContentsOfFile:fileName
+                                                    usedEncoding:nil
+                                                           error:nil];
+    return [content intValue];
+}
+
 // Writes the highest level beaten so that progress can be saved.
 -(void)updateProgress
 {
@@ -297,7 +311,7 @@ CGFloat INSET_RATIO = 0.02;
     NSString *documentsDirectory = [paths objectAtIndex:0];
     NSString *fileName = [NSString stringWithFormat:@"%@/Progress.txt",
                           documentsDirectory];
-    NSString *content = [[NSString alloc] initWithFormat:@"%d", _level];
+    NSString *content = [[NSString alloc] initWithFormat:@"%d", MAX([self readProgress],_level)];
     [content writeToFile:fileName
               atomically:NO
                 encoding:NSStringEncodingConversionAllowLossy
@@ -453,7 +467,10 @@ CGFloat INSET_RATIO = 0.02;
     }
     
     [_gameEndView removeFromSuperview];
-    [self viewDidLoad];
+    if (_level > 0) {
+        _equationGenerator = [[EquationGenerator alloc] initWithOperators:[self findOperators] andDenominatorLimit:12 andDifficulty:0];
+    }
+    [self initialize];
 }
 
 - (BOOL)shouldAutorotate

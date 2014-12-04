@@ -9,26 +9,32 @@
 #import "MainMenuView.h"
 
 @implementation MainMenuView
-{
-    UIImageView *_titleView;
-}
 
--(id)initWithFrame:(CGRect)frame
+- (id)initWithFrame:(CGRect)frame
 {
     self = [super initWithFrame:frame];
-    
-    CGFloat frameHeight = CGRectGetHeight(self.frame);
-    CGFloat frameWidth  = CGRectGetWidth(self.frame);
+    [self createTitle];
+    [self createSelectionButtons];
+    return self;
+}
+
+- (void)createTitle
+{
+    CGFloat height = CGRectGetHeight(self.frame);
+    CGFloat width  = CGRectGetWidth(self.frame);
     
     // Title image
     UIImage *titleImage =[UIImage imageNamed:@"logo.png"];
-    CGFloat titleXOffset = (frameWidth-titleImage.size.width)/2;
-    CGFloat titleYOffset = 0.2 * frameHeight;
-    _titleView = [[UIImageView alloc] initWithFrame:CGRectMake(titleXOffset, titleYOffset, titleImage.size.width, titleImage.size.height)];
-    [_titleView setImage:titleImage];
-    [self addSubview:_titleView];
-    
-    
+    CGFloat titleXOffset = (width-titleImage.size.width)/2;
+    CGFloat titleYOffset = 0.2 * height;
+    UIImageView *titleView = [[UIImageView alloc] initWithFrame:CGRectMake(titleXOffset, titleYOffset, titleImage.size.width, titleImage.size.height)];
+    [titleView setImage:titleImage];
+    [self addSubview:titleView];
+
+}
+
+- (void)createSelectionButtons
+{
     CGFloat buttonWidth = CGRectGetWidth(self.frame) * 0.6;
     CGFloat buttonHeight = CGRectGetHeight(self.frame) * 0.05;
     CGFloat xOffset = CGRectGetWidth(self.frame) * 0.2;
@@ -39,11 +45,11 @@
         yOffset += buttonHeight * 2.25;
         CGRect buttonFrame = CGRectMake(xOffset, yOffset, buttonWidth, buttonHeight);
         
-        UIButton* button = [[UIButton alloc] initWithFrame:buttonFrame];
+        UIButton *button = [[UIButton alloc] initWithFrame:buttonFrame];
         
         // Create target for cell
         [button addTarget:self action:@selector(buttonSelected:)
-              forControlEvents:UIControlEventTouchUpInside];
+         forControlEvents:UIControlEventTouchUpInside];
         
         // Set up title
         NSString *title;
@@ -65,11 +71,9 @@
         
         [self addSubview:button];
     }
-    
-    return self;
 }
 
--(void)buttonSelected:(id)sender
+- (void)buttonSelected:(id)sender
 {
     [self.delegate buttonSelected:sender];
 }

@@ -9,15 +9,6 @@
 #import "GameEndView.h"
 
 @implementation GameEndView
-{
-    UIButton* _backButton;
-    UIButton* _continueButton;
-    UILabel* _endMessageLabel;
-    UILabel* _endMessageVictoryLabel;
-    UILabel* _levelLabel;
-    UILabel* _scoreLabel;
-    
-}
 
 - (id)initWithFrame:(CGRect)frame withLevel:(int)level andScore:(int)score andWin:(BOOL)win
 {
@@ -29,52 +20,54 @@
         // Create the two buttons and message labels, dependent on victory.
         CGFloat width = CGRectGetWidth(frame);
         CGFloat height = CGRectGetHeight(frame);
-        CGRect endMessageLabelFrame;
         CGRect backButtonFrame = CGRectMake(width * 0.25,height * 0.6,width * 0.2, height * 0.08);
-        _backButton = [[UIButton alloc] initWithFrame:backButtonFrame];
-        [_backButton setTitle:@"Main Menu" forState:UIControlStateNormal];
-        [_backButton.titleLabel setFont:[UIFont fontWithName:@"HelveticaNeue-Bold" size:24.0f]];
-        [_backButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-        [[_backButton layer] setBorderWidth:2.5f];
-        [[_backButton layer] setBorderColor:[UIColor whiteColor].CGColor];
-        [[_backButton layer] setCornerRadius:18.0f];
-        [_backButton addTarget:self action:@selector(backButtonPressed)
-                forControlEvents:UIControlEventTouchUpInside];
-        [self addSubview:_backButton];
+        UIButton *backButton = [[UIButton alloc] initWithFrame:backButtonFrame];
+        [backButton setTitle:@"Main Menu" forState:UIControlStateNormal];
+        [backButton.titleLabel setFont:[UIFont fontWithName:@"HelveticaNeue-Bold" size:24.0f]];
+        [backButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+        [[backButton layer] setBorderWidth:2.5f];
+        [[backButton layer] setBorderColor:[UIColor whiteColor].CGColor];
+        [[backButton layer] setCornerRadius:18.0f];
+        [self addSubview:backButton];
         
         CGRect continueButtonFrame = CGRectMake(width * 0.55 ,height * 0.6,width * 0.2, height * 0.08);
-        _continueButton = [[UIButton alloc] initWithFrame:continueButtonFrame];
-        [_continueButton setTitle:@"Next Level" forState:UIControlStateNormal];
-        [_continueButton.titleLabel setFont:[UIFont fontWithName:@"HelveticaNeue-Bold" size:24.0f]];
-        [_continueButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-        [[_continueButton layer] setBorderWidth:2.5f];
-        [[_continueButton layer] setBorderColor:[UIColor whiteColor].CGColor];
-        [[_continueButton layer] setCornerRadius:18.0f];
-        [self addSubview:_continueButton];
+        UIButton *continueButton = [[UIButton alloc] initWithFrame:continueButtonFrame];
+        [continueButton setTitle:@"Next Level" forState:UIControlStateNormal];
+        [continueButton.titleLabel setFont:[UIFont fontWithName:@"HelveticaNeue-Bold" size:24.0f]];
+        [continueButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+        [[continueButton layer] setBorderWidth:2.5f];
+        [[continueButton layer] setBorderColor:[UIColor whiteColor].CGColor];
+        [[continueButton layer] setCornerRadius:18.0f];
+        [self addSubview:continueButton];
         
+        UILabel *endMessageLabel;
         // Depending on whether the user won or lost, have separate texts on buttons and labels.
         if (win) {
-            endMessageLabelFrame = CGRectMake(width * 0.42, height * 0.3, width * 0.3, height * 0.1);
-            _endMessageLabel = [[UILabel alloc] initWithFrame:endMessageLabelFrame];
-            [_endMessageLabel setText: @"VICTORY!"];
+            [backButton addTarget:self action:@selector(backButtonPressedWithoutSave)
+                 forControlEvents:UIControlEventTouchUpInside];
+            CGRect endMessageLabelFrame = CGRectMake(width * 0.42, height * 0.3, width * 0.3, height * 0.1);
+            endMessageLabel = [[UILabel alloc] initWithFrame:endMessageLabelFrame];
+            [endMessageLabel setText: @"VICTORY!"];
             [self setBackgroundColor:[[UIColor alloc] initWithPatternImage:[UIImage imageNamed:@"background"]]];
-            [_continueButton setTitle:@"Next Level" forState:UIControlStateNormal];
-            [_continueButton addTarget:self action:@selector(nextLevelSelected)
+            [continueButton setTitle:@"Next Level" forState:UIControlStateNormal];
+            [continueButton addTarget:self action:@selector(nextLevelSelected)
                       forControlEvents:UIControlEventTouchUpInside];
         }
         else {
-            endMessageLabelFrame = CGRectMake(width * 0.21, height * 0.3, width * 0.6, height * 0.1);
-            _endMessageLabel = [[UILabel alloc] initWithFrame:endMessageLabelFrame];
-            [_endMessageLabel setText: @"YOU HAVE FAILED HUMANITY..."];
+            [backButton addTarget:self action:@selector(backButtonPressed)
+                 forControlEvents:UIControlEventTouchUpInside];
+            CGRect endMessageLabelFrame = CGRectMake(width * 0.21, height * 0.3, width * 0.6, height * 0.1);
+            endMessageLabel = [[UILabel alloc] initWithFrame:endMessageLabelFrame];
+            [endMessageLabel setText: @"YOU HAVE FAILED HUMANITY..."];
             [self setBackgroundColor:[[UIColor alloc] initWithPatternImage:[UIImage imageNamed:@"background_defeat"]]];
-            [_continueButton setTitle:@"Try Again" forState:UIControlStateNormal];
-            [_continueButton addTarget:self action:@selector(tryAgainSelected)
+            [continueButton setTitle:@"Try Again" forState:UIControlStateNormal];
+            [continueButton addTarget:self action:@selector(tryAgainSelected)
                       forControlEvents:UIControlEventTouchUpInside];
         }
         
-        [_endMessageLabel setFont:[UIFont fontWithName:@"HelveticaNeue-Bold" size:30.0f]];
-        [_endMessageLabel setTextColor:[UIColor whiteColor]];
-        [self addSubview:_endMessageLabel];
+        [endMessageLabel setFont:[UIFont fontWithName:@"HelveticaNeue-Bold" size:30.0f]];
+        [endMessageLabel setTextColor:[UIColor whiteColor]];
+        [self addSubview:endMessageLabel];
     }
     return self;
 }
@@ -87,30 +80,30 @@
         CGFloat width = CGRectGetWidth(frame);
         CGFloat height = CGRectGetHeight(frame);
         CGRect backButtonFrame = CGRectMake(width * 0.41,height * 0.6,width * 0.2, height * 0.08);
-        _backButton = [[UIButton alloc] initWithFrame:backButtonFrame];
-        [_backButton setTitle:@"Main Menu" forState:UIControlStateNormal];
-        [_backButton.titleLabel setFont:[UIFont fontWithName:@"HelveticaNeue-Bold" size:24.0f]];
-        [_backButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-        [[_backButton layer] setBorderWidth:2.5f];
-        [[_backButton layer] setBorderColor:[UIColor whiteColor].CGColor];
-        [[_backButton layer] setCornerRadius:18.0f];
-        [_backButton addTarget:self action:@selector(backButtonPressed)
+        UIButton *backButton = [[UIButton alloc] initWithFrame:backButtonFrame];
+        [backButton setTitle:@"Main Menu" forState:UIControlStateNormal];
+        [backButton.titleLabel setFont:[UIFont fontWithName:@"HelveticaNeue-Bold" size:24.0f]];
+        [backButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+        [[backButton layer] setBorderWidth:2.5f];
+        [[backButton layer] setBorderColor:[UIColor whiteColor].CGColor];
+        [[backButton layer] setCornerRadius:18.0f];
+        [backButton addTarget:self action:@selector(backButtonPressed)
               forControlEvents:UIControlEventTouchUpInside];
-        [self addSubview:_backButton];
+        [self addSubview:backButton];
         
         CGRect endMessageLabelFrame = CGRectMake(width * 0.3, height * 0.1, width * 0.5, height * 0.5);
-        _endMessageLabel = [[UILabel alloc] initWithFrame:endMessageLabelFrame];
-        [_endMessageLabel setText: @"Congratulations Cadet!"];
-        [_endMessageLabel setFont:[UIFont fontWithName:@"HelveticaNeue-Bold" size:30.0f]];
-        [_endMessageLabel setTextColor:[UIColor whiteColor]];
-        [self addSubview:_endMessageLabel];
+        UILabel *endMessageLabel = [[UILabel alloc] initWithFrame:endMessageLabelFrame];
+        [endMessageLabel setText: @"Congratulations Cadet!"];
+        [endMessageLabel setFont:[UIFont fontWithName:@"HelveticaNeue-Bold" size:30.0f]];
+        [endMessageLabel setTextColor:[UIColor whiteColor]];
+        [self addSubview:endMessageLabel];
 
         CGRect endMessageLabelVictoryFrame = CGRectMake(width * 0.31, height * 0.2, width * 0.5, height * 0.5);
-        _endMessageVictoryLabel = [[UILabel alloc] initWithFrame:endMessageLabelVictoryFrame];
-        [_endMessageVictoryLabel setText: @"You have saved Earth!"];
-        [_endMessageVictoryLabel setFont:[UIFont fontWithName:@"HelveticaNeue-Bold" size:30.0f]];
-        [_endMessageVictoryLabel setTextColor:[UIColor whiteColor]];
-        [self addSubview:_endMessageVictoryLabel];
+        UILabel *endMessageVictoryLabel = [[UILabel alloc] initWithFrame:endMessageLabelVictoryFrame];
+        [endMessageVictoryLabel setText: @"You have saved Earth!"];
+        [endMessageVictoryLabel setFont:[UIFont fontWithName:@"HelveticaNeue-Bold" size:30.0f]];
+        [endMessageVictoryLabel setTextColor:[UIColor whiteColor]];
+        [self addSubview:endMessageVictoryLabel];
         [self setBackgroundColor:[[UIColor alloc] initWithPatternImage:[UIImage imageNamed:@"background"]]];
     }
     
@@ -125,33 +118,54 @@
     
     CGRect levelLabelFrame;
     
-    NSString* levelLabel;
+    NSString* levelString;
     if (level > 0) {
-        levelLabel = [[NSString alloc] initWithFormat:@"Level: %d", level];
+        levelString = [[NSString alloc] initWithFormat:@"Level: %d", level];
         levelLabelFrame = CGRectMake(width * 0.44,height * 0.43,width * 0.5, height * 0.08);
     }
     else {
-        levelLabel = @"Survival Mode";
+        levelString = @"Survival Mode";
         levelLabelFrame = CGRectMake(width * 0.40,height * 0.43,width * 0.5, height * 0.08);
     }
-    _levelLabel = [[UILabel alloc] initWithFrame:levelLabelFrame];
-    [_levelLabel setText:levelLabel];
-    [_levelLabel setFont:[UIFont fontWithName:@"HelveticaNeue-Bold" size:24.0f]];
-    [_levelLabel setTextColor:[UIColor whiteColor]];
-    [self addSubview:_levelLabel];
+    UILabel *levelLabel = [[UILabel alloc] initWithFrame:levelLabelFrame];
+    [levelLabel setText:levelString];
+    [levelLabel setFont:[UIFont fontWithName:@"HelveticaNeue-Bold" size:24.0f]];
+    [levelLabel setTextColor:[UIColor whiteColor]];
+    [self addSubview:levelLabel];
     
     CGRect scoreLabelFrame = CGRectMake(width * 0.40,height * 0.5,width * 0.5, height * 0.08);
-    _scoreLabel = [[UILabel alloc] initWithFrame:scoreLabelFrame];
-    NSString* scoreLabel = [[NSString alloc] initWithFormat:@"Score: %@", [NSString stringWithFormat:@"%007d", score]];
-    [_scoreLabel setText:scoreLabel];
-    [_scoreLabel setFont:[UIFont fontWithName:@"HelveticaNeue-Bold" size:24.0f]];
-    [_scoreLabel setTextColor:[UIColor whiteColor]];
-    [self addSubview:_scoreLabel];
+    UILabel *scoreLabel = [[UILabel alloc] initWithFrame:scoreLabelFrame];
+    NSString* scoreString = [[NSString alloc] initWithFormat:@"Score: %@", [NSString stringWithFormat:@"%007d", score]];
+    [scoreLabel setText:scoreString];
+    [scoreLabel setFont:[UIFont fontWithName:@"HelveticaNeue-Bold" size:24.0f]];
+    [scoreLabel setTextColor:[UIColor whiteColor]];
+    [self addSubview:scoreLabel];
 }
 
 -(void)backButtonPressed
 {
     [self.delegate backToMainMenu];
+}
+
+// Selector for the back button
+- (void)backButtonPressedWithoutSave
+{
+    UIAlertView* alert = [[UIAlertView alloc] initWithTitle:@""
+                                                    message:@"Go back to main menu? Your current score will be lost!"
+                                                   delegate:self
+                                          cancelButtonTitle:nil
+                                          otherButtonTitles:nil];
+    [alert addButtonWithTitle:@"Yes"];
+    [alert addButtonWithTitle:@"Cancel"];
+    [alert show];
+}
+
+- (void)alertView:(UIAlertView *)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex
+{
+    // Yes, go back to main menu
+    if (buttonIndex == 0) {
+        [self.delegate backToMainMenu];
+    }
 }
 
 -(void)nextLevelSelected

@@ -16,6 +16,4 @@
 
 @property (assign, nonatomic) id <ButtonSelected> delegate;
 
--(id)initWithFrame:(CGRect)frame;
-
 @end

@@ -13,7 +13,6 @@ CGFloat INSET_RATIO;
 @implementation OperatorsSelectView
 {
     UIButton* _startButton;
-    UIButton* _backButton;
 }
 
 -(id)initWithFrame:(CGRect)frame
@@ -37,15 +36,15 @@ CGFloat INSET_RATIO;
     CGFloat backButtonX = CGRectGetWidth(frame) * INSET_RATIO;
     CGFloat backButtonY = CGRectGetHeight(frame) * INSET_RATIO;
     CGRect backButtonFrame = CGRectMake(backButtonX, backButtonY, backButtonLength, backButtonWidth);
-    _backButton = [[UIButton alloc] initWithFrame:backButtonFrame];
-    [_backButton setBackgroundImage:[UIImage imageNamed:@"StartOverIcon"] forState:UIControlStateNormal];
-    [[_backButton layer] setBorderWidth:2.5f];
-    [[_backButton layer] setBorderColor:[UIColor blackColor].CGColor];
-    [[_backButton layer] setCornerRadius:12.0f];
-    [_backButton addTarget:self action:@selector(buttonSelected:)
+    UIButton* backButton = [[UIButton alloc] initWithFrame:backButtonFrame];
+    [backButton setBackgroundImage:[UIImage imageNamed:@"StartOverIcon"] forState:UIControlStateNormal];
+    [[backButton layer] setBorderWidth:2.5f];
+    [[backButton layer] setBorderColor:[UIColor blackColor].CGColor];
+    [[backButton layer] setCornerRadius:12.0f];
+    [backButton addTarget:self action:@selector(buttonSelected:)
           forControlEvents:UIControlEventTouchUpInside];
-    _backButton.tag = 6;
-    [self addSubview:_backButton];
+    backButton.tag = -1;
+    [self addSubview:backButton];
 }
 
 -(void)createOperatorButtons
@@ -124,7 +123,7 @@ CGFloat INSET_RATIO;
     [self.delegate buttonSelected:sender];
 }
 
--(void)operatorSelected: (id)sender
+-(void)operatorSelected:(id)sender
 {
     UIButton* button = (UIButton*)sender;
     

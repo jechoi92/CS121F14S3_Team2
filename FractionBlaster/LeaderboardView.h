@@ -16,6 +16,6 @@
 
 @property (assign, nonatomic) id <GoBack> delegate;
 
--(void)setLabelAtIndex:(int)i withString:(NSString*)score;
+- (void)setLabelAtIndex:(int)i withString:(NSString*)score;
 
 @end
