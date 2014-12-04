@@ -48,15 +48,11 @@ CGFloat LASER_VELOCITY = 800.0;
         
         [self createPlayer];
         [self displayLevel:level];
-        [self createLabel];
         [self initializeSprites];
-        
-        
+    
         self.physicsWorld.gravity = CGVectorMake(0,0);
         self.physicsWorld.contactDelegate = self;
     }
-    
-    
     
     return self;
 }
@@ -69,37 +65,6 @@ CGFloat LASER_VELOCITY = 800.0;
     self.player.position = CGPointMake(self.frame.size.width/2, self.player.size.width/2);
     self.player.zPosition = 1;
     [self addChild:self.player];
-}
-
-// Create labels displaying the number of asteroids left in the level
-- (void)createLabel
-{
-    if (_asteroidsToDestroy > 0) {
-        CGRect frame = self.frame;
-        CGFloat asteroidsLabelX = CGRectGetWidth(frame) * 0.84;
-        CGFloat asteroidsLabelY = CGRectGetHeight(frame) * 0.93;
-    
-        // Create label with "Asteroids remaining" text
-        _asteroidsLabel = [SKLabelNode labelNodeWithFontNamed:@"HelveticaNeue-Bold"];
-        _asteroidsLabel.fontSize = 18;
-        _asteroidsLabel.position =  CGPointMake(asteroidsLabelX, asteroidsLabelY);
-        _asteroidsLabel.text = @"Asteroids remaining";
-        _asteroidsLabel.blendMode = YES;
-        _asteroidsLabel.zPosition = 1;
-        [self addChild:_asteroidsLabel];
-    
-        CGFloat asteroidsValueLabelX = CGRectGetWidth(frame) * 0.97;
-        CGFloat asteroidsValueLabelY = CGRectGetHeight(frame) * 0.93;
-    
-        // Create label displaying the actual number of asteroids left
-        _asteroidsValueLabel = [SKLabelNode labelNodeWithFontNamed:@"HelveticaNeue-Bold"];
-        _asteroidsValueLabel.fontSize = 18;
-        _asteroidsValueLabel.position =  CGPointMake(asteroidsValueLabelX, asteroidsValueLabelY);
-        _asteroidsValueLabel.text = [[NSString alloc] initWithFormat:@"%d", _asteroidsToDestroy];
-        _asteroidsValueLabel.blendMode = YES;
-        _asteroidsValueLabel.zPosition = 1;
-        [self addChild:_asteroidsValueLabel];
-    }
 }
 
 // Creates the label node on the scene
@@ -337,20 +302,23 @@ CGFloat LASER_VELOCITY = 800.0;
 }
 
 // Update the player sprite's location horizontally
-- (void)translatePlayer:(CGPoint)translation {
+- (void)translatePlayer:(CGPoint)translation
+{
     CGPoint position = [self.player position];
     CGPoint newPos = CGPointMake(position.x + translation.x, position.y + translation.y);
     [self.player setPosition:[self boundPlayerPos:newPos]];
 }
 
-- (void)didMoveToView:(SKView *)view {
+- (void)didMoveToView:(SKView *)view
+{
     // gestureRecognizer is used to distinguish when the player is dragging on the screen
     // versus tapping
     UIPanGestureRecognizer* gestureRecognizer = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(handlePanFrom:)];
     [[self view] addGestureRecognizer:gestureRecognizer];
 }
 
-- (void)handlePanFrom:(UIPanGestureRecognizer *)recognizer {
+- (void)handlePanFrom:(UIPanGestureRecognizer *)recognizer
+{
     if (recognizer.state == UIGestureRecognizerStateChanged) {
         CGPoint translation = [recognizer translationInView:recognizer.view];
         translation = CGPointMake(translation.x, -translation.y);
@@ -425,13 +393,13 @@ CGFloat LASER_VELOCITY = 800.0;
         // Spawn animated explosion sprite
         [self spawnExplosion:[asteroid position]];
         
-        // Decrement our counter of asteroids remaining in the level
-        _asteroidsToDestroy--;
-        
         // Calculate the score for the destroyed asteroid and spawn a notice with that score
         int asteroidScore = (10 + (int) asteroid.position.y / 100) * 10;
-        [self asteroidDestroyed: (int)asteroidScore];
+        [self asteroidDestroyed: (int)asteroidScore andAsteroidCount:(int)_asteroidsToDestroy];
         [self notifyWithPosition: asteroid.position andScore: asteroidScore andPositive:YES];
+        
+        // Decrement our counter of asteroids remaining in the level
+        _asteroidsToDestroy--;
         
         // Remove the asteroid sprite
         [asteroid removeFromParent];
@@ -505,10 +473,13 @@ CGFloat LASER_VELOCITY = 800.0;
 }
 
 // Notify delegate of score updates
-- (void)asteroidDestroyed: (int)asteroidScore
+- (void)asteroidDestroyed: (int)asteroidScore andAsteroidCount: (int)numAsteroid
 {
     [self.deli incrementScore: (int)asteroidScore];
+    [self.deli incrementAsteroid: (int)numAsteroid];
 }
+
+
 
 // Distinguish between contact of different physics bodies and respond
 - (void)didBeginContact:(SKPhysicsContact *)contact

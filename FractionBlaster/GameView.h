@@ -17,7 +17,9 @@
 
 @property (assign, nonatomic) id <GoBackGame> delegate;
 
-- (id)initWithFrame:(CGRect)frame andLevel:(int)level andScore:(int)score;
+- (id)initWithFrame:(CGRect)frame andAsteroidCount:(int)numAsteroids andScore:(int)score;
 - (void)updateScore:(int)score;
+- (void)updateAsteroidCount:(int)numAsteroid;
+
 
 @end

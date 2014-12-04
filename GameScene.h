@@ -12,6 +12,7 @@
 @protocol AsteroidAction
 - (void)asteroidReachedBottom;
 - (void)incrementScore: (int)value;
+- (void)incrementAsteroid: (int)numAsteroid;
 - (void)lastAsteroidDestroyed;
 - (Equation*)wrongAnswerAttempt: (Fraction*)value;
 @end

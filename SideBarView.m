@@ -94,15 +94,7 @@ int TOTAL_INITIAL_FRACTIONS;
         [_buttons insertObject:currentButton atIndex:i];
     }
     
-    for (NSString* family in [UIFont familyNames])
-    {
-        NSLog(@"%@", family);
-        
-        for (NSString* name in [UIFont fontNamesForFamilyName: family])
-        {
-            NSLog(@"  %@", name);
-        }
-    }
+    
 }
 
 // Return the button at the designated index
