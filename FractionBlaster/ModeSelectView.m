@@ -45,6 +45,8 @@ CGFloat INSET_RATIO;
         // Create target for cell
         [button addTarget:self action:@selector(buttonSelected:)
          forControlEvents:UIControlEventTouchUpInside];
+        
+        // Style button
         [button.titleLabel setFont:[UIFont fontWithName:@"SpaceAge" size:42.0f]];
         [[button layer] setBorderWidth:6.0f];
         [[button layer] setBorderColor:[UIColor whiteColor].CGColor];
@@ -74,6 +76,7 @@ CGFloat INSET_RATIO;
 
 - (void)createLabels
 {
+    // TODO?: Make these non-magic
     CGFloat labelWidth = CGRectGetWidth(self.frame) * 0.6;
     CGFloat labelHeight = CGRectGetHeight(self.frame) * 0.3;
     CGFloat xOffset = CGRectGetWidth(self.frame) * 0.2;
@@ -99,8 +102,9 @@ CGFloat INSET_RATIO;
                 [label setText:@"Challenge your friends to an endless fraction frenzy!"];
                 break;
         }
-        yOffset += labelHeight;
+        
         [self addSubview:label];
+        yOffset += labelHeight ;
     }
 }
 

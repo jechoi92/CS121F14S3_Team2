@@ -122,11 +122,13 @@ CGFloat BASE_OFFSET_PCT = (float)1/21;
     CGFloat frameWidth  = CGRectGetWidth(self.frame);
     CGFloat frameHeight = CGRectGetHeight(self.frame);
     
-    // TODO: Make this not hard-coded, and scalable with frame-size
-    CGFloat xOff = BASE_OFFSET_PCT * frameWidth;
-    CGRect buttonFrame = CGRectMake(xOff, 200, 40, 20);
+    // TODO: Make this not-magic
+    CGFloat buttonWidth = frameWidth * 0.24;
+    CGFloat buttonHeight = frameHeight * 0.1;
+    CGFloat xOffset = frameWidth * BASE_OFFSET_PCT;
+    CGFloat yOffset = frameHeight * BASE_OFFSET_PCT * 2;
     
-    return buttonFrame;
+    return CGRectMake(xOffset, yOffset, buttonWidth, buttonHeight);
 }
 
 - (void)createNextInstrButton
@@ -141,15 +143,23 @@ CGFloat BASE_OFFSET_PCT = (float)1/21;
     
     UIButton *button = [[UIButton alloc] initWithFrame:nextInstrButtonFrame];
     
-    // Style the button
-    button.backgroundColor = [UIColor whiteColor];
-    [button.titleLabel setText:@"Next"];
-    [button.titleLabel setTextColor:[UIColor blackColor]];
+    // Style button
+    [button.titleLabel setFont:[UIFont fontWithName:@"SpaceAge" size:24.0f]];
+    [[button layer] setBorderWidth:6.0f];
+    [[button layer] setBorderColor:[UIColor whiteColor].CGColor];
+    [[button layer] setCornerRadius:18.0f];
+    [button setTitle:@"Next" forState:UIControlStateNormal];
     
     // Selector
     [button addTarget:self action:@selector(nextInstruction:)
      forControlEvents:UIControlEventTouchUpInside];
     
+    // This creates the border around the button
+    UIImageView *background = [[UIImageView alloc] initWithFrame:nextInstrButtonFrame];
+    background.image = [UIImage imageNamed:@"menuBorder"];
+    
+    // Add background behind button
+    [self addSubview:background];
     [self addSubview:button];
 }
 
@@ -159,14 +169,19 @@ CGFloat BASE_OFFSET_PCT = (float)1/21;
     CGRect buttonFrame = [self createInstrButtonFrame];
     UIButton *button = [[UIButton alloc] initWithFrame:buttonFrame];
     
-    // Style the button
-    [button.titleLabel setText:@"Previous"];
-    [button.titleLabel setTextColor:[UIColor blackColor]];
+    // Style button
+    [button.titleLabel setFont:[UIFont fontWithName:@"SpaceAge" size:24.0f]];
+    [[button layer] setBorderWidth:6.0f];
+    [[button layer] setBorderColor:[UIColor whiteColor].CGColor];
+    [[button layer] setCornerRadius:18.0f];
+    [button setTitle:@"Previous" forState:UIControlStateNormal];
     
-    // Selector
-    [button addTarget:self action:@selector(prevInstruction:)
-     forControlEvents:UIControlEventTouchUpInside];
+    // This creates the border around the button
+    UIImageView *background = [[UIImageView alloc] initWithFrame:buttonFrame];
+    background.image = [UIImage imageNamed:@"menuBorder"];
     
+    // Add background behind button
+    [self addSubview:background];
     [self addSubview:button];
 }
 
