@@ -35,7 +35,7 @@ int NUM_LEVELS = 10;
         
         [self createEachButton:[UIButton alloc] withUnlockedLevel:level andNumRows:numRows];
         [self createTitle];
-        [self createButtons];
+        [self createStartButton];
         [self createBackButton];
         [self setBackgroundColor:[[UIColor alloc] initWithPatternImage:[UIImage imageNamed:@"main_background"]]];
     }
@@ -51,7 +51,7 @@ int NUM_LEVELS = 10;
 {
     CGFloat buttonSize = CGRectGetWidth(self.frame) / 8;
     // Set the base offset and vertical offset for all of the buttons in the frame
-    CGFloat baseOffset = buttonSize/4;
+    CGFloat baseOffset = buttonSize / 4;
     CGFloat vertOffset = CGRectGetHeight(self.frame) * 0.5;
     
     // Run through both row arrays and instatntiate each button approporately based on
@@ -119,7 +119,7 @@ int NUM_LEVELS = 10;
     }
 }
 
--(void)createButtons
+-(void)createStartButton
 {
     // Get frame and frame dimensions
     CGRect frame = self.frame;

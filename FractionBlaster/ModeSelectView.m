@@ -68,16 +68,16 @@ CGFloat INSET_RATIO;
 
 - (void)createLabels
 {
-    CGFloat labelWidth = CGRectGetWidth(self.frame) * 0.5;
+    CGFloat labelWidth = CGRectGetWidth(self.frame) * 0.6;
     CGFloat labelHeight = CGRectGetHeight(self.frame) * 0.3;
-    CGFloat xOffset = CGRectGetWidth(self.frame) * 0.25;
+    CGFloat xOffset = CGRectGetWidth(self.frame) * 0.2;
     CGFloat yOffset = CGRectGetHeight(self.frame) * 0.3;
     
     for (int i = 0; i < 2; ++i){
         CGRect labelFrame = CGRectMake(xOffset, yOffset, labelWidth, labelHeight);
         
         UILabel *label = [[UILabel alloc] initWithFrame:labelFrame];
-        label.numberOfLines = 2;
+        label.numberOfLines = 3;
         label.textAlignment = NSTextAlignmentCenter;
         
         // Create target for cell
@@ -87,10 +87,10 @@ CGFloat INSET_RATIO;
         // Set up title
         switch (i){
             case 0:
-                [label setText:@"Play the story and beat the game!"];
+                [label setText:@"Play the campaign to complete all missions and save Earth!"];
                 break;
             case 1:
-                [label setText:@"Play for fun and beat your friends!"];
+                [label setText:@"Challenge your friends to an endless fraction frenzy!"];
                 break;
         }
         yOffset += labelHeight;

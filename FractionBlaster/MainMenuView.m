@@ -16,6 +16,7 @@
     if (self) {
         [self createTitle];
         [self createSelectionButtons];
+        [self createImages];
         [self setBackgroundColor:[[UIColor alloc] initWithPatternImage:[UIImage imageNamed:@"main_background"]]];
     }
     return self;
@@ -80,8 +81,11 @@
         [self addSubview:background];
         [self addSubview:button];
     }
-    
-    // Here we create the pipes that underly the buttons
+}
+
+// Here we create the pipes that underly the buttons
+- (void)createImages
+{
     CGFloat pipeWidth = CGRectGetWidth(self.frame) * 0.1;
     CGFloat pipeHeight = CGRectGetHeight(self.frame) * 0.2;
     CGFloat pipexOffset1 = CGRectGetWidth(self.frame) * 0.3;

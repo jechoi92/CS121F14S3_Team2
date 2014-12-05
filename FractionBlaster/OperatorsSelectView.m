@@ -20,14 +20,52 @@ CGFloat INSET_RATIO;
     self = [super initWithFrame:frame];
     if (self) {
         _operatorsSelected = [[NSMutableArray alloc] init];
+        [self createTitle];
         [self createOperatorButtons];
         [self createBackButton];
+        [self createStartButton];
         [self setBackgroundColor:[[UIColor alloc] initWithPatternImage:[UIImage imageNamed:@"main_background"]]];
     }
     return self;
 }
 
--(void)createBackButton
+// Creates the level select title image at the top of the screen
+-(void)createTitle
+{
+    // Get frame and frame dimensions
+    CGRect frame = self.frame;
+    CGFloat frameWidth = CGRectGetWidth(frame);
+    CGFloat frameHeight = CGRectGetHeight(frame);
+    
+    // Add the level select image to the top of the view
+    CGRect title = CGRectMake(0, -50, frameWidth, frameHeight*.5);
+    UIImageView *imageView = [[UIImageView alloc] initWithFrame:title];
+    imageView.image = [UIImage imageNamed:@"Levels.png"];
+    [self addSubview:imageView];
+}
+
+-(void)createStartButton
+{
+    // Get frame and frame dimensions
+    CGRect frame = self.frame;
+    CGFloat width = CGRectGetWidth(frame);
+    CGFloat height = CGRectGetHeight(frame);
+    
+    // Create start button with the appropriate delegate
+    CGRect startButtonFrame = CGRectMake(width * 0.2, height * 0.8, width * 0.6, height * 0.15);
+    _startButton = [[UIButton alloc] initWithFrame:startButtonFrame];
+    
+    UIImage *image = [UIImage imageNamed:@"launch2.png"];
+    [_startButton setImage:image forState:UIControlStateNormal];
+    
+    [_startButton addTarget:self action:@selector(buttonSelected:)
+          forControlEvents:UIControlEventTouchUpInside];
+    _startButton.tag = 5;
+    [_startButton setEnabled:NO];
+    [self addSubview:_startButton];
+}
+
+- (void)createBackButton
 {
     CGRect frame = self.frame;
     CGFloat size = MIN(CGRectGetWidth(frame), CGRectGetHeight(frame));
@@ -48,83 +86,70 @@ CGFloat INSET_RATIO;
     [self addSubview:backButton];
 }
 
--(void)createOperatorButtons
+- (void)createOperatorButtons
 {
     CGFloat width = CGRectGetWidth(self.frame);
-    CGFloat buttonSize = width * 0.2;
+    CGFloat buttonSize = width / 8;
+    CGFloat baseOffset = buttonSize / 4;
+    CGFloat yOffset = CGRectGetHeight(self.frame) * 0.5;
     CGFloat xOffset = buttonSize;
-    CGFloat yOffset = buttonSize;
-    
     int tag = 0;
-    for (int i = 0; i < 2; i++) {
-        for (int j = 0; j < 3; j++) {
-            CGRect buttonFrame = CGRectMake(xOffset, yOffset, buttonSize, buttonSize);
-            UIButton* currentButton = [[UIButton alloc] initWithFrame:buttonFrame];
-            [currentButton setBackgroundColor:[UIColor whiteColor]];
-            [currentButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
-            switch (tag){
-                case 0:
-                {
-                    [currentButton setTitle:@"Addition" forState:UIControlStateNormal];
-                    [currentButton addTarget:self action:@selector(operatorSelected:)
+    for (int i = 0; i < 5; i++) {
+        CGRect buttonFrame = CGRectMake(xOffset, yOffset, buttonSize, buttonSize);
+        UIButton* currentButton = [[UIButton alloc] initWithFrame:buttonFrame];
+        [currentButton setBackgroundColor:[UIColor whiteColor]];
+        [currentButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+        switch (tag){
+            case 0:
+            {
+                [currentButton setTitle:@"+" forState:UIControlStateNormal];
+                [currentButton addTarget:self action:@selector(operatorSelected:)
                             forControlEvents:UIControlEventTouchUpInside];
-                    break;
-                }
-                case 1:
-                {
-                    [currentButton setTitle:@"Subtraction" forState:UIControlStateNormal];
-                    [currentButton addTarget:self action:@selector(operatorSelected:)
-                            forControlEvents:UIControlEventTouchUpInside];
-                    break;
-                }
-                case 2:
-                {
-                    [currentButton setTitle:@"Multiplication" forState:UIControlStateNormal];
-                    [currentButton addTarget:self action:@selector(operatorSelected:)
-                            forControlEvents:UIControlEventTouchUpInside];
-                    break;
-                }
-                case 3:
-                {
-                    [currentButton setTitle:@"Division" forState:UIControlStateNormal];
-                    [currentButton addTarget:self action:@selector(operatorSelected:)
-                            forControlEvents:UIControlEventTouchUpInside];
-                    break;
-                }
-                case 4:
-                {
-                    [currentButton setTitle:@"Simplification" forState:UIControlStateNormal];
-                    [currentButton addTarget:self action:@selector(operatorSelected:)
-                            forControlEvents:UIControlEventTouchUpInside];
-                    break;
-                }
-                case 5:
-                {
-                    _startButton = currentButton;
-                    [_startButton setTitle:@"Start Game" forState:UIControlStateNormal];
-                    [_startButton addTarget:self action:@selector(buttonSelected:)
-                          forControlEvents:UIControlEventTouchUpInside];
-                    [_startButton setEnabled:NO];
-                    break;
-                }
+                break;
             }
-            currentButton.tag = tag;
-            tag++;
-            yOffset += buttonSize * 2;
-            
-            [self addSubview:currentButton];
+            case 1:
+                {
+                [currentButton setTitle:@"-" forState:UIControlStateNormal];
+                [currentButton addTarget:self action:@selector(operatorSelected:)
+                        forControlEvents:UIControlEventTouchUpInside];
+                break;
+            }
+            case 2:
+            {
+                [currentButton setTitle:@"X" forState:UIControlStateNormal];
+                [currentButton addTarget:self action:@selector(operatorSelected:)
+                            forControlEvents:UIControlEventTouchUpInside];
+                break;
+            }
+            case 3:
+            {
+                [currentButton setTitle:@"÷" forState:UIControlStateNormal];
+                [currentButton addTarget:self action:@selector(operatorSelected:)
+                            forControlEvents:UIControlEventTouchUpInside];
+                break;
+            }
+            case 4:
+            {
+                [currentButton setTitle:@"Simplify" forState:UIControlStateNormal];
+                [currentButton addTarget:self action:@selector(operatorSelected:)
+                            forControlEvents:UIControlEventTouchUpInside];
+                break;
+            }
         }
-        xOffset += 2 * buttonSize;
-        yOffset = buttonSize;
+        currentButton.tag = tag;
+        tag++;
+        
+        [self addSubview:currentButton];
+        xOffset += baseOffset + buttonSize;
     }
 }
 
--(void)buttonSelected:(id)sender
+- (void)buttonSelected:(id)sender
 {
     [self.delegate buttonSelected:sender];
 }
 
--(void)operatorSelected:(id)sender
+- (void)operatorSelected:(id)sender
 {
     UIButton* button = (UIButton*)sender;
     
