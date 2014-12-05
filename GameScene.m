@@ -12,9 +12,9 @@ static const uint32_t laserCategory     =  0x1 << 0;
 static const uint32_t asteroidCategory  =  0x1 << 1;
 
 CGFloat INSET_RATIO;
-int SLOW_SPEED = 35;
-int MEDIUM_SPEED = 30;
-int MAX_SPEED = 25;
+int SLOW_SPEED = 40;
+int MEDIUM_SPEED = 35;
+int MAX_SPEED = 30;
 int ALLOWED_WRONG_ANSWERS = 2;
 CGFloat LASER_VELOCITY = 1500.0;
 
@@ -26,19 +26,19 @@ CGFloat LASER_VELOCITY = 1500.0;
     int _minimumAsteroidDuration;
     int _asteroidsToDestroy;
     int _score;
+    int _level;
     SKLabelNode* _asteroidsLabel;
     SKLabelNode* _asteroidsValueLabel;
     SKNode* _levelNode;
     NSArray* _explosionFrames;
 }
 
--(id)initWithSize:(CGSize)size andLevel:(int)level {
+-(id)initWithSize:(CGSize)size andLevel:(int)level andShipNum:(int)shipNum
+{
     if (self = [super initWithSize:size]) {
-        
+        _level = level;
         SKSpriteNode* background = [SKSpriteNode spriteNodeWithImageNamed:@"background"];
-        
         background.position = CGPointMake(CGRectGetMidX(self.frame), CGRectGetMidY(self.frame));
-        background.name = @"BACKGROUND";
         [self addChild:background];
         
         // store the minimum time an asteroid can spend on screen for this level
@@ -46,25 +46,34 @@ CGFloat LASER_VELOCITY = 1500.0;
         // Store the number of asteroids that must be destroyed to clear the level
         _asteroidsToDestroy = [self findAsteroidsToDestroy:(int)level];
         
-        [self createPlayer];
-        [self displayLevel:level];
-        [self createLabel];
+        [self createPlayerWithShipNum:shipNum];
+        [self displayLevel:_level];
         [self initializeSprites];
-        
-        
+    
         self.physicsWorld.gravity = CGVectorMake(0,0);
         self.physicsWorld.contactDelegate = self;
+        
+        [self runAction:[SKAction playSoundFileNamed:@"sirens.wav" waitForCompletion:NO]];
     }
-    
-    
     
     return self;
 }
 
 // Create node for the player's ship sprite
-- (void)createPlayer
+- (void)createPlayerWithShipNum:(int)shipNum
 {
-    self.player = [SKSpriteNode spriteNodeWithImageNamed:@"Spaceship"];
+    NSString *shipType;
+    if (shipNum == 0) {
+        shipType = [NSString stringWithFormat:@"blueSpaceShip"];
+    } else if (shipNum == 1) {
+        shipType = [NSString stringWithFormat:@"brownSpaceShip"];
+    } else if (shipNum == 2) {
+        shipType = [NSString stringWithFormat:@"silverSpaceShip"];
+    } else {
+        shipType = [NSString stringWithFormat:@"redSpaceShip"];
+    }
+    
+    self.player = [SKSpriteNode spriteNodeWithImageNamed:shipType];
     [self.player setScale:0.3];
     self.player.position = CGPointMake(self.frame.size.width/2, self.player.size.width/2);
     self.player.zPosition = 1;
@@ -205,9 +214,18 @@ CGFloat LASER_VELOCITY = 1500.0;
     asteroid.physicsBody.collisionBitMask = 0; // 5
     
     // Determine where to spawn the asteroid along the X axis
-    int minX = asteroid.size.width * 1.2;
-    int maxX = self.frame.size.width - asteroid.size.width * 1.2;
+    int minX = self.player.size.width * 1.2;
+    int maxX = self.frame.size.width - self.player.size.width * 2;
     int actualX = minX + (arc4random() % (maxX - minX));
+    
+    // Determine a slight random x offset so the asteroids will not just travel straight down
+    int endX = actualX + (arc4random_uniform(self.frame.size.width) * 2 - self.frame.size.width) * sqrt(_level);
+    
+    if (endX < minX) {
+        endX = minX;
+    } else if (endX > maxX) {
+        endX = maxX;
+    }
     
     // Create the asteroid slightly off-screen along the top edge,
     // and along a random position along the X axis as calculated above
@@ -218,17 +236,6 @@ CGFloat LASER_VELOCITY = 1500.0;
     int minDuration = _minimumAsteroidDuration;
     int rangeDuration = minDuration * 0.1;
     int actualDuration = (arc4random() % rangeDuration) + minDuration;
-    
-    // Determine a slight random x offset so the asteroids will not just travel straight down
-    int endX = actualX;
-    endX += arc4random_uniform(self.frame.size.width);
-    endX -= arc4random_uniform(self.frame.size.width);
-    
-    if (endX < minX) {
-        endX = minX;
-    } else if (endX > maxX) {
-        endX = maxX;
-    }
     
     // Create the actions and animate the asteroid's motion
     SKAction * actionMove = [SKAction moveTo:CGPointMake(endX, -asteroid.size.height/2) duration:actualDuration];
@@ -275,14 +282,14 @@ CGFloat LASER_VELOCITY = 1500.0;
     line.fontColor = [UIColor whiteColor];
     
     // Create a label for the numerator
-    SKLabelNode* numer = [[SKLabelNode alloc] initWithFontNamed:@"SpaceAge"];
+    SKLabelNode* numer = [[SKLabelNode alloc] initWithFontNamed:@"HelveticaNeue-Bold"];
     numer.text = [NSString stringWithFormat:@"%d", [fraction numerator]];
     numer.fontSize = 24;
     numer.fontColor = [UIColor whiteColor];
     numer.position = CGPointMake(0.0, 5.0);
     
     // Create a label for the denominator
-    SKLabelNode* denom = [[SKLabelNode alloc] initWithFontNamed:@"SpaceAge"];
+    SKLabelNode* denom = [[SKLabelNode alloc] initWithFontNamed:@"HelveticaNeue-Bold"];
     denom.text = [NSString stringWithFormat:@"%d", [fraction denominator]];
     denom.fontSize = 24;
     denom.fontColor = [UIColor whiteColor];
@@ -321,6 +328,12 @@ CGFloat LASER_VELOCITY = 1500.0;
 // Inform the deligate that the player failed to destroy an asteroid in time
 -(void)asteroidHitBottom
 {
+    SKSpriteNode* warningFlash = [SKSpriteNode spriteNodeWithColor:[UIColor redColor] size:self.size];
+    warningFlash.position = CGPointMake(CGRectGetMidX(self.frame), CGRectGetMidY(self.frame));
+    warningFlash.zPosition = 2;
+    [self addChild:warningFlash];
+    [warningFlash runAction:[SKAction sequence:@[[SKAction fadeOutWithDuration:0.5f], [SKAction removeFromParent]]]];
+    
     [self.deli asteroidReachedBottom];
 }
 
@@ -328,27 +341,30 @@ CGFloat LASER_VELOCITY = 1500.0;
 - (CGPoint)boundPlayerPos:(CGPoint)newPos {
     CGSize winSize = self.size;
     CGPoint retval = newPos;
-    retval.x = MAX(retval.x, [self.player size].width * 1.2);
-    retval.x = MIN(retval.x, winSize.width - [self.player size].width * 1.2);
+    retval.x = MAX(retval.x, self.player.size.width * 1.2);
+    retval.x = MIN(retval.x, winSize.width - self.player.size.width * 1.2);
     retval.y = self.player.position.y;
     return retval;
 }
 
 // Update the player sprite's location horizontally
-- (void)translatePlayer:(CGPoint)translation {
+- (void)translatePlayer:(CGPoint)translation
+{
     CGPoint position = [self.player position];
     CGPoint newPos = CGPointMake(position.x + translation.x, position.y + translation.y);
     [self.player setPosition:[self boundPlayerPos:newPos]];
 }
 
-- (void)didMoveToView:(SKView *)view {
+- (void)didMoveToView:(SKView *)view
+{
     // gestureRecognizer is used to distinguish when the player is dragging on the screen
     // versus tapping
     UIPanGestureRecognizer* gestureRecognizer = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(handlePanFrom:)];
     [[self view] addGestureRecognizer:gestureRecognizer];
 }
 
-- (void)handlePanFrom:(UIPanGestureRecognizer *)recognizer {
+- (void)handlePanFrom:(UIPanGestureRecognizer *)recognizer
+{
     if (recognizer.state == UIGestureRecognizerStateChanged) {
         CGPoint translation = [recognizer translationInView:recognizer.view];
         translation = CGPointMake(translation.x, -translation.y);
@@ -384,7 +400,7 @@ CGFloat LASER_VELOCITY = 1500.0;
     [projectile userData][@"frequency"] = value;
     
     // Set up the laser's contact detection body
-    projectile.position = self.player.position;
+    projectile.position = CGPointMake(self.player.position.x, self.player.position.y + self.player.size.height / 2);
     projectile.physicsBody = [SKPhysicsBody bodyWithCircleOfRadius:projectile.size.width/2];
     projectile.physicsBody.dynamic = YES;
     projectile.physicsBody.categoryBitMask = laserCategory;
@@ -423,13 +439,13 @@ CGFloat LASER_VELOCITY = 1500.0;
         // Spawn animated explosion sprite
         [self spawnExplosion:[asteroid position]];
         
+        // Calculate the score for the destroyed asteroid and spawn a notice with that score
+        int asteroidScore = (11 + (int) asteroid.position.y / 100) * 10;
+        [self asteroidDestroyed: (int)asteroidScore andAsteroidCount:(int)_asteroidsToDestroy];
+        [self notifyWithPosition: asteroid.position andScore: asteroidScore andPositive:YES];
+        
         // Decrement our counter of asteroids remaining in the level
         _asteroidsToDestroy--;
-        
-        // Calculate the score for the destroyed asteroid and spawn a notice with that score
-        int asteroidScore = (10 + (int) asteroid.position.y / 100) * 10;
-        [self asteroidDestroyed: (int)asteroidScore];
-        [self notifyWithPosition: asteroid.position andScore: asteroidScore andPositive:YES];
         
         // Remove the asteroid sprite
         [asteroid removeFromParent];
@@ -448,9 +464,9 @@ CGFloat LASER_VELOCITY = 1500.0;
         attemptsLeft--;
         
         // If all attempts are used, change the equation for this asteroid to prevent spamming
-        if (attemptsLeft <= 0) {
+        if (attemptsLeft < 0) {
             Equation* newEquation = [self.deli wrongAnswerAttempt:laserFrequency];
-            [self notifyWithPosition: asteroid.position andScore: 50 andPositive:NO];
+            [self notifyWithPosition: asteroid.position andScore: 100 andPositive:NO];
             [asteroid userData][@"frequency"] = [newEquation getSolution];
             [asteroid removeAllChildren];
             [asteroid addChild:[self createLabelForEquation:newEquation]];
@@ -502,10 +518,13 @@ CGFloat LASER_VELOCITY = 1500.0;
 }
 
 // Notify delegate of score updates
-- (void)asteroidDestroyed: (int)asteroidScore
+- (void)asteroidDestroyed: (int)asteroidScore andAsteroidCount: (int)numAsteroid
 {
     [self.deli incrementScore: (int)asteroidScore];
+    [self.deli incrementAsteroid: (int)numAsteroid];
 }
+
+
 
 // Distinguish between contact of different physics bodies and respond
 - (void)didBeginContact:(SKPhysicsContact *)contact

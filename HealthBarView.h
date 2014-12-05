@@ -11,7 +11,7 @@
 
 @interface HealthBarView : UIView
 
--(int)getHealthLevel;
--(void)setHealthLevel: (int)healthLevel;
+- (int)getHealthLevel;
+- (void)setHealthLevel: (int)healthLevel;
 
 @end

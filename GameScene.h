@@ -12,6 +12,7 @@
 @protocol AsteroidAction
 - (void)asteroidReachedBottom;
 - (void)incrementScore: (int)value;
+- (void)incrementAsteroid: (int)numAsteroid;
 - (void)lastAsteroidDestroyed;
 - (Equation*)wrongAnswerAttempt: (Fraction*)value;
 @end
@@ -21,7 +22,7 @@
 @property (nonatomic, weak) id <AsteroidAction> deli;
 
 
-- (id)initWithSize:(CGSize)size andLevel:(int)level;
+- (id)initWithSize:(CGSize)size andLevel:(int)level andShipNum:(int)shipNum;
 - (void)createAsteroid: (Equation*)equation;
 - (void)fireLaser: (Fraction*)value fromButton: (int)tag;
 - (void)startLevelAnimation;

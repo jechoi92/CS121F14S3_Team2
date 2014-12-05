@@ -16,8 +16,6 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    [self.view setBackgroundColor:[[UIColor alloc] initWithPatternImage:[UIImage imageNamed:@"main_background"]]];
-    
     // Add the subview
     _operatorsSelectView = [[OperatorsSelectView alloc] initWithFrame:self.view.frame];
     [_operatorsSelectView setDelegate:self];
@@ -29,12 +27,19 @@
     UIButton *button = (UIButton *)sender;
     int tag = (int)button.tag;
     
-    switch (tag){
+    switch (tag) {
+//        case 5:
+//        {
+//            GameViewController *gvc = [[GameViewController alloc]
+//                                       initWithLevel:-1 andOperators:[_operatorsSelectView operatorsSelected]];
+//            [self.navigationController pushViewController:gvc animated:YES];
+//            break;
+//        }
         case 5:
         {
-            GameViewController *gvc = [[GameViewController alloc]
+            ShipSelectViewController *svc = [[ShipSelectViewController alloc]
                                        initWithLevel:-1 andOperators:[_operatorsSelectView operatorsSelected]];
-            [self.navigationController pushViewController:gvc animated:YES];
+            [self.navigationController pushViewController:svc animated:YES];
             break;
         }
         case -1:

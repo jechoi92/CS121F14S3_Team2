@@ -20,9 +20,6 @@
 {
     [super viewDidLoad];
     
-    // Set the background to the default space theme
-    [self.view setBackgroundColor:[[UIColor alloc] initWithPatternImage:[UIImage imageNamed:@"main_background"]]];
-    
     // Add the subview
     _levelSelectView = [[LevelSelectView alloc] initWithFrame:self.view.frame andUnlockedLevel:[self readProgress]];
     [_levelSelectView setDelegate:self];
@@ -36,12 +33,20 @@
     int tag = (int)button.tag;
     
     switch (tag){
+//        case 0:
+//        {
+//            int currentLevel = [_levelSelectView currentLevelSelected] + 1;
+//            GameViewController *gvc = [[GameViewController alloc]
+//                                       initWithLevel:currentLevel andOperators:NULL];
+//            [self.navigationController pushViewController:gvc animated:YES];
+//            break;
+//        }
         case 0:
         {
             int currentLevel = [_levelSelectView currentLevelSelected] + 1;
-            GameViewController *gvc = [[GameViewController alloc]
+            ShipSelectViewController *svc = [[ShipSelectViewController alloc]
                                        initWithLevel:currentLevel andOperators:NULL];
-            [self.navigationController pushViewController:gvc animated:YES];
+            [self.navigationController pushViewController:svc animated:YES];
             break;
         }
         case -1:

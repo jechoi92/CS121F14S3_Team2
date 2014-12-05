@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "LevelSelectView.h"
-#import "GameViewController.h"
+#import "ShipSelectViewController.h"
 
 @interface LevelSelectViewController : UIViewController <ButtonSelected>
 

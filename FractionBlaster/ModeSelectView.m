@@ -15,9 +15,13 @@ CGFloat INSET_RATIO;
 - (id)initWithFrame:(CGRect)frame
 {
     self = [super initWithFrame:frame];
-    [self createTitle];
-    [self createSelectionButtons];
-    [self createBackButton];
+    if (self) {
+        [self createTitle];
+        [self createSelectionButtons];
+        [self createLabels];
+        [self createBackButton];
+        [self setBackgroundColor:[[UIColor alloc] initWithPatternImage:[UIImage imageNamed:@"main_background"]]];
+    }
     return self;
 }
 
@@ -29,12 +33,11 @@ CGFloat INSET_RATIO;
 - (void)createSelectionButtons
 {
     CGFloat buttonWidth = CGRectGetWidth(self.frame) * 0.6;
-    CGFloat buttonHeight = CGRectGetHeight(self.frame) * 0.02;
+    CGFloat buttonHeight = CGRectGetHeight(self.frame) * 0.1;
     CGFloat xOffset = CGRectGetWidth(self.frame) * 0.2;
-    CGFloat yOffset = CGRectGetHeight(self.frame) * 0.4;
+    CGFloat yOffset = CGRectGetHeight(self.frame) * 0.3;
     
     for (int i = 0; i < 2; ++i){
-        yOffset += buttonHeight * 2;
         CGRect buttonFrame = CGRectMake(xOffset, yOffset, buttonWidth, buttonHeight);
         
         UIButton *button = [[UIButton alloc] initWithFrame:buttonFrame];
@@ -42,6 +45,10 @@ CGFloat INSET_RATIO;
         // Create target for cell
         [button addTarget:self action:@selector(buttonSelected:)
          forControlEvents:UIControlEventTouchUpInside];
+        [button.titleLabel setFont:[UIFont fontWithName:@"SpaceAge" size:42.0f]];
+        [[button layer] setBorderWidth:6.0f];
+        [[button layer] setBorderColor:[UIColor whiteColor].CGColor];
+        [[button layer] setCornerRadius:18.0f];
         
         // Set up title
         switch (i){
@@ -54,7 +61,46 @@ CGFloat INSET_RATIO;
         }
         button.tag = i;
         
+        // This creates the border around the button
+        UIImageView *background = [[UIImageView alloc] initWithFrame:buttonFrame];
+        background.image = [UIImage imageNamed:@"menuBorder"];
+        
+        yOffset += buttonHeight * 4;
+        
+        [self addSubview:background];
         [self addSubview:button];
+    }
+}
+
+- (void)createLabels
+{
+    CGFloat labelWidth = CGRectGetWidth(self.frame) * 0.6;
+    CGFloat labelHeight = CGRectGetHeight(self.frame) * 0.3;
+    CGFloat xOffset = CGRectGetWidth(self.frame) * 0.2;
+    CGFloat yOffset = CGRectGetHeight(self.frame) * 0.3;
+    
+    for (int i = 0; i < 2; ++i){
+        CGRect labelFrame = CGRectMake(xOffset, yOffset, labelWidth, labelHeight);
+        
+        UILabel *label = [[UILabel alloc] initWithFrame:labelFrame];
+        label.numberOfLines = 3;
+        label.textAlignment = NSTextAlignmentCenter;
+        
+        // Create target for cell
+        [label setFont:[UIFont fontWithName:@"SpaceAge" size:24.0f]];
+        [label setTextColor:[UIColor whiteColor]];
+        
+        // Set up title
+        switch (i){
+            case 0:
+                [label setText:@"Play the campaign to complete all missions and save Earth!"];
+                break;
+            case 1:
+                [label setText:@"Challenge your friends to an endless fraction frenzy!"];
+                break;
+        }
+        yOffset += labelHeight;
+        [self addSubview:label];
     }
 }
 

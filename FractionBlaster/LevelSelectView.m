@@ -33,10 +33,11 @@ int NUM_LEVELS = 10;
             [_levelButtons addObject:[[NSMutableArray alloc] initWithCapacity:BUTTONS_PER_ROW]];
         }
         
-        [self createEachButtonWithButton:[UIButton alloc] andUnlockedLevel:level andNumRows:numRows];
-        [self createLevelTitle];
-        [self createLevelButtonView];
+        [self createEachButton:[UIButton alloc] withUnlockedLevel:level andNumRows:numRows];
+        [self createTitle];
+        [self createLaunchButton];
         [self createBackButton];
+        [self setBackgroundColor:[[UIColor alloc] initWithPatternImage:[UIImage imageNamed:@"main_background"]]];
     }
     
     return self;
@@ -44,13 +45,13 @@ int NUM_LEVELS = 10;
 
 // Goes through each slot in the nested array and places a button
 // in the slot with its designated parameters
--(void)createEachButtonWithButton:(UIButton*)button
-                 andUnlockedLevel:(int)unlockedLevel
+-(void)createEachButton:(UIButton*)button
+                 withUnlockedLevel:(int)unlockedLevel
                        andNumRows:(int)numRows
 {
     CGFloat buttonSize = CGRectGetWidth(self.frame) / 8;
     // Set the base offset and vertical offset for all of the buttons in the frame
-    CGFloat baseOffset = buttonSize/4;
+    CGFloat baseOffset = buttonSize / 4;
     CGFloat vertOffset = CGRectGetHeight(self.frame) * 0.5;
     
     // Run through both row arrays and instatntiate each button approporately based on
@@ -118,7 +119,7 @@ int NUM_LEVELS = 10;
     }
 }
 
--(void)createLevelButtonView
+-(void)createLaunchButton
 {
     // Get frame and frame dimensions
     CGRect frame = self.frame;
@@ -139,7 +140,7 @@ int NUM_LEVELS = 10;
 }
 
 // Creates the level select title image at the top of the screen
--(void)createLevelTitle
+-(void)createTitle
 {
     // Get frame and frame dimensions
     CGRect frame = self.frame;

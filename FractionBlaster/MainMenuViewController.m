@@ -16,8 +16,6 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    [self.view setBackgroundColor:[[UIColor alloc] initWithPatternImage:[UIImage imageNamed:@"main_background"]]];
-    
     // Add the subview
     _mainMenuView = [[MainMenuView alloc] initWithFrame:self.view.frame];
     [_mainMenuView setDelegate:self];
@@ -50,6 +48,18 @@
             // Go to Leaderboard
             LeaderboardViewController *lbvc = [[LeaderboardViewController alloc] init];
             [self.navigationController pushViewController:lbvc animated:YES];
+            break;
+        }
+        case 3:
+        {
+            // Show credits
+            UIAlertView* alert = [[UIAlertView alloc] initWithTitle:@"Fraction Blaster"
+                                                            message:@"HMC CS121 Fall 2014 Team 2\n\nLouis Brann, Jeongwoo Choi, \nKevin McSwiggen, Alejandro Mendoza\n\nCopyright (c) 2014 MatherTeresa. \nAll rights reserved."
+                                                           delegate:self
+                                                  cancelButtonTitle:nil
+                                                  otherButtonTitles:nil];
+            [alert addButtonWithTitle:@"OK"];
+            [alert show];
             break;
         }
         default:
