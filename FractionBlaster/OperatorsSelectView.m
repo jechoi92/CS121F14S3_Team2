@@ -29,8 +29,43 @@ CGFloat INSET_RATIO;
     return self;
 }
 
-// Create the button that returns to the previous screen
--(void)createBackButton
+// Creates the level select title image at the top of the screen
+-(void)createTitle
+{
+    // Get frame and frame dimensions
+    CGRect frame = self.frame;
+    CGFloat frameWidth = CGRectGetWidth(frame);
+    CGFloat frameHeight = CGRectGetHeight(frame);
+    
+    // Add the level select image to the top of the view
+    CGRect title = CGRectMake(0, -50, frameWidth, frameHeight*.5);
+    UIImageView *imageView = [[UIImageView alloc] initWithFrame:title];
+    imageView.image = [UIImage imageNamed:@"Levels.png"];
+    [self addSubview:imageView];
+}
+
+-(void)createStartButton
+{
+    // Get frame and frame dimensions
+    CGRect frame = self.frame;
+    CGFloat width = CGRectGetWidth(frame);
+    CGFloat height = CGRectGetHeight(frame);
+    
+    // Create start button with the appropriate delegate
+    CGRect startButtonFrame = CGRectMake(width * 0.2, height * 0.8, width * 0.6, height * 0.15);
+    _startButton = [[UIButton alloc] initWithFrame:startButtonFrame];
+    
+    UIImage *image = [UIImage imageNamed:@"launch2.png"];
+    [_startButton setImage:image forState:UIControlStateNormal];
+    
+    [_startButton addTarget:self action:@selector(buttonSelected:)
+          forControlEvents:UIControlEventTouchUpInside];
+    _startButton.tag = 5;
+    [_startButton setEnabled:NO];
+    [self addSubview:_startButton];
+}
+
+- (void)createBackButton
 {
     CGRect frame = self.frame;
     CGFloat size = MIN(CGRectGetWidth(frame), CGRectGetHeight(frame));
