@@ -57,9 +57,10 @@ CGFloat INSET_RATIO = 0.02;
     NSError *error;
     NSURL *backgroundMusicURL = [[NSBundle mainBundle] URLForResource:@"background-music-aac" withExtension:@"caf"];
     self.backgroundMusicPlayer = [[AVAudioPlayer alloc] initWithContentsOfURL:backgroundMusicURL error:&error];
- //   self.backgroundMusicPlayer.numberOfLoops = -1;
- //   [self.backgroundMusicPlayer prepareToPlay];
- //   [self.backgroundMusicPlayer play];
+    self.backgroundMusicPlayer.numberOfLoops = -1;
+    [self.backgroundMusicPlayer prepareToPlay];
+    [self.backgroundMusicPlayer play];
+    
     SKView * skView = (SKView *)self.view;
     if (!skView.scene) {
         // Create all necessary data members.
@@ -145,6 +146,12 @@ CGFloat INSET_RATIO = 0.02;
     
     // If we have won, then update game progress.
     if (winning) {
+        NSError *error;
+        NSURL *defeatSoundURL = [[NSBundle mainBundle] URLForResource:@"victory_applause" withExtension:@"wav"];
+        self.backgroundMusicPlayer = [[AVAudioPlayer alloc] initWithContentsOfURL:defeatSoundURL error:&error];
+        self.backgroundMusicPlayer.numberOfLoops = 0;
+        [self.backgroundMusicPlayer prepareToPlay];
+        [self.backgroundMusicPlayer play];
         _score += _level * 1000;
         [self updateProgress];
         
@@ -157,6 +164,12 @@ CGFloat INSET_RATIO = 0.02;
     }
     // If we have lost, then update highscores accordingly.
     else {
+        NSError *error;
+        NSURL *defeatSoundURL = [[NSBundle mainBundle] URLForResource:@"defeat_explosion" withExtension:@"wav"];
+        self.backgroundMusicPlayer = [[AVAudioPlayer alloc] initWithContentsOfURL:defeatSoundURL error:&error];
+        self.backgroundMusicPlayer.numberOfLoops = 0;
+        [self.backgroundMusicPlayer prepareToPlay];
+        [self.backgroundMusicPlayer play];
         [self updateHighScores];
     }
     
@@ -188,7 +201,7 @@ CGFloat INSET_RATIO = 0.02;
 {
     [_healthBar setHealthLevel:([_healthBar getHealthLevel] - HEALTHPENALTY)];
     if ([_healthBar getHealthLevel] <= 0) {
-      [self createGameOverSceneWithWin:NO];
+        [self createGameOverSceneWithWin:NO];
     }
 }
 

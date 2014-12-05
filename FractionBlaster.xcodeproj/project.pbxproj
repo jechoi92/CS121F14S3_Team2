@@ -52,6 +52,9 @@
 		93EB31D51A1AE7130075BD53 /* background_defeat@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 93EB31D31A1AE7130075BD53 /* background_defeat@2x.png */; };
 		93EB31D81A1AFA3F0075BD53 /* LeaderboardViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 93EB31D71A1AFA3F0075BD53 /* LeaderboardViewController.m */; };
 		93EB31DF1A1B1D440075BD53 /* shields@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 93EB31DD1A1B1D440075BD53 /* shields@2x.png */; };
+		93EED5721A316CB7002A9869 /* sirens.wav in Resources */ = {isa = PBXBuildFile; fileRef = 93EED5711A316CB7002A9869 /* sirens.wav */; };
+		93EED5741A317113002A9869 /* defeat_explosion.wav in Resources */ = {isa = PBXBuildFile; fileRef = 93EED5731A317113002A9869 /* defeat_explosion.wav */; };
+		93EED5761A31746A002A9869 /* victory_applause.wav in Resources */ = {isa = PBXBuildFile; fileRef = 93EED5751A31746A002A9869 /* victory_applause.wav */; };
 		93EFADEE1A102B9E00195D8E /* asteroid.png in Resources */ = {isa = PBXBuildFile; fileRef = 93EFADDD1A102B9E00195D8E /* asteroid.png */; };
 		93EFADEF1A102B9E00195D8E /* asteroid@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 93EFADDE1A102B9E00195D8E /* asteroid@2x.png */; };
 		93EFADF01A102B9E00195D8E /* background-music-aac.caf in Resources */ = {isa = PBXBuildFile; fileRef = 93EFADDF1A102B9E00195D8E /* background-music-aac.caf */; };
@@ -206,6 +209,9 @@
 		93EB31DA1A1AFAA60075BD53 /* LeaderboardView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LeaderboardView.m; sourceTree = "<group>"; };
 		93EB31DC1A1B1D440075BD53 /* shields.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = shields.png; sourceTree = "<group>"; };
 		93EB31DD1A1B1D440075BD53 /* shields@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "shields@2x.png"; sourceTree = "<group>"; };
+		93EED5711A316CB7002A9869 /* sirens.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = sirens.wav; sourceTree = "<group>"; };
+		93EED5731A317113002A9869 /* defeat_explosion.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = defeat_explosion.wav; sourceTree = "<group>"; };
+		93EED5751A31746A002A9869 /* victory_applause.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = victory_applause.wav; sourceTree = "<group>"; };
 		93EFADDD1A102B9E00195D8E /* asteroid.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = asteroid.png; sourceTree = "<group>"; };
 		93EFADDE1A102B9E00195D8E /* asteroid@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "asteroid@2x.png"; sourceTree = "<group>"; };
 		93EFADDF1A102B9E00195D8E /* background-music-aac.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "background-music-aac.caf"; sourceTree = "<group>"; };
@@ -421,6 +427,9 @@
 		93EFADDC1A102B9E00195D8E /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				93EED5751A31746A002A9869 /* victory_applause.wav */,
+				93EED5731A317113002A9869 /* defeat_explosion.wav */,
+				93EED5711A316CB7002A9869 /* sirens.wav */,
 				A9046DB61A3114C500B6D265 /* menuBorder.png */,
 				A9046DB71A3114C500B6D265 /* pipe.png */,
 				A9046DAE1A31145700B6D265 /* blueSpaceShip.png */,
@@ -609,6 +618,7 @@
 				DA3109201A1B1EA100C5A3C4 /* logo@2x.png in Resources */,
 				DA9F79CA1A1B4F3200E03D88 /* Levels.png in Resources */,
 				93EFADEF1A102B9E00195D8E /* asteroid@2x.png in Resources */,
+				93EED5721A316CB7002A9869 /* sirens.wav in Resources */,
 				DA9F79BE1A1B4F3200E03D88 /* button5highlight.png in Resources */,
 				A9046DB81A3114C500B6D265 /* menuBorder.png in Resources */,
 				A962BCE31A2BE60900F2AD79 /* level4.png in Resources */,
@@ -657,6 +667,7 @@
 				DA9F79AC1A1B4F3200E03D88 /* !button2.png in Resources */,
 				DA9F79C51A1B4F3200E03D88 /* button9.png in Resources */,
 				DA9F79BF1A1B4F3200E03D88 /* button6.png in Resources */,
+				93EED5741A317113002A9869 /* defeat_explosion.wav in Resources */,
 				93EFADF31A102B9E00195D8E /* bluelaserbeam.png in Resources */,
 				DA9F79AB1A1B4F3200E03D88 /* !button1.png in Resources */,
 				93EFADF11A102B9E00195D8E /* background.png in Resources */,
@@ -694,6 +705,7 @@
 				A962BCE71A2BE60900F2AD79 /* level8.png in Resources */,
 				DA9F79AD1A1B4F3200E03D88 /* !button3.png in Resources */,
 				DA9F79BD1A1B4F3200E03D88 /* button5.png in Resources */,
+				93EED5761A31746A002A9869 /* victory_applause.wav in Resources */,
 				A962BCE51A2BE60900F2AD79 /* level6.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -51,6 +51,8 @@ CGFloat LASER_VELOCITY = 1500.0;
     
         self.physicsWorld.gravity = CGVectorMake(0,0);
         self.physicsWorld.contactDelegate = self;
+        
+        [self runAction:[SKAction playSoundFileNamed:@"sirens.wav" waitForCompletion:NO]];
     }
     
     return self;
@@ -426,7 +428,7 @@ CGFloat LASER_VELOCITY = 1500.0;
         [self spawnExplosion:[asteroid position]];
         
         // Calculate the score for the destroyed asteroid and spawn a notice with that score
-        int asteroidScore = (10 + (int) asteroid.position.y / 100) * 10;
+        int asteroidScore = (11 + (int) asteroid.position.y / 100) * 10;
         [self asteroidDestroyed: (int)asteroidScore andAsteroidCount:(int)_asteroidsToDestroy];
         [self notifyWithPosition: asteroid.position andScore: asteroidScore andPositive:YES];
         
@@ -452,7 +454,7 @@ CGFloat LASER_VELOCITY = 1500.0;
         // If all attempts are used, change the equation for this asteroid to prevent spamming
         if (attemptsLeft < 0) {
             Equation* newEquation = [self.deli wrongAnswerAttempt:laserFrequency];
-            [self notifyWithPosition: asteroid.position andScore: 50 andPositive:NO];
+            [self notifyWithPosition: asteroid.position andScore: 100 andPositive:NO];
             [asteroid userData][@"frequency"] = [newEquation getSolution];
             [asteroid removeAllChildren];
             [asteroid addChild:[self createLabelForEquation:newEquation]];
