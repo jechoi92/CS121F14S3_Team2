@@ -126,17 +126,6 @@ CGFloat INSET_RATIO = 0.02;
     [self.view addSubview:_sidebar];
 }
 
-// Creates the health bar.
-- (void)createHealthBar
-{
-    CGRect frame = self.view.frame;
-    CGFloat width = CGRectGetWidth(frame);
-    CGFloat height = CGRectGetHeight(frame);
-    CGRect healthBarFrame = CGRectMake(width * 0.005, height * 0.55, width * 0.1, height * 0.42);
-    _healthBar = [[HealthBarView alloc] initWithFrame:healthBarFrame];
-    [self.view addSubview:_healthBar];
-}
-
 // Creates the scene.
 - (void)createScene
 {
