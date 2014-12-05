@@ -219,7 +219,12 @@ CGFloat LASER_VELOCITY = 1500.0;
     int actualX = minX + (arc4random() % (maxX - minX));
     
     // Determine a slight random x offset so the asteroids will not just travel straight down
-    int endX = actualX + (arc4random_uniform(self.frame.size.width) * 2 - self.frame.size.width) * sqrt(_level);
+    int offset = (arc4random_uniform(self.frame.size.width) * 2 - self.frame.size.width);
+    if (_level > 0) {
+        offset *= sqrt(_level);
+    }
+    
+    int endX = actualX + offset;
     
     if (endX < minX) {
         endX = minX;
