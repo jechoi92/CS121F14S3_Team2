@@ -27,6 +27,7 @@ CGFloat INSET_RATIO;
     return self;
 }
 
+// Create the button that returns to the previous screen
 -(void)createBackButton
 {
     CGRect frame = self.frame;

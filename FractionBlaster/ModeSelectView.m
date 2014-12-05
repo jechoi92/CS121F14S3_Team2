@@ -61,7 +61,13 @@ CGFloat INSET_RATIO;
         }
         button.tag = i;
         
+        // This creates the border around the button
+        UIImageView *background = [[UIImageView alloc] initWithFrame:buttonFrame];
+        background.image = [UIImage imageNamed:@"menuBorder"];
+        
         yOffset += buttonHeight * 4;
+        
+        [self addSubview:background];
         [self addSubview:button];
     }
 }

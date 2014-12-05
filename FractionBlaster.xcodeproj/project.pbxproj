@@ -93,6 +93,8 @@
 		A962BCEF1A2D878600F2AD79 /* laser_panel@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A962BCED1A2D878500F2AD79 /* laser_panel@2x.png */; };
 		A962BCF11A2DAA7D00F2AD79 /* space_age.ttf in Resources */ = {isa = PBXBuildFile; fileRef = A962BCF01A2DA98F00F2AD79 /* space_age.ttf */; };
 		A962BCF31A2E7DC200F2AD79 /* stats_holder.png in Resources */ = {isa = PBXBuildFile; fileRef = A962BCF21A2E7DC200F2AD79 /* stats_holder.png */; };
+		A96D975F1A3150860041424A /* ShipSelectViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A96D975E1A3150860041424A /* ShipSelectViewController.m */; };
+		A96D97621A3155FA0041424A /* ShipSelectView.m in Sources */ = {isa = PBXBuildFile; fileRef = A96D97611A3155FA0041424A /* ShipSelectView.m */; };
 		DA3109141A1B130C00C5A3C4 /* InstructionsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DA3109131A1B130C00C5A3C4 /* InstructionsViewController.m */; };
 		DA31091C1A1B1EA100C5A3C4 /* icon 1024.png in Resources */ = {isa = PBXBuildFile; fileRef = DA3109151A1B1EA100C5A3C4 /* icon 1024.png */; };
 		DA31091D1A1B1EA100C5A3C4 /* icon.png in Resources */ = {isa = PBXBuildFile; fileRef = DA3109161A1B1EA100C5A3C4 /* icon.png */; };
@@ -247,6 +249,10 @@
 		A962BCED1A2D878500F2AD79 /* laser_panel@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "laser_panel@2x.png"; sourceTree = "<group>"; };
 		A962BCF01A2DA98F00F2AD79 /* space_age.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = space_age.ttf; sourceTree = "<group>"; };
 		A962BCF21A2E7DC200F2AD79 /* stats_holder.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = stats_holder.png; sourceTree = "<group>"; };
+		A96D975D1A3150860041424A /* ShipSelectViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShipSelectViewController.h; sourceTree = "<group>"; };
+		A96D975E1A3150860041424A /* ShipSelectViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShipSelectViewController.m; sourceTree = "<group>"; };
+		A96D97601A3155FA0041424A /* ShipSelectView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShipSelectView.h; sourceTree = "<group>"; };
+		A96D97611A3155FA0041424A /* ShipSelectView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShipSelectView.m; sourceTree = "<group>"; };
 		DA3109121A1B130C00C5A3C4 /* InstructionsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InstructionsViewController.h; sourceTree = "<group>"; };
 		DA3109131A1B130C00C5A3C4 /* InstructionsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InstructionsViewController.m; sourceTree = "<group>"; };
 		DA3109151A1B1EA100C5A3C4 /* icon 1024.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon 1024.png"; sourceTree = "<group>"; };
@@ -356,6 +362,10 @@
 				93AFEC861A2BEC5000CC6692 /* ModeSelectViewController.m */,
 				93AFEC881A2BEC8600CC6692 /* ModeSelectView.h */,
 				93AFEC891A2BEC8600CC6692 /* ModeSelectView.m */,
+				A96D975D1A3150860041424A /* ShipSelectViewController.h */,
+				A96D975E1A3150860041424A /* ShipSelectViewController.m */,
+				A96D97601A3155FA0041424A /* ShipSelectView.h */,
+				A96D97611A3155FA0041424A /* ShipSelectView.m */,
 				DAE395671A0D4FED00D55633 /* LevelSelectViewController.h */,
 				DAE395681A0D4FED00D55633 /* LevelSelectViewController.m */,
 				DAE3956A1A0D553500D55633 /* LevelSelectView.h */,
@@ -728,9 +738,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A96D975F1A3150860041424A /* ShipSelectViewController.m in Sources */,
 				932F3F8D1A1B403F0090E9F9 /* LeaderboardView.m in Sources */,
 				93EB31D81A1AFA3F0075BD53 /* LeaderboardViewController.m in Sources */,
 				93CB20FB1A0754590050185E /* MainMenuViewController.m in Sources */,
+				A96D97621A3155FA0041424A /* ShipSelectView.m in Sources */,
 				93CB20F81A0754590050185E /* AppDelegate.m in Sources */,
 				93AFEC8A1A2BEC8600CC6692 /* ModeSelectView.m in Sources */,
 				93CB216A1A075BB00050185E /* GameViewController.m in Sources */,

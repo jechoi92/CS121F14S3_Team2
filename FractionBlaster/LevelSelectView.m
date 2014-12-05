@@ -35,7 +35,7 @@ int NUM_LEVELS = 10;
         
         [self createEachButton:[UIButton alloc] withUnlockedLevel:level andNumRows:numRows];
         [self createTitle];
-        [self createButtons];
+        [self createLaunchButton];
         [self createBackButton];
         [self setBackgroundColor:[[UIColor alloc] initWithPatternImage:[UIImage imageNamed:@"main_background"]]];
     }
@@ -119,7 +119,7 @@ int NUM_LEVELS = 10;
     }
 }
 
--(void)createButtons
+-(void)createLaunchButton
 {
     // Get frame and frame dimensions
     CGRect frame = self.frame;
