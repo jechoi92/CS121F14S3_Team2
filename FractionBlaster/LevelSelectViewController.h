@@ -8,8 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "LevelSelectView.h"
-#import "ShipSelectViewController.h" // we will go to 
-#import "GameViewController.h" // this will go away soon
+#import "ShipSelectViewController.h"
 
 @interface LevelSelectViewController : UIViewController <ButtonSelected>
 

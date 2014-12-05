@@ -13,13 +13,14 @@
     ModeSelectView *_modeSelectView;
 }
 
-- (void)viewDidLoad {
+- (void)viewDidLoad
+{
     [super viewDidLoad];
     
     // Add the subview
     _modeSelectView = [[ModeSelectView alloc] initWithFrame:self.view.frame];
     [_modeSelectView setDelegate:self];
-    [self.view addSubview: _modeSelectView];
+    [self.view addSubview:_modeSelectView];
 }
 
 - (void)buttonSelected:(id)sender
@@ -28,7 +29,7 @@
     UIButton *button = (UIButton *)sender;
     int tag = (int)button.tag;
     
-    switch (tag){
+    switch (tag) {
         case 0:
         {
             // Go to LevelSelectViewController

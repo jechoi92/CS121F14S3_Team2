@@ -24,6 +24,7 @@ CGFloat INSET_RATIO;
         _shipSelection = [[NSMutableArray alloc] init];
         [self createShipSelectionButtons];
         [self createBackButton];
+        [self createLaunchButton];
         [self setBackgroundColor:[[UIColor alloc] initWithPatternImage:[UIImage imageNamed:@"main_background"]]];
     }
     return self;
@@ -62,8 +63,28 @@ CGFloat INSET_RATIO;
 
 - (void)createLaunchButton
 {
-    // TODO
+    // Get frame and frame dimensions
+    CGRect frame = self.frame;
+    CGFloat width = CGRectGetWidth(frame);
+    CGFloat height = CGRectGetHeight(frame);
+    
+    // Create start button with the appropriate delegate
+    CGRect startButtonFrame = CGRectMake(width * 0.2, height * 0.8, width * 0.6, height * 0.15);
+    UIButton *startButton = [[UIButton alloc] initWithFrame:startButtonFrame];
+    
+    UIImage *image = [UIImage imageNamed:@"launch2.png"];
+    [startButton setImage:image forState:UIControlStateNormal];
+    
+    [startButton addTarget:self action:@selector(buttonSelected:)
+          forControlEvents:UIControlEventTouchUpInside];
+    startButton.tag = 0;
+    [self addSubview:startButton];
 }
 
+
+-(void)buttonSelected:(id)sender
+{
+    [self.delegate buttonSelected:sender];
+}
 
 @end

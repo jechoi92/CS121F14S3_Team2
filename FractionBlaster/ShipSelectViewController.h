@@ -13,4 +13,6 @@
 
 @interface ShipSelectViewController : UIViewController <ButtonSelected>
 
+- (id)initWithLevel:(int)level andOperators:(NSArray*)operators;
+
 @end

@@ -8,8 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "OperatorsSelectView.h"
-#import "ShipSelectViewController.h" // we will go here now
-#import "GameViewController.h" // this will go away
+#import "ShipSelectViewController.h"
 
 @interface OperatorsSelectViewController : UIViewController <ButtonSelected>
 

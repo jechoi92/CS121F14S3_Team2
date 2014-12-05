@@ -12,6 +12,16 @@
 @implementation ShipSelectViewController
 {
     ShipSelectView *_shipSelectView;
+    NSArray *_operators;
+    int _level;
+}
+
+- (id)initWithLevel:(int)level andOperators:(NSArray*)operators
+{
+    self = [super init];
+    _level = level;
+    _operators = operators;
+    return self;
 }
 
 // Initialize the level ship select view controller
@@ -31,14 +41,20 @@
     UIButton *button = (UIButton *)sender;
     int tag = (int)button.tag;
     
-    switch (tag){
+    switch (tag) {
         case 0:
         {
-//            int currentLevel = [_levelSelectView currentLevelSelected] + 1;
-//            GameViewController *gvc = [[GameViewController alloc]
-//                                       initWithLevel:currentLevel andOperators:NULL];
-//            [self.navigationController pushViewController:gvc animated:YES];
-            break;
+            if (_level == -1) {
+                GameViewController *gvc = [[GameViewController alloc]
+                                           initWithLevel:_level andOperators:_operators];
+                [self.navigationController pushViewController:gvc animated:YES];
+                break;
+            } else {
+                GameViewController *gvc = [[GameViewController alloc]
+                                           initWithLevel:_level andOperators:_operators];
+                [self.navigationController pushViewController:gvc animated:YES];
+                break;
+            }
         }
         case -1:
         {
@@ -47,5 +63,7 @@
         }
     }
 }
+
+
 
 @end
