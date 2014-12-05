@@ -45,7 +45,7 @@
     CGFloat yOffset = CGRectGetHeight(self.frame) * 0.4;
     
     
-    for (int i = 0; i < 3; ++i) {
+    for (int i = 0; i < 4; ++i) {
         yOffset += buttonHeight * 2.25;
         CGRect buttonFrame = CGRectMake(xOffset, yOffset, buttonWidth, buttonHeight);
 
@@ -66,6 +66,9 @@
                 break;
             case 2:
                 title = @"leaderboards";
+                break;
+            case 3:
+                title = @"credits";
                 break;
             default:
                 break;

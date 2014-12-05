@@ -50,6 +50,18 @@
             [self.navigationController pushViewController:lbvc animated:YES];
             break;
         }
+        case 3:
+        {
+            // Show credits
+            UIAlertView* alert = [[UIAlertView alloc] initWithTitle:@"Fraction Blaster"
+                                                            message:@"HMC CS121 Fall 2014 Team 2\nLouis Brann, Jeongwoo Choi, \nAlejandro Mendoza, Kevin McSwiggen\nCopyright (c) 2014 MatherTeresa. \nAll rights reserved."
+                                                           delegate:self
+                                                  cancelButtonTitle:nil
+                                                  otherButtonTitles:nil];
+            [alert addButtonWithTitle:@"OK"];
+            [alert show];
+            break;
+        }
         default:
         {
             NSLog(@"This button shouldn't exist");
