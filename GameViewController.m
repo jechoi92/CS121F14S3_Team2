@@ -25,12 +25,16 @@ CGFloat INSET_RATIO = 0.02;
     int _level;
     int _score;
     int _numAsteroid;
+    int _shipNum;
 }
 
-- (id)initWithLevel:(int)level andOperators:(NSArray*)operators
+- (id)initWithLevel:(int)level
+       andOperators:(NSArray*)operators
+      andShipNumber:(int)shipNum
 {
     self = [super init];
     _level = level;
+    _shipNum = shipNum;
     if (operators == NULL) {
         operators = [self findOperators];
     }
@@ -142,7 +146,7 @@ CGFloat INSET_RATIO = 0.02;
 - (void)createScene
 {
     SKView *skView = (SKView *)self.view;
-    _scene = [[GameScene alloc] initWithSize:skView.bounds.size andLevel:_level];
+    _scene = [[GameScene alloc] initWithSize:skView.bounds.size andLevel:_level andShipNum:_shipNum];
     _scene.scaleMode = SKSceneScaleModeAspectFill;
     [(GameScene*)_scene setDeli:self];
     [skView presentScene:_scene];

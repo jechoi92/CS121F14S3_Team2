@@ -70,7 +70,7 @@ int NUM_LEVELS = 10;
             [button addTarget:self action:@selector(levelSelected:)
                   forControlEvents:UIControlEventTouchUpInside];
             
-            [self setImageForButtton:button withTag:(row * BUTTONS_PER_ROW) + col andUnlockedLevel:unlockedLevel];
+            [self setImageForButton:button withTag:(row * BUTTONS_PER_ROW) + col andUnlockedLevel:unlockedLevel];
             
             // Set all of the buttons that are not accessible to the player to
             // be non-responsive
@@ -92,7 +92,7 @@ int NUM_LEVELS = 10;
 
 // Appropriately instantiate the specific button with the image that designates
 // the status of the button in the correct row and column in the nested array
--(void)setImageForButtton:(UIButton*)button
+-(void)setImageForButton:(UIButton*)button
                   withTag:(int)tag
          andUnlockedLevel:(int)unlockedLevel
 {

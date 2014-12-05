@@ -44,14 +44,20 @@
     switch (tag) {
         case 0:
         {
+            int shipNum = [_shipSelectView currentShipSelected];
             if (_level == -1) {
+                
                 GameViewController *gvc = [[GameViewController alloc]
-                                           initWithLevel:_level andOperators:_operators];
+                                           initWithLevel:_level
+                                           andOperators:_operators
+                                           andShipNumber:shipNum];
                 [self.navigationController pushViewController:gvc animated:YES];
                 break;
             } else {
                 GameViewController *gvc = [[GameViewController alloc]
-                                           initWithLevel:_level andOperators:_operators];
+                                           initWithLevel:_level
+                                           andOperators:_operators
+                                           andShipNumber:shipNum];
                 [self.navigationController pushViewController:gvc animated:YES];
                 break;
             }

@@ -14,6 +14,7 @@ CGFloat INSET_RATIO;
 {
     UIButton *_startButton;
     NSMutableArray *_shipSelection;
+    //int _currentShipSelected;
 }
 
 - (id)initWithFrame:(CGRect)frame
@@ -22,7 +23,8 @@ CGFloat INSET_RATIO;
     
     if (self) {
         _shipSelection = [[NSMutableArray alloc] init];
-        [self createShipSelectionButtons];
+        [self createShipSelectionButtons:[UIButton alloc]];
+        [self createTitleImage];
         [self createBackButton];
         [self createLaunchButton];
         [self setBackgroundColor:[[UIColor alloc] initWithPatternImage:[UIImage imageNamed:@"main_background"]]];
@@ -53,12 +55,86 @@ CGFloat INSET_RATIO;
 
 - (void)createTitleImage
 {
-    // TODO
+    // Get frame and frame dimensions
+    CGRect frame = self.frame;
+    CGFloat frameWidth = CGRectGetWidth(frame);
+    CGFloat frameHeight = CGRectGetHeight(frame);
+    
+    // Add the level select image to the top of the view
+    CGRect title = CGRectMake(0, -50, frameWidth, frameHeight*.5);
+    UIImageView *imageView = [[UIImageView alloc] initWithFrame:title];
+    imageView.image = [UIImage imageNamed:@"Levels.png"];
+    [self addSubview:imageView];
 }
 
-- (void)createShipSelectionButtons
+- (void)createShipSelectionButtons:(UIButton*)button
 {
-    // TODO
+    CGFloat buttonSize = CGRectGetWidth(self.frame) / 6.5;
+    // Set the base offset and vertical offset for all of the buttons in the frame
+    CGFloat baseOffset = buttonSize / 4;
+    CGFloat vertOffset = CGRectGetHeight(self.frame) * 0.5;
+    
+    CGFloat xOffset = buttonSize;
+    
+    
+    for (int col = 0; col < 4; ++col) {
+        // Set up frame and cell and add it to the button sub view
+        CGRect cellFrame = CGRectMake(xOffset, vertOffset, buttonSize, buttonSize);
+        button = [[UIButton alloc] initWithFrame:cellFrame];
+        
+        [self addSubview: button];
+        
+        // Create target for cell
+        [button addTarget:self action:@selector(shipSelected:)
+         forControlEvents:UIControlEventTouchUpInside];
+        
+        [self setImageForButton:button withTag:col];
+        
+        // Add the button to the correct spot in the nested arrays
+        [_shipSelection insertObject:button atIndex:col];
+        
+        // Update column offset
+        xOffset += buttonSize + baseOffset;
+    }
+
+}
+
+
+- (void) setImageForButton:(UIButton*)button withTag:(int)tag
+{
+    button.tag = tag;
+    if (tag == 0) {
+        [self setCurrentShipSelected:(int)button.tag];
+        [button setImage:[UIImage imageNamed:@"blueSpaceShip"] forState:UIControlStateNormal];
+        [button setBackgroundColor:[UIColor whiteColor]];
+    } else if (tag == 1) {
+        [button setImage:[UIImage imageNamed:@"brownSpaceShip"] forState:UIControlStateNormal];
+        [button setBackgroundColor:[UIColor grayColor]];
+    } else if (tag == 2) {
+        [button setImage:[UIImage imageNamed:@"silverSpaceShip"] forState:UIControlStateNormal];
+        [button setBackgroundColor:[UIColor grayColor]];
+    } else {
+        [button setImage:[UIImage imageNamed:@"redSpaceShip"] forState:UIControlStateNormal];
+        [button setBackgroundColor:[UIColor grayColor]];
+    }
+}
+
+// Updates the array of buttons based on which button the player has selected
+// and updates the button tag that we are currently highlighting
+-(void)shipSelected:(id)sender
+{
+    UIButton *newButton = (UIButton*)sender;
+    
+    int shipNum = [self currentShipSelected];
+    UIButton *oldButton = [_shipSelection objectAtIndex:shipNum];
+    
+    int newTag = newButton.tag;
+    
+    [oldButton setBackgroundColor:[UIColor grayColor]];
+    [newButton setBackgroundColor:[UIColor whiteColor]];
+    
+    // Update which button is currently selected
+    [self setCurrentShipSelected:(int)newTag];
 }
 
 - (void)createLaunchButton

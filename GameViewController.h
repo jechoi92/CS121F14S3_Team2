@@ -23,6 +23,6 @@
 
 @property (nonatomic) AVAudioPlayer *backgroundMusicPlayer;
 
-- (id)initWithLevel:(int)level andOperators: (NSArray*)operators;
+- (id)initWithLevel:(int)level andOperators: (NSArray*)operators andShipNumber:(int)shipNum;
 
 @end

@@ -33,7 +33,8 @@ CGFloat LASER_VELOCITY = 1500.0;
     NSArray* _explosionFrames;
 }
 
--(id)initWithSize:(CGSize)size andLevel:(int)level {
+-(id)initWithSize:(CGSize)size andLevel:(int)level andShipNum:(int)shipNum
+{
     if (self = [super initWithSize:size]) {
         _level = level;
         SKSpriteNode* background = [SKSpriteNode spriteNodeWithImageNamed:@"background"];
@@ -45,7 +46,7 @@ CGFloat LASER_VELOCITY = 1500.0;
         // Store the number of asteroids that must be destroyed to clear the level
         _asteroidsToDestroy = [self findAsteroidsToDestroy:(int)level];
         
-        [self createPlayer];
+        [self createPlayerWithShipNum:shipNum];
         [self displayLevel:_level];
         [self initializeSprites];
     
@@ -59,9 +60,20 @@ CGFloat LASER_VELOCITY = 1500.0;
 }
 
 // Create node for the player's ship sprite
-- (void)createPlayer
+- (void)createPlayerWithShipNum:(int)shipNum
 {
-    self.player = [SKSpriteNode spriteNodeWithImageNamed:@"blueSpaceShip"];
+    NSString *shipType;
+    if (shipNum == 0) {
+        shipType = [NSString stringWithFormat:@"blueSpaceShip"];
+    } else if (shipNum == 1) {
+        shipType = [NSString stringWithFormat:@"brownSpaceShip"];
+    } else if (shipNum == 2) {
+        shipType = [NSString stringWithFormat:@"silverSpaceShip"];
+    } else {
+        shipType = [NSString stringWithFormat:@"redSpaceShip"];
+    }
+    
+    self.player = [SKSpriteNode spriteNodeWithImageNamed:shipType];
     [self.player setScale:0.3];
     self.player.position = CGPointMake(self.frame.size.width/2, self.player.size.width/2);
     self.player.zPosition = 1;
