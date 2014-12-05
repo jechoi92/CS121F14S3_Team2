@@ -16,18 +16,12 @@ CGFloat INSET_RATIO;
 {
     self = [super initWithFrame:frame];
     if (self) {
-        [self createTitle];
         [self createSelectionButtons];
         [self createLabels];
         [self createBackButton];
         [self setBackgroundColor:[[UIColor alloc] initWithPatternImage:[UIImage imageNamed:@"main_background"]]];
     }
     return self;
-}
-
-- (void)createTitle
-{
-    // TODODOTODOTOOTODODO
 }
 
 - (void)createSelectionButtons
@@ -65,7 +59,7 @@ CGFloat INSET_RATIO;
         UIImageView *background = [[UIImageView alloc] initWithFrame:buttonFrame];
         background.image = [UIImage imageNamed:@"menuBorder"];
         
-        yOffset += buttonHeight * 4;
+        yOffset += buttonHeight * 3;
         
         [self addSubview:background];
         [self addSubview:button];

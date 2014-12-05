@@ -14,7 +14,6 @@ CGFloat INSET_RATIO;
 {
     UIButton *_startButton;
     NSMutableArray *_shipSelection;
-    //int _currentShipSelected;
 }
 
 - (id)initWithFrame:(CGRect)frame
@@ -23,10 +22,10 @@ CGFloat INSET_RATIO;
     
     if (self) {
         _shipSelection = [[NSMutableArray alloc] init];
-        [self createShipSelectionButtons:[UIButton alloc]];
+        [self createShipSelectionButtons];
         [self createTitleImage];
         [self createBackButton];
-        [self createLaunchButton];
+        [self createStartButton];
         [self setBackgroundColor:[[UIColor alloc] initWithPatternImage:[UIImage imageNamed:@"main_background"]]];
     }
     return self;
@@ -67,7 +66,7 @@ CGFloat INSET_RATIO;
     [self addSubview:imageView];
 }
 
-- (void)createShipSelectionButtons:(UIButton*)button
+- (void)createShipSelectionButtons
 {
     CGFloat buttonSize = CGRectGetWidth(self.frame) / 6.5;
     // Set the base offset and vertical offset for all of the buttons in the frame
@@ -77,45 +76,50 @@ CGFloat INSET_RATIO;
     CGFloat xOffset = buttonSize;
     
     
-    for (int col = 0; col < 4; ++col) {
+    for (int tag = 0; tag < 4; ++tag) {
         // Set up frame and cell and add it to the button sub view
         CGRect cellFrame = CGRectMake(xOffset, vertOffset, buttonSize, buttonSize);
-        button = [[UIButton alloc] initWithFrame:cellFrame];
-        
+        UIButton *button = [[UIButton alloc] initWithFrame:cellFrame];
+        button.tag = tag;
         [self addSubview: button];
+        
+        switch(tag) {
+            case 0:
+            {
+                [self setCurrentShipSelected:tag];
+                [button setImage:[UIImage imageNamed:@"blueSpaceShip"] forState:UIControlStateNormal];
+                [button setBackgroundColor:[UIColor whiteColor]];
+                break;
+            }
+            case 1:
+            {
+                [button setImage:[UIImage imageNamed:@"brownSpaceShip"] forState:UIControlStateNormal];
+                [button setBackgroundColor:[UIColor grayColor]];
+                break;
+            }
+            case 2:
+            {
+                [button setImage:[UIImage imageNamed:@"silverSpaceShip"] forState:UIControlStateNormal];
+                [button setBackgroundColor:[UIColor grayColor]];
+                break;
+            }
+            case 3:
+            {
+                [button setImage:[UIImage imageNamed:@"redSpaceShip"] forState:UIControlStateNormal];
+                [button setBackgroundColor:[UIColor grayColor]];
+                break;
+            }
+        }
         
         // Create target for cell
         [button addTarget:self action:@selector(shipSelected:)
          forControlEvents:UIControlEventTouchUpInside];
         
-        [self setImageForButton:button withTag:col];
-        
         // Add the button to the correct spot in the nested arrays
-        [_shipSelection insertObject:button atIndex:col];
+        [_shipSelection insertObject:button atIndex:tag];
         
         // Update column offset
         xOffset += buttonSize + baseOffset;
-    }
-
-}
-
-
-- (void) setImageForButton:(UIButton*)button withTag:(int)tag
-{
-    button.tag = tag;
-    if (tag == 0) {
-        [self setCurrentShipSelected:(int)button.tag];
-        [button setImage:[UIImage imageNamed:@"blueSpaceShip"] forState:UIControlStateNormal];
-        [button setBackgroundColor:[UIColor whiteColor]];
-    } else if (tag == 1) {
-        [button setImage:[UIImage imageNamed:@"brownSpaceShip"] forState:UIControlStateNormal];
-        [button setBackgroundColor:[UIColor grayColor]];
-    } else if (tag == 2) {
-        [button setImage:[UIImage imageNamed:@"silverSpaceShip"] forState:UIControlStateNormal];
-        [button setBackgroundColor:[UIColor grayColor]];
-    } else {
-        [button setImage:[UIImage imageNamed:@"redSpaceShip"] forState:UIControlStateNormal];
-        [button setBackgroundColor:[UIColor grayColor]];
     }
 }
 
@@ -137,7 +141,7 @@ CGFloat INSET_RATIO;
     [self setCurrentShipSelected:(int)newTag];
 }
 
-- (void)createLaunchButton
+- (void)createStartButton
 {
     // Get frame and frame dimensions
     CGRect frame = self.frame;
