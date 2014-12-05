@@ -12,9 +12,9 @@ static const uint32_t laserCategory     =  0x1 << 0;
 static const uint32_t asteroidCategory  =  0x1 << 1;
 
 CGFloat INSET_RATIO;
-int SLOW_SPEED = 35;
-int MEDIUM_SPEED = 30;
-int MAX_SPEED = 25;
+int SLOW_SPEED = 40;
+int MEDIUM_SPEED = 35;
+int MAX_SPEED = 30;
 int ALLOWED_WRONG_ANSWERS = 2;
 CGFloat LASER_VELOCITY = 1500.0;
 
@@ -26,6 +26,7 @@ CGFloat LASER_VELOCITY = 1500.0;
     int _minimumAsteroidDuration;
     int _asteroidsToDestroy;
     int _score;
+    int _level;
     SKLabelNode* _asteroidsLabel;
     SKLabelNode* _asteroidsValueLabel;
     SKNode* _levelNode;
@@ -34,7 +35,7 @@ CGFloat LASER_VELOCITY = 1500.0;
 
 -(id)initWithSize:(CGSize)size andLevel:(int)level {
     if (self = [super initWithSize:size]) {
-        
+        _level = level;
         SKSpriteNode* background = [SKSpriteNode spriteNodeWithImageNamed:@"background"];
         background.position = CGPointMake(CGRectGetMidX(self.frame), CGRectGetMidY(self.frame));
         [self addChild:background];
@@ -45,11 +46,13 @@ CGFloat LASER_VELOCITY = 1500.0;
         _asteroidsToDestroy = [self findAsteroidsToDestroy:(int)level];
         
         [self createPlayer];
-        [self displayLevel:level];
+        [self displayLevel:_level];
         [self initializeSprites];
     
         self.physicsWorld.gravity = CGVectorMake(0,0);
         self.physicsWorld.contactDelegate = self;
+        
+        [self runAction:[SKAction playSoundFileNamed:@"sirens.wav" waitForCompletion:NO]];
     }
     
     return self;
@@ -203,6 +206,15 @@ CGFloat LASER_VELOCITY = 1500.0;
     int maxX = self.frame.size.width - self.player.size.width * 2;
     int actualX = minX + (arc4random() % (maxX - minX));
     
+    // Determine a slight random x offset so the asteroids will not just travel straight down
+    int endX = actualX + (arc4random_uniform(self.frame.size.width) * 2 - self.frame.size.width) * sqrt(_level);
+    
+    if (endX < minX) {
+        endX = minX;
+    } else if (endX > maxX) {
+        endX = maxX;
+    }
+    
     // Create the asteroid slightly off-screen along the top edge,
     // and along a random position along the X axis as calculated above
     asteroid.position = CGPointMake(actualX, self.frame.size.height + asteroid.size.height/2);
@@ -212,16 +224,6 @@ CGFloat LASER_VELOCITY = 1500.0;
     int minDuration = _minimumAsteroidDuration;
     int rangeDuration = minDuration * 0.1;
     int actualDuration = (arc4random() % rangeDuration) + minDuration;
-    
-    // Determine a slight random x offset so the asteroids will not just travel straight down
-    int endX = actualX;
-    endX += arc4random_uniform(self.frame.size.width) * 2 - self.frame.size.width;
-    
-    if (endX < minX) {
-        endX = minX;
-    } else if (endX > maxX) {
-        endX = maxX;
-    }
     
     // Create the actions and animate the asteroid's motion
     SKAction * actionMove = [SKAction moveTo:CGPointMake(endX, -asteroid.size.height/2) duration:actualDuration];
@@ -268,14 +270,14 @@ CGFloat LASER_VELOCITY = 1500.0;
     line.fontColor = [UIColor whiteColor];
     
     // Create a label for the numerator
-    SKLabelNode* numer = [[SKLabelNode alloc] initWithFontNamed:@"SpaceAge"];
+    SKLabelNode* numer = [[SKLabelNode alloc] initWithFontNamed:@"HelveticaNeue-Bold"];
     numer.text = [NSString stringWithFormat:@"%d", [fraction numerator]];
     numer.fontSize = 24;
     numer.fontColor = [UIColor whiteColor];
     numer.position = CGPointMake(0.0, 5.0);
     
     // Create a label for the denominator
-    SKLabelNode* denom = [[SKLabelNode alloc] initWithFontNamed:@"SpaceAge"];
+    SKLabelNode* denom = [[SKLabelNode alloc] initWithFontNamed:@"HelveticaNeue-Bold"];
     denom.text = [NSString stringWithFormat:@"%d", [fraction denominator]];
     denom.fontSize = 24;
     denom.fontColor = [UIColor whiteColor];
@@ -426,7 +428,7 @@ CGFloat LASER_VELOCITY = 1500.0;
         [self spawnExplosion:[asteroid position]];
         
         // Calculate the score for the destroyed asteroid and spawn a notice with that score
-        int asteroidScore = (10 + (int) asteroid.position.y / 100) * 10;
+        int asteroidScore = (11 + (int) asteroid.position.y / 100) * 10;
         [self asteroidDestroyed: (int)asteroidScore andAsteroidCount:(int)_asteroidsToDestroy];
         [self notifyWithPosition: asteroid.position andScore: asteroidScore andPositive:YES];
         
@@ -452,7 +454,7 @@ CGFloat LASER_VELOCITY = 1500.0;
         // If all attempts are used, change the equation for this asteroid to prevent spamming
         if (attemptsLeft < 0) {
             Equation* newEquation = [self.deli wrongAnswerAttempt:laserFrequency];
-            [self notifyWithPosition: asteroid.position andScore: 50 andPositive:NO];
+            [self notifyWithPosition: asteroid.position andScore: 100 andPositive:NO];
             [asteroid userData][@"frequency"] = [newEquation getSolution];
             [asteroid removeAllChildren];
             [asteroid addChild:[self createLabelForEquation:newEquation]];

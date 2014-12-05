@@ -51,7 +51,7 @@ int NUM_LEVELS = 10;
 {
     CGFloat buttonSize = CGRectGetWidth(self.frame) / 8;
     // Set the base offset and vertical offset for all of the buttons in the frame
-    CGFloat baseOffset = buttonSize/4;
+    CGFloat baseOffset = buttonSize / 4;
     CGFloat vertOffset = CGRectGetHeight(self.frame) * 0.5;
     
     // Run through both row arrays and instatntiate each button approporately based on

@@ -16,6 +16,7 @@
     if (self) {
         [self createTitle];
         [self createSelectionButtons];
+        [self createImages];
         [self setBackgroundColor:[[UIColor alloc] initWithPatternImage:[UIImage imageNamed:@"main_background"]]];
     }
     return self;
@@ -44,7 +45,7 @@
     CGFloat yOffset = CGRectGetHeight(self.frame) * 0.4;
     
     
-    for (int i = 0; i < 3; ++i) {
+    for (int i = 0; i < 4; ++i) {
         yOffset += buttonHeight * 2.25;
         CGRect buttonFrame = CGRectMake(xOffset, yOffset, buttonWidth, buttonHeight);
 
@@ -66,6 +67,11 @@
             case 2:
                 title = @"leaderboards";
                 break;
+            case 3:
+                title = @"credits";
+                [button setTitle:@"Credits" forState:UIControlStateNormal];
+                [button.titleLabel setFont: [UIFont fontWithName:@"HelveticaNeue-Bold" size:36.0f]];
+                break;
             default:
                 break;
         }
@@ -80,8 +86,11 @@
         [self addSubview:background];
         [self addSubview:button];
     }
-    
-    // Here we create the pipes that underly the buttons
+}
+
+// Here we create the pipes that underly the buttons
+- (void)createImages
+{
     CGFloat pipeWidth = CGRectGetWidth(self.frame) * 0.1;
     CGFloat pipeHeight = CGRectGetHeight(self.frame) * 0.2;
     CGFloat pipexOffset1 = CGRectGetWidth(self.frame) * 0.3;
