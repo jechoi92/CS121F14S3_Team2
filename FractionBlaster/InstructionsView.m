@@ -6,123 +6,169 @@
 //  Copyright (c) 2014 MatherTeresa. All rights reserved.
 //
 
-// TODO: Answer the following questions
-//     - Separate gif and textview?
-//     - Separate tutorial into parts (Solving equation vs Destroying Asteroid)?
+// TODO: Fix commenting - section separators are interpreted as
+//       docstrings for methods
 
 #import "InstructionsView.h"
 #import "UIImage+animatedGIF.h"
 
 CGFloat INSET_RATIO;
 int INSTR_FONT_SIZE = 20;
+int NUM_INSTR_STEPS = 3;
+CGFloat BASE_OFFSET_PCT = (float)1/21;
 
 @implementation InstructionsView
+{
+    UIImageView *_instrGifView;
+    UITextView *_instrTextView;
+    
+    int _instrStep; // Ranges from 1 to NUM_INSTR_STEPS
+}
 
 - (id)initWithFrame:(CGRect)frame
 {
-    NSLog(@"called");
     self = [super initWithFrame:frame];
+    
     if (self) {
-        [self createInstructions];
-        //[self createInstructionsGif];
-        [self createBackButton];
+        // Default step is 1
+        _instrStep = 1;
+        
+        // Set background
         [self setBackgroundColor:[[UIColor alloc] initWithPatternImage:[UIImage imageNamed:@"main_background"]]];
+        
+        // Create instruction display
+        [self createInstrText];
+        [self createInstrGif];
+        
+        // Create instruction navigation buttons
+        [self createPrevInstrButton];
+        [self createNextInstrButton];
+        
+        // Back button
+        [self createBackButton];
     }
+    
     return self;
 }
 
-- (void)createInstructions
+/***********************************
+ *   INSTRUCTIONS INITIALIZATION   *
+ ***********************************/
+
+- (CGRect)createInstrFrame
 {
     // Get frame size
     CGFloat frameWidth = CGRectGetWidth(self.frame);
     CGFloat frameHeight = CGRectGetHeight(self.frame);
-    
     CGFloat instrHeightRatio = (float)14/20;
     CGFloat instrWidthRatio = (float)3/7;
-    
-    CGFloat baseXOffset = (float)1/21 * frameWidth;
-    CGFloat baseYOffset = (float)1/21 * frameHeight;
     
     // Instr dimensions setup
     CGFloat instrHeight = frameHeight * instrHeightRatio;
     CGFloat instrWidth = frameWidth * instrWidthRatio;
     
     // Y Offset has enough room for the height and the buffer
+    CGFloat baseYOffset = BASE_OFFSET_PCT * frameHeight;
     CGFloat instrYOffset = frameHeight - (instrHeight + baseYOffset);
     
-    // X Offsets - Gif offset is baseOffset away from end of text view
-    CGFloat gifXOffset = (baseXOffset + instrWidth) + baseXOffset;
+    CGFloat baseXOffset = BASE_OFFSET_PCT * frameWidth;
     
-    // Create frames
-    CGRect textViewFrame = CGRectMake(baseXOffset, instrYOffset, instrWidth, instrHeight);
-    CGRect gifFrame = CGRectMake(gifXOffset, instrYOffset, instrWidth, instrHeight);
-    
-    // Text view - text container creation
-    UITextView *instrText = [[UITextView alloc] initWithFrame:textViewFrame];
-    instrText.backgroundColor = [UIColor clearColor];
-    
-    // Text view - Read instructions from file
-    NSString *path = [[NSBundle mainBundle] pathForResource:@"instructions"
-                                                     ofType:@"txt"];
-    NSString *myText = [NSString stringWithContentsOfFile:path encoding:NSUTF8StringEncoding error:nil];
-    
-    // Text view - Style the text with a black-outlined border
-    NSAttributedString *yourString = [[NSAttributedString alloc] initWithString:myText
-      attributes:@{ NSStrokeColorAttributeName:[UIColor blackColor],
-                    NSStrokeWidthAttributeName:[NSNumber numberWithFloat:-2.0],
-                    NSFontAttributeName:[UIFont systemFontOfSize:24.0f]
-                    ,NSForegroundColorAttributeName:[UIColor whiteColor]
-                  }];
-    instrText.attributedText = yourString;
-    instrText.editable = NO;
-    
-    // Gif
-    UIImageView *instrGifView = [[UIImageView alloc] initWithFrame:gifFrame];
-    NSURL *gifURL2 = [[NSBundle mainBundle]
-                      URLForResource: @"DestroyingAsteroid" withExtension:@"gif"];
-    UIImage *instrImg = [UIImage animatedImageWithAnimatedGIFURL:(NSURL *)gifURL2];
-    [instrGifView setImage:instrImg];
-    
-    // Add subviews
-    [self addSubview:instrText];
-    [self addSubview:instrGifView];
+    return CGRectMake(baseXOffset, instrYOffset, instrWidth, instrHeight);
 }
 
-//- (void)createInstructionsGif
-//{
-//    // Get frame size
-//    CGFloat frameWidth = CGRectGetWidth(self.frame);
-//    CGFloat frameHeight = CGRectGetHeight(self.frame);
-//    CGFloat instrHeightRatio = 12/20;
-//    CGFloat instrWidthRatio = 7/20;
-//    CGFloat baseOffset = 1/10;
-//    
-//    // Width
-//    CGFloat instrWidth = instrWidthRatio * width;
-//    CGFloat instrGifXOffset = 2*baseOffset + instrGifWidth;
-//    
-//    // For height buffering
-//    CGFloat minHeightBuffer = 0.05 * height;
-//
-//    // Height
-//    // Add buffer between text and gif
-//    CGFloat bottomTextOffset = 420;
-//    CGFloat instrGifYOffset = bottomTextOffset + minHeightBuffer;
-//    // Add buffer between gif and bottom of screen
-//    CGFloat instrGifHeight = height - instrGifYOffset - minHeightBuffer;
-//    
-//    
-//    CGRect instrGifFrame = CGRectMake(instrGifXOffset, instrGifYOffset, instrGifWidth, instrGifHeight);
-//    UIImageView *instrGifView = [[UIImageView alloc] initWithFrame:instrGifFrame];
-//    
-//    // Set instructions view
-//    NSURL *gifURL2 = [[NSBundle mainBundle]
-//                      URLForResource: @"DestroyingAsteroid" withExtension:@"gif"];
-//    UIImage *instrImg = [UIImage animatedImageWithAnimatedGIFURL:(NSURL *)gifURL2];
-//    [instrGifView setImage:instrImg];
-//    
-//    [self addSubview:instrGifView];
-//}
+- (void)createInstrText
+{
+    // Create standard subview frame
+    CGRect textViewFrame = [self createInstrFrame];
+
+    // Text container creation
+    _instrTextView = [[UITextView alloc] initWithFrame:textViewFrame];
+    _instrTextView.backgroundColor = [UIColor clearColor];
+    
+    // Read instructions from file
+    [self setTextInstruction:_instrStep];
+    
+    // Add subviews
+    [self addSubview:_instrTextView];
+
+}
+
+- (void)createInstrGif
+{
+    // Create standard subview frame
+    CGRect textViewFrame = [self createInstrFrame];
+    
+    // xOffset leaves room for size of text view, then get the difference in
+    // x offsets so we can use CGRectOffset()
+    CGFloat xOffset = CGRectGetWidth(self.frame) - CGRectGetMaxX(textViewFrame);
+    CGFloat extraXOffset = xOffset - CGRectGetMinX(textViewFrame);
+    CGRect gifFrame = CGRectOffset(textViewFrame, extraXOffset, 0);
+    
+    // Create view
+    _instrGifView = [[UIImageView alloc] initWithFrame:gifFrame];
+    
+    // Set gif image
+    [self setGifInstruction:_instrStep];
+    
+    [self addSubview:_instrGifView];
+}
+
+/***************************
+ *  BUTTON INITIALIZATION  *
+ ***************************/
+
+- (CGRect)createInstrButtonFrame
+{
+    CGFloat frameWidth  = CGRectGetWidth(self.frame);
+    CGFloat frameHeight = CGRectGetHeight(self.frame);
+    
+    // TODO: Make this not hard-coded, and scalable with frame-size
+    CGFloat xOff = BASE_OFFSET_PCT * frameWidth;
+    CGRect buttonFrame = CGRectMake(xOff, 200, 40, 20);
+    
+    return buttonFrame;
+}
+
+- (void)createNextInstrButton
+{
+    // Get generic button frame
+    CGRect instrButtonFrame = [self createInstrButtonFrame];
+    
+    // Needs to be room for the button and the offset
+    CGFloat xOffset = CGRectGetWidth(self.frame) - CGRectGetMaxX(instrButtonFrame);
+    CGFloat extraXOffset = xOffset - CGRectGetMinX(instrButtonFrame);
+    CGRect nextInstrButtonFrame = CGRectOffset(instrButtonFrame, extraXOffset, 0);
+    
+    UIButton *button = [[UIButton alloc] initWithFrame:nextInstrButtonFrame];
+    
+    // Style the button
+    button.backgroundColor = [UIColor whiteColor];
+    [button.titleLabel setText:@"Next"];
+    [button.titleLabel setTextColor:[UIColor blackColor]];
+    
+    // Selector
+    [button addTarget:self action:@selector(nextInstruction:)
+     forControlEvents:UIControlEventTouchUpInside];
+    
+    [self addSubview:button];
+}
+
+- (void)createPrevInstrButton
+{
+    // Setup button
+    CGRect buttonFrame = [self createInstrButtonFrame];
+    UIButton *button = [[UIButton alloc] initWithFrame:buttonFrame];
+    
+    // Style the button
+    [button.titleLabel setText:@"Previous"];
+    [button.titleLabel setTextColor:[UIColor blackColor]];
+    
+    // Selector
+    [button addTarget:self action:@selector(prevInstruction:)
+     forControlEvents:UIControlEventTouchUpInside];
+    
+    [self addSubview:button];
+}
 
 - (void)createBackButton
 {
@@ -150,6 +196,78 @@ int INSTR_FONT_SIZE = 20;
     [backButton addTarget:self action:@selector(backButtonPressed)
          forControlEvents:UIControlEventTouchUpInside];
     [self addSubview:backButton];
+}
+
+/***************
+ *   SETTERS   *
+ ***************/
+
+-(void)setGifInstruction:(int)step
+{
+    //NSString *filename = [NSString stringWithFormat:@"instruction-%d", step];
+    NSString *filename = @"DestroyingAsteroid";
+    
+    NSURL *gifURL2 = [[NSBundle mainBundle]
+                      URLForResource:filename withExtension:@"gif"];
+    UIImage *instrImg = [UIImage animatedImageWithAnimatedGIFURL:(NSURL *)gifURL2];
+    [_instrGifView setImage:instrImg];
+}
+
+- (void)setTextInstruction:(int)step
+{
+    //NSString *filename = [NSString stringWithFormat:@"instructions-%d", step];
+    NSString *filename = @"instructions";
+    NSString *path = [[NSBundle mainBundle] pathForResource:filename
+                                                     ofType:@"txt"];
+    NSString *instrText = [NSString stringWithContentsOfFile:path encoding:NSUTF8StringEncoding error:nil];
+    
+    // Style the text with a black-outlined border
+    NSAttributedString *styledInstrText = [[NSAttributedString alloc] initWithString:instrText
+        attributes:@{NSStrokeColorAttributeName:[UIColor blackColor],
+                     NSStrokeWidthAttributeName:[NSNumber numberWithFloat:-2.0],
+                     NSFontAttributeName:[UIFont systemFontOfSize:24.0f],
+                     NSForegroundColorAttributeName:[UIColor whiteColor]
+                    }];
+    _instrTextView.attributedText = styledInstrText;
+    _instrTextView.editable = NO;
+}
+
+/************************
+ *      SELECTORS       *
+ ************************/
+
+-(void)nextInstruction:(id)sender
+{
+    // Can't go to next if at the last step
+    // TODO: This wouldn't be necessary if can logically disable/enable button
+    if (_instrStep >= NUM_INSTR_STEPS){
+        return;
+    }
+    
+    ++_instrStep;
+    [self setTextInstruction:_instrStep];
+    [self setGifInstruction:_instrStep];
+    
+    if (_instrStep == NUM_INSTR_STEPS){
+        // TODO: Visually (and logically?) disable button
+    }
+}
+
+-(void)prevInstruction:(id)sender
+{
+    // Can't go to previous if at the first step
+    // TODO: This wouldn't be necessary if can logically disable/enable button
+    if (_instrStep <= 1){
+        return;
+    }
+    
+    --_instrStep;
+    [self setTextInstruction:_instrStep];
+    [self setGifInstruction:_instrStep];
+    
+    if (_instrStep == 1){
+        // TODO: Visually (and logically?) disable button
+    }
 }
 
 - (void)backButtonPressed
