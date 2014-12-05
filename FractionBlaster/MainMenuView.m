@@ -44,10 +44,10 @@
     CGFloat yOffset = CGRectGetHeight(self.frame) * 0.4;
     
     
-    for (int i = 0; i < 3; ++i){
+    for (int i = 0; i < 3; ++i) {
         yOffset += buttonHeight * 2.25;
         CGRect buttonFrame = CGRectMake(xOffset, yOffset, buttonWidth, buttonHeight);
-        
+
         UIButton *button = [[UIButton alloc] initWithFrame:buttonFrame];
         
         // Create target for cell
@@ -56,7 +56,7 @@
         
         // Set up title
         NSString *title;
-        switch (i){
+        switch (i) {
             case 0:
                 title = @"start_mission";
                 break;
@@ -69,11 +69,38 @@
             default:
                 break;
         }
+        
         [button setBackgroundImage:[UIImage imageNamed:title] forState:UIControlStateNormal];
         button.tag = i;
         
+        // This creates the border around the button
+        UIImageView *background = [[UIImageView alloc] initWithFrame:buttonFrame];
+        background.image = [UIImage imageNamed:@"menuBorder"];
+        
+        [self addSubview:background];
         [self addSubview:button];
     }
+    
+    // Here we create the pipes that underly the buttons
+    CGFloat pipeWidth = CGRectGetWidth(self.frame) * 0.1;
+    CGFloat pipeHeight = CGRectGetHeight(self.frame) * 0.2;
+    CGFloat pipexOffset1 = CGRectGetWidth(self.frame) * 0.3;
+    CGFloat pipexOffset2 = CGRectGetWidth(self.frame) * 0.6;
+    CGFloat pipeyOffset = CGRectGetHeight(self.frame) * 0.55;
+    
+    CGRect pipeFrame1 = CGRectMake(pipexOffset1, pipeyOffset, pipeWidth, pipeHeight);
+    CGRect pipeFrame2 = CGRectMake(pipexOffset2, pipeyOffset, pipeWidth, pipeHeight);
+    
+    UIImageView *pipe1 = [[UIImageView alloc] initWithFrame:pipeFrame1];
+    pipe1.image = [UIImage imageNamed:@"pipe"];
+    
+    UIImageView *pipe2 = [[UIImageView alloc] initWithFrame:pipeFrame2];
+    pipe2.image = [UIImage imageNamed:@"pipe"];
+    
+    [self addSubview:pipe1];
+    [self addSubview:pipe2];
+    [self sendSubviewToBack:pipe1];
+    [self sendSubviewToBack:pipe2];
 }
 
 - (void)buttonSelected:(id)sender

@@ -65,6 +65,35 @@ CGFloat LASER_VELOCITY = 1500.0;
     [self addChild:self.player];
 }
 
+// Create labels displaying the number of asteroids left in the level
+- (void)createLabel
+{
+    if (_asteroidsToDestroy > 0) {
+        CGRect frame = self.frame;
+        CGFloat asteroidsLabelX = CGRectGetWidth(frame) * 0.84;
+        CGFloat asteroidsLabelY = CGRectGetHeight(frame) * 0.93;
+    
+        // Create label with "Asteroids remaining" text
+        _asteroidsLabel = [SKLabelNode labelNodeWithFontNamed:@"HelveticaNeue-Bold"];
+        _asteroidsLabel.fontSize = 18;
+        _asteroidsLabel.position =  CGPointMake(asteroidsLabelX, asteroidsLabelY);
+        _asteroidsLabel.text = @"Asteroids remaining";
+        _asteroidsLabel.zPosition = 1;
+        [self addChild:_asteroidsLabel];
+    
+        CGFloat asteroidsValueLabelX = CGRectGetWidth(frame) * 0.97;
+        CGFloat asteroidsValueLabelY = CGRectGetHeight(frame) * 0.93;
+    
+        // Create label displaying the actual number of asteroids left
+        _asteroidsValueLabel = [SKLabelNode labelNodeWithFontNamed:@"HelveticaNeue-Bold"];
+        _asteroidsValueLabel.fontSize = 18;
+        _asteroidsValueLabel.position =  CGPointMake(asteroidsValueLabelX, asteroidsValueLabelY);
+        _asteroidsValueLabel.text = [[NSString alloc] initWithFormat:@"%d", _asteroidsToDestroy];
+        _asteroidsValueLabel.zPosition = 1;
+        [self addChild:_asteroidsValueLabel];
+    }
+}
+
 // Creates the label node on the scene
 -(void) displayLevel:(int)level
 {
