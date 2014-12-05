@@ -61,7 +61,7 @@ CGFloat LASER_VELOCITY = 1500.0;
 // Create node for the player's ship sprite
 - (void)createPlayer
 {
-    self.player = [SKSpriteNode spriteNodeWithImageNamed:@"Spaceship"];
+    self.player = [SKSpriteNode spriteNodeWithImageNamed:@"blueSpaceShip"];
     [self.player setScale:0.3];
     self.player.position = CGPointMake(self.frame.size.width/2, self.player.size.width/2);
     self.player.zPosition = 1;
