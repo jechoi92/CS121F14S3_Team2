@@ -69,6 +69,8 @@
                 break;
             case 3:
                 title = @"credits";
+                [button setTitle:@"Credits" forState:UIControlStateNormal];
+                [button.titleLabel setFont: [UIFont fontWithName:@"HelveticaNeue-Bold" size:36.0f]];
                 break;
             default:
                 break;
