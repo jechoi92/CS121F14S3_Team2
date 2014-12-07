@@ -95,6 +95,9 @@ typedef enum {
         
         // Create timer upon dismissal of tip view
         
+        // Perform the starting animation
+        [_scene startLevelAnimation];
+        
         // Timer that creates an asteroid every given time interval
         _asteroidGenerationTimer = [NSTimer scheduledTimerWithTimeInterval:8.0 target:self
                                             selector:@selector(createAsteroid) userInfo:nil repeats:YES];

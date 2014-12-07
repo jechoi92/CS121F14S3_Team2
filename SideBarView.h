@@ -19,7 +19,6 @@
 @property (assign, nonatomic) id <LaserFrequencyChosen> delegate;
 
 - (id)initWithFrame:(CGRect)frame;
-- (UIButton*)getCellWithIndex:(int)index;
 - (void)setValueAtIndex:(int)index withValue:(Fraction*)value;
 
 @end

@@ -103,18 +103,19 @@
     
     // Depending on whether won or lost, create separate frames and texts
     if (_win) {
-        CGRect endMessageLabelFrame = CGRectMake(width * 0.42, height * 0.3, width * 0.3, height * 0.1);
+        CGRect endMessageLabelFrame = CGRectMake(0, height * 0.3, width, height * 0.1);
         endMessageLabel = [[UILabel alloc] initWithFrame:endMessageLabelFrame];
         [endMessageLabel setText: @"VICTORY!"];
     }
     else {
-        CGRect endMessageLabelFrame = CGRectMake(width * 0.21, height * 0.3, width * 0.6, height * 0.1);
+        CGRect endMessageLabelFrame = CGRectMake(0, height * 0.3, width, height * 0.1);
         endMessageLabel = [[UILabel alloc] initWithFrame:endMessageLabelFrame];
         [endMessageLabel setText: @"YOU HAVE FAILED HUMANITY..."];
     }
     
     [endMessageLabel setFont:[UIFont fontWithName:@"HelveticaNeue-Bold" size:30.0f]];
     [endMessageLabel setTextColor:[UIColor whiteColor]];
+    endMessageLabel.textAlignment = YES;
     
     [self addSubview:endMessageLabel];
 
@@ -164,23 +165,25 @@
     CGFloat width = CGRectGetWidth(self.frame);
     CGFloat height = CGRectGetHeight(self.frame);
     
-    CGRect endMessageLabelFrame = CGRectMake(width * 0.3, height * 0.1, width * 0.5, height * 0.5);
+    CGRect endMessageLabelFrame = CGRectMake(0, height * 0.1, width, height * 0.5);
     UILabel *endMessageLabel = [[UILabel alloc] initWithFrame:endMessageLabelFrame];
     
     // Set text
     [endMessageLabel setText: @"Congratulations Cadet!"];
     [endMessageLabel setFont:[UIFont fontWithName:@"HelveticaNeue-Bold" size:30.0f]];
     [endMessageLabel setTextColor:[UIColor whiteColor]];
+    endMessageLabel.textAlignment = YES;
     
     [self addSubview:endMessageLabel];
     
-    CGRect endMessageLabelVictoryFrame = CGRectMake(width * 0.31, height * 0.2, width * 0.5, height * 0.5);
+    CGRect endMessageLabelVictoryFrame = CGRectMake(0, height * 0.2, width, height * 0.5);
     UILabel *endMessageVictoryLabel = [[UILabel alloc] initWithFrame:endMessageLabelVictoryFrame];
     
     // Set text
     [endMessageVictoryLabel setText: @"You have saved Earth!"];
     [endMessageVictoryLabel setFont:[UIFont fontWithName:@"HelveticaNeue-Bold" size:30.0f]];
     [endMessageVictoryLabel setTextColor:[UIColor whiteColor]];
+    endMessageVictoryLabel.textAlignment = YES;
     
     [self addSubview:endMessageVictoryLabel];
 }
@@ -197,11 +200,11 @@
     NSString* levelString;
     if (_level > 0) {
         levelString = [[NSString alloc] initWithFormat:@"Level: %d", _level];
-        levelLabelFrame = CGRectMake(width * 0.44,height * 0.43,width * 0.5, height * 0.08);
+        levelLabelFrame = CGRectMake(0,height * 0.43,width, height * 0.08);
     }
     else {
         levelString = @"Survival Mode";
-        levelLabelFrame = CGRectMake(width * 0.40,height * 0.43,width * 0.5, height * 0.08);
+        levelLabelFrame = CGRectMake(0,height * 0.43,width, height * 0.08);
     }
     
     UILabel *levelLabel = [[UILabel alloc] initWithFrame:levelLabelFrame];
@@ -210,10 +213,11 @@
     [levelLabel setText:levelString];
     [levelLabel setFont:[UIFont fontWithName:@"HelveticaNeue-Bold" size:24.0f]];
     [levelLabel setTextColor:[UIColor whiteColor]];
+    levelLabel.textAlignment = YES;
     
     [self addSubview:levelLabel];
     
-    CGRect scoreLabelFrame = CGRectMake(width * 0.40,height * 0.5,width * 0.5, height * 0.08);
+    CGRect scoreLabelFrame = CGRectMake(0,height * 0.5,width, height * 0.08);
     UILabel *scoreLabel = [[UILabel alloc] initWithFrame:scoreLabelFrame];
     
     // Create the string and set text
@@ -221,6 +225,7 @@
     [scoreLabel setText:scoreString];
     [scoreLabel setFont:[UIFont fontWithName:@"HelveticaNeue-Bold" size:24.0f]];
     [scoreLabel setTextColor:[UIColor whiteColor]];
+    scoreLabel.textAlignment = YES;
     
     [self addSubview:scoreLabel];
 }
