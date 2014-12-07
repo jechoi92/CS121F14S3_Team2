@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "Fraction.h"
+#import "MainMenuView.h"
 
 @protocol LaserFrequencyChosen
 - (void)laserFrequencyChosen:(NSNumber *)buttonTag;
@@ -17,17 +18,8 @@
 
 @property (assign, nonatomic) id <LaserFrequencyChosen> delegate;
 
-
-// Overwrites the method to initialize the creation of the side bar
 - (id)initWithFrame:(CGRect)frame;
-
-// Returns the button in the NSMutable array of all the
-// buttons placed on the side bar
 - (UIButton*)getCellWithIndex:(int)index;
-
-// Inserts the designated value into the correct
-// button given the index of the array of intital fractions
-- (void)setValueAtIndex:(int)index
-              withValue:(Fraction*)value;
+- (void)setValueAtIndex:(int)index withValue:(Fraction*)value;
 
 @end

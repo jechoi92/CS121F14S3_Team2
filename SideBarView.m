@@ -18,42 +18,37 @@ int TOTAL_INITIAL_FRACTIONS;
 - (id)initWithFrame:(CGRect)frame {
     self = [super initWithFrame:frame];
     if (self) {
-        // Container for aesthetic purposes. This "holds" the laser frequencies
         [self createContainer];
-        
-        // Add the button frequencies to the view
         [self createButtons];
     }
     return self;
 }
 
-
-// This returns information to the game view controller
-// about which button was pressed
+// Function to handle button presses
 - (void)buttonPressed:(id)sender {
-    // take the tag of button selected and send it back to the
-    // target (which is viewcontroller)
+    // Determine which button was selected
     UIButton *button = (UIButton*) sender;
-    NSNumber *buttonTag = [NSNumber numberWithInteger:[button tag] ];
+    NSNumber *buttonTag = [NSNumber numberWithInteger:[button tag]];
+    
     [self.delegate laserFrequencyChosen:buttonTag];
 }
 
+// Creates frame that holds buttons for aesthetics
 - (void)createContainer
 {
     CGFloat width = CGRectGetWidth(self.frame);
     CGFloat height = CGRectGetHeight(self.frame);
+    
     UIImageView *container = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"laser_panel@2x.png"]];
     [container setFrame:CGRectMake(width * 0.1, 0, width * 0.85, height * 0.93)];
+    
     [self addSubview:container];
 }
 
 // Initializes all of the UIButtons and allocates them in a 1 by 4 frame
 - (void)createButtons
 {
-    // Retrieve all of the approporiate parameters in order to
-    // create the continer view for all the buttons
     CGRect frame = self.frame;
-    _buttons = [[NSMutableArray alloc] initWithCapacity:TOTAL_INITIAL_FRACTIONS];
     CGFloat width = CGRectGetWidth(frame);
     CGFloat paddingSize = width * 0.20;
     CGFloat height = CGRectGetHeight(frame);
@@ -62,9 +57,11 @@ int TOTAL_INITIAL_FRACTIONS;
     paddingSize *= 0.5;
     CGFloat initialYInset = height*0.07;
     CGFloat initialXInset = width*0.16;
-    //(height - ((TOTAL_INITIAL_FRACTIONS + 1) * paddingSize)) / (TOTAL_INITIAL_FRACTIONS);
     
-    
+    // Creates array that stores the buttons
+    _buttons = [[NSMutableArray alloc] initWithCapacity:TOTAL_INITIAL_FRACTIONS];
+
+    // Create all buttons
     for (int i = 0; i < TOTAL_INITIAL_FRACTIONS; i++) {
         // Instantiate the button with a certain frame and offset
         CGFloat inset = (i + 1) * (paddingSize) + i * buttonHeight;
@@ -88,32 +85,35 @@ int TOTAL_INITIAL_FRACTIONS;
         
         [backgroundButton setTitle:line forState:UIControlStateNormal];
         
-        
         // Add the button to the screen
         [self addSubview:backgroundButton];
         [self addSubview:currentButton];
+        
+        // Set tag appropriately
         currentButton.tag = i;
+        
+        // Create target for button
         [currentButton addTarget:self action:@selector(buttonPressed:)
-                forControlEvents:UIControlEventTouchDown]; //make own version of this
+                forControlEvents:UIControlEventTouchDown];
+        
+        // Add button to array
         [_buttons insertObject:currentButton atIndex:i];
     }
-    
-    
 }
 
 // Return the button at the designated index
--(UIButton*)getCellWithIndex:(int)index {
+-(UIButton*)getButtonWithIndex:(int)index {
     return _buttons[index];
 }
 
-// Inserts the designated fraction into the correct
-// button on the side bar
-- (void)setValueAtIndex:(int)index
-              withValue:(Fraction*)value {
-    UIButton *cell = [self getCellWithIndex:index];
+// Inserts the designated fraction into the correct button on the side bar
+- (void)setValueAtIndex:(int)index withValue:(Fraction*)value {
+    // First get the desired button
+    UIButton *button = [self getButtonWithIndex:index];
     int numerator = [value numerator];
     int denominator = [value denominator];
     
+    // Create the text string according to the lengths of the numerator and denominator
     NSString *fracToFill;
     if (denominator > 9) {
         fracToFill = [NSString stringWithFormat:@" %d\r%d", numerator, denominator];
@@ -122,9 +122,9 @@ int TOTAL_INITIAL_FRACTIONS;
     } else {
         fracToFill = [NSString stringWithFormat:@"%d\r%d", numerator, denominator];
     }
-    cell.titleLabel.numberOfLines = 2;
     
-    [cell setTitle:fracToFill forState:UIControlStateNormal];
+    button.titleLabel.numberOfLines = 2;
+    [button setTitle:fracToFill forState:UIControlStateNormal];
 }
 
     

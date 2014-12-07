@@ -18,7 +18,7 @@
 
 // Initializes an equation with two fractions and one operator in between.
 // The value of the equation is computed and stored as well.
--(id)initWithFraction1: (Fraction*)args1 andFraction2: (Fraction*)args2 andOperator: (char)operator
+- (id)initWithFraction1: (Fraction*)args1 andFraction2: (Fraction*)args2 andOperator: (char)operator
 {
   self = [super init];
     _args1 = args1;
@@ -48,13 +48,13 @@
     return self;
 }
 
--(Fraction*)getSolution
+- (Fraction*)getSolution
 {
     return _value;
 }
 
 // Returns a string representation of the equation.
--(NSString*)toString
+- (NSString*)toString
 {
     // $ means simplify. If in case simplify, then it is just the first fraction and an equality sign.
     if (_operator == '$') {
@@ -75,17 +75,17 @@
 
 // For unit testing purposes
 
--(Fraction*)getFraction1
+- (Fraction*)getFraction1
 {
     return _args1;
 }
 
--(Fraction*)getFraction2
+- (Fraction*)getFraction2
 {
     return _args2;
 }
 
--(char)getOperator
+- (char)getOperator
 {
     return _operator;
 }
