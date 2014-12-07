@@ -10,23 +10,30 @@
 
 CGFloat INSET_RATIO;
 
+// Enum object for button tags
+typedef enum {
+    StartTag,
+    BackTag
+}ButtonTags;
+
 @implementation LevelSelectView
 {
     NSMutableArray *_levelButtons;
 }
 
+// Allow adding extra levels later on
 int BUTTONS_PER_ROW = 5;
 int NUM_LEVELS = 10;
 
 // Create the subview with all of these buttons on the level select view controller
--(id)initWithFrame:(CGRect)frame andUnlockedLevel:(int)level
+- (id)initWithFrame:(CGRect)frame andUnlockedLevel:(int)level
 {
     self = [super initWithFrame:frame];
     
     if (self) {
         // Set up rows of buttons
         int numRows = NUM_LEVELS/BUTTONS_PER_ROW;
-        _levelButtons = [[NSMutableArray alloc] initWithCapacity:numRows];
+        _levelButtons = [[NSMutableArray alloc] initWithCapacity:2];
         
         // Initialize and add the two arrays of rows in the array of rows
         for (int i = 0; i < numRows; ++i) {
@@ -35,7 +42,7 @@ int NUM_LEVELS = 10;
         
         [self createEachButton:[UIButton alloc] withUnlockedLevel:level andNumRows:numRows];
         [self createTitle];
-        [self createLaunchButton];
+        [self createStartButton];
         [self createBackButton];
         [self setBackgroundColor:[[UIColor alloc] initWithPatternImage:[UIImage imageNamed:@"main_background"]]];
     }
@@ -43,14 +50,10 @@ int NUM_LEVELS = 10;
     return self;
 }
 
-// Goes through each slot in the nested array and places a button
-// in the slot with its designated parameters
--(void)createEachButton:(UIButton*)button
-                 withUnlockedLevel:(int)unlockedLevel
-                       andNumRows:(int)numRows
+// Go through the array and create the buttons for level selection
+- (void)createEachButton:(UIButton*)button withUnlockedLevel:(int)unlockedLevel andNumRows:(int)numRows
 {
     CGFloat buttonSize = CGRectGetWidth(self.frame) / 8;
-    // Set the base offset and vertical offset for all of the buttons in the frame
     CGFloat baseOffset = buttonSize / 4;
     CGFloat vertOffset = CGRectGetHeight(self.frame) * 0.5;
     
@@ -73,7 +76,7 @@ int NUM_LEVELS = 10;
             [self setImageForButton:button withTag:(row * BUTTONS_PER_ROW) + col andUnlockedLevel:unlockedLevel];
             
             // Set all of the buttons that are not accessible to the player to
-            // be non-responsive
+            // be unresponsive
             if (button.tag > unlockedLevel) {
                 button.enabled = NO;
             }
@@ -92,26 +95,26 @@ int NUM_LEVELS = 10;
 
 // Appropriately instantiate the specific button with the image that designates
 // the status of the button in the correct row and column in the nested array
--(void)setImageForButton:(UIButton*)button
-                  withTag:(int)tag
-         andUnlockedLevel:(int)unlockedLevel
+- (void)setImageForButton:(UIButton*)button withTag:(int)tag andUnlockedLevel:(int)unlockedLevel
 {
     // Set up the images for each button
     button.tag = tag;
+    
+    // Default select the first button
     if (button.tag == 0){
-        // When the game first begins, we must highlight the first button
         [self setCurrentLevelSelected:(int)button.tag];
         UIImage *strechableButtonImageNormal = [[UIImage imageNamed:@"button1highlight.png"] stretchableImageWithLeftCapWidth:12 topCapHeight:0];
         [button setBackgroundImage:strechableButtonImageNormal forState:UIControlStateNormal];
     }
+    
+    // For all of the other buttons, enable and disable according to max. unlocked level
     else {
-        // For all of the other buttons, check if the button should be accessible
-        // by the player or not
         if (button.tag-1 < unlockedLevel) {
             NSString *deselect = [[NSString alloc] initWithFormat:@"button%ld.png", (long)button.tag+1];
             UIImage *deselectImage = [[UIImage imageNamed:deselect] stretchableImageWithLeftCapWidth:12 topCapHeight:0];
             [button setBackgroundImage:deselectImage forState:UIControlStateNormal];
-        } else {
+        }
+        else {
             NSString *deselect = [[NSString alloc] initWithFormat:@"!button%ld.png", (long)button.tag+1];
             UIImage *deselectImage = [[UIImage imageNamed:deselect] stretchableImageWithLeftCapWidth:12 topCapHeight:0];
             [button setBackgroundImage:deselectImage forState:UIControlStateNormal];
@@ -119,7 +122,8 @@ int NUM_LEVELS = 10;
     }
 }
 
--(void)createLaunchButton
+// Create start button
+- (void)createStartButton
 {
     // Get frame and frame dimensions
     CGRect frame = self.frame;
@@ -135,12 +139,15 @@ int NUM_LEVELS = 10;
     
     [startButton addTarget:self action:@selector(buttonSelected:)
           forControlEvents:UIControlEventTouchUpInside];
-    startButton.tag = 0;
+    
+    // Set tag appropriately
+    startButton.tag = StartTag;
+    
     [self addSubview:startButton];
 }
 
 // Creates the level select title image at the top of the screen
--(void)createTitle
+- (void)createTitle
 {
     // Get frame and frame dimensions
     CGRect frame = self.frame;
@@ -151,10 +158,12 @@ int NUM_LEVELS = 10;
     CGRect title = CGRectMake(0, -50, frameWidth, frameHeight*.5);
     UIImageView *imageView = [[UIImageView alloc] initWithFrame:title];
     imageView.image = [UIImage imageNamed:@"Levels.png"];
+    
     [self addSubview:imageView];
 }
 
--(void)createBackButton
+// Create back button
+- (void)createBackButton
 {
     CGFloat size = MIN(CGRectGetWidth(self.frame), CGRectGetHeight(self.frame));
     CGFloat itemWidth = size / 15;
@@ -162,27 +171,33 @@ int NUM_LEVELS = 10;
     CGFloat backButtonWidth = itemWidth;
     CGFloat backButtonX = CGRectGetWidth(self.frame) * INSET_RATIO;
     CGFloat backButtonY = CGRectGetHeight(self.frame) * INSET_RATIO;
+    
     CGRect backButtonFrame = CGRectMake(backButtonX, backButtonY, backButtonLength, backButtonWidth);
     UIButton *backButton = [[UIButton alloc] initWithFrame:backButtonFrame];
+    
     [backButton setBackgroundImage:[UIImage imageNamed:@"StartOverIcon"] forState:UIControlStateNormal];
     [[backButton layer] setBorderWidth:2.5f];
     [[backButton layer] setBorderColor:[UIColor blackColor].CGColor];
     [[backButton layer] setCornerRadius:12.0f];
+    
+    // Create target for button
     [backButton addTarget:self action:@selector(buttonSelected:)
          forControlEvents:UIControlEventTouchUpInside];
-    backButton.tag = -1;
+    
+    // Set tag appropriately
+    backButton.tag = BackTag;
+    
     [self addSubview:backButton];
 }
 
-
--(void)buttonSelected:(id)sender
+- (void)buttonSelected:(id)sender
 {
     [self.delegate buttonSelected:sender];
 }
 
 // Updates the array of buttons based on which button the player has selected
 // and updates the button tag that we are currently highlighting
--(void)levelSelected:(id)sender
+- (void)levelSelected:(id)sender
 {
     UIButton *newButton = (UIButton*)sender;
     
@@ -194,9 +209,9 @@ int NUM_LEVELS = 10;
     NSString *deselect = [[NSString alloc] initWithFormat:@"button%ld.png", (long) oldButton.tag+1];
     NSString *select = [[NSString alloc] initWithFormat:@"button%ldhighlight.png", (long) newButton.tag+1];
     
+    // Highlight the newly selected level and unhighlight the prieviously selected button
     UIImage *deselectImage = [[UIImage imageNamed:deselect] stretchableImageWithLeftCapWidth:12 topCapHeight:0];
     [oldButton setBackgroundImage:deselectImage forState:UIControlStateNormal];
-    
     UIImage *selectImage = [[UIImage imageNamed:select] stretchableImageWithLeftCapWidth:12 topCapHeight:0];
     [newButton setBackgroundImage:selectImage forState:UIControlStateNormal];
     

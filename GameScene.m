@@ -54,6 +54,8 @@ CGFloat LASER_VELOCITY = 1500.0;
         self.physicsWorld.contactDelegate = self;
         
         [self runAction:[SKAction playSoundFileNamed:@"sirens.wav" waitForCompletion:NO]];
+        
+        [self startLevelAnimation];
     }
     
     return self;

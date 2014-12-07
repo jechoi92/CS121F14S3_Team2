@@ -79,7 +79,7 @@ int TOTAL_INITIAL_FRACTIONS;
         [currentButton.titleLabel setFont: [UIFont fontWithName:@"HelveticaNeue-Bold" size:28.0f]];
         
         // Add background buttons for printing of the fractions
-        CGRect backgroundFrame = CGRectMake(paddingSize + initialXInset, inset + initialYInset + 5, buttonWidth, buttonHeight);
+        CGRect backgroundFrame = CGRectMake(paddingSize + initialXInset, inset + initialYInset - buttonHeight / 3 * 0.9 , buttonWidth, buttonHeight);
         UIButton *backgroundButton = [[UIButton alloc] initWithFrame:backgroundFrame];
         backgroundButton.backgroundColor = [UIColor clearColor];
         [backgroundButton.titleLabel setFont: [UIFont fontWithName:@"HelveticaNeue-Bold" size:40.0f]];

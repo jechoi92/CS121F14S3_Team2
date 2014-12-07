@@ -12,6 +12,13 @@ int TOTAL_INITIAL_FRACTIONS = 5;
 int HEALTHPENALTY = 20;
 CGFloat INSET_RATIO = 0.02;
 
+// Enum object for difficulty
+typedef enum {
+    Easy,
+    Medium,
+    Hard
+}DifficultyLevel;
+
 @implementation GameViewController
 {
     HealthBarView *_healthBar;
@@ -21,28 +28,35 @@ CGFloat INSET_RATIO = 0.02;
     GameView *_gameView;
     GameEndView *_gameEndView;
     NSMutableArray *_initialFractions;
-    NSTimer* _asteroidGenerationTimer;
+    NSTimer *_asteroidGenerationTimer;
     int _level;
     int _score;
     int _numAsteroid;
     int _shipNum;
 }
 
-- (id)initWithLevel:(int)level
-       andOperators:(NSArray*)operators
-      andShipNumber:(int)shipNum
+- (id)initWithLevel:(int)level andOperators:(NSArray*)operators andShipNumber:(int)shipNum
 {
     self = [super init];
     _level = level;
     _shipNum = shipNum;
-    if (operators == NULL) {
-        operators = [self findOperators];
+    
+    // If survival mode, create EquationGenerator according to specified operators and medium difficulty
+    if (_level == -1) {
+        _equationGenerator = [[EquationGenerator alloc] initWithOperators:operators andDenominatorLimit:12 andDifficulty:Medium];
     }
-    _equationGenerator = [[EquationGenerator alloc] initWithOperators:operators andDenominatorLimit:12 andDifficulty:0];
+    
+    // Else, determine operators and difficulty according to level
+    else {
+        operators = [self determineOperators];
+        int difficulty = [self determineDifficulty];
+        _equationGenerator = [[EquationGenerator alloc] initWithOperators:operators andDenominatorLimit:12 andDifficulty:difficulty];
+    }
+    
     return self;
 }
 
-// Function required to keep the SKScene from crashing the program.
+// Function required to keep the SKScene from crashing the program
 - (void)loadView
 {
     CGRect applicationFrame = [[UIScreen mainScreen] applicationFrame];
@@ -56,143 +70,157 @@ CGFloat INSET_RATIO = 0.02;
     [self initialize];
 }
 
+// Initialization function
 - (void)initialize
 {
+    // Create background music to play indeterminately
     NSError *error;
     NSURL *backgroundMusicURL = [[NSBundle mainBundle] URLForResource:@"background-music-aac" withExtension:@"caf"];
     self.backgroundMusicPlayer = [[AVAudioPlayer alloc] initWithContentsOfURL:backgroundMusicURL error:&error];
     self.backgroundMusicPlayer.numberOfLoops = -1;
     [self.backgroundMusicPlayer prepareToPlay];
-    [self.backgroundMusicPlayer play];
+    //[self.backgroundMusicPlayer play];
     
     SKView * skView = (SKView *)self.view;
     if (!skView.scene) {
-        // Create all necessary data members.
-        _numAsteroid = [self findAsteroidsToDestroy:_level];
+        
+        // Create all necessary data members
+        _numAsteroid = [self determineAsteroidsToDestroy:_level];
         _initialFractions = [_equationGenerator getInitialFractions];
+        
         [self createGameView];
         [self createSideBar];
         [self createHealthBar];
         [self createScene];
-        [_scene startLevelAnimation];
         
         // Create timer upon dismissal of tip view
         
-        // Timer that creates an asteroid every given time interval.
-        _asteroidGenerationTimer = [NSTimer scheduledTimerWithTimeInterval:7.0
-                                                                    target:self
-                                                                  selector:@selector(createAsteroid:)
-                                                                  userInfo:nil
-                                                                   repeats:YES];
-        
+        // Timer that creates an asteroid every given time interval
+        _asteroidGenerationTimer = [NSTimer scheduledTimerWithTimeInterval:8.0 target:self
+                                            selector:@selector(createAsteroid) userInfo:nil repeats:YES];
     }
-    self.view.multipleTouchEnabled = YES;
 }
 
-// Creates the gameview.
+// Create the gameview
 - (void)createGameView
 {
     CGRect frame = self.view.frame;
     CGFloat width = CGRectGetWidth(frame);
     CGFloat height = CGRectGetHeight(frame);
-    CGRect labelsAndButtonsFrame = CGRectMake(0, 0, width, height);
+    CGRect gameViewFrame = CGRectMake(0, 0, width, height);
     
-    _numAsteroid = [self findAsteroidsToDestroy:_level];
-    _gameView = [[GameView alloc] initWithFrame:labelsAndButtonsFrame andAsteroidCount:_numAsteroid andScore:_score];
+    // Create gameview with the number of asteroids to destroy and current score
+    _gameView = [[GameView alloc] initWithFrame:gameViewFrame andAsteroidCount:_numAsteroid andScore:_score];
+    
+    // Set the delegate appropriately
     [_gameView setDelegate:self];
+    
     [self.view addSubview:_gameView];
 }
 
-// Creates the healthbar.
+// Create the healthbar
 - (void)createHealthBar
 {
     CGRect frame = self.view.frame;
     CGFloat width = CGRectGetWidth(frame);
     CGFloat height = CGRectGetHeight(frame);
+    
     CGRect healthBarFrame = CGRectMake(width * 0.005, height * 0.56, width*0.1, height* 0.38);
     _healthBar = [[HealthBarView alloc] initWithFrame:healthBarFrame];
+    
     [self.view addSubview:_healthBar];
 }
 
-// Creates the sidebar.
+// Create the sidebar
 - (void)createSideBar
 {
     CGRect frame = self.view.frame;
     CGFloat width = CGRectGetWidth(frame);
     CGFloat height = CGRectGetHeight(frame);
+    
     CGRect sideBarFrame = CGRectMake(width * 0.875, height * 0.55, width*0.13, height* 0.42);
     _sidebar = [[SideBarView alloc] initWithFrame:sideBarFrame];
+    
+    // Set each fraction in the buttons
     for (int i = 0; i < [_initialFractions count]; i++) {
         Fraction *toInsert = [[Fraction alloc] initWithFraction:[_initialFractions objectAtIndex:i]];
         [_sidebar setValueAtIndex:i withValue:toInsert];
     }
     
+    // Set the delegate appropriately
     [_sidebar setDelegate:self];
+    
     [self.view addSubview:_sidebar];
 }
 
-// Creates the health bar.
-//- (void)createHealthBar
-//{
-//    CGRect frame = self.view.frame;
-//    CGFloat width = CGRectGetWidth(frame);
-//    CGFloat height = CGRectGetHeight(frame);
-//    CGRect healthBarFrame = CGRectMake(width * 0.005, height * 0.55, width * 0.1, height * 0.42);
-//    _healthBar = [[HealthBarView alloc] initWithFrame:healthBarFrame];
-//    [self.view addSubview:_healthBar];
-//}
-
-// Creates the scene.
+// Create the scene
 - (void)createScene
 {
     SKView *skView = (SKView *)self.view;
+    
+    // Create the scene with the appropriate data
     _scene = [[GameScene alloc] initWithSize:skView.bounds.size andLevel:_level andShipNum:_shipNum];
     _scene.scaleMode = SKSceneScaleModeAspectFill;
+    
+    // Set delegate appropriately
     [(GameScene*)_scene setDeli:self];
     [skView presentScene:_scene];
 }
 
 
-// Creates the appropriate GameOverScene upon the end of a game
+// Creates the appropriate screen upon the end of a game
 -(void)createGameOverSceneWithWin:(BOOL)winning
 {
-    // First cleanup the data members.
+    // First cleanup all data members
     [self cleanup];
     
-    // If we have won, then update game progress.
+    // If we have won
     if (winning) {
+        
+        // Play victory sound effect
         NSError *error;
         NSURL *defeatSoundURL = [[NSBundle mainBundle] URLForResource:@"victory_applause" withExtension:@"wav"];
         self.backgroundMusicPlayer = [[AVAudioPlayer alloc] initWithContentsOfURL:defeatSoundURL error:&error];
         self.backgroundMusicPlayer.numberOfLoops = 0;
         [self.backgroundMusicPlayer prepareToPlay];
         [self.backgroundMusicPlayer play];
+        
+        // Increment score for completion of a level
         _score += _level * 1000;
+        
+        // Update current progress
         [self updateProgress];
         
-        // But if we have beaten the last level, then we load the final end view.
+        // If we have beaten the last level, then we load the final end view
         if (_level == 10) {
-            [self updateHighScores];
             [self createGameEndViewVictory];
+            
+            // Update high scores
+            [self updateHighScores];
             return;
         }
     }
-    // If we have lost, then update highscores accordingly.
+    
+    // If we have lost
     else {
+        
+        // Play defeat sound effect
         NSError *error;
         NSURL *defeatSoundURL = [[NSBundle mainBundle] URLForResource:@"defeat_explosion" withExtension:@"wav"];
         self.backgroundMusicPlayer = [[AVAudioPlayer alloc] initWithContentsOfURL:defeatSoundURL error:&error];
         self.backgroundMusicPlayer.numberOfLoops = 0;
         [self.backgroundMusicPlayer prepareToPlay];
         [self.backgroundMusicPlayer play];
+        
+        // Update high cores
         [self updateHighScores];
     }
     
-    // Load the end view.
+    // Create the ending screen
     [self createGameEndView:winning];
 }
 
-// General cleanup of all data members.
+// Function that performs a cleanup of all data members
 - (void)cleanup
 {
     [_backgroundMusicPlayer stop];
@@ -200,94 +228,112 @@ CGFloat INSET_RATIO = 0.02;
     [_sidebar removeFromSuperview];
     [_healthBar removeFromSuperview];
     [_gameView removeFromSuperview];
-    SKView *skView = (SKView *)self.view;
-    [skView presentScene:nil];
+    [(SKView *)self.view presentScene:nil];
 }
 
-// Delegate handler for when scene indicates that the level is over
+// Function to handle case when the scene indicates that the level is over
 - (void)lastAsteroidDestroyed
 {
   [self createGameOverSceneWithWin:YES];
 }
 
-// Decreases health level, and checks if health is equal to or lower than 0.
-// If so, then game over.
+// Function to handle case when the scene indicates that an asteroid has reached the bottom of the screen
 - (void)asteroidReachedBottom
 {
+    // First decrease health level
     [_healthBar setHealthLevel:([_healthBar getHealthLevel] - HEALTHPENALTY)];
+    
+    // If current health level is below 0, then game over
     if ([_healthBar getHealthLevel] <= 0) {
         [self createGameOverSceneWithWin:NO];
     }
 }
 
+// Function to handle case when the scene indicates that the score has changed
 - (void)incrementScore:(int)value
 {
+    // First increment score
     _score += value;
+    
+    // If the score happens to go below 0, reset it back to 0
     if (_score < 0) {
         _score = 0;
     }
     [_gameView updateScore:_score];
 }
 
-// Update the asteroid label on the game view to reflect an increase in asteroids
-// destroyed if on survival mode or decrement aateroids left to destroy if not
-// on survival mode.
+// Function to handle case when the scene indicates that the number of asteroids has changed
 - (void)incrementAsteroid:(int)numAsteroid
 {
-    // If level = -1, we are on survival mode and we increment, otherwise
-    // we decrement the asteroids to destroy.
+    // If survival mode
     if (_level == -1) {
+        
+        // Increment number of asteroids
         _numAsteroid++;
-    } else {
+    }
+    
+    // If campaign mode
+    else {
+        
+        // Decrement number of asteroids
         _numAsteroid--;
     }
+    
+    // Update asteroid count on the view
     [_gameView updateAsteroidCount:_numAsteroid];
 }
 
 // Returns the number of asteroids that must be destroyed in the given level
-- (int)findAsteroidsToDestroy:(int)level
+- (int)determineAsteroidsToDestroy:(int)level
 {
     if (level < 0) {
         return 0;
-    } else if (level < 2) {
+    }
+    else if (level < 2) {
         return 10;
-    } else if (level < 5) {
+    }
+    else if (level < 5) {
         return 12;
-    } else if (level < 8) {
+    }
+    else if (level < 8) {
         return 16;
-    } else if (level < 9) {
+    }
+    else if (level < 9) {
         return 20;
-    } else {
+    }
+    else {
         return 25;
     }
 }
 
-// Function to get a random equation whose solution is not value.
+// Function to handle the case when a wrong answer has been attempted too many times (i.e. 3 times)
 - (Equation*)wrongAnswerAttempt:(Fraction*)value
 {
-    [self incrementScore:-50];
+    // Decrement score by 100
+    [self incrementScore:-100];
+    
+    // Get a random equation
     Equation* randomEquation = [_equationGenerator generateRandomEquation];
     
     // Make sure that we end up with an equation whose solution doesn't match the failed answer attempt
     while ([[randomEquation getSolution] compare:value] == NSOrderedSame) {
         randomEquation = [_equationGenerator generateRandomEquation];
     }
+    
     return randomEquation;
 }
 
 // Gets a random equation from the generator, and then creates an asteroid on the scene
 // with that asteroid on it.
-- (void)createAsteroid:(id)sender
+- (void)createAsteroid
 {
     Equation* randomEquation = [_equationGenerator generateRandomEquation];
     [_scene createAsteroid: randomEquation];
     [_asteroidGenerationTimer invalidate];
     CGFloat rate = _asteroidGenerationTimer.timeInterval;
-    _asteroidGenerationTimer = [NSTimer scheduledTimerWithTimeInterval:rate * 0.98
-                                                                target:self
-                                                              selector:@selector(createAsteroid:)
-                                                              userInfo:nil
-                                                               repeats:YES];
+    _asteroidGenerationTimer = [NSTimer scheduledTimerWithTimeInterval:rate * 0.99
+                                        target:self selector:@selector(createAsteroid)
+                                        userInfo:nil repeats:YES];
 }
 
 // Gets the tag of the pressed button and then fires a laser on the scene with that laser value.
@@ -297,8 +343,8 @@ CGFloat INSET_RATIO = 0.02;
     [_scene fireLaser:selected fromButton:tag];
 }
 
-// Returns our array of operators depending on our current level.
-- (NSArray*)findOperators
+// Function that returns an array of operators depending on current level
+- (NSArray*)determineOperators
 {
     NSMutableArray* operators = [[NSMutableArray alloc] initWithCapacity:1];
     if (_level == 1 || _level == 5 || _level == 8 || _level == 9) {
@@ -325,6 +371,20 @@ CGFloat INSET_RATIO = 0.02;
     }
     
     return operators;
+}
+
+// Function that returns an int specifying difficulty depending on current level
+- (int)determineDifficulty
+{
+    if (_level < 5) {
+        return Easy;
+    }
+    else if (_level < 8) {
+        return Medium;
+    }
+    else {
+        return Hard;
+    }
 }
 
 // Updates the Progress text file to save the progress of the player
@@ -506,9 +566,7 @@ CGFloat INSET_RATIO = 0.02;
     }
     
     [_gameEndView removeFromSuperview];
-    if (_level > 0) {
-        _equationGenerator = [[EquationGenerator alloc] initWithOperators:[self findOperators] andDenominatorLimit:12 andDifficulty:0];
-    }
+
     [self initialize];
 }
 

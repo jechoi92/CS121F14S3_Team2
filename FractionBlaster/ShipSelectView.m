@@ -10,6 +10,20 @@
 
 CGFloat INSET_RATIO;
 
+// Enum object for button tags
+typedef enum {
+    StartTag,
+    BackTag
+}ButtonTags;
+
+// Enum object for ship numbers
+typedef enum {
+    BlueShip,
+    BrownShip,
+    SilverShip,
+    RedShip
+}ShipNumbers;
+
 @implementation ShipSelectView
 {
     UIButton *_startButton;
@@ -31,6 +45,7 @@ CGFloat INSET_RATIO;
     return self;
 }
 
+// Create the back button
 - (void)createBackButton
 {
     CGRect frame = self.frame;
@@ -40,18 +55,26 @@ CGFloat INSET_RATIO;
     CGFloat backButtonWidth = itemWidth;
     CGFloat backButtonX = CGRectGetWidth(frame) * INSET_RATIO;
     CGFloat backButtonY = CGRectGetHeight(frame) * INSET_RATIO;
+    
     CGRect backButtonFrame = CGRectMake(backButtonX, backButtonY, backButtonLength, backButtonWidth);
     UIButton* backButton = [[UIButton alloc] initWithFrame:backButtonFrame];
+    
     [backButton setBackgroundImage:[UIImage imageNamed:@"StartOverIcon"] forState:UIControlStateNormal];
     [[backButton layer] setBorderWidth:2.5f];
     [[backButton layer] setBorderColor:[UIColor blackColor].CGColor];
     [[backButton layer] setCornerRadius:12.0f];
+    
+    // Create target for button
     [backButton addTarget:self action:@selector(buttonSelected:)
          forControlEvents:UIControlEventTouchUpInside];
-    backButton.tag = -1;
+    
+    // Set tag
+    backButton.tag = BackTag;
+    
     [self addSubview:backButton];
 }
 
+// Create the title
 - (void)createTitleImage
 {
     // Get frame and frame dimensions
@@ -66,59 +89,61 @@ CGFloat INSET_RATIO;
     [self addSubview:imageView];
 }
 
+// Create the buttons to select the ships
 - (void)createShipSelectionButtons
 {
     CGFloat buttonSize = CGRectGetWidth(self.frame) / 6.5;
-    // Set the base offset and vertical offset for all of the buttons in the frame
     CGFloat baseOffset = buttonSize / 4;
     CGFloat vertOffset = CGRectGetHeight(self.frame) * 0.5;
-    
     CGFloat xOffset = buttonSize;
     
-    
+    // Create the four selection buttons
     for (int tag = 0; tag < 4; ++tag) {
         // Set up frame and cell and add it to the button sub view
         CGRect cellFrame = CGRectMake(xOffset, vertOffset, buttonSize, buttonSize);
         UIButton *button = [[UIButton alloc] initWithFrame:cellFrame];
+        [button setBackgroundColor:[UIColor grayColor]];
+        
+        // Set the tag appropriately
         button.tag = tag;
-        [self addSubview: button];
         
         switch(tag) {
-            case 0:
+            case BlueShip:
             {
+                // Default select the first button
                 [self setCurrentShipSelected:tag];
-                [button setImage:[UIImage imageNamed:@"blueSpaceShip"] forState:UIControlStateNormal];
                 [button setBackgroundColor:[UIColor whiteColor]];
+                
+                [button setImage:[UIImage imageNamed:@"blueSpaceShip"] forState:UIControlStateNormal];
                 break;
             }
-            case 1:
+            case BrownShip:
             {
                 [button setImage:[UIImage imageNamed:@"brownSpaceShip"] forState:UIControlStateNormal];
-                [button setBackgroundColor:[UIColor grayColor]];
                 break;
             }
-            case 2:
+            case SilverShip:
             {
                 [button setImage:[UIImage imageNamed:@"silverSpaceShip"] forState:UIControlStateNormal];
-                [button setBackgroundColor:[UIColor grayColor]];
                 break;
             }
-            case 3:
+            case RedShip:
             {
                 [button setImage:[UIImage imageNamed:@"redSpaceShip"] forState:UIControlStateNormal];
-                [button setBackgroundColor:[UIColor grayColor]];
                 break;
             }
         }
         
-        // Create target for cell
+        // Create target for button
         [button addTarget:self action:@selector(shipSelected:)
          forControlEvents:UIControlEventTouchUpInside];
         
         // Add the button to the correct spot in the nested arrays
         [_shipSelection insertObject:button atIndex:tag];
         
-        // Update column offset
+        [self addSubview: button];
+        
+        // Increment offset for next button frame
         xOffset += buttonSize + baseOffset;
     }
 }
@@ -132,8 +157,9 @@ CGFloat INSET_RATIO;
     int shipNum = [self currentShipSelected];
     UIButton *oldButton = [_shipSelection objectAtIndex:shipNum];
     
-    int newTag = newButton.tag;
+    int newTag = (int) newButton.tag;
     
+    // Unhighlight the previous selected button and highlight the newly selected button
     [oldButton setBackgroundColor:[UIColor grayColor]];
     [newButton setBackgroundColor:[UIColor whiteColor]];
     
@@ -141,6 +167,7 @@ CGFloat INSET_RATIO;
     [self setCurrentShipSelected:(int)newTag];
 }
 
+// Create the start button
 - (void)createStartButton
 {
     // Get frame and frame dimensions
@@ -148,19 +175,22 @@ CGFloat INSET_RATIO;
     CGFloat width = CGRectGetWidth(frame);
     CGFloat height = CGRectGetHeight(frame);
     
-    // Create start button with the appropriate delegate
     CGRect startButtonFrame = CGRectMake(width * 0.2, height * 0.8, width * 0.6, height * 0.15);
     UIButton *startButton = [[UIButton alloc] initWithFrame:startButtonFrame];
     
+    // Set image for button
     UIImage *image = [UIImage imageNamed:@"launch2.png"];
     [startButton setImage:image forState:UIControlStateNormal];
     
+    // Create target for button
     [startButton addTarget:self action:@selector(buttonSelected:)
           forControlEvents:UIControlEventTouchUpInside];
-    startButton.tag = 0;
+    
+    // Set the tag appropriately
+    startButton.tag = StartTag;
+    
     [self addSubview:startButton];
 }
-
 
 -(void)buttonSelected:(id)sender
 {

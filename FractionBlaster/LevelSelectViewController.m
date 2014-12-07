@@ -8,7 +8,11 @@
 
 #import "LevelSelectViewController.h"
 
-
+// Enum object for button tags
+typedef enum {
+    StartTag,
+    BackTag
+}ButtonTags;
 
 @implementation LevelSelectViewController
 {
@@ -33,15 +37,9 @@
     int tag = (int)button.tag;
     
     switch (tag){
-//        case 0:
-//        {
-//            int currentLevel = [_levelSelectView currentLevelSelected] + 1;
-//            GameViewController *gvc = [[GameViewController alloc]
-//                                       initWithLevel:currentLevel andOperators:NULL];
-//            [self.navigationController pushViewController:gvc animated:YES];
-//            break;
-//        }
-        case 0:
+            
+        // Show ship selection screen
+        case StartTag:
         {
             int currentLevel = [_levelSelectView currentLevelSelected] + 1;
             ShipSelectViewController *svc = [[ShipSelectViewController alloc]
@@ -49,7 +47,9 @@
             [self.navigationController pushViewController:svc animated:YES];
             break;
         }
-        case -1:
+            
+        // Back button was pressed, show previous screen
+        case BackTag:
         {
             [self.navigationController popViewControllerAnimated:YES];
             break;
@@ -58,9 +58,10 @@
 }
 
 // Updates the Progress text file to save the progress of the player
-// after  the player closes and reopens the game
+// after the player closes and reopens the game
 - (int)readProgress
 {
+    // Read the max. unlocked level stored in the progress file
     NSArray *paths = NSSearchPathForDirectoriesInDomains
     (NSDocumentDirectory, NSUserDomainMask, YES);
     NSString *documentsDirectory = [paths objectAtIndex:0];
