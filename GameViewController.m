@@ -313,7 +313,7 @@ typedef enum {
     [self incrementScore:-100];
     
     // Get a random equation
-    Equation* randomEquation = [_equationGenerator generateRandomEquation];
+    Equation *randomEquation = [_equationGenerator generateRandomEquation];
     
     // Make sure that we end up with an equation whose solution doesn't match the failed answer attempt
     while ([[randomEquation getSolution] compare:value] == NSOrderedSame) {
@@ -323,12 +323,14 @@ typedef enum {
     return randomEquation;
 }
 
-// Gets a random equation from the generator, and then creates an asteroid on the scene
-// with that asteroid on it.
+// Create an asteroid for the scene and update the asteroid generation timer
 - (void)createAsteroid
 {
-    Equation* randomEquation = [_equationGenerator generateRandomEquation];
+    // Get an equation from the equation generator and create an asteroid on the scene with this
+    Equation *randomEquation = [_equationGenerator generateRandomEquation];
     [_scene createAsteroid: randomEquation];
+    
+    // Recreate the asteroid generation timer so that asteroids are being generated faster progressively
     [_asteroidGenerationTimer invalidate];
     CGFloat rate = _asteroidGenerationTimer.timeInterval;
     _asteroidGenerationTimer = [NSTimer scheduledTimerWithTimeInterval:rate * 0.99
@@ -336,10 +338,13 @@ typedef enum {
                                         userInfo:nil repeats:YES];
 }
 
-// Gets the tag of the pressed button and then fires a laser on the scene with that laser value.
+// Fires a laser with a selected fraction
 - (void)laserFrequencyChosen:(NSNumber*)buttonTag {
+    // Gets the fraction of the pressed button on the sidebar
     int tag = [buttonTag intValue];
     Fraction* selected = [[Fraction alloc] initWithFraction:[_initialFractions objectAtIndex:tag]];
+    
+    // Fires a laser with this fraction
     [_scene fireLaser:selected fromButton:tag];
 }
 
@@ -373,7 +378,7 @@ typedef enum {
     return operators;
 }
 
-// Function that returns an int specifying difficulty depending on current level
+// Function that returns an int specifying the difficulty depending on current level
 - (int)determineDifficulty
 {
     if (_level < 5) {
@@ -387,49 +392,47 @@ typedef enum {
     }
 }
 
-// Updates the Progress text file to save the progress of the player
-// after  the player closes and reopens the game
+// Update the Progress text file to save the progress of the player
 - (int)readProgress
 {
+    // Reads the max. unlocked level from the progress file
     NSArray *paths = NSSearchPathForDirectoriesInDomains
     (NSDocumentDirectory, NSUserDomainMask, YES);
     NSString *documentsDirectory = [paths objectAtIndex:0];
-    NSString *fileName = [NSString stringWithFormat:@"%@/Progress.txt",
-                          documentsDirectory];
-    NSString *content = [[NSString alloc] initWithContentsOfFile:fileName
-                                                    usedEncoding:nil
-                                                           error:nil];
+    NSString *fileName = [NSString stringWithFormat:@"%@/Progress.txt", documentsDirectory];
+    NSString *content = [[NSString alloc] initWithContentsOfFile:fileName usedEncoding:nil error:nil];
     return [content intValue];
 }
 
-// Writes the highest level beaten so that progress can be saved.
+// Write the highest level beaten so that progress can be saved
 -(void)updateProgress
 {
     NSArray *paths = NSSearchPathForDirectoriesInDomains
     (NSDocumentDirectory, NSUserDomainMask, YES);
     NSString *documentsDirectory = [paths objectAtIndex:0];
-    NSString *fileName = [NSString stringWithFormat:@"%@/Progress.txt",
-                          documentsDirectory];
-    NSString *content = [[NSString alloc] initWithFormat:@"%d", MAX([self readProgress],_level)];
-    [content writeToFile:fileName
-              atomically:NO
-                encoding:NSStringEncodingConversionAllowLossy
-                   error:nil];
+    NSString *fileName = [NSString stringWithFormat:@"%@/Progress.txt", documentsDirectory];
+    
+    // Write the larger value between the current level beaten and the previously max. unlocked level
+    int prevUnlockedLevel = [self readProgress];
+    NSString *content = [[NSString alloc] initWithFormat:@"%d", MAX(prevUnlockedLevel,_level)];
+    [content writeToFile:fileName atomically:NO encoding:NSStringEncodingConversionAllowLossy error:nil];
 }
 
-// Function to update high scores, if any are changed.
+// Function to update high scores, if any are changed
 -(void)updateHighScores
 {
     NSArray* currentHighScores = [self loadHighScores];
     NSString* lowestScoreString = [currentHighScores objectAtIndex:4];
     int lowestScore = [self getScoreFromString:lowestScoreString];
     
-    // If our score is greater than the lowest highscore, then first ask for username.
+    // If our score is greater than the lowest highscore, then update high scores
     if (_score > lowestScore) {
+        // First request username
         [self requestUserName];
     }
 }
 
+// Parse the score from a score string (i.e. string that contains score and username)
 -(int)getScoreFromString:(NSString*)scoreString
 {
     return [[scoreString substringToIndex:7] intValue];
@@ -438,14 +441,12 @@ typedef enum {
 // Read highscores from text file, return array of 5 scores.
 -(NSArray*) loadHighScores
 {
+    // Read in the string
     NSArray *paths = NSSearchPathForDirectoriesInDomains
     (NSDocumentDirectory, NSUserDomainMask, YES);
     NSString *documentsDirectory = [paths objectAtIndex:0];
-    NSString *fileName = [NSString stringWithFormat:@"%@/HighScores.txt",
-                          documentsDirectory];
-    NSString *content = [[NSString alloc] initWithContentsOfFile:fileName
-                                                    usedEncoding:nil
-                                                           error:nil];
+    NSString *fileName = [NSString stringWithFormat:@"%@/HighScores.txt", documentsDirectory];
+    NSString *content = [[NSString alloc] initWithContentsOfFile:fileName usedEncoding:nil error:nil];
     
     // If there is no such text file, then set it by default.
     if (content == NULL) {
@@ -453,22 +454,21 @@ typedef enum {
     }
     NSMutableArray* scores = [[NSMutableArray alloc] initWithCapacity:5];
     
-    // Store into an array.
+    // Parse the entire string and store the separate strings into an array to return
     for (int i = 0; i < 5; i++) {
         NSString* score = [content substringWithRange:NSMakeRange(11 * i, 10)];
         [scores addObject:score];
     }
+    
     return [[NSArray alloc] initWithArray:scores];
 }
 
-// Prompts user for username, to store for highscore.
+// Prompts user for username to store for highscore
 -(void)requestUserName
 {
     UIAlertView* alert = [[UIAlertView alloc] initWithTitle:@"High Score!"
-                                                    message:@"Enter your initials! (3 alphabets)"
-                                                   delegate:self
-                                          cancelButtonTitle:nil
-                                          otherButtonTitles:@"OK", nil];
+                            message:@"Enter your initials! (3 alphabets)" delegate:self
+                            cancelButtonTitle:nil otherButtonTitles:@"OK", nil];
     alert.alertViewStyle = UIAlertViewStylePlainTextInput;
     [alert show];
 }
@@ -477,10 +477,12 @@ typedef enum {
 - (void)alertView:(UIAlertView *)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex
 {
     NSString* name = [alertView textFieldAtIndex:0].text;
+    
+    // If the user input is 3 characters long, then write it
     if ([name length] == 3) {
         [self writeScore:[name uppercaseString]];
     }
-    // If user does not input a 3 character long string, then request again.
+    // If not, then request again
     else {
         [self requestUserName];
     }
@@ -489,20 +491,25 @@ typedef enum {
 // Writes the new highscore with the username.
 -(void)writeScore: (NSString*)name
 {
+    // Get all previous high scores
     NSMutableArray* currentHighScores = [[NSMutableArray alloc] initWithArray:[self loadHighScores]];
+    
+    // Create the string in the necessary format for storing
     NSString* scoreString = [NSString stringWithFormat:@"%007d", _score];
     NSString* scoreAndNameString = [[NSString alloc] initWithFormat:@"%@%@", scoreString, name];
     
     // Loop to insert the new high score in the array depending on its score.
     for (int i = 0; i < 5; i++) {
         NSString* currentScoreString = [currentHighScores objectAtIndex:i];
+        
+        // If the new score is larger, then insert it
         if (_score > [self getScoreFromString:currentScoreString]) {
             [currentHighScores insertObject:scoreAndNameString atIndex:i];
             break;
         }
     }
     
-    // Creates an output string from the array to write it onto a txt file.
+    // Creates an output string from the array by taking the 5 highest scores to write it onto a txt file.
     NSMutableString* output = [[NSMutableString alloc] initWithString:@""];
     for (int j = 0; j < 5; j++) {
         NSString* scoreString = [currentHighScores objectAtIndex:j];
@@ -514,59 +521,73 @@ typedef enum {
     NSArray *paths = NSSearchPathForDirectoriesInDomains
     (NSDocumentDirectory, NSUserDomainMask, YES);
     NSString *documentsDirectory = [paths objectAtIndex:0];
-    NSString *fileName = [NSString stringWithFormat:@"%@/HighScores.txt",
-                          documentsDirectory];
-    [output writeToFile:fileName
-             atomically:NO
-               encoding:NSStringEncodingConversionAllowLossy
-                  error:nil];
+    NSString *fileName = [NSString stringWithFormat:@"%@/HighScores.txt", documentsDirectory];
+    [output writeToFile:fileName atomically:NO encoding:NSStringEncodingConversionAllowLossy error:nil];
 }
 
-// Creates the gameEndView.
+// Creates the game end screen
 -(void)createGameEndView:(BOOL)win
 {
     CGRect frame = self.view.frame;
     CGFloat width = CGRectGetWidth(frame);
     CGFloat height = CGRectGetHeight(frame);
+    
     CGRect gameEndViewFrame = CGRectMake(0, 0, width, height);
     _gameEndView = [[GameEndView alloc] initWithFrame:gameEndViewFrame withLevel:_level andScore:_score andWin:win];
+    
+    // Set delegate appropriately
     [_gameEndView setDelegate:self];
+    
+    // Bring the game end screen to the front
     [self.view addSubview:_gameEndView];
     [self.view sendSubviewToBack:_gameView];
 }
 
-// Creates the gameEndView when we have finished the game.
+// Creates the game end screen when we have beat the game (i.e. lvl 10)
 -(void)createGameEndViewVictory
 {
     CGRect frame = self.view.frame;
     CGFloat width = CGRectGetWidth(frame);
     CGFloat height = CGRectGetHeight(frame);
+    
     CGRect gameEndViewFrame = CGRectMake(0, 0, width, height);
     _gameEndView = [[GameEndView alloc] initWithFrameVictory:gameEndViewFrame];
+    
+    // Set delegate appropriately
     [_gameEndView setDelegate:self];
+    
+    // Bring the game end screen to the front
     [self.view addSubview:_gameEndView];
     [self.view sendSubviewToBack:_gameView];
 }
 
-// Back button to main menu.
+// Move back to main menu
 -(void)backToMainMenu
 {
     [self cleanup];
     [self.navigationController popToRootViewControllerAnimated:YES];
 }
 
-// Reload the gameVC with the next level if won, or a score of 0 if lost.
+// Function to reload the gameVC
 -(void)backToGameWithNextLevel:(BOOL)won
 {
+    // If the user has won
     if (won){
+        
+        // Increment the level
         ++_level;
     }
+    
+    // If the user has lost and is trying again
     else {
+        
+        // Reset the score to 0
         _score = 0;
     }
     
     [_gameEndView removeFromSuperview];
-
+    
+    // Run the initialization process again
     [self initialize];
 }
 

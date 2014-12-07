@@ -25,6 +25,8 @@
     _args2 = args2;
     _value = args1;
     _operator = operator;
+    
+    // Determine the solution of the equation depending on the arguments and the operator
     switch (operator) {
         case '+':
             _value = [[Fraction alloc] initWithFraction: [args1 add:args2]];
@@ -42,6 +44,7 @@
             _value = [[Fraction alloc] initWithFraction: args1];
             break;
     }
+    
     return self;
 }
 

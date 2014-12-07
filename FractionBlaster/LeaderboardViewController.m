@@ -43,11 +43,8 @@ CGFloat INSET_RATIO;
     NSArray *paths = NSSearchPathForDirectoriesInDomains
     (NSDocumentDirectory, NSUserDomainMask, YES);
     NSString *documentsDirectory = [paths objectAtIndex:0];
-    NSString *fileName = [NSString stringWithFormat:@"%@/HighScores.txt",
-                          documentsDirectory];
-    NSString *content = [[NSString alloc] initWithContentsOfFile:fileName
-                                                    usedEncoding:nil
-                                                           error:nil];
+    NSString *fileName = [NSString stringWithFormat:@"%@/HighScores.txt", documentsDirectory];
+    NSString *content = [[NSString alloc] initWithContentsOfFile:fileName usedEncoding:nil error:nil];
     
     // If there is no such text file, then set it as below by default
     if (content == NULL) {
@@ -55,7 +52,7 @@ CGFloat INSET_RATIO;
     }
     NSMutableArray *scores = [[NSMutableArray alloc] initWithCapacity:5];
     
-    // Store the strings into an array to return
+    // Parse the entire string and store the separate strings into an array to return
     for (int i = 0; i < 5; i++) {
         NSString *score = [content substringWithRange:NSMakeRange(11 * i, 10)];
         [scores addObject:score];
