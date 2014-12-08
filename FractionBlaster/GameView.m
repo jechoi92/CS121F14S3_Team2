@@ -12,11 +12,8 @@ CGFloat INSET_RATIO;
 
 @implementation GameView
 {
-    UIButton* _backButton;
-    UILabel* _asteroidTextLabel;
-    UILabel* _scoreValueLabel;
-    UILabel* _asteroidValueLabel;
-    UIImageView* _container;
+    UILabel *_scoreValueLabel;
+    UILabel *_asteroidValueLabel;
 }
 
 - (id)initWithFrame:(CGRect)frame andAsteroidCount:(int)numAsteroids andScore:(int)score
@@ -40,18 +37,20 @@ CGFloat INSET_RATIO;
     CGFloat backButtonY = CGRectGetHeight(frame) * INSET_RATIO;
     CGRect backButtonFrame = CGRectMake(backButtonX, backButtonY, itemWidth, itemWidth);
     
-    _backButton = [[UIButton alloc] initWithFrame:backButtonFrame];
-    [_backButton setBackgroundImage:[UIImage imageNamed:@"StartOverIcon"] forState:UIControlStateNormal];
-    [[_backButton layer] setBorderWidth:2.5f];
-    [[_backButton layer] setBorderColor:[UIColor blackColor].CGColor];
-    [[_backButton layer] setCornerRadius:12.0f];
+    UIButton *backButton = [[UIButton alloc] initWithFrame:backButtonFrame];
+    [backButton setBackgroundImage:[UIImage imageNamed:@"StartOverIcon"] forState:UIControlStateNormal];
+    [[backButton layer] setBorderWidth:2.5f];
+    [[backButton layer] setBorderColor:[UIColor blackColor].CGColor];
+    [[backButton layer] setCornerRadius:12.0f];
     
-    [_backButton addTarget:self action:@selector(backButtonPressed)
+    // Create target for button
+    [backButton addTarget:self action:@selector(backButtonPressed)
           forControlEvents:UIControlEventTouchUpInside];
     
-    [self addSubview:_backButton];
+    [self addSubview:backButton];
 }
 
+// Create the frame for the labels aesthetic purposes
 - (void)addScoreAndAsteroidContainer
 {
     CGFloat frameWidth = CGRectGetWidth(self.frame);
@@ -59,13 +58,11 @@ CGFloat INSET_RATIO;
     CGFloat labelHeight = MIN(frameWidth, frameHeight) / 10;
     CGFloat posX = frameWidth * 0.8;
     
-    // Create label with "Score" text
-    CGRect scoreTextFrame = CGRectMake(posX, 0, labelHeight * 2, labelHeight);
+    CGRect containerFrame = CGRectMake(posX, 0, labelHeight * 2, labelHeight);
+    UIImageView *container = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"stats_holder.png"]];
+    [container setFrame:containerFrame];
     
-    _container = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"stats_holder.png"]];
-    [_container setFrame:scoreTextFrame];
-    
-    [self addSubview:_container];
+    [self addSubview:container];
 }
 
 // Create all the labels for the view
@@ -85,23 +82,24 @@ CGFloat INSET_RATIO;
     CGFloat textX = frameWidth * 0.83;
     CGFloat valueX = frameWidth * 0.95;
     
-    // Create label with "Score" text
+    // Create label with "Asteroids" text
     CGRect asteroidTextFrame = CGRectMake(textX, labelY, labelHeight * 2, labelHeight);
+    UILabel *asteroidTextLabel = [[UILabel alloc] initWithFrame:asteroidTextFrame];
     
-    _asteroidTextLabel = [[UILabel alloc] initWithFrame:asteroidTextFrame];
+    [asteroidTextLabel setText:@"Asteroids"];
+    [asteroidTextLabel setTextColor:[UIColor whiteColor]];
+    [asteroidTextLabel setFont: [UIFont fontWithName:@"HelveticaNeue-Bold" size:18.0f]];
     
-    [_asteroidTextLabel setText:@"Asteroids"];
-    [_asteroidTextLabel setTextColor:[UIColor whiteColor]];
-    [_asteroidTextLabel setFont: [UIFont fontWithName:@"HelveticaNeue-Bold" size:18.0f]];
-    [self addSubview:_asteroidTextLabel];
+    [self addSubview:asteroidTextLabel];
     
-    // Create label with player's actual current score value
+    // Create label with the asteroids value
     CGRect asteroidValueFrame = CGRectMake(valueX, labelY, labelHeight * 2, labelHeight);
     _asteroidValueLabel = [[UILabel alloc] initWithFrame:asteroidValueFrame];
     
     [_asteroidValueLabel setText:[NSString stringWithFormat:@"%d", numAsteroids]];
     [_asteroidValueLabel setTextColor:[UIColor whiteColor]];
     [_asteroidValueLabel setFont: [UIFont fontWithName:@"HelveticaNeue-Bold" size:18.0f]];
+    
     [self addSubview:_asteroidValueLabel];
 }
 
@@ -116,15 +114,14 @@ CGFloat INSET_RATIO;
     
     // Create label with "Score" text
     CGRect scoreTextFrame = CGRectMake(textX, 0, labelHeight * 2, labelHeight);
+    UILabel *scoreTextLabel = [[UILabel alloc] initWithFrame:scoreTextFrame];
     
-    _asteroidTextLabel = [[UILabel alloc] initWithFrame:scoreTextFrame];
+    [scoreTextLabel setText:@"Score"];
+    [scoreTextLabel setTextColor:[UIColor whiteColor]];
+    [scoreTextLabel setFont: [UIFont fontWithName:@"HelveticaNeue-Bold" size:18.0f]];
+    [self addSubview:scoreTextLabel];
     
-    [_asteroidTextLabel setText:@"Score"];
-    [_asteroidTextLabel setTextColor:[UIColor whiteColor]];
-    [_asteroidTextLabel setFont: [UIFont fontWithName:@"HelveticaNeue-Bold" size:18.0f]];
-    [self addSubview:_asteroidTextLabel];
-    
-    // Create label with player's actual current score value
+    // Create label with the score value
     CGRect scoreValueFrame = CGRectMake(valueX, 0, labelHeight * 2, labelHeight);
     _scoreValueLabel = [[UILabel alloc] initWithFrame:scoreValueFrame];
     
@@ -134,31 +131,30 @@ CGFloat INSET_RATIO;
     [self addSubview:_scoreValueLabel];
 }
 
-// Update the text of the score value label upon score changes
+// Update the text of the score value label
 - (void)updateScore:(int)score
 {
     [_scoreValueLabel setText:[NSString stringWithFormat:@"%007d", score]];
 }
 
-// Update the text of the score value label upon score changes
+// Update the text of the asteroid value label
 - (void)updateAsteroidCount:(int)numAsteroid
 {
     [_asteroidValueLabel setText:[NSString stringWithFormat:@"%d", numAsteroid]];
 }
 
-// Selector for the back button
+// Function to go back to main menu
 - (void)backButtonPressed
 {
     UIAlertView* alert = [[UIAlertView alloc] initWithTitle:@""
-                                                    message:@"Go back to main menu? Your progress will be lost!"
-                                                   delegate:self
-                                          cancelButtonTitle:nil
-                                          otherButtonTitles:nil];
+                                message:@"Go back to main menu? Your progress will be lost!"
+                                delegate:self cancelButtonTitle:nil otherButtonTitles:nil];
     [alert addButtonWithTitle:@"Yes"];
     [alert addButtonWithTitle:@"Cancel"];
     [alert show];
 }
 
+// Alertview function for confirming going back to main menu
 - (void)alertView:(UIAlertView *)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex
 {
     // Yes, go back to main menu
@@ -166,6 +162,5 @@ CGFloat INSET_RATIO;
         [self.delegate backToMainMenu];
     }
 }
-
 
 @end

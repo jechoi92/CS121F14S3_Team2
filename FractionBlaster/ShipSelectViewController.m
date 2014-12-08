@@ -8,6 +8,11 @@
 
 #import "ShipSelectViewController.h"
 
+// Enum object for button tags
+typedef enum {
+    StartTag,
+    BackTag
+}ButtonTags;
 
 @implementation ShipSelectViewController
 {
@@ -16,6 +21,7 @@
     int _level;
 }
 
+// Function to relay information about level and operators to GameVC
 - (id)initWithLevel:(int)level andOperators:(NSArray*)operators
 {
     self = [super init];
@@ -29,40 +35,38 @@
 {
     [super viewDidLoad];
     
-    // Add the subview
+    // Set up the view and delegate
     _shipSelectView = [[ShipSelectView alloc] initWithFrame:self.view.frame];
     [_shipSelectView setDelegate:self];
     [self.view addSubview: _shipSelectView];
 }
 
+// Function to perform action according to button selected
 - (void)buttonSelected:(id)sender
 {
-    // Figure out button navigation
+    // Figure out which button was selected
     UIButton *button = (UIButton *)sender;
     int tag = (int)button.tag;
     
     switch (tag) {
-        case 0:
+        
+        // Start game
+        case StartTag:
         {
+            // Determine which ship was selected
             int shipNum = [_shipSelectView currentShipSelected];
-            if (_level == -1) {
-                
-                GameViewController *gvc = [[GameViewController alloc]
+            
+            // Create the game
+            GameViewController *gvc = [[GameViewController alloc]
                                            initWithLevel:_level
                                            andOperators:_operators
                                            andShipNumber:shipNum];
-                [self.navigationController pushViewController:gvc animated:YES];
-                break;
-            } else {
-                GameViewController *gvc = [[GameViewController alloc]
-                                           initWithLevel:_level
-                                           andOperators:_operators
-                                           andShipNumber:shipNum];
-                [self.navigationController pushViewController:gvc animated:YES];
-                break;
-            }
+            [self.navigationController pushViewController:gvc animated:YES];
+            break;
         }
-        case -1:
+            
+        // Back button selected, move to previous screen
+        case BackTag:
         {
             [self.navigationController popViewControllerAnimated:YES];
             break;

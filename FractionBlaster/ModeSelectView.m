@@ -10,6 +10,13 @@
 
 CGFloat INSET_RATIO;
 
+// Enum object for button tags
+typedef enum {
+    LevelSelectTag,
+    OperatorSelectTag,
+    BackTag
+}ButtonTags;
+
 @implementation ModeSelectView
 
 - (id)initWithFrame:(CGRect)frame
@@ -24,6 +31,7 @@ CGFloat INSET_RATIO;
     return self;
 }
 
+// Create selection buttons for the two modes i.e. campaign and survival
 - (void)createSelectionButtons
 {
     CGFloat buttonWidth = CGRectGetWidth(self.frame) * 0.6;
@@ -31,12 +39,13 @@ CGFloat INSET_RATIO;
     CGFloat xOffset = CGRectGetWidth(self.frame) * 0.2;
     CGFloat yOffset = CGRectGetHeight(self.frame) * 0.3;
     
+    // Create the two buttons
     for (int i = 0; i < 2; ++i){
         CGRect buttonFrame = CGRectMake(xOffset, yOffset, buttonWidth, buttonHeight);
         
         UIButton *button = [[UIButton alloc] initWithFrame:buttonFrame];
         
-        // Create target for cell
+        // Create target for buttons
         [button addTarget:self action:@selector(buttonSelected:)
          forControlEvents:UIControlEventTouchUpInside];
         
@@ -46,36 +55,41 @@ CGFloat INSET_RATIO;
         [[button layer] setBorderColor:[UIColor whiteColor].CGColor];
         [[button layer] setCornerRadius:18.0f];
         
-        // Set up title
-        switch (i){
-            case 0:
+        // Set up tag to determine action accordingly when button selected
+        button.tag = i;
+        
+        // Set up titles for each button
+        switch (button.tag){
+            case LevelSelectTag:
                 [button setTitle:@"Campaign Mode" forState:UIControlStateNormal];
+                
                 break;
-            case 1:
+            case OperatorSelectTag:
                 [button setTitle:@"Survival Mode" forState:UIControlStateNormal];
                 break;
         }
-        button.tag = i;
         
-        // This creates the border around the button
+        // Create background image for button
         UIImageView *background = [[UIImageView alloc] initWithFrame:buttonFrame];
         background.image = [UIImage imageNamed:@"menuBorder"];
         
-        yOffset += buttonHeight * 3;
-        
         [self addSubview:background];
         [self addSubview:button];
+        
+        // Increment offset for the next button frame
+        yOffset += buttonHeight * 3;
     }
 }
 
+// Create description labels for each mode
 - (void)createLabels
 {
-    // TODO?: Make these non-magic
     CGFloat labelWidth = CGRectGetWidth(self.frame) * 0.6;
     CGFloat labelHeight = CGRectGetHeight(self.frame) * 0.3;
     CGFloat xOffset = CGRectGetWidth(self.frame) * 0.2;
     CGFloat yOffset = CGRectGetHeight(self.frame) * 0.3;
     
+    // Create the two labels
     for (int i = 0; i < 2; ++i){
         CGRect labelFrame = CGRectMake(xOffset, yOffset, labelWidth, labelHeight);
         
@@ -83,11 +97,11 @@ CGFloat INSET_RATIO;
         label.numberOfLines = 3;
         label.textAlignment = NSTextAlignmentCenter;
         
-        // Create target for cell
+        // Create target for buttons
         [label setFont:[UIFont fontWithName:@"SpaceAge" size:24.0f]];
         [label setTextColor:[UIColor whiteColor]];
         
-        // Set up title
+        // Set titles for each button
         switch (i){
             case 0:
                 [label setText:@"Play the campaign to complete all missions and save Earth!"];
@@ -98,10 +112,13 @@ CGFloat INSET_RATIO;
         }
         
         [self addSubview:label];
+        
+        // Increment offset for the next label frame
         yOffset += labelHeight ;
     }
 }
 
+// Create the back button
 - (void)createBackButton
 {
     CGFloat size = MIN(CGRectGetWidth(self.frame), CGRectGetHeight(self.frame));
@@ -110,15 +127,21 @@ CGFloat INSET_RATIO;
     CGFloat backButtonWidth = itemWidth;
     CGFloat backButtonX = CGRectGetWidth(self.frame) * INSET_RATIO;
     CGFloat backButtonY = CGRectGetHeight(self.frame) * INSET_RATIO;
+    
     CGRect backButtonFrame = CGRectMake(backButtonX, backButtonY, backButtonLength, backButtonWidth);
+    
     UIButton *backButton = [[UIButton alloc] initWithFrame:backButtonFrame];
+    
     [backButton setBackgroundImage:[UIImage imageNamed:@"StartOverIcon"] forState:UIControlStateNormal];
     [[backButton layer] setBorderWidth:2.5f];
     [[backButton layer] setBorderColor:[UIColor blackColor].CGColor];
     [[backButton layer] setCornerRadius:12.0f];
+    
     [backButton addTarget:self action:@selector(buttonSelected:)
           forControlEvents:UIControlEventTouchUpInside];
-    backButton.tag = 2;
+    
+    // Set the tag accordingly
+    backButton.tag = BackTag;
     [self addSubview:backButton];
 }
 

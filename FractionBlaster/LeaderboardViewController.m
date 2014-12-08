@@ -10,7 +10,6 @@
 
 CGFloat INSET_RATIO;
 
-
 @implementation LeaderboardViewController {
     LeaderboardView *_leaderboardView;
 }
@@ -18,13 +17,17 @@ CGFloat INSET_RATIO;
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    // Set up the view and delegate
     _leaderboardView = [[LeaderboardView alloc] initWithFrame:self.view.frame];
     [_leaderboardView setDelegate:self];
     [self.view addSubview:_leaderboardView];
+    
+    // Set the labels in the view
     [self setLabels];
 }
 
-// Read in highscores and set labels accordingly.
+// Read in highscores and set labels accordingly
 - (void)setLabels
 {
     NSArray *scores = [self loadHighScores];
@@ -33,25 +36,23 @@ CGFloat INSET_RATIO;
     }
 }
 
-// Read highscores from text file, return array of 5 scores.
+// Read highscores from text file, return array of 5 scores
 - (NSArray*)loadHighScores
 {
+    // Read in the scores
     NSArray *paths = NSSearchPathForDirectoriesInDomains
     (NSDocumentDirectory, NSUserDomainMask, YES);
     NSString *documentsDirectory = [paths objectAtIndex:0];
-    NSString *fileName = [NSString stringWithFormat:@"%@/HighScores.txt",
-                          documentsDirectory];
-    NSString *content = [[NSString alloc] initWithContentsOfFile:fileName
-                                                    usedEncoding:nil
-                                                           error:nil];
+    NSString *fileName = [NSString stringWithFormat:@"%@/HighScores.txt", documentsDirectory];
+    NSString *content = [[NSString alloc] initWithContentsOfFile:fileName usedEncoding:nil error:nil];
     
-    // If there is no such text file, then set it by default.
+    // If there is no such text file, then set it as below by default
     if (content == NULL) {
         content = @"0000000   \n0000000   \n0000000   \n0000000   \n0000000   \n";
     }
     NSMutableArray *scores = [[NSMutableArray alloc] initWithCapacity:5];
     
-    // Store into an array.
+    // Parse the entire string and store the separate strings into an array to return
     for (int i = 0; i < 5; i++) {
         NSString *score = [content substringWithRange:NSMakeRange(11 * i, 10)];
         [scores addObject:score];
