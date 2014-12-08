@@ -51,8 +51,7 @@ typedef enum {
     CGFloat buttonWidth = CGRectGetWidth(self.frame) * 0.6;
     CGFloat buttonHeight = CGRectGetHeight(self.frame) * 0.05;
     CGFloat xOffset = CGRectGetWidth(self.frame) * 0.2;
-    CGFloat yOffset = CGRectGetHeight(self.frame) * 0.42;
-    
+    CGFloat yOffset = CGRectGetHeight(self.frame) * 0.52;
     
     // Create the four buttons
     for (int i = 0; i < 4; ++i) {

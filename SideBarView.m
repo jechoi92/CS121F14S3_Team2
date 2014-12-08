@@ -83,6 +83,8 @@ int TOTAL_INITIAL_FRACTIONS;
         [dividor setText:@"__"];
         [self addSubview:dividor];
         
+        //[backgroundButton setTitle:line forState:UIControlStateNormal];
+        
         // Add the button to the screen
        // [self addSubview:backgroundButton];
         [self addSubview:currentButton];
@@ -113,7 +115,7 @@ int TOTAL_INITIAL_FRACTIONS;
     
     // Create the label to reperesent the fraction numerator and denominator
     // as opposed to setting the button title
-    UILabel *numAndDen = [[UILabel alloc] initWithFrame:cell.frame];
+    UILabel *numAndDen = [[UILabel alloc] initWithFrame:button.frame];
     numAndDen.numberOfLines = 2;
     numAndDen.textAlignment = NSTextAlignmentCenter;
     [numAndDen setFont:[UIFont fontWithName:@"HelveticaNeue-Bold" size:20.0f]];

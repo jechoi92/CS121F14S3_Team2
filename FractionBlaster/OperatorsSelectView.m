@@ -379,6 +379,16 @@ typedef enum {
         }
     }
     
+    
+    
+    // Enable/disable start button
+    [self updateStartButton];
+}
+
+// Functiont that sets the enabled property of the start button
+- (void)updateStartButton
+{
+    // If there are no operators selected, disable
     if ([_operatorsSelected count] == 0) {
         [_startButton setEnabled:NO];
     }
