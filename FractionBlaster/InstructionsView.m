@@ -58,7 +58,7 @@ CGFloat BASE_OFFSET_PCT = (float)1/21;
  *   INSTRUCTIONS INITIALIZATION   *
  ***********************************/
 
-- (CGRect)createInstrFrame
+- (void)createInstrText
 {
     // Get frame size
     CGFloat frameWidth = CGRectGetWidth(self.frame);
@@ -71,24 +71,10 @@ CGFloat BASE_OFFSET_PCT = (float)1/21;
     CGFloat instrWidth = frameWidth * instrWidthRatio;
     
     // Y Offset has enough room for the height and the buffer
-    CGFloat baseYOffset = BASE_OFFSET_PCT * frameHeight;
+    CGFloat yOffset = 0.25 * frameHeight;
     CGFloat xOffset = (frameWidth - instrWidth)/2;
-    
-    return CGRectMake(xOffset, baseYOffset, instrWidth, instrHeight);
-}
 
-- (void)createInstrText
-{
-    // Create standard subview frame
-    CGRect instrFrame = [self createInstrFrame];
-    
-    // Make room for two instr frames: gif and self
-    CGFloat yFromBottom = 2 * CGRectGetMaxY(instrFrame);
-    CGFloat yOffset = CGRectGetHeight(self.frame) - yFromBottom;
-    
-    // Get difference in offsets so we can use CGRectOffset
-    CGFloat extraYOffset = yOffset - CGRectGetMinY(instrFrame);
-    CGRect textViewFrame = CGRectOffset(instrFrame, 0, extraYOffset);
+    CGRect textViewFrame = CGRectMake(xOffset, yOffset, instrWidth, instrHeight);
 
     // Text container creation
     _instrTextView = [[UITextView alloc] initWithFrame:textViewFrame];
@@ -104,21 +90,30 @@ CGFloat BASE_OFFSET_PCT = (float)1/21;
 
 - (void)createInstrGif
 {
-    // Create standard subview frame
-    CGRect instrFrame = [self createInstrFrame];
+    // Get the gif corresponding to the current step
+    NSString *filename = [NSString stringWithFormat:@"instructions-%d", _instrStep];
     
-    // Make room for self
-    CGFloat yOffset = CGRectGetHeight(self.frame) - CGRectGetMaxY(instrFrame);
+    NSURL *gifURL2 = [[NSBundle mainBundle]
+                      URLForResource:filename withExtension:@"gif"];
     
-    // Get difference in offsets so we can use CGRectOffset
-    CGFloat extraYOffset = yOffset - CGRectGetMinY(instrFrame);
-    CGRect gifFrame = CGRectOffset(instrFrame, 0, extraYOffset);
+    // Convert the gif to an img
+    UIImage *instrImg = [UIImage animatedImageWithAnimatedGIFURL:(NSURL *)gifURL2];
     
-    // Create view
+    // Get image dimensions for height and width
+    CGSize imgDimensions = [instrImg size];
+    CGFloat imgWidth = imgDimensions.width;
+    CGFloat imgHeight = imgDimensions.height;
+    
+    // Center image horizotally
+    CGFloat imgXOff = (CGRectGetWidth(self.frame) - imgWidth) / 2;
+    
+    // Hard-coded y off? TODO: Magic number
+    CGFloat imgYOff = 0.5 * CGRectGetHeight(self.frame);
+    
+    // Create view with image
+    CGRect gifFrame = CGRectMake(imgXOff, imgYOff, imgWidth, imgHeight);
     _instrGifView = [[UIImageView alloc] initWithFrame:gifFrame];
-    
-    // Set gif image
-    [self setGifInstruction:_instrStep];
+    [_instrGifView setImage:instrImg];
     
     [self addSubview:_instrGifView];
 }
@@ -235,13 +230,26 @@ CGFloat BASE_OFFSET_PCT = (float)1/21;
 {
     // Get the gif corresponding to the current step
     NSString *filename = [NSString stringWithFormat:@"instructions-%d", step];
+    
     NSURL *gifURL2 = [[NSBundle mainBundle]
                       URLForResource:filename withExtension:@"gif"];
     
     // Convert the gif to an img
     UIImage *instrImg = [UIImage animatedImageWithAnimatedGIFURL:(NSURL *)gifURL2];
     
-    // Add subview 
+    // Get height and width for new img
+    CGSize imgDimensions = [instrImg size];
+    CGFloat imgWidth = imgDimensions.width;
+    CGFloat imgHeight = imgDimensions.height;
+    
+    // Center image horizotally
+    CGFloat imgXOff = (CGRectGetWidth(self.frame) - imgWidth) / 2;
+    
+    // TODO: is _instrGifView... good style?
+    CGRect newFrame = CGRectMake(imgXOff, _instrGifView.frame.origin.y, imgWidth, imgHeight);
+    [_instrGifView setFrame:newFrame];
+    
+    // Set the image
     [_instrGifView setImage:instrImg];
 }
 
