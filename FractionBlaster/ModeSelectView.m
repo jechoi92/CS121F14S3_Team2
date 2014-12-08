@@ -50,6 +50,7 @@ CGFloat INSET_RATIO;
         switch (i){
             case 0:
                 [button setTitle:@"Campaign Mode" forState:UIControlStateNormal];
+                
                 break;
             case 1:
                 [button setTitle:@"Survival Mode" forState:UIControlStateNormal];

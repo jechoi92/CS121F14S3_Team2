@@ -42,7 +42,7 @@
     CGFloat buttonWidth = CGRectGetWidth(self.frame) * 0.6;
     CGFloat buttonHeight = CGRectGetHeight(self.frame) * 0.05;
     CGFloat xOffset = CGRectGetWidth(self.frame) * 0.2;
-    CGFloat yOffset = CGRectGetHeight(self.frame) * 0.4;
+    CGFloat yOffset = CGRectGetHeight(self.frame) * 0.42;
     
     
     for (int i = 0; i < 4; ++i) {
@@ -69,8 +69,9 @@
                 break;
             case 3:
                 title = @"credits";
-                [button setTitle:@"Credits" forState:UIControlStateNormal];
-                [button.titleLabel setFont: [UIFont fontWithName:@"HelveticaNeue-Bold" size:36.0f]];
+                
+                //[button setTitle:@"Credits" forState:UIControlStateNormal];
+                //[button.titleLabel setFont: [UIFont fontWithName:@"HelveticaNeue-Bold" size:36.0f]];
                 break;
             default:
                 break;
@@ -95,10 +96,13 @@
     CGFloat pipeHeight = CGRectGetHeight(self.frame) * 0.2;
     CGFloat pipexOffset1 = CGRectGetWidth(self.frame) * 0.3;
     CGFloat pipexOffset2 = CGRectGetWidth(self.frame) * 0.6;
-    CGFloat pipeyOffset = CGRectGetHeight(self.frame) * 0.55;
+    CGFloat pipeyOffset1 = CGRectGetHeight(self.frame) * 0.57;
+    CGFloat pipeyOffset2 = CGRectGetHeight(self.frame) * 0.7;
     
-    CGRect pipeFrame1 = CGRectMake(pipexOffset1, pipeyOffset, pipeWidth, pipeHeight);
-    CGRect pipeFrame2 = CGRectMake(pipexOffset2, pipeyOffset, pipeWidth, pipeHeight);
+    CGRect pipeFrame1 = CGRectMake(pipexOffset1, pipeyOffset1, pipeWidth, pipeHeight);
+    CGRect pipeFrame2 = CGRectMake(pipexOffset2, pipeyOffset1, pipeWidth, pipeHeight);
+    CGRect pipeFrame3 = CGRectMake(pipexOffset1, pipeyOffset2, pipeWidth, pipeHeight);
+    CGRect pipeFrame4 = CGRectMake(pipexOffset2, pipeyOffset2, pipeWidth, pipeHeight);
     
     UIImageView *pipe1 = [[UIImageView alloc] initWithFrame:pipeFrame1];
     pipe1.image = [UIImage imageNamed:@"pipe"];
@@ -106,10 +110,20 @@
     UIImageView *pipe2 = [[UIImageView alloc] initWithFrame:pipeFrame2];
     pipe2.image = [UIImage imageNamed:@"pipe"];
     
+    UIImageView *pipe3 = [[UIImageView alloc] initWithFrame:pipeFrame3];
+    pipe3.image = [UIImage imageNamed:@"pipe"];
+    
+    UIImageView *pipe4 = [[UIImageView alloc] initWithFrame:pipeFrame4];
+    pipe4.image = [UIImage imageNamed:@"pipe"];
+    
     [self addSubview:pipe1];
     [self addSubview:pipe2];
+    [self addSubview:pipe3];
+    [self addSubview:pipe4];
     [self sendSubviewToBack:pipe1];
     [self sendSubviewToBack:pipe2];
+    [self sendSubviewToBack:pipe3];
+    [self sendSubviewToBack:pipe4];
 }
 
 - (void)buttonSelected:(id)sender

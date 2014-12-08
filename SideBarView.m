@@ -78,27 +78,22 @@ int TOTAL_INITIAL_FRACTIONS;
         [[currentButton layer] setCornerRadius:8.0f];
         [currentButton.titleLabel setFont: [UIFont fontWithName:@"HelveticaNeue-Bold" size:28.0f]];
         
-        // Add background buttons for printing of the fractions
-        CGRect backgroundFrame = CGRectMake(paddingSize + initialXInset, inset + initialYInset + 5, buttonWidth, buttonHeight);
-        UIButton *backgroundButton = [[UIButton alloc] initWithFrame:backgroundFrame];
-        backgroundButton.backgroundColor = [UIColor clearColor];
-        [backgroundButton.titleLabel setFont: [UIFont fontWithName:@"HelveticaNeue-Bold" size:40.0f]];
-        backgroundButton.titleLabel.numberOfLines = 2;
-        NSString *line = [NSString stringWithFormat:@"__\r"];
-        
-        [backgroundButton setTitle:line forState:UIControlStateNormal];
-        
+        // Create the label that stands for the dividor line of the fraction
+        UILabel *dividor = [[UILabel alloc] initWithFrame:CGRectMake(buttonFrame.origin.x, buttonFrame.origin.y - initialYInset*0.5, buttonFrame.size.width, buttonFrame.size.height)];
+        dividor.textAlignment = NSTextAlignmentCenter;
+        [dividor setFont:[UIFont fontWithName:@"HelveticaNeue-Bold" size:30.0f]];
+        [dividor setTextColor:[UIColor whiteColor]];
+        [dividor setText:@"__"];
+        [self addSubview:dividor];
         
         // Add the button to the screen
-        [self addSubview:backgroundButton];
+       // [self addSubview:backgroundButton];
         [self addSubview:currentButton];
         currentButton.tag = i;
         [currentButton addTarget:self action:@selector(buttonPressed:)
                 forControlEvents:UIControlEventTouchDown]; //make own version of this
         [_buttons insertObject:currentButton atIndex:i];
     }
-    
-    
 }
 
 // Return the button at the designated index
@@ -114,17 +109,15 @@ int TOTAL_INITIAL_FRACTIONS;
     int numerator = [value numerator];
     int denominator = [value denominator];
     
-    NSString *fracToFill;
-    if (denominator > 9) {
-        fracToFill = [NSString stringWithFormat:@" %d\r%d", numerator, denominator];
-    } else if (numerator > 9) {
-        fracToFill = [NSString stringWithFormat:@"%d\r %d", numerator, denominator];
-    } else {
-        fracToFill = [NSString stringWithFormat:@"%d\r%d", numerator, denominator];
-    }
-    cell.titleLabel.numberOfLines = 2;
-    
-    [cell setTitle:fracToFill forState:UIControlStateNormal];
+    // Create the label to reperesent the fraction numerator and denominator
+    // as opposed to setting the button title
+    UILabel *numAndDen = [[UILabel alloc] initWithFrame:cell.frame];
+    numAndDen.numberOfLines = 2;
+    numAndDen.textAlignment = NSTextAlignmentCenter;
+    [numAndDen setFont:[UIFont fontWithName:@"HelveticaNeue-Bold" size:20.0f]];
+    [numAndDen setTextColor:[UIColor whiteColor]];
+    [numAndDen setText:[NSString stringWithFormat:@"%d\r%d", numerator, denominator]];
+    [self addSubview:numAndDen];
 }
 
     
