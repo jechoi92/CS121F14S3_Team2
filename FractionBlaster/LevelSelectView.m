@@ -19,6 +19,7 @@ typedef enum {
 @implementation LevelSelectView
 {
     NSMutableArray *_levelButtons;
+    UILabel *_levelInfo;
 }
 
 // Allow adding extra levels later on
@@ -42,6 +43,7 @@ int NUM_LEVELS = 10;
         
         [self createEachButton:[UIButton alloc] withUnlockedLevel:level andNumRows:numRows];
         [self createTitle];
+        [self createLabel];
         [self createStartButton];
         [self createBackButton];
         [self setBackgroundColor:[[UIColor alloc] initWithPatternImage:[UIImage imageNamed:@"main_background"]]];
@@ -55,7 +57,7 @@ int NUM_LEVELS = 10;
 {
     CGFloat buttonSize = CGRectGetWidth(self.frame) / 8;
     CGFloat baseOffset = buttonSize / 4;
-    CGFloat vertOffset = CGRectGetHeight(self.frame) * 0.5;
+    CGFloat vertOffset = CGRectGetHeight(self.frame) * 0.35;
     
     // Run through both row arrays and instatntiate each button approporately based on
     // whcih levels should be unlocked and which button is currently selected
@@ -155,11 +157,35 @@ int NUM_LEVELS = 10;
     CGFloat frameHeight = CGRectGetHeight(frame);
     
     // Add the level select image to the top of the view
-    CGRect title = CGRectMake(0, -50, frameWidth, frameHeight*.5);
+    CGRect title = CGRectMake(frameWidth*0.1, frameHeight*0.05, frameWidth*0.8, frameHeight*.18);
     UIImageView *imageView = [[UIImageView alloc] initWithFrame:title];
-    imageView.image = [UIImage imageNamed:@"Levels.png"];
+    imageView.image = [UIImage imageNamed:@"new_level_select"];
     
     [self addSubview:imageView];
+}
+
+- (void)createLabel
+{
+    CGFloat labelWidth = CGRectGetWidth(self.frame) * 0.8;
+    CGFloat labelHeight = CGRectGetHeight(self.frame) * 0.23;
+    CGFloat xOffset = CGRectGetWidth(self.frame) * 0.1;
+    CGFloat yOffset = CGRectGetHeight(self.frame) * 0.57;
+    
+    CGRect labelFrame = CGRectMake(xOffset, yOffset, labelWidth, labelHeight);
+    
+    _levelInfo = [[UILabel alloc] initWithFrame:labelFrame];
+    _levelInfo.numberOfLines = 7;
+    _levelInfo.textAlignment = NSTextAlignmentCenter;
+    
+    [_levelInfo setFont:[UIFont fontWithName:@"SpaceAge" size:32.0f]];
+    [_levelInfo setTextColor:[UIColor whiteColor]];
+    [_levelInfo setText:@"Level 1\rsimplificAtion Asteroids coming in At A slow speed. Perfect conditions for A beginning cAdet to leArn the ropes!"];
+    
+    //UIImageView *background = [[UIImageView alloc] initWithFrame:labelFrame];
+    //background.image = [UIImage imageNamed:@"menuBorder"];
+    
+    //[self addSubview:background];
+    [self addSubview:_levelInfo];
 }
 
 // Create back button
@@ -217,6 +243,43 @@ int NUM_LEVELS = 10;
     
     // Update which button is currently selected
     [self setCurrentLevelSelected:(int)newButton.tag];
+    
+    // Update the level information label at the bottom of the screen
+    switch (newButton.tag) {
+        case 0:
+            [_levelInfo setText:@"Level 1\rsimplificAtion Asteroids coming in At A slow speed. Perfect conditions for A beginning cAdet to leArn the ropes!"];
+            break;
+        case 1:
+            [_levelInfo setText:@"Level 2\rcAdets get their first experience with multiplication Asteroids At A slow speed!"];
+            break;
+        case 2:
+            [_levelInfo setText:@"Level 3\rincoming division Asteroids! cAdets should use their Acquired multiplication skills to combAt these Asteroids!"];
+            break;
+        case 3:
+            [_levelInfo setText:@"Level 4\rnew types of Asteroids incoming! detectors Are reAding both Addition And subtrAction Asteroids! CAdets must learn new solving skills!"];
+            break;
+        case 4:
+            [_levelInfo setText:@"Level 5\rcAdet no longer! Apply All the solving skills you hAve Acquired to tAke on all the Asteroid types at a faster speed!"];
+            break;
+        case 5:
+            [_levelInfo setText:@"Level 6\ryou survived the surge, but there is no time to rest! we hAve incoming multiplication And division Asteroids At medium speed!"];
+            break;
+        case 6:
+            [_levelInfo setText:@"Level 7\rAnother lArge of Addition And division Asteroids incoming! you cAn handle this!"];
+            break;
+        case 7:
+            [_levelInfo setText:@"Level 8\rdetectors Are picking up reAdings of Another huge wAve of Asteroids! survive this wAve and become A true veterAn!"];
+            break;
+        case 8:
+            [_levelInfo setText:@"Level 9\rdAnger! An even lArger wAve is incoming! these Asteroids Are coming At speeds thAt hAve never been recorded!"];
+            break;
+        case 9:
+            [_levelInfo setText:@"Level 10\rIt All comes down to this! The source of these Asteroid AttAcks! destroy this AttAck once And for All!"];
+            break;
+        default:
+            break;
+    }
+    
 }
 
 @end

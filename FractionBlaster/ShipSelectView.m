@@ -28,6 +28,11 @@ typedef enum {
 {
     UIButton *_startButton;
     NSMutableArray *_shipSelection;
+    UILabel *_shipInfo;
+    BOOL blueSelected;
+    BOOL brownSelected;
+    BOOL silverSelected;
+    BOOL redSelected;
 }
 
 - (id)initWithFrame:(CGRect)frame
@@ -38,6 +43,7 @@ typedef enum {
         _shipSelection = [[NSMutableArray alloc] init];
         [self createShipSelectionButtons];
         [self createTitleImage];
+        [self createLabel];
         [self createBackButton];
         [self createStartButton];
         [self setBackgroundColor:[[UIColor alloc] initWithPatternImage:[UIImage imageNamed:@"main_background"]]];
@@ -83,10 +89,31 @@ typedef enum {
     CGFloat frameHeight = CGRectGetHeight(frame);
     
     // Add the level select image to the top of the view
-    CGRect title = CGRectMake(0, -50, frameWidth, frameHeight*.5);
+    CGRect title = CGRectMake(frameWidth*0.1, frameHeight*0.05, frameWidth*0.8, frameHeight*.18);
     UIImageView *imageView = [[UIImageView alloc] initWithFrame:title];
-    imageView.image = [UIImage imageNamed:@"Levels.png"];
+    imageView.image = [UIImage imageNamed:@"ship_select"];
+    
     [self addSubview:imageView];
+}
+
+- (void)createLabel
+{
+    CGFloat labelWidth = CGRectGetWidth(self.frame) * 0.8;
+    CGFloat labelHeight = CGRectGetHeight(self.frame) * 0.23;
+    CGFloat xOffset = CGRectGetWidth(self.frame) * 0.1;
+    CGFloat yOffset = CGRectGetHeight(self.frame) * 0.57;
+    
+    CGRect labelFrame = CGRectMake(xOffset, yOffset, labelWidth, labelHeight);
+    
+    _shipInfo = [[UILabel alloc] initWithFrame:labelFrame];
+    _shipInfo.numberOfLines = 7;
+    _shipInfo.textAlignment = NSTextAlignmentCenter;
+    
+    [_shipInfo setFont:[UIFont fontWithName:@"SpaceAge" size:32.0f]];
+    [_shipInfo setTextColor:[UIColor whiteColor]];
+    [_shipInfo setText:@"AlphA-clAss mAntis\r\rAmerican built. Light, manueverable, and effective."];
+    
+    [self addSubview:_shipInfo];
 }
 
 // Create the buttons to select the ships
@@ -94,7 +121,7 @@ typedef enum {
 {
     CGFloat buttonSize = CGRectGetWidth(self.frame) / 6.5;
     CGFloat baseOffset = buttonSize / 4;
-    CGFloat vertOffset = CGRectGetHeight(self.frame) * 0.5;
+    CGFloat vertOffset = CGRectGetHeight(self.frame) * 0.4;
     CGFloat xOffset = buttonSize;
     
     // Create the four selection buttons
@@ -102,7 +129,6 @@ typedef enum {
         // Set up frame and cell and add it to the button sub view
         CGRect cellFrame = CGRectMake(xOffset, vertOffset, buttonSize, buttonSize);
         UIButton *button = [[UIButton alloc] initWithFrame:cellFrame];
-        [button setBackgroundColor:[UIColor grayColor]];
         
         // Set the tag appropriately
         button.tag = tag;
@@ -112,24 +138,26 @@ typedef enum {
             {
                 // Default select the first button
                 [self setCurrentShipSelected:tag];
-                [button setBackgroundColor:[UIColor whiteColor]];
-                
-                [button setImage:[UIImage imageNamed:@"blueSpaceShip"] forState:UIControlStateNormal];
+                [button setImage:[UIImage imageNamed:@"blueSS_highlight"] forState:UIControlStateNormal];
+                blueSelected = true;
                 break;
             }
             case BrownShip:
             {
-                [button setImage:[UIImage imageNamed:@"brownSpaceShip"] forState:UIControlStateNormal];
+                [button setImage:[UIImage imageNamed:@"brownSS_no_highlight"] forState:UIControlStateNormal];
+                brownSelected = false;
                 break;
             }
             case SilverShip:
             {
-                [button setImage:[UIImage imageNamed:@"silverSpaceShip"] forState:UIControlStateNormal];
+                [button setImage:[UIImage imageNamed:@"silverSS_no_highlight"] forState:UIControlStateNormal];
+                silverSelected = false;
                 break;
             }
             case RedShip:
             {
-                [button setImage:[UIImage imageNamed:@"redSpaceShip"] forState:UIControlStateNormal];
+                [button setImage:[UIImage imageNamed:@"redSS_no_highlight"] forState:UIControlStateNormal];
+                redSelected = false;
                 break;
             }
         }
@@ -159,9 +187,63 @@ typedef enum {
     
     int newTag = (int) newButton.tag;
     
-    // Unhighlight the previous selected button and highlight the newly selected button
-    [oldButton setBackgroundColor:[UIColor grayColor]];
-    [newButton setBackgroundColor:[UIColor whiteColor]];
+    switch(oldButton.tag) {
+        case BlueShip:
+        {
+            [oldButton setImage:[UIImage imageNamed:@"blueSS_no_highlight"] forState:UIControlStateNormal];
+            blueSelected = false;
+            break;
+        }
+        case BrownShip:
+        {
+            [oldButton setImage:[UIImage imageNamed:@"brownSS_no_highlight"] forState:UIControlStateNormal];
+            brownSelected = false;
+            break;
+        }
+        case SilverShip:
+        {
+            [oldButton setImage:[UIImage imageNamed:@"silverSS_no_highlight"] forState:UIControlStateNormal];
+            silverSelected = false;
+            break;
+        }
+        case RedShip:
+        {
+            [oldButton setImage:[UIImage imageNamed:@"redSS_no_highlight"] forState:UIControlStateNormal];
+            redSelected = false;
+            break;
+        }
+    }
+    
+    switch(newTag) {
+        case BlueShip:
+        {
+            [newButton setImage:[UIImage imageNamed:@"blueSS_highlight"] forState:UIControlStateNormal];
+            [_shipInfo setText:@"AlphA-clAss mAntis\r\rAmericAn model.\rlight, mAnueverAble, And effective."];
+            blueSelected = true;
+            break;
+        }
+        case BrownShip:
+        {
+            [newButton setImage:[UIImage imageNamed:@"brownSS_highlight"] forState:UIControlStateNormal];
+            [_shipInfo setText:@"omegA-clAss mAntis\r\rrussiAn model.\rthis older model is heAvy And bulking, yet powerful!"];
+            brownSelected = false;
+            break;
+        }
+        case SilverShip:
+        {
+            [newButton setImage:[UIImage imageNamed:@"silverSS_highlight"] forState:UIControlStateNormal];
+            [_shipInfo setText:@"fury-clAss mAntis\r\reuropeAn model.\rThe newest And most sophisticAted Amongst the mAntis models!"];
+            silverSelected = false;
+            break;
+        }
+        case RedShip:
+        {
+            [newButton setImage:[UIImage imageNamed:@"redSS_highlight"] forState:UIControlStateNormal];
+            [_shipInfo setText:@"centurion-clAss mAntis\r\rchinese model.\rA prototype mAntis designed to be the most deAdly mAntis!"];
+            redSelected = false;
+            break;
+        }
+    }
     
     // Update which button is currently selected
     [self setCurrentShipSelected:(int)newTag];
