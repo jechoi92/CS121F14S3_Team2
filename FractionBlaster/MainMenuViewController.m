@@ -8,6 +8,14 @@
 
 #import "MainMenuViewController.h"
 
+// Enum object for button tags
+typedef enum {
+    StartMissionTag,
+    InstructionsTag,
+    LeaderboardTag,
+    CreditsTag
+}ButtonTags;
+
 @implementation MainMenuViewController
 {
     MainMenuView *_mainMenuView;
@@ -16,59 +24,56 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    // Add the subview
+    // Set up the view and delegate
     _mainMenuView = [[MainMenuView alloc] initWithFrame:self.view.frame];
     [_mainMenuView setDelegate:self];
     [self.view addSubview: _mainMenuView];
 }
 
+// Function to perform actions when buttons were selected
 - (void)buttonSelected:(id)sender
 {
-    // Figure out button navigation
+    // Figure out the button that was selected
     UIButton *button = (UIButton*)sender;
     int tag = (int)button.tag;
     
     switch (tag){
-        case 0:
+            
+        // Show mode selection screen
+        case StartMissionTag:
         {
-            // Go to ModeSelectViewController
             ModeSelectViewController *msvc = [[ModeSelectViewController alloc] init];
             [self.navigationController pushViewController:msvc animated:YES];
             break;
         }
-        case 1:
+            
+        // Show instructions screen
+        case InstructionsTag:
         {
-            // Go to InstrViewController
             InstructionsViewController *ivc = [[InstructionsViewController alloc] init];
             [self.navigationController pushViewController:ivc animated:YES];
             break;
         }
-        case 2:
+            
+        // Show leaderboard screen
+        case LeaderboardTag:
         {
-            // Go to Leaderboard
             LeaderboardViewController *lbvc = [[LeaderboardViewController alloc] init];
             [self.navigationController pushViewController:lbvc animated:YES];
             break;
         }
-        case 3:
+        
+        // Show credits pop-up screen
+        case CreditsTag:
         {
-            // Show credits
-            UIAlertView* alert = [[UIAlertView alloc] initWithTitle:@"Fraction Blaster"
-                                                            message:@"HMC CS121 Fall 2014 Team 2\n\nLouis Brann, Jeongwoo Choi, \nKevin McSwiggen, Alejandro Mendoza\n\nCopyright (c) 2014 MatherTeresa. \nAll rights reserved."
-                                                           delegate:self
-                                                  cancelButtonTitle:nil
-                                                  otherButtonTitles:nil];
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Fraction Blaster"
+                                    message:@"HMC CS121 Fall 2014 Team 2\n\nLouis Brann, Jeongwoo Choi, \nKevin McSwiggen, Alejandro Mendoza\n\nCopyright (c) 2014 MatherTeresa. \nAll rights reserved."
+                                    delegate:self cancelButtonTitle:nil otherButtonTitles:nil];
             [alert addButtonWithTitle:@"OK"];
             [alert show];
             break;
         }
-        default:
-        {
-            NSLog(@"This button shouldn't exist");
-            break;
-        }
     }
-
 }
 
 - (void)didReceiveMemoryWarning {

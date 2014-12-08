@@ -8,6 +8,12 @@
 
 #import "OperatorsSelectViewController.h"
 
+// Enum object for button tags
+typedef enum {
+    StartTag,
+    BackTag
+}ButtonTags;
+
 @implementation OperatorsSelectViewController
 {
     OperatorsSelectView* _operatorsSelectView;
@@ -16,33 +22,32 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    // Add the subview
+    // Create view and set delegate
     _operatorsSelectView = [[OperatorsSelectView alloc] initWithFrame:self.view.frame];
     [_operatorsSelectView setDelegate:self];
     [self.view addSubview: _operatorsSelectView];
 }
 
+// Function to perform action according to button selected
 - (void)buttonSelected:(id)sender
 {
+    // Figure out which button was selected
     UIButton *button = (UIButton *)sender;
     int tag = (int)button.tag;
     
     switch (tag) {
-//        case 5:
-//        {
-//            GameViewController *gvc = [[GameViewController alloc]
-//                                       initWithLevel:-1 andOperators:[_operatorsSelectView operatorsSelected]];
-//            [self.navigationController pushViewController:gvc animated:YES];
-//            break;
-//        }
-        case 5:
+            
+        // Show ship selection screen
+        case StartTag:
         {
             ShipSelectViewController *svc = [[ShipSelectViewController alloc]
                                        initWithLevel:-1 andOperators:[_operatorsSelectView operatorsSelected]];
             [self.navigationController pushViewController:svc animated:YES];
             break;
         }
-        case -1:
+            
+        // Back button was pressed, show previous screen
+        case BackTag:
         {
             [self.navigationController popViewControllerAnimated:YES];
             break;

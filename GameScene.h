@@ -21,7 +21,6 @@
 
 @property (nonatomic, weak) id <AsteroidAction> deli;
 
-
 - (id)initWithSize:(CGSize)size andLevel:(int)level andShipNum:(int)shipNum;
 - (void)createAsteroid: (Equation*)equation;
 - (void)fireLaser: (Fraction*)value fromButton: (int)tag;

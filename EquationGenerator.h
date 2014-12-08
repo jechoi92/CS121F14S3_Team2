@@ -19,13 +19,13 @@
 - (Fraction*) generateRandomFractionWithLimit: (Fraction*)upper;
 
 // For unit testing purposes
--(Equation*)generateAdditionEquation: (BOOL)easy;
--(Equation*)generateSubtractionEquation: (BOOL)easy;
--(Equation*)generateMultiplicationEquation;
--(Equation*)generateDivisionEquation;
--(Equation*)generateSimplificationEquation;
--(int)getDenominatorLimit;
--(BOOL)containsValue: (Fraction*)value;
+- (Equation*)generateAdditionEquation: (BOOL)easy;
+- (Equation*)generateSubtractionEquation: (BOOL)easy;
+- (Equation*)generateMultiplicationEquation;
+- (Equation*)generateDivisionEquation;
+- (Equation*)generateSimplificationEquation;
+- (int)getDenominatorLimit;
+- (BOOL)containsValue: (Fraction*)value;
 
 @end
 

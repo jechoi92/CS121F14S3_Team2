@@ -8,6 +8,13 @@
 
 #import "ModeSelectViewController.h"
 
+// Enum object for button tags
+typedef enum {
+    LevelSelectTag,
+    OperatorSelectTag,
+    BackTag
+}ButtonTags;
+
 @implementation ModeSelectViewController
 {
     ModeSelectView *_modeSelectView;
@@ -17,34 +24,38 @@
 {
     [super viewDidLoad];
     
-    // Add the subview
+    // Set up the view and delegate
     _modeSelectView = [[ModeSelectView alloc] initWithFrame:self.view.frame];
     [_modeSelectView setDelegate:self];
     [self.view addSubview:_modeSelectView];
 }
 
+// Function to perform action when button was selected
 - (void)buttonSelected:(id)sender
 {
-    // Figure out button navigation
+    // Figure out which button was selected
     UIButton *button = (UIButton *)sender;
     int tag = (int)button.tag;
     
     switch (tag) {
-        case 0:
+            
+        // Show level selection screen
+        case LevelSelectTag:
         {
-            // Go to LevelSelectViewController
             LevelSelectViewController *lsvc = [[LevelSelectViewController alloc] init];
             [self.navigationController pushViewController:lsvc animated:YES];
             break;
         }
-        case 1:
+            
+        // Show operator selection screen
+        case OperatorSelectTag:
         {
-            // Go to OperatorSelectViewController
             OperatorsSelectViewController *osvc = [[OperatorsSelectViewController alloc] init];
             [self.navigationController pushViewController:osvc animated:YES];
             break;
         }
-        case 2:
+        // Back button selected, show previous screen
+        case BackTag:
         {
             [self.navigationController popViewControllerAnimated:YES];
             break;

@@ -10,6 +10,21 @@
 
 CGFloat INSET_RATIO;
 
+// Enum object for button tags
+typedef enum {
+    StartTag,
+    BackTag
+}ButtonTags;
+
+// Enum object for operator button tags
+typedef enum {
+    AdditionTag,
+    SubtractionTag,
+    MultiplicationTag,
+    DivisionTag,
+    SimplificationTag
+}OperatorTags;
+
 @implementation OperatorsSelectView
 {
     UIButton* _startButton;
@@ -120,13 +135,20 @@ CGFloat INSET_RATIO;
     UIImage *image = [UIImage imageNamed:@"launch2.png"];
     [_startButton setImage:image forState:UIControlStateNormal];
     
+    // Create target for button
     [_startButton addTarget:self action:@selector(buttonSelected:)
           forControlEvents:UIControlEventTouchUpInside];
-    _startButton.tag = 5;
+    
+    // Set tag appropriately
+    _startButton.tag = StartTag;
+    
+    // Disable initially, until at least one operator has been selected
     [_startButton setEnabled:NO];
+    
     [self addSubview:_startButton];
 }
 
+// Create the back button
 - (void)createBackButton
 {
     CGRect frame = self.frame;
@@ -136,18 +158,26 @@ CGFloat INSET_RATIO;
     CGFloat backButtonWidth = itemWidth;
     CGFloat backButtonX = CGRectGetWidth(frame) * INSET_RATIO;
     CGFloat backButtonY = CGRectGetHeight(frame) * INSET_RATIO;
+    
     CGRect backButtonFrame = CGRectMake(backButtonX, backButtonY, backButtonLength, backButtonWidth);
     UIButton* backButton = [[UIButton alloc] initWithFrame:backButtonFrame];
+    
     [backButton setBackgroundImage:[UIImage imageNamed:@"StartOverIcon"] forState:UIControlStateNormal];
     [[backButton layer] setBorderWidth:2.5f];
     [[backButton layer] setBorderColor:[UIColor blackColor].CGColor];
     [[backButton layer] setCornerRadius:12.0f];
+    
+    // Create target for button
     [backButton addTarget:self action:@selector(buttonSelected:)
           forControlEvents:UIControlEventTouchUpInside];
-    backButton.tag = -1;
+    
+    // Set tag appropriately
+    backButton.tag = BackTag;
+    
     [self addSubview:backButton];
 }
 
+// Create buttons to select the operators
 - (void)createOperatorButtons
 {
     CGFloat width = CGRectGetWidth(self.frame);
@@ -262,10 +292,13 @@ CGFloat INSET_RATIO;
     [self.delegate buttonSelected:sender];
 }
 
+// Function to update the selected operators
 - (void)operatorSelected:(id)sender
 {
+    // Determine which button was selected
     UIButton* button = (UIButton*)sender;
     
+    // Determine the operator selected according to the tag
     NSString* operator;
     switch (button.tag) {
         case 0:
@@ -284,7 +317,7 @@ CGFloat INSET_RATIO;
             }
             break;
         }
-        case 1:
+        case SubtractionTag:
         {
             operator = @"-";
             
@@ -299,7 +332,7 @@ CGFloat INSET_RATIO;
             }
             break;
         }
-        case 2:
+        case MultiplicationTag:
         {
             operator = @"*";
             
@@ -314,7 +347,7 @@ CGFloat INSET_RATIO;
             }
             break;
         }
-        case 3:
+        case DivisionTag:
         {
             operator = @"/";
             
@@ -329,7 +362,7 @@ CGFloat INSET_RATIO;
             }
             break;
         }
-        case 4:
+        case SimplificationTag:
         {
             operator = @"$";
             
@@ -349,6 +382,8 @@ CGFloat INSET_RATIO;
     if ([_operatorsSelected count] == 0) {
         [_startButton setEnabled:NO];
     }
+    
+    // Else, enable
     else {
         [_startButton setEnabled:YES];
     }
