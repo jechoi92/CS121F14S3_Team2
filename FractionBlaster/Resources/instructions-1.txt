@@ -1,0 +1,5 @@
+Asteroids will come down from the top of the screen. Don't let them hit the bottom!
+
+Each one will have fractions on it. You can destroy the asteroid by solving the expression. If the asteroid just has one fraction, simplify it. Otherwise, add, subtract, multiply, or divide!
+
+

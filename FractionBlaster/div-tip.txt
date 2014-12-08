@@ -1,0 +1,8 @@
+When dividing, flip the second fraction, and then you can just multiply. 
+
+If the numerator of the second fraction shares factors with the numerator of 
+the first, you can perform a quick simplifcation before flipping just by
+dividing each horizontally. 
+
+If it doesn't look easy at first, just flip the second fraction and multiply 
+the fractions!

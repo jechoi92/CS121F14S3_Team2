@@ -20,6 +20,7 @@ CGFloat INSET_RATIO = 0.02;
     EquationGenerator *_equationGenerator;
     GameView *_gameView;
     GameEndView *_gameEndView;
+    TipView *_tipView;
     NSMutableArray *_initialFractions;
     NSTimer* _asteroidGenerationTimer;
     int _level;
@@ -74,19 +75,37 @@ CGFloat INSET_RATIO = 0.02;
         [self createSideBar];
         [self createHealthBar];
         [self createScene];
-        [_scene startLevelAnimation];
         
-        // Create timer upon dismissal of tip view
-        
-        // Timer that creates an asteroid every given time interval.
-        _asteroidGenerationTimer = [NSTimer scheduledTimerWithTimeInterval:7.0
-                                                                    target:self
-                                                                  selector:@selector(createAsteroid:)
-                                                                  userInfo:nil
-                                                                   repeats:YES];
-        
+        if (_level < 5){
+            [self createTipView];
+        }
     }
     self.view.multipleTouchEnabled = YES;
+}
+
+// Creates the tip view
+- (void)createTipView
+{
+    // Frame constants
+    CGFloat frameWidth = CGRectGetWidth(self.view.frame);
+    CGFloat frameHeight = CGRectGetHeight(self.view.frame);
+    CGFloat ratioOfScreen = 0.70;
+    
+    // Frame dimensions
+    CGFloat tipWidth = ratioOfScreen * frameWidth;
+    CGFloat tipHeight = ratioOfScreen * frameHeight;
+    CGFloat tipXOff = (frameWidth - tipWidth) / 2;
+    CGFloat tipYOff = (frameHeight - tipHeight) / 2;
+    
+    // Set up frame and view
+    CGRect tipViewFrame = CGRectMake(tipXOff, tipYOff, tipWidth, tipHeight);
+    _tipView = [[TipView alloc] initWithFrame:tipViewFrame andLevel:_level];
+    
+    // Set delegate
+    [_tipView setDelegate:self];
+    
+    // Add subview
+    [self.view addSubview:_tipView];
 }
 
 // Creates the gameview.
@@ -486,6 +505,18 @@ CGFloat INSET_RATIO = 0.02;
     [_gameEndView setDelegate:self];
     [self.view addSubview:_gameEndView];
     [self.view sendSubviewToBack:_gameView];
+}
+
+-(void)dismissTip
+{
+    // Create timer upon dismissal of tip view
+    [_tipView removeFromSuperview];
+    [_scene startLevelAnimation];
+    _asteroidGenerationTimer = [NSTimer scheduledTimerWithTimeInterval:7.0
+                                                                target:self
+                                                              selector:@selector(createAsteroid:)
+                                                              userInfo:nil
+                                                               repeats:YES];
 }
 
 // Back button to main menu.

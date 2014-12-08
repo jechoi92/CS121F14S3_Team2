@@ -1,0 +1,4 @@
+To multiply two fractions, just multiply the numerators and denominators
+separately. If the numbers are a bit large, look to see if the numerators 
+and denominators have common factors. Dividing by common factors before
+multiplying can make the calculation easier. 

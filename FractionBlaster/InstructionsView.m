@@ -8,19 +8,22 @@
 
 // TODO: Fix commenting - section separators are interpreted as
 //       docstrings for methods
+// TODO: Fix ratios - looks terrible; how to fix?
 
 #import "InstructionsView.h"
 #import "UIImage+animatedGIF.h"
 
 CGFloat INSET_RATIO;
 int INSTR_FONT_SIZE = 20;
-int NUM_INSTR_STEPS = 3;
+int NUM_INSTR_STEPS = 2;
 CGFloat BASE_OFFSET_PCT = (float)1/21;
 
 @implementation InstructionsView
 {
     UIImageView *_instrGifView;
     UITextView *_instrTextView;
+    UIButton *_prevInstrButton;
+    UIButton *_nextInstrButton;
     
     int _instrStep; // Ranges from 1 to NUM_INSTR_STEPS
 }
@@ -60,8 +63,8 @@ CGFloat BASE_OFFSET_PCT = (float)1/21;
     // Get frame size
     CGFloat frameWidth = CGRectGetWidth(self.frame);
     CGFloat frameHeight = CGRectGetHeight(self.frame);
-    CGFloat instrHeightRatio = (float)14/20;
-    CGFloat instrWidthRatio = (float)3/7;
+    CGFloat instrHeightRatio = (float)5/20;
+    CGFloat instrWidthRatio = (float)0.8;
     
     // Instr dimensions setup
     CGFloat instrHeight = frameHeight * instrHeightRatio;
@@ -69,17 +72,23 @@ CGFloat BASE_OFFSET_PCT = (float)1/21;
     
     // Y Offset has enough room for the height and the buffer
     CGFloat baseYOffset = BASE_OFFSET_PCT * frameHeight;
-    CGFloat instrYOffset = frameHeight - (instrHeight + baseYOffset);
+    CGFloat xOffset = (frameWidth - instrWidth)/2;
     
-    CGFloat baseXOffset = BASE_OFFSET_PCT * frameWidth;
-    
-    return CGRectMake(baseXOffset, instrYOffset, instrWidth, instrHeight);
+    return CGRectMake(xOffset, baseYOffset, instrWidth, instrHeight);
 }
 
 - (void)createInstrText
 {
     // Create standard subview frame
-    CGRect textViewFrame = [self createInstrFrame];
+    CGRect instrFrame = [self createInstrFrame];
+    
+    // Make room for two instr frames: gif and self
+    CGFloat yFromBottom = 2 * CGRectGetMaxY(instrFrame);
+    CGFloat yOffset = CGRectGetHeight(self.frame) - yFromBottom;
+    
+    // Get difference in offsets so we can use CGRectOffset
+    CGFloat extraYOffset = yOffset - CGRectGetMinY(instrFrame);
+    CGRect textViewFrame = CGRectOffset(instrFrame, 0, extraYOffset);
 
     // Text container creation
     _instrTextView = [[UITextView alloc] initWithFrame:textViewFrame];
@@ -96,13 +105,14 @@ CGFloat BASE_OFFSET_PCT = (float)1/21;
 - (void)createInstrGif
 {
     // Create standard subview frame
-    CGRect textViewFrame = [self createInstrFrame];
+    CGRect instrFrame = [self createInstrFrame];
     
-    // xOffset leaves room for size of text view, then get the difference in
-    // x offsets so we can use CGRectOffset()
-    CGFloat xOffset = CGRectGetWidth(self.frame) - CGRectGetMaxX(textViewFrame);
-    CGFloat extraXOffset = xOffset - CGRectGetMinX(textViewFrame);
-    CGRect gifFrame = CGRectOffset(textViewFrame, extraXOffset, 0);
+    // Make room for self
+    CGFloat yOffset = CGRectGetHeight(self.frame) - CGRectGetMaxY(instrFrame);
+    
+    // Get difference in offsets so we can use CGRectOffset
+    CGFloat extraYOffset = yOffset - CGRectGetMinY(instrFrame);
+    CGRect gifFrame = CGRectOffset(instrFrame, 0, extraYOffset);
     
     // Create view
     _instrGifView = [[UIImageView alloc] initWithFrame:gifFrame];
@@ -141,17 +151,17 @@ CGFloat BASE_OFFSET_PCT = (float)1/21;
     CGFloat extraXOffset = xOffset - CGRectGetMinX(instrButtonFrame);
     CGRect nextInstrButtonFrame = CGRectOffset(instrButtonFrame, extraXOffset, 0);
     
-    UIButton *button = [[UIButton alloc] initWithFrame:nextInstrButtonFrame];
+    _nextInstrButton = [[UIButton alloc] initWithFrame:nextInstrButtonFrame];
     
     // Style button
-    [button.titleLabel setFont:[UIFont fontWithName:@"SpaceAge" size:24.0f]];
-    [[button layer] setBorderWidth:6.0f];
-    [[button layer] setBorderColor:[UIColor whiteColor].CGColor];
-    [[button layer] setCornerRadius:18.0f];
-    [button setTitle:@"Next" forState:UIControlStateNormal];
+    [_nextInstrButton.titleLabel setFont:[UIFont fontWithName:@"SpaceAge" size:24.0f]];
+    [[_nextInstrButton layer] setBorderWidth:6.0f];
+    [[_nextInstrButton layer] setBorderColor:[UIColor whiteColor].CGColor];
+    [[_nextInstrButton layer] setCornerRadius:18.0f];
+    [_nextInstrButton setTitle:@"Next" forState:UIControlStateNormal];
     
     // Selector
-    [button addTarget:self action:@selector(nextInstruction:)
+    [_nextInstrButton addTarget:self action:@selector(nextInstruction:)
      forControlEvents:UIControlEventTouchUpInside];
     
     // This creates the border around the button
@@ -160,21 +170,25 @@ CGFloat BASE_OFFSET_PCT = (float)1/21;
     
     // Add background behind button
     [self addSubview:background];
-    [self addSubview:button];
+    [self addSubview:_nextInstrButton];
 }
 
 - (void)createPrevInstrButton
 {
     // Setup button
     CGRect buttonFrame = [self createInstrButtonFrame];
-    UIButton *button = [[UIButton alloc] initWithFrame:buttonFrame];
+    _prevInstrButton = [[UIButton alloc] initWithFrame:buttonFrame];
     
     // Style button
-    [button.titleLabel setFont:[UIFont fontWithName:@"SpaceAge" size:24.0f]];
-    [[button layer] setBorderWidth:6.0f];
-    [[button layer] setBorderColor:[UIColor whiteColor].CGColor];
-    [[button layer] setCornerRadius:18.0f];
-    [button setTitle:@"Previous" forState:UIControlStateNormal];
+    [_prevInstrButton.titleLabel setFont:[UIFont fontWithName:@"SpaceAge" size:24.0f]];
+    [[_prevInstrButton layer] setBorderWidth:6.0f];
+    [[_prevInstrButton layer] setBorderColor:[UIColor whiteColor].CGColor];
+    [[_prevInstrButton layer] setCornerRadius:18.0f];
+    [_prevInstrButton setTitle:@"Previous" forState:UIControlStateNormal];
+    
+    // Selector
+    [_prevInstrButton addTarget:self action:@selector(prevInstruction:)
+               forControlEvents:UIControlEventTouchUpInside];
     
     // This creates the border around the button
     UIImageView *background = [[UIImageView alloc] initWithFrame:buttonFrame];
@@ -182,7 +196,7 @@ CGFloat BASE_OFFSET_PCT = (float)1/21;
     
     // Add background behind button
     [self addSubview:background];
-    [self addSubview:button];
+    [self addSubview:_prevInstrButton];
 }
 
 - (void)createBackButton
@@ -219,19 +233,22 @@ CGFloat BASE_OFFSET_PCT = (float)1/21;
 
 -(void)setGifInstruction:(int)step
 {
-    //NSString *filename = [NSString stringWithFormat:@"instruction-%d", step];
-    NSString *filename = @"DestroyingAsteroid";
-    
+    // Get the gif corresponding to the current step
+    NSString *filename = [NSString stringWithFormat:@"instructions-%d", step];
     NSURL *gifURL2 = [[NSBundle mainBundle]
                       URLForResource:filename withExtension:@"gif"];
+    
+    // Convert the gif to an img
     UIImage *instrImg = [UIImage animatedImageWithAnimatedGIFURL:(NSURL *)gifURL2];
+    
+    // Add subview 
     [_instrGifView setImage:instrImg];
 }
 
 - (void)setTextInstruction:(int)step
 {
-    //NSString *filename = [NSString stringWithFormat:@"instructions-%d", step];
-    NSString *filename = @"instructions";
+    // Get the instructions for the current step
+    NSString *filename = [NSString stringWithFormat:@"instructions-%d", step];
     NSString *path = [[NSBundle mainBundle] pathForResource:filename
                                                      ofType:@"txt"];
     NSString *instrText = [NSString stringWithContentsOfFile:path encoding:NSUTF8StringEncoding error:nil];
@@ -282,6 +299,7 @@ CGFloat BASE_OFFSET_PCT = (float)1/21;
     
     if (_instrStep == 1){
         // TODO: Visually (and logically?) disable button
+        // [_prevInstrButton setBackgroundImage:[UIImage ] forState:UIControlStateNormal];
     }
 }
 
