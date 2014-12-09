@@ -32,25 +32,24 @@ CGFloat INSET_RATIO;
     UILabel *currentLabel = [_highScoreLabels objectAtIndex:i];
     NSString *scoreString = [score substringToIndex:7];
     NSString *nameString = [score substringFromIndex:7];
-    NSString *text = [[NSString alloc] initWithFormat:@"%d.    %@      %@", i + 1, scoreString, nameString];
+    NSString *text = [[NSString alloc] initWithFormat:@" %d.    %@      %@", i + 1, scoreString, nameString];
     [currentLabel setText:text];
 }
 
 // Create the title label
 - (void)createTitle
 {
+    // Get frame and frame dimensions
     CGRect frame = self.frame;
-    CGFloat width = CGRectGetWidth(frame);
-    CGFloat height = CGRectGetHeight(frame);
-    CGRect labelFrame = CGRectMake(width * 0.37, height * 0.1, width * 0.33, height * 0.1);
+    CGFloat frameWidth = CGRectGetWidth(frame);
+    CGFloat frameHeight = CGRectGetHeight(frame);
     
-    UILabel *highScoreLabel = [[UILabel alloc] initWithFrame:labelFrame];
+    // Add the level select image to the top of the view
+    CGRect title = CGRectMake(frameWidth * 0.1, frameHeight * 0.05, frameWidth * 0.8, frameHeight * 0.18);
+    UIImageView *imageView = [[UIImageView alloc] initWithFrame:title];
+    imageView.image = [UIImage imageNamed:@"high_scores"];
     
-    [highScoreLabel setText:@"High Scores"];
-    [highScoreLabel setTextColor:[UIColor whiteColor]];
-    [highScoreLabel setFont: [UIFont fontWithName:@"HelveticaNeue-Bold" size:36.0f]];
-    
-    [self addSubview:highScoreLabel];
+    [self addSubview:imageView];
 }
 
 // Create labels that display the scores
@@ -58,9 +57,9 @@ CGFloat INSET_RATIO;
 {
     CGRect frame = self.frame;
     _highScoreLabels = [[NSMutableArray alloc] initWithCapacity:5];
-    CGFloat xOffset = CGRectGetWidth(frame) * 0.35;
-    CGFloat yOffset = CGRectGetHeight(frame) * 0.25;
-    CGFloat labelWidth = CGRectGetWidth(frame);
+    CGFloat xOffset = CGRectGetWidth(frame) * 0.3;
+    CGFloat yOffset = CGRectGetHeight(frame) * 0.4;
+    CGFloat labelWidth = CGRectGetWidth(frame) * .4;
     CGFloat labelHeight = CGRectGetHeight(frame) * 0.05;
 
     // Creates all score labels, and add it into the array
@@ -70,7 +69,7 @@ CGFloat INSET_RATIO;
         UILabel *currentLabel = [[UILabel alloc] initWithFrame:labelFrame];
         
         currentLabel.backgroundColor = [UIColor clearColor];
-        [currentLabel setFont: [UIFont fontWithName:@"HelveticaNeue-Bold" size:24.0f]];
+        [currentLabel setFont: [UIFont fontWithName:@"HelveticaNeue-Bold" size:30.0f]];
         [currentLabel setTextColor:[UIColor whiteColor]];
         
         // For the highest score, make the text color yellow.
@@ -81,8 +80,14 @@ CGFloat INSET_RATIO;
         [self addSubview:currentLabel];
         [_highScoreLabels insertObject:currentLabel atIndex:i];
         
+        // Set border images for each button
+        UIImageView *background = [[UIImageView alloc] initWithFrame:labelFrame];
+        background.image = [UIImage imageNamed:@"menuBorder"];
+        [self addSubview:background];
+        [self sendSubviewToBack:background];
+        
         // Increment offset for next label frame
-        yOffset += labelHeight;
+        yOffset += labelHeight*2;
     }
 }
 

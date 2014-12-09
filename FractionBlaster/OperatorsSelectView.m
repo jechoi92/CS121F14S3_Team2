@@ -12,18 +12,15 @@ CGFloat INSET_RATIO;
 
 // Enum object for button tags
 typedef enum {
-    StartTag,
-    BackTag
-}ButtonTags;
-
-// Enum object for operator button tags
-typedef enum {
     AdditionTag,
     SubtractionTag,
     MultiplicationTag,
     DivisionTag,
-    SimplificationTag
-}OperatorTags;
+    SimplificationTag,
+    StartTag,
+    BackTag
+} ButtonTags;
+
 
 @implementation OperatorsSelectView
 {
@@ -194,6 +191,10 @@ typedef enum {
     [button addTarget:self action:@selector(operatorSelected:)
             forControlEvents:UIControlEventTouchUpInside];
     
+    // Allows for operator selected sound to be played by the view controller
+    [button addTarget:self action:@selector(buttonSelected:)
+     forControlEvents:UIControlEventTouchUpInside];
+    
     [self addSubview:button];
     
     // Create the image for the button
@@ -223,6 +224,10 @@ typedef enum {
     // Create target for button
     [button addTarget:self action:@selector(operatorSelected:)
          forControlEvents:UIControlEventTouchUpInside];
+    
+    // Allows for operator selected sound to be played by the view controller
+    [button addTarget:self action:@selector(buttonSelected:)
+     forControlEvents:UIControlEventTouchUpInside];
     
     [self addSubview:button];
     
@@ -254,6 +259,10 @@ typedef enum {
     [button addTarget:self action:@selector(operatorSelected:)
          forControlEvents:UIControlEventTouchUpInside];
     
+    // Allows for operator selected sound to be played by the view controller
+    [button addTarget:self action:@selector(buttonSelected:)
+     forControlEvents:UIControlEventTouchUpInside];
+    
     [self addSubview:button];
     
     // Create the image for the button
@@ -284,6 +293,10 @@ typedef enum {
     [button addTarget:self action:@selector(operatorSelected:)
          forControlEvents:UIControlEventTouchUpInside];
     
+    // Allows for operator selected sound to be played by the view controller
+    [button addTarget:self action:@selector(buttonSelected:)
+     forControlEvents:UIControlEventTouchUpInside];
+    
     [self addSubview:button];
     
     // Create the image for the button
@@ -313,6 +326,10 @@ typedef enum {
     // Create the target for the button
     [button addTarget:self action:@selector(operatorSelected:)
          forControlEvents:UIControlEventTouchUpInside];
+    
+    // Allows for operator selected sound to be played by the view controller
+    [button addTarget:self action:@selector(buttonSelected:)
+     forControlEvents:UIControlEventTouchUpInside];
     
     [self addSubview:button];
     

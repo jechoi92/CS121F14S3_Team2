@@ -12,7 +12,8 @@
 
 @interface OperatorsSelectViewController : UIViewController <ButtonSelected>
 
-@property (nonatomic) AVAudioPlayer *buttonPressed;
-@property (nonatomic) AVAudioPlayer *backButton;
+@property (nonatomic) AVAudioPlayer *operSelectedSound;
+@property (nonatomic) AVAudioPlayer *operBackSound;
+@property (nonatomic) AVAudioPlayer *operLaunch;
 
 @end
