@@ -12,4 +12,7 @@
 
 @interface LevelSelectViewController : UIViewController <ButtonSelected>
 
+@property (nonatomic) AVAudioPlayer *buttonPressed;
+@property (nonatomic) AVAudioPlayer *backButton;
+
 @end

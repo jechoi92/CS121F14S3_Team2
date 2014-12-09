@@ -42,7 +42,7 @@ typedef enum {
 }
 
 // Function to perform action according to button selected
-- (void)buttonSelected:(id)sender
+- (void)launchSelected:(id)sender
 {
     // Figure out which button was selected
     UIButton *button = (UIButton *)sender;
@@ -68,12 +68,35 @@ typedef enum {
         // Back button selected, move to previous screen
         case BackTag:
         {
+            [self backPlaySound];
             [self.navigationController popViewControllerAnimated:YES];
+            break;
+        }
+            
+        default:
+        {
+            [self progressPlaySound];
             break;
         }
     }
 }
 
+//
+- (void)progressPlaySound {
+    NSError *error;
+    NSURL *progressButton = [[NSBundle mainBundle] URLForResource:@"button-09" withExtension:@"wav"];
+    self.shipSelectButton = [[AVAudioPlayer alloc] initWithContentsOfURL:progressButton error:&error];
+    [self.shipSelectButton prepareToPlay];
+    [self.shipSelectButton play];
+}
 
+//
+- (void)backPlaySound {
+    NSError *error;
+    NSURL *backButton = [[NSBundle mainBundle] URLForResource:@"button-3" withExtension:@"wav"];
+    self.shipBackButton = [[AVAudioPlayer alloc] initWithContentsOfURL:backButton error:&error];
+    [self.shipBackButton prepareToPlay];
+    [self.shipBackButton play];
+}
 
 @end
