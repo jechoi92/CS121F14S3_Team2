@@ -767,6 +767,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				DA7832671A36EA84000830C1 /* mult-tip-img.png in Resources */,
+				A91150F91A368F28003D1961 /* button-09.wav in Resources */,
+				A91150FB1A36BD67003D1961 /* ship-select.mp3 in Resources */,
+				A91150F71A368EEE003D1961 /* button-3.wav in Resources */,
 				A9A787461A355CD7003295B7 /* survival_mode_button.png in Resources */,
 				A91150D31A3669B1003D1961 /* laser_back.png in Resources */,
 				DA7832651A36EA84000830C1 /* add-tip-img.png in Resources */,

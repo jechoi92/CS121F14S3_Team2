@@ -92,7 +92,6 @@ CGFloat INSET_RATIO;
     [tipTitle setTextColor:[UIColor yellowColor]];
     [tipTitle setBackgroundColor:[UIColor clearColor]];
     [tipTitle setTextAlignment:NSTextAlignmentCenter];
-    // TODO: Magic number
     [tipTitle setFont:[UIFont fontWithName:@"SpaceAge" size:45]];
     
     [self addSubview:tipTitle];
@@ -161,7 +160,6 @@ CGFloat INSET_RATIO;
     // Choose right file based on operator
     NSString *filename = @"tip";
     switch (_operator) {
-        // TODO: Upload simplification file?
         case '$':
             filename = [NSString stringWithFormat:@"simp-%@", filename];
             break;
