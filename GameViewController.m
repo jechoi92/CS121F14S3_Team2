@@ -258,7 +258,7 @@ CGFloat INSET_RATIO = 0.02;
 // Delegate handler for when scene indicates that the level is over
 - (void)lastAsteroidDestroyed
 {
-  [self createGameOverSceneWithWin:YES];
+    [self createGameOverSceneWithWin:YES];
 }
 
 // Decreases health level, and checks if health is equal to or lower than 0.

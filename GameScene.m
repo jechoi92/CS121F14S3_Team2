@@ -7,6 +7,7 @@
 //
 
 #import "GameScene.h"
+#import "Constants.h"
 
 static const uint32_t laserCategory     =  0x1 << 0;
 static const uint32_t asteroidCategory  =  0x1 << 1;
@@ -466,8 +467,8 @@ typedef enum {
     // Set up the laser's contact detection body
     projectile.physicsBody = [SKPhysicsBody bodyWithCircleOfRadius:projectile.size.width/2];
     projectile.physicsBody.dynamic = YES;
-    projectile.physicsBody.categoryBitMask = laserCategory;
-    projectile.physicsBody.contactTestBitMask = asteroidCategory;
+    projectile.physicsBody.categoryBitMask = LASER_CATEGORY;
+    projectile.physicsBody.contactTestBitMask = ASTEROID_CATEGORY | SHIELD_CATEGORY | BOSS_CATEGORY;
     projectile.physicsBody.collisionBitMask = 0;
     projectile.physicsBody.usesPreciseCollisionDetection = YES;
     projectile.yScale = -1.0;
@@ -502,6 +503,12 @@ typedef enum {
         
         // Create animated explosion sprite
         [self createExplosion:[asteroid position]];
+        
+        // Calculate the score for the destroyed asteroid and create a notice with that score
+        // Score earned is higher the faster an asteroid is destroyed upon creation
+        int asteroidScore = (11 + (int) asteroid.position.y / 100) * 10;
+        [self asteroidDestroyed: (int)asteroidScore andAsteroidCount:(int)_asteroidsToDestroy];
+        [self notifyWithPosition: asteroid.position andScore: asteroidScore andPositive:YES];
         
         // Calculate the score for the destroyed asteroid and create a notice with that score
         // Score earned is higher the faster an asteroid is destroyed upon creation
@@ -567,6 +574,8 @@ typedef enum {
     SKAction * playExplosion = [SKAction animateWithTextures:_explosionFrames timePerFrame:0.05f];
     SKAction * endAnimation = [SKAction removeFromParent];
     [explosion runAction:[SKAction sequence:@[playExplosion, endAnimation]]];
+    
+    [self runAction:[SKAction playSoundFileNamed:@"ryansnook__medium-explosion.wav" waitForCompletion:NO]];
 }
 
 // Create a label with the number of points earned from an asteroid
@@ -614,8 +623,8 @@ typedef enum {
         secondBody = contact.bodyA;
     }
     
-    if ((firstBody.categoryBitMask & laserCategory) != 0 &&
-        (secondBody.categoryBitMask & asteroidCategory) != 0)
+    if ((firstBody.categoryBitMask & LASER_CATEGORY) != 0 &&
+        (secondBody.categoryBitMask & ASTEROID_CATEGORY) != 0)
     {
         [self laser:(SKSpriteNode*) firstBody.node didCollideWithAsteroid:(SKSpriteNode*) secondBody.node];
     }
