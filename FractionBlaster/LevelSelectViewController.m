@@ -41,6 +41,7 @@ typedef enum {
         // Show ship selection screen
         case StartTag:
         {
+            [self launchSound];
             int currentLevel = [_levelSelectView currentLevelSelected] + 1;
             ShipSelectViewController *svc = [[ShipSelectViewController alloc]
                                        initWithLevel:currentLevel andOperators:NULL];
@@ -58,7 +59,9 @@ typedef enum {
             
         default:
         {
+            
             [self levelSelectSound];
+            break;
         }
     }
 }
@@ -95,5 +98,16 @@ typedef enum {
     [self.levelBackSound prepareToPlay];
     [self.levelBackSound play];
 }
+
+// Play the sound to go to the next screen
+- (void)launchSound
+{
+    NSError *error;
+    NSURL *backButton = [[NSBundle mainBundle] URLForResource:@"button-3" withExtension:@"wav"];
+    self.levelLaunch = [[AVAudioPlayer alloc] initWithContentsOfURL:backButton error:&error];
+    [self.levelLaunch prepareToPlay];
+    [self.levelLaunch play];
+}
+
 
 @end
