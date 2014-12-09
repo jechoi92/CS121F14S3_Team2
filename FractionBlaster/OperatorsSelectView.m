@@ -192,8 +192,8 @@ typedef enum {
 
 - (void)createPlusButton:(CGFloat)buttonSize
 {
-    CGFloat yOffset = CGRectGetHeight(self.frame) * 0.3;
-    CGFloat xOffset = CGRectGetWidth(self.frame) * 0.35;
+    CGFloat yOffset = CGRectGetHeight(self.frame) * 0.35;
+    CGFloat xOffset = CGRectGetWidth(self.frame) * 0.2;
     
     CGRect buttonFrame = CGRectMake(xOffset, yOffset, buttonSize, buttonSize);
     UIButton* plusButton = [[UIButton alloc] initWithFrame:buttonFrame];
@@ -211,8 +211,8 @@ typedef enum {
 
 -(void)createMinusButton:(CGFloat)buttonSize
 {
-    CGFloat yOffset = CGRectGetHeight(self.frame) * 0.45;
-    CGFloat xOffset = CGRectGetWidth(self.frame) * 0.05;
+    CGFloat yOffset = CGRectGetHeight(self.frame) * 0.65;
+    CGFloat xOffset = CGRectGetWidth(self.frame) * 0.2;
     
     CGRect buttonFrame = CGRectMake(xOffset, yOffset, buttonSize, buttonSize);
     UIButton* minusButton = [[UIButton alloc] initWithFrame:buttonFrame];
@@ -231,7 +231,7 @@ typedef enum {
 - (void)createTimesButton:(CGFloat)buttonSize
 {
     CGFloat yOffset = CGRectGetHeight(self.frame) * 0.65;
-    CGFloat xOffset = CGRectGetWidth(self.frame) * 0.5;
+    CGFloat xOffset = CGRectGetWidth(self.frame) * 0.55;
     
     CGRect buttonFrame = CGRectMake(xOffset, yOffset, buttonSize, buttonSize);
     UIButton* timesButton = [[UIButton alloc] initWithFrame:buttonFrame];
@@ -249,8 +249,8 @@ typedef enum {
 
 - (void)createDivideButton:(CGFloat)buttonSize
 {
-    CGFloat yOffset = CGRectGetHeight(self.frame) * 0.52;
-    CGFloat xOffset = CGRectGetWidth(self.frame) * 0.7;
+    CGFloat yOffset = CGRectGetHeight(self.frame) * 0.35;
+    CGFloat xOffset = CGRectGetWidth(self.frame) * 0.55;
     
     CGRect buttonFrame = CGRectMake(xOffset, yOffset, buttonSize, buttonSize);
     UIButton* divideButton = [[UIButton alloc] initWithFrame:buttonFrame];

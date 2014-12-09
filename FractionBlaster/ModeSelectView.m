@@ -23,12 +23,29 @@ typedef enum {
 {
     self = [super initWithFrame:frame];
     if (self) {
+        [self createTitleImage];
         [self createSelectionButtons];
         [self createLabels];
         [self createBackButton];
         [self setBackgroundColor:[[UIColor alloc] initWithPatternImage:[UIImage imageNamed:@"main_background"]]];
     }
     return self;
+}
+
+// Create the title
+- (void)createTitleImage
+{
+    // Get frame and frame dimensions
+    CGRect frame = self.frame;
+    CGFloat frameWidth = CGRectGetWidth(frame);
+    CGFloat frameHeight = CGRectGetHeight(frame);
+    
+    // Add the level select image to the top of the view
+    CGRect title = CGRectMake(frameWidth*0.1, frameHeight*0.05, frameWidth*0.8, frameHeight*.18);
+    UIImageView *imageView = [[UIImageView alloc] initWithFrame:title];
+    imageView.image = [UIImage imageNamed:@"mode_select"];
+    
+    [self addSubview:imageView];
 }
 
 // Create selection buttons for the two modes i.e. campaign and survival
@@ -50,10 +67,10 @@ typedef enum {
          forControlEvents:UIControlEventTouchUpInside];
         
         // Style button
-        [button.titleLabel setFont:[UIFont fontWithName:@"SpaceAge" size:42.0f]];
-        [[button layer] setBorderWidth:6.0f];
-        [[button layer] setBorderColor:[UIColor whiteColor].CGColor];
-        [[button layer] setCornerRadius:18.0f];
+    //   [button.titleLabel setFont:[UIFont fontWithName:@"SpaceAge" size:42.0f]];
+      //  [[button layer] setBorderWidth:6.0f];
+      //  [[button layer] setBorderColor:[UIColor whiteColor].CGColor];
+      //  [[button layer] setCornerRadius:18.0f];
         
         // Set up tag to determine action accordingly when button selected
         button.tag = i;
@@ -61,11 +78,11 @@ typedef enum {
         // Set up titles for each button
         switch (button.tag){
             case LevelSelectTag:
-                [button setTitle:@"Campaign Mode" forState:UIControlStateNormal];
+                [button setBackgroundImage:[UIImage imageNamed:@"campaign_mode_button"] forState:UIControlStateNormal];
                 
                 break;
             case OperatorSelectTag:
-                [button setTitle:@"Survival Mode" forState:UIControlStateNormal];
+                [button setBackgroundImage:[UIImage imageNamed:@"survival_mode_button"] forState:UIControlStateNormal];
                 break;
         }
         
