@@ -7,9 +7,7 @@
 //
 
 #import "EquationGenerator.h"
-
-int TOTAL_INITIAL_FRACTIONS;
-int SCALAR_LIMIT = 10;
+#import "Constants.h"
 
 @implementation EquationGenerator
 {

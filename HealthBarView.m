@@ -7,9 +7,7 @@
 //
 
 #import "HealthBarView.h"
-
-int NUM_OF_BARS = 10;
-int MAX_HEALTH = 100;
+#import "Constants.h"
 
 @implementation HealthBarView
 {

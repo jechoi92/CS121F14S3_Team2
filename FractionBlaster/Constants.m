@@ -7,7 +7,6 @@
 //
 
 #import <Foundation/Foundation.h>
-
 #import "Constants.h"
 
 const uint32_t LASER_CATEGORY        =  0x1 << 0;
@@ -27,3 +26,12 @@ int SHIELDGEN_HP = 4;
 int WARPGEN_HP = 1;
 int ASTEROIDGEN_HP = 4;
 CGFloat LASER_VELOCITY = 1500.0;
+CGFloat INSET_RATIO = 0.02;
+CGFloat WARP_FLASH_VELOCITY = 750.0;
+
+int TOTAL_INITIAL_FRACTIONS = 5;
+int HEALTHPENALTY = 0;
+int SCALAR_LIMIT = 10;
+
+int NUM_OF_BARS = 10;
+int MAX_HEALTH = 100;

@@ -6,9 +6,8 @@
 //  Copyright (c) 2014 MatherTeresa. All rights reserved.
 //
 
-int TOTAL_INITIAL_FRACTIONS;
-
 #import "SideBarView.h"
+#import "Constants.h"
 
 @implementation SideBarView {
     NSMutableArray *_buttons;

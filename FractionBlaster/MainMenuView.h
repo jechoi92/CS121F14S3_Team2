@@ -7,10 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-
-@protocol ButtonSelected
-- (void)buttonSelected:(id)sender;
-@end
+#import "Protocols.h"
 
 @interface MainMenuView : UIView
 

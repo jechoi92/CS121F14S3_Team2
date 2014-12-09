@@ -7,8 +7,7 @@
 //
 
 #import "LeaderboardViewController.h"
-
-CGFloat INSET_RATIO;
+#import "Constants.h"
 
 @implementation LeaderboardViewController {
     LeaderboardView *_leaderboardView;

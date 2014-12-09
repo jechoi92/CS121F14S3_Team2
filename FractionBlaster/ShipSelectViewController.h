@@ -8,8 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "ShipSelectView.h"
-#import "GameViewController.h" // we will jump to the gvcontroller from here now.
-
+#import "AVFoundation/AVFoundation.h" 
 
 @interface ShipSelectViewController : UIViewController <ButtonSelected>
 
@@ -18,6 +17,5 @@
 @property (nonatomic) AVAudioPlayer *shipLaunch;
 
 - (id)initWithLevel:(int)level andOperators:(NSArray*)operators;
-
 
 @end

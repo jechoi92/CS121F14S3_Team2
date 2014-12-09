@@ -8,8 +8,7 @@
 
 #import "TipView.h"
 #import "UIImage+animatedGIF.h"
-
-CGFloat INSET_RATIO;
+#import "Constants.h"
 
 @implementation TipView
 {
@@ -81,7 +80,7 @@ CGFloat INSET_RATIO;
             title = @"Division";
             break;
         case '+':
-            title = @"Addition/Subtraction";
+            title = @"Addition/\nSubtraction";
             break;
         default:
             break;
@@ -91,6 +90,7 @@ CGFloat INSET_RATIO;
     [tipTitle setText:title];
     [tipTitle setTextColor:[UIColor yellowColor]];
     [tipTitle setBackgroundColor:[UIColor clearColor]];
+    tipTitle.numberOfLines = 2;
     [tipTitle setTextAlignment:NSTextAlignmentCenter];
     [tipTitle setFont:[UIFont fontWithName:@"SpaceAge" size:45]];
     

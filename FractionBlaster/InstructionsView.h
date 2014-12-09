@@ -7,12 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "LeaderboardView.h"
+#import "Protocols.h"
 
 @interface InstructionsView : UIView
 
 @property (assign, nonatomic) id <GoBack> delegate;
-
-
+@property (assign, nonatomic) id <ButtonSelected> buttonDelegate;
 
 @end
