@@ -306,7 +306,7 @@
             return;
         }
         
-        start = CGPointMake(self.size.width - 220.0, self.size.height - 180.0);
+        start = CGPointMake(self.size.width - 230.0, self.size.height - 180.0);
     }
     else {
         _lastAsteroidGenerated = 1;
@@ -315,7 +315,7 @@
             return;
         }
         
-        start = CGPointMake(220.0, self.size.height - 180.0);
+        start = CGPointMake(230.0, self.size.height - 180.0);
     }
     
     // Create the asteroid sprite
@@ -323,14 +323,27 @@
     
     // Set up the asteroid's contact detection body
     asteroid.physicsBody = [SKPhysicsBody bodyWithCircleOfRadius:asteroid.size.width/2];
-    asteroid.physicsBody.dynamic = YES; // 2
-    asteroid.physicsBody.categoryBitMask = ASTEROID_CATEGORY; // 3
-    asteroid.physicsBody.contactTestBitMask = LASER_CATEGORY; // 4
-    asteroid.physicsBody.collisionBitMask = 0; // 5
+    asteroid.physicsBody.dynamic = YES;
+    
+    // We don't want the asteroid to respond to laser collisions until it's done spawning!
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, 1.0*NSEC_PER_SEC), dispatch_get_main_queue(), ^(void){
+        asteroid.physicsBody.categoryBitMask = ASTEROID_CATEGORY;
+    });
+    asteroid.physicsBody.contactTestBitMask = LASER_CATEGORY;
+    asteroid.physicsBody.collisionBitMask = 0;
     
     // Create the asteroid at the position of the corresponding asteroid generator
     asteroid.position = start;
     [self addChild:asteroid];
+    
+    // Asteroid spawning animation
+    [asteroid setScale:0.0];
+    [asteroid runAction:[SKAction colorizeWithColor:[UIColor blackColor] colorBlendFactor:3.0 duration:0.0]];
+    asteroid.alpha = 0.0;
+    [asteroid runAction:[SKAction colorizeWithColor:[UIColor whiteColor] colorBlendFactor:0.0 duration:1.0]];
+    [asteroid runAction:[SKAction scaleTo:1.0 duration:1.0]];
+    [asteroid runAction:[SKAction rotateByAngle:4*M_PI_2 duration:1.0]];
+    
     
     // Determine speed of the asteroid
     int minDuration = MINIMUM_ASTEROID_DURATION;
@@ -363,12 +376,13 @@
     [asteroid addChild:[self createLabelForEquation:equation]];
     
     // Create the actions and animate the asteroid's motion
+    SKAction * actionAlpha = [SKAction fadeAlphaTo:1.0 duration:1.0];
     SKAction * actionMove = [SKAction moveTo:CGPointMake(endX, -asteroid.size.height/2) duration:actualDuration];
     SKAction * actionMoveDone = [SKAction removeFromParent];
     SKAction * loseAction = [SKAction runBlock:^{
         [self asteroidHitBottom];
     }];
-    [asteroid runAction:[SKAction sequence:@[actionMove, loseAction, actionMoveDone]]];
+    [asteroid runAction:[SKAction sequence:@[actionAlpha, actionMove, loseAction, actionMoveDone]]];
 }
 
 // Create an SKNode with text representing an equation

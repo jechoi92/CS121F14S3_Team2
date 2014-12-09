@@ -588,9 +588,18 @@ CGFloat INSET_RATIO = 0.02;
     // Create timer upon dismissal of tip view
     [_tipView removeFromSuperview];
     [_scene startLevelAnimation];
-    _asteroidGenerationTimer = [NSTimer scheduledTimerWithTimeInterval:7.0
-                                                                target:self selector:@selector(createAsteroid:)
-                                                              userInfo:nil repeats:YES];
+    if (_level != 10) {
+        _asteroidGenerationTimer = [NSTimer scheduledTimerWithTimeInterval:7.0
+                                                                    target:self selector:@selector(createAsteroid:)
+                                                                  userInfo:nil repeats:YES];
+    }
+    else {
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, 5*NSEC_PER_SEC), dispatch_get_main_queue(), ^(void){
+            _asteroidGenerationTimer = [NSTimer scheduledTimerWithTimeInterval:9.0
+                                                                        target:self selector:@selector(createAsteroid:)
+                                                                      userInfo:nil repeats:YES];
+        });
+    }
 }
 
 // Back button to main menu
