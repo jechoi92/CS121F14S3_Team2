@@ -7,8 +7,7 @@
 //
 
 #import "GameView.h"
-
-CGFloat INSET_RATIO;
+#import "Constants.h"
 
 @implementation GameView
 {
@@ -21,7 +20,7 @@ CGFloat INSET_RATIO;
     self = [super initWithFrame:frame];
     if (self) {
         [self createBackButton];
-        [self addScoreAndAsteroidContainer];
+        [self createContainer];
         [self createLabelsWithAsteroidCount:numAsteroids andScore:score];
     }
     return self;
@@ -51,7 +50,7 @@ CGFloat INSET_RATIO;
 }
 
 // Create the frame for the labels aesthetic purposes
-- (void)addScoreAndAsteroidContainer
+- (void)createContainer
 {
     CGFloat frameWidth = CGRectGetWidth(self.frame);
     CGFloat frameHeight = CGRectGetHeight(self.frame);

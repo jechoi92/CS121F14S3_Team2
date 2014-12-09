@@ -7,8 +7,7 @@
 //
 
 #import "ShipSelectView.h"
-
-CGFloat INSET_RATIO;
+#import "Constants.h"
 
 // Enum object for button tags
 typedef enum {

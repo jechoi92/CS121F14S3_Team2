@@ -68,7 +68,15 @@ typedef enum {
                                            initWithLevel:_level
                                            andOperators:_operators
                                            andShipNumber:shipNum];
-            [self.navigationController pushViewController:gvc animated:YES];
+            
+            CATransition* transition = [CATransition animation];
+            transition.duration = 1;
+            transition.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut];
+            transition.type = kCATransitionFade;
+            
+            [self.navigationController.view.layer addAnimation:transition forKey:nil];
+            [self.navigationController pushViewController:gvc animated:NO];
+            
             break;
         }
             

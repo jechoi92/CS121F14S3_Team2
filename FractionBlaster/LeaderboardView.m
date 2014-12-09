@@ -7,8 +7,7 @@
 //
 
 #import "LeaderboardView.h"
-
-CGFloat INSET_RATIO;
+#import "Constants.h"
 
 @implementation LeaderboardView {
     NSMutableArray *_highScoreLabels;

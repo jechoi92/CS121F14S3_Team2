@@ -9,8 +9,6 @@
 #import "GameScene.h"
 #import "Constants.h"
 
-CGFloat INSET_RATIO;
-
 // Enum object for ship numbers
 typedef enum {
     BlueShip,
@@ -37,8 +35,9 @@ typedef enum {
     int _asteroidsToDestroy;
     int _score;
     int _level;
-    SKNode* _levelNode;
-    NSArray* _explosionFrames;
+    SKNode *_levelNode;
+    NSArray *_explosionFrames;
+    NSTimer *_hyperTimer;
 }
 
 -(id)initWithSize:(CGSize)size andLevel:(int)level andShipNum:(int)shipNum
@@ -64,7 +63,19 @@ typedef enum {
 
 - (void)createBackground
 {
-    SKSpriteNode* background = [SKSpriteNode spriteNodeWithImageNamed:@"background"];
+    SKSpriteNode* background;
+    if (_level == 5 || _level == -1) {
+        background = [SKSpriteNode spriteNodeWithColor:[UIColor blackColor] size:self.frame.size];
+        _hyperTimer = [NSTimer scheduledTimerWithTimeInterval:0.02
+                                                       target:self selector:@selector(createHyperSpace)
+                                                     userInfo:nil repeats:YES];
+    }
+    else if (_level < 5) {
+        background = [SKSpriteNode spriteNodeWithImageNamed:@"background"];
+    }
+    else {
+        background = [SKSpriteNode spriteNodeWithImageNamed:@"foreign-back"];
+    }
     background.position = CGPointMake(CGRectGetMidX(self.frame), CGRectGetMidY(self.frame));
     background.zPosition = -1;
     [self addChild:background];
@@ -211,6 +222,26 @@ typedef enum {
     else {
         return 25;
     }
+}
+
+// Creates illusion of space travel with laser beams
+- (void) createHyperSpace
+{
+    int color = arc4random_uniform(5);
+    SKSpriteNode *warpFlash = [SKSpriteNode spriteNodeWithImageNamed:[NSString stringWithFormat:@"laser_back%d", color]];
+    // Create the asteroid slightly off-screen along the top edge,
+    // and along a random position along the X axis as calculated above
+    warpFlash.position = CGPointMake(arc4random_uniform((u_int32_t)self.frame.size.width), self.frame.size.height + warpFlash.size.height);
+    warpFlash.physicsBody.dynamic = YES;
+    [self addChild:warpFlash];
+    CGPoint endPoint = CGPointMake(warpFlash.position.x, -warpFlash.size.height);
+    // Determine speed of the asteroid
+    int actualDuration = self.size.width / WARP_FLASH_VELOCITY;
+    warpFlash.zPosition = -1;
+    // Create the actions and animate the asteroid's motion
+    SKAction *actionMove = [SKAction moveTo:endPoint duration:actualDuration];
+    SKAction *actionMoveDone = [SKAction removeFromParent];
+    [warpFlash runAction:[SKAction sequence:@[actionMove, actionMoveDone]]];
 }
 
 // Creates an asteroid with a corresponding equation at a random x location
@@ -489,6 +520,8 @@ typedef enum {
     
     // If the frequencies are the same, destroy both sprites and increment score
     if ([laserFrequency compare:asteroidFrequency] == NSOrderedSame) {
+        
+        // Create animated explosion sprite
         [self createExplosion:[asteroid position]];
         
         // Calculate the score for the destroyed asteroid and create a notice with that score
@@ -503,9 +536,10 @@ typedef enum {
         // Remove the asteroid sprite
         [asteroid removeFromParent];
         
-        if (_asteroidsToDestroy <= 0) {
-            // If the victory condition is met, destroy all asteroids left in the scene...
-            [self removeAllAsteroids];
+        // If there are no more asteroids to destroy
+        if (_asteroidsToDestroy == 0) {
+            
+            // Inform the delegate
             [self.deli lastAsteroidDestroyed];
         }
     }
@@ -543,6 +577,9 @@ typedef enum {
 // Creates an animated explosion sprite at the provided position
 - (void)createExplosion: (CGPoint)position
 {
+    // Play explosion sound effect
+    [self runAction:[SKAction playSoundFileNamed:@"ryansnook__medium-explosion.wav" waitForCompletion:NO]];
+    
     SKTexture *temp = _explosionFrames[0];
     SKSpriteNode *explosion = [SKSpriteNode spriteNodeWithTexture:temp];
     explosion.position = position;
@@ -608,12 +645,5 @@ typedef enum {
         [self laser:(SKSpriteNode*) firstBody.node didCollideWithAsteroid:(SKSpriteNode*) secondBody.node];
     }
 }
-
-// Clear the remaining asteroids in the scene
--(void)removeAllAsteroids
-{
-    [self enumerateChildNodesWithName:@"asteroid" usingBlock:^(SKNode *node, BOOL *stop) {[node removeFromParent];}];
-}
-
 
 @end
