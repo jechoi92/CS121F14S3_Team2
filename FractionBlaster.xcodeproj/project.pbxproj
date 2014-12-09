@@ -617,6 +617,7 @@
 				DA6F99AA1A36F377005B8662 /* warpgen-normalmap@2x.png */,
 				DA6F99AB1A36F377005B8662 /* warpgen.png */,
 				DA6F99AC1A36F377005B8662 /* warpgen@2x.png */,
+				A9F6C9A71A36E9AF000BE39A /* high_scores.png */,
 				A9E6EA101A36DA60001F3872 /* button-09.wav */,
 				A9E6EA0F1A36DA34001F3872 /* ship-select.mp3 */,
 				A9E6EA0E1A36D94C001F3872 /* button-3.wav */,
@@ -839,6 +840,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				DA6F99AE1A36F377005B8662 /* asteroidgen-normalmap@2x.png in Resources */,
+				DA7832671A36EA84000830C1 /* mult-tip-img.png in Resources */,
 				A91150F91A368F28003D1961 /* button-09.wav in Resources */,
 				A91150FB1A36BD67003D1961 /* ship-select.mp3 in Resources */,
 				A91150F71A368EEE003D1961 /* button-3.wav in Resources */,
