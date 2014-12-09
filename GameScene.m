@@ -240,8 +240,8 @@ typedef enum {
     // Set up the asteroid's contact detection body
     asteroid.physicsBody = [SKPhysicsBody bodyWithCircleOfRadius:asteroid.size.width/2];
     asteroid.physicsBody.dynamic = YES;
-    asteroid.physicsBody.categoryBitMask = asteroidCategory;
-    asteroid.physicsBody.contactTestBitMask = laserCategory;
+    asteroid.physicsBody.categoryBitMask = ASTEROID_CATEGORY;
+    asteroid.physicsBody.contactTestBitMask = LASER_CATEGORY;
     asteroid.physicsBody.collisionBitMask = 0;
     
     // Determine where to create the asteroid along the X axis
@@ -497,18 +497,7 @@ typedef enum {
     
     // If the frequencies are the same, destroy both sprites and increment score
     if ([laserFrequency compare:asteroidFrequency] == NSOrderedSame) {
-        
-        // Play explosion sound effect
-        [self runAction:[SKAction playSoundFileNamed:@"ryansnook__medium-explosion.wav" waitForCompletion:NO]];
-        
-        // Create animated explosion sprite
         [self createExplosion:[asteroid position]];
-        
-        // Calculate the score for the destroyed asteroid and create a notice with that score
-        // Score earned is higher the faster an asteroid is destroyed upon creation
-        int asteroidScore = (11 + (int) asteroid.position.y / 100) * 10;
-        [self asteroidDestroyed: (int)asteroidScore andAsteroidCount:(int)_asteroidsToDestroy];
-        [self notifyWithPosition: asteroid.position andScore: asteroidScore andPositive:YES];
         
         // Calculate the score for the destroyed asteroid and create a notice with that score
         // Score earned is higher the faster an asteroid is destroyed upon creation
@@ -522,10 +511,8 @@ typedef enum {
         // Remove the asteroid sprite
         [asteroid removeFromParent];
         
-        // If there are no more asteroids to destroy
-        if (_asteroidsToDestroy == 0) {
-            
-            // Destroy all asteroids left in the scene and inform the delegate
+        if (_asteroidsToDestroy <= 0) {
+            // If the victory condition is met, destroy all asteroids left in the scene...
             [self removeAllAsteroids];
             [self.deli lastAsteroidDestroyed];
         }

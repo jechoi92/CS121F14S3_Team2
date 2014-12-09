@@ -23,18 +23,14 @@
     NSTimer* _testTimer;
 }
 
--(id)initWithSize:(CGSize)size andLevel:(int)level andDelegate:(id<AsteroidAction>)deli{
+-(id)initWithSize:(CGSize)size andLevel:(int)level andShipNum:(int)shipNum andDelegate:(id<AsteroidAction>)deli{
     if (self = [super initWithSize:size]) {
         self.deli = deli;
         
-        SKSpriteNode* background = [SKSpriteNode spriteNodeWithImageNamed:@"background"];
+        [self createPlayerWithShipNum:shipNum];
+        [self createExplosionFrames];
+        [self createBackground];
         
-        background.position = CGPointMake(CGRectGetMidX(self.frame), CGRectGetMidY(self.frame));
-        background.name = @"BACKGROUND";
-        [self addChild:background];
-        
-        [self initializeSprites];
-        [self createPlayer];
         [self createBoss];
         [self advanceBossStage];
         
@@ -87,7 +83,7 @@
         [[_bossNode childNodeWithName:@"warpGen"] childNodeWithName:@"collisionBody"].physicsBody.categoryBitMask = BOSS_CATEGORY;
     }
     else if (_bossStage == 5) { // warpGen destroyed; boss death animation
-        [self spawnExplosions:20 OnNode:_bossNode WithSize:[_bossNode calculateAccumulatedFrame].size AndInterval:0.2];
+        [self createExplosions:20 OnNode:_bossNode WithSize:[_bossNode calculateAccumulatedFrame].size AndInterval:0.2];
         // boss death animation
         
         dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, 5.0*NSEC_PER_SEC);
@@ -296,17 +292,6 @@
     [container addChild:warpFieldCrop];
     
     return container;
-}
-
-// Create node for the player's ship sprite
-- (void)createPlayer
-{
-    self.player = [SKSpriteNode spriteNodeWithImageNamed:@"Spaceship"];
-    [self.player setScale:0.3];
-    self.player.position = CGPointMake(self.frame.size.width/2, self.player.size.width/2);
-    self.player.zPosition = 1;
-    
-    [self addChild:self.player];
 }
 
 // Spawns an asteroid with a corresponding equation at a random x location
@@ -549,7 +534,7 @@
     }
 }
 
-- (void)spawnExplosions:(int)numExplosions OnNode:(SKNode*)node WithSize:(CGSize)size AndInterval:(CGFloat)interval
+- (void)createExplosions:(int)numExplosions OnNode:(SKNode*)node WithSize:(CGSize)size AndInterval:(CGFloat)interval
 {
     for (int i = 0; i < numExplosions; i++) {
         dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, interval*i*NSEC_PER_SEC);
@@ -557,7 +542,7 @@
             CGPoint mid = [self convertPoint:node.position fromNode:node];
             mid.x += arc4random_uniform((u_int32_t) size.width) - size.width/2;
             mid.y += arc4random_uniform((u_int32_t) size.height) - size.height/2;
-            [self spawnExplosion:mid];
+            [self createExplosion:mid];
         });
     }
 }
@@ -589,7 +574,7 @@
     
     [part runAction:[SKAction colorizeWithColor:[UIColor blackColor] colorBlendFactor:0.5 duration:0]];
     
-    [self spawnExplosions:10 OnNode:part WithSize:part.size AndInterval:0.3];
+    [self createExplosions:10 OnNode:part WithSize:part.size AndInterval:0.3];
     
     [[[part parent] childNodeWithName:@"frequencyLabel"] removeFromParent];
     part.physicsBody.categoryBitMask = DEAD_BOSS_CATEGORY;
@@ -604,7 +589,7 @@
     // If the frequencies are the same, destroy both sprites and increment score
     if ([laserFrequency compare:asteroidFrequency] == NSOrderedSame) {
         // Spawn animated explosion sprite
-        [self spawnExplosion:[asteroid position]];
+        [self createExplosion:[asteroid position]];
         
         // Calculate the score for the destroyed asteroid and spawn a notice with that score
         int asteroidScore = (10 + (int) asteroid.position.y / 100) * 10;
@@ -656,7 +641,7 @@
         else {
             [self runAction:[SKAction playSoundFileNamed:@"ryansnook__medium-explosion.wav" waitForCompletion:NO]];
             CGPoint location = [self convertPoint:part.position fromNode:part];
-            [self spawnExplosion:location];
+            [self createExplosion:location];
             
             int score = 500; // TODO how should we decide this?  I have no ideas
             

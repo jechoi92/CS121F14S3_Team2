@@ -15,7 +15,7 @@
 @property (nonatomic) SKSpriteNode* player;
 @property (nonatomic, weak) id <AsteroidAction> deli;
 
-- (id)initWithSize:(CGSize)size andLevel:(int)level andDelegate:(id<AsteroidAction>)deli;
+- (id)initWithSize:(CGSize)size andLevel:(int)level andShipNum:(int)shipNum andDelegate:(id<AsteroidAction>)deli;
 - (void)createAsteroid: (Equation*)equation;
 //- (void)fireLaser: (Fraction*)value fromButton: (int)tag;
 
