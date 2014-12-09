@@ -9,15 +9,12 @@
 #import <UIKit/UIKit.h>
 #import "MainMenuView.h"
 
-@protocol LaunchSelected
-- (void)launchSelected:(id)sender;
-@end
 
 @interface ShipSelectView : UIView
 
 
 
 @property (assign, nonatomic) int currentShipSelected;
-@property (assign, nonatomic) id <LaunchSelected> delegate;
+@property (assign, nonatomic) id <ButtonSelected> delegate;
 
 @end

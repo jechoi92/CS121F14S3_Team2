@@ -10,6 +10,10 @@
 
 // Enum object for button tags
 typedef enum {
+    BlueShip,
+    BrownShip,
+    SilverShip,
+    RedShip,
     StartTag,
     BackTag
 }ButtonTags;
@@ -42,7 +46,7 @@ typedef enum {
 }
 
 // Function to perform action according to button selected
-- (void)launchSelected:(id)sender
+- (void)buttonSelected:(id)sender
 {
     // Figure out which button was selected
     UIButton *button = (UIButton *)sender;

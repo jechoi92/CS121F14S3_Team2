@@ -11,7 +11,7 @@
 #import "GameViewController.h" // we will jump to the gvcontroller from here now.
 
 
-@interface ShipSelectViewController : UIViewController <LaunchSelected>
+@interface ShipSelectViewController : UIViewController <ButtonSelected>
 
 @property (nonatomic) AVAudioPlayer *shipSelectButton;
 @property (nonatomic) AVAudioPlayer *shipBackButton;

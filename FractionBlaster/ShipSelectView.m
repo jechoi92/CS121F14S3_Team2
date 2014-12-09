@@ -12,18 +12,14 @@ CGFloat INSET_RATIO;
 
 // Enum object for button tags
 typedef enum {
-    StartTag,
-    BackTag,
-    ShipTag
-}ButtonTags;
-
-// Enum object for ship numbers
-typedef enum {
     BlueShip,
     BrownShip,
     SilverShip,
-    RedShip
-}ShipNumbers;
+    RedShip,
+    StartTag,
+    BackTag
+}ButtonTags;
+
 
 @implementation ShipSelectView
 {
@@ -72,7 +68,7 @@ typedef enum {
     [[backButton layer] setCornerRadius:12.0f];
     
     // Create target for button
-    [backButton addTarget:self action:@selector(launchSelected:)
+    [backButton addTarget:self action:@selector(buttonSelected:)
          forControlEvents:UIControlEventTouchUpInside];
     
     // Set tag
@@ -128,7 +124,8 @@ typedef enum {
     CGFloat vertOffset = CGRectGetHeight(self.frame) * 0.4;
     CGFloat xOffset = buttonSize;
     
-    // Create the four selection buttons
+    // Create the four selection buttons, ship tags will be from 2 through 5,
+    // observe the enum above
     for (int tag = 0; tag < 4; ++tag) {
         // Set up frame and cell and add it to the button sub view
         CGRect cellFrame = CGRectMake(xOffset, vertOffset, buttonSize, buttonSize);
@@ -171,8 +168,8 @@ typedef enum {
          forControlEvents:UIControlEventTouchUpInside];
         
         // This is used to play the selection sound in the view controller
-        //[button addTarget:self action:@selector(buttonSelected:)
-         //     forControlEvents:UIControlEventTouchUpInside];
+        [button addTarget:self action:@selector(buttonSelected:)
+              forControlEvents:UIControlEventTouchUpInside];
         
         // Add the button to the correct spot in the nested arrays
         [_shipSelected insertObject:button atIndex:tag];
@@ -190,6 +187,8 @@ typedef enum {
 {
     UIButton *newButton = (UIButton*)sender;
     int newTag = (int) newButton.tag;
+    
+    
     
     // Determine which button was previously being selected
     int shipNum = [self currentShipSelected];
@@ -304,7 +303,7 @@ typedef enum {
     [startButton setImage:image forState:UIControlStateNormal];
     
     // Create target for button
-    [startButton addTarget:self action:@selector(launchSelected:)
+    [startButton addTarget:self action:@selector(buttonSelected:)
           forControlEvents:UIControlEventTouchUpInside];
     
     // Set the tag appropriately
@@ -313,9 +312,9 @@ typedef enum {
     [self addSubview:startButton];
 }
 
--(void)launchSelected:(id)sender
+-(void)buttonSelected:(id)sender
 {
-    [self.delegate launchSelected:sender];
+    [self.delegate buttonSelected:sender];
 }
 
 @end
