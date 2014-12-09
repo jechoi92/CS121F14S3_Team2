@@ -63,7 +63,13 @@ CGFloat INSET_RATIO = 0.02;
 {
     // Play the background music
     NSError *error;
-    NSURL *backgroundMusicURL = [[NSBundle mainBundle] URLForResource:@"background-music-aac" withExtension:@"caf"];
+    NSURL *backgroundMusicURL = [[NSBundle mainBundle] URLForResource:@"gameBGM" withExtension:@"mp3"];
+    
+    // If boss level (i.e. level 10), play a different track
+    if (_level == 10) {
+        backgroundMusicURL = [[NSBundle mainBundle] URLForResource:@"bossBGM" withExtension:@"mp3"];
+    }
+    
     self.backgroundMusicPlayer = [[AVAudioPlayer alloc] initWithContentsOfURL:backgroundMusicURL error:&error];
     self.backgroundMusicPlayer.numberOfLoops = -1;
     [self.backgroundMusicPlayer prepareToPlay];

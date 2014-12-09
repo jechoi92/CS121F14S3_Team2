@@ -18,10 +18,7 @@
 #import "GameEndView.h"
 #import "TipView.h"
 
-@interface GameViewController : UIViewController <AsteroidAction,
-                                                  LaserFrequencyChosen,
-                                                  GoBackGame,
-                                                  DismissTip>
+@interface GameViewController : UIViewController <AsteroidAction, LaserFrequencyChosen, GoBackGame, DismissTip>
 
 @property (nonatomic) AVAudioPlayer *backgroundMusicPlayer;
 
