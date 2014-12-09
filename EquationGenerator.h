@@ -12,11 +12,11 @@
 @interface EquationGenerator : NSObject
 
 @property (nonatomic) int denominatorLimit;
-@property (strong, nonatomic) NSMutableArray* initialFractions;
+@property (nonatomic) NSMutableArray* initialFractions;
 
 - (id)initWithOperators: (NSArray*)operators andDenominatorLimit: (int)denominatorLimit andDifficulty: (int)difficulty;
 - (Equation*)generateRandomEquation;
-- (Fraction*) generateRandomFractionWithLimit: (Fraction*)upper;
+- (Fraction*)generateRandomFractionWithLimit: (Fraction*)upper;
 
 // For unit testing purposes
 - (Equation*)generateAdditionEquation: (BOOL)easy;
