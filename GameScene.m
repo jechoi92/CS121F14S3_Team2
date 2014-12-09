@@ -7,6 +7,7 @@
 //
 
 #import "GameScene.h"
+#import "Constants.h"
 
 static const uint32_t laserCategory     =  0x1 << 0;
 static const uint32_t asteroidCategory  =  0x1 << 1;
@@ -239,8 +240,8 @@ typedef enum {
     // Set up the asteroid's contact detection body
     asteroid.physicsBody = [SKPhysicsBody bodyWithCircleOfRadius:asteroid.size.width/2];
     asteroid.physicsBody.dynamic = YES;
-    asteroid.physicsBody.categoryBitMask = asteroidCategory;
-    asteroid.physicsBody.contactTestBitMask = laserCategory;
+    asteroid.physicsBody.categoryBitMask = ASTEROID_CATEGORY;
+    asteroid.physicsBody.contactTestBitMask = LASER_CATEGORY;
     asteroid.physicsBody.collisionBitMask = 0;
     
     // Determine where to create the asteroid along the X axis
@@ -466,8 +467,8 @@ typedef enum {
     // Set up the laser's contact detection body
     projectile.physicsBody = [SKPhysicsBody bodyWithCircleOfRadius:projectile.size.width/2];
     projectile.physicsBody.dynamic = YES;
-    projectile.physicsBody.categoryBitMask = laserCategory;
-    projectile.physicsBody.contactTestBitMask = asteroidCategory;
+    projectile.physicsBody.categoryBitMask = LASER_CATEGORY;
+    projectile.physicsBody.contactTestBitMask = ASTEROID_CATEGORY | SHIELD_CATEGORY | BOSS_CATEGORY;
     projectile.physicsBody.collisionBitMask = 0;
     projectile.physicsBody.usesPreciseCollisionDetection = YES;
     projectile.yScale = -1.0;
@@ -496,11 +497,6 @@ typedef enum {
     
     // If the frequencies are the same, destroy both sprites and increment score
     if ([laserFrequency compare:asteroidFrequency] == NSOrderedSame) {
-        
-        // Play explosion sound effect
-        [self runAction:[SKAction playSoundFileNamed:@"ryansnook__medium-explosion.wav" waitForCompletion:NO]];
-        
-        // Create animated explosion sprite
         [self createExplosion:[asteroid position]];
         
         // Calculate the score for the destroyed asteroid and create a notice with that score
@@ -515,10 +511,8 @@ typedef enum {
         // Remove the asteroid sprite
         [asteroid removeFromParent];
         
-        // If there are no more asteroids to destroy
-        if (_asteroidsToDestroy == 0) {
-            
-            // Destroy all asteroids left in the scene and inform the delegate
+        if (_asteroidsToDestroy <= 0) {
+            // If the victory condition is met, destroy all asteroids left in the scene...
             [self removeAllAsteroids];
             [self.deli lastAsteroidDestroyed];
         }
@@ -567,6 +561,8 @@ typedef enum {
     SKAction * playExplosion = [SKAction animateWithTextures:_explosionFrames timePerFrame:0.05f];
     SKAction * endAnimation = [SKAction removeFromParent];
     [explosion runAction:[SKAction sequence:@[playExplosion, endAnimation]]];
+    
+    [self runAction:[SKAction playSoundFileNamed:@"ryansnook__medium-explosion.wav" waitForCompletion:NO]];
 }
 
 // Create a label with the number of points earned from an asteroid
@@ -614,8 +610,8 @@ typedef enum {
         secondBody = contact.bodyA;
     }
     
-    if ((firstBody.categoryBitMask & laserCategory) != 0 &&
-        (secondBody.categoryBitMask & asteroidCategory) != 0)
+    if ((firstBody.categoryBitMask & LASER_CATEGORY) != 0 &&
+        (secondBody.categoryBitMask & ASTEROID_CATEGORY) != 0)
     {
         [self laser:(SKSpriteNode*) firstBody.node didCollideWithAsteroid:(SKSpriteNode*) secondBody.node];
     }

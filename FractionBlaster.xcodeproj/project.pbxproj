@@ -134,6 +134,7 @@
 		DA3109201A1B1EA100C5A3C4 /* logo@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = DA3109191A1B1EA100C5A3C4 /* logo@2x.png */; };
 		DA3109211A1B1EA100C5A3C4 /* main_background.png in Resources */ = {isa = PBXBuildFile; fileRef = DA31091A1A1B1EA100C5A3C4 /* main_background.png */; };
 		DA3109221A1B1EA100C5A3C4 /* main_background@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = DA31091B1A1B1EA100C5A3C4 /* main_background@2x.png */; };
+		DA6F99951A36ED39005B8662 /* BossScene.m in Sources */ = {isa = PBXBuildFile; fileRef = DA6F99941A36ED39005B8662 /* BossScene.m */; };
 		DA78325A1A36838F000830C1 /* add-sub-tip.txt in Resources */ = {isa = PBXBuildFile; fileRef = DA7832571A36838F000830C1 /* add-sub-tip.txt */; };
 		DA78325B1A36838F000830C1 /* div-tip.txt in Resources */ = {isa = PBXBuildFile; fileRef = DA7832581A36838F000830C1 /* div-tip.txt */; };
 		DA78325C1A36838F000830C1 /* mult-tip.txt in Resources */ = {isa = PBXBuildFile; fileRef = DA7832591A36838F000830C1 /* mult-tip.txt */; };
@@ -348,6 +349,8 @@
 		DA3109191A1B1EA100C5A3C4 /* logo@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "logo@2x.png"; sourceTree = "<group>"; };
 		DA31091A1A1B1EA100C5A3C4 /* main_background.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = main_background.png; sourceTree = "<group>"; };
 		DA31091B1A1B1EA100C5A3C4 /* main_background@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "main_background@2x.png"; sourceTree = "<group>"; };
+		DA6F99931A36ED39005B8662 /* BossScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BossScene.h; sourceTree = "<group>"; };
+		DA6F99941A36ED39005B8662 /* BossScene.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BossScene.m; sourceTree = "<group>"; };
 		DA7832571A36838F000830C1 /* add-sub-tip.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "add-sub-tip.txt"; sourceTree = "<group>"; };
 		DA7832581A36838F000830C1 /* div-tip.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "div-tip.txt"; sourceTree = "<group>"; };
 		DA7832591A36838F000830C1 /* mult-tip.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "mult-tip.txt"; sourceTree = "<group>"; };
@@ -445,6 +448,8 @@
 		93CB20F11A0754590050185E /* FractionBlaster */ = {
 			isa = PBXGroup;
 			children = (
+				DA6F99931A36ED39005B8662 /* BossScene.h */,
+				DA6F99941A36ED39005B8662 /* BossScene.m */,
 				93CB20F91A0754590050185E /* MainMenuViewController.h */,
 				93CB20FA1A0754590050185E /* MainMenuViewController.m */,
 				DAAA17A41A167BB000D84A96 /* MainMenuView.h */,
@@ -934,6 +939,7 @@
 				93AFEC8D1A2BF0B800CC6692 /* OperatorsSelectViewController.m in Sources */,
 				93CB20F51A0754590050185E /* main.m in Sources */,
 				DA8D13451A2EC9AF00BE47AA /* UIImage+animatedGIF.m in Sources */,
+				DA6F99951A36ED39005B8662 /* BossScene.m in Sources */,
 				93CB21611A075AED0050185E /* Equation.m in Sources */,
 				93AFEC871A2BEC5000CC6692 /* ModeSelectViewController.m in Sources */,
 				93EB31CA1A1AD13E0075BD53 /* GameView.m in Sources */,

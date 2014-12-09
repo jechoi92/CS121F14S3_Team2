@@ -182,8 +182,13 @@ CGFloat INSET_RATIO = 0.02;
 // Creates the scene
 - (void)createScene
 {
-    SKView *skView = (SKView *)self.view;
-    _scene = [[GameScene alloc] initWithSize:skView.bounds.size andLevel:_level andShipNum:_shipNum];
+    SKView * skView = (SKView *)self.view;
+    if (_level != 10) {
+        _scene = [[GameScene alloc] initWithSize:skView.bounds.size andLevel:_level andShipNum:_shipNum];
+        [_scene setDeli:self];
+    } else {
+        _scene = [[BossScene alloc] initWithSize:skView.bounds.size andLevel:_level andShipNum:_shipNum andDelegate:self];
+    }
     _scene.scaleMode = SKSceneScaleModeAspectFill;
     
     // Set the delegate appropriately
@@ -258,7 +263,7 @@ CGFloat INSET_RATIO = 0.02;
 // Delegate handler for when scene indicates that the level is over
 - (void)lastAsteroidDestroyed
 {
-  [self createGameOverSceneWithWin:YES];
+    [self createGameOverSceneWithWin:YES];
 }
 
 // Decreases health level, and checks if health is equal to or lower than 0.
@@ -278,6 +283,12 @@ CGFloat INSET_RATIO = 0.02;
         _score = 0;
     }
     [_gameView updateScore:_score];
+}
+
+- (Equation*)initializeTarget
+{
+    Equation* randomEquation = [_equationGenerator generateRandomEquation];
+    return randomEquation;
 }
 
 // Update the asteroid label on the game view to reflect an increase in asteroids
@@ -344,8 +355,8 @@ CGFloat INSET_RATIO = 0.02;
     [_asteroidGenerationTimer invalidate];
     CGFloat rate = _asteroidGenerationTimer.timeInterval;
     _asteroidGenerationTimer = [NSTimer scheduledTimerWithTimeInterval:rate * 0.997
-                                        target:self selector:@selector(createAsteroid:)
-                                        userInfo:nil repeats:YES];
+                                                                target:self selector:@selector(createAsteroid:)
+                                                              userInfo:nil repeats:YES];
 }
 
 // Gets the tag of the pressed button and then fires a laser on the scene with that laser value.
@@ -504,7 +515,7 @@ CGFloat INSET_RATIO = 0.02;
 {
     // Gets the previously high scores
     NSMutableArray* currentHighScores = [[NSMutableArray alloc] initWithArray:[self loadHighScores]];
-
+    
     // Creates a string that stores both the username and highscore
     NSString* scoreString = [NSString stringWithFormat:@"%007d", _score];
     NSString* scoreAndNameString = [[NSString alloc] initWithFormat:@"%@%@", scoreString, name];
@@ -578,8 +589,8 @@ CGFloat INSET_RATIO = 0.02;
     [_tipView removeFromSuperview];
     [_scene startLevelAnimation];
     _asteroidGenerationTimer = [NSTimer scheduledTimerWithTimeInterval:7.0
-                                        target:self selector:@selector(createAsteroid:)
-                                        userInfo:nil repeats:YES];
+                                                                target:self selector:@selector(createAsteroid:)
+                                                              userInfo:nil repeats:YES];
 }
 
 // Back button to main menu
