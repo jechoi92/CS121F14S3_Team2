@@ -21,6 +21,7 @@
 @interface GameViewController : UIViewController <AsteroidAction, LaserFrequencyChosen, GoBackGame, DismissTip>
 
 @property (nonatomic) AVAudioPlayer *backgroundMusicPlayer;
+@property (nonatomic) AVAudioPlayer *backButton;
 
 - (id)initWithLevel:(int)level andOperators: (NSArray*)operators andShipNumber:(int)shipNum;
 

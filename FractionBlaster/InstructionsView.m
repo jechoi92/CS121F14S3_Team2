@@ -24,6 +24,7 @@ CGFloat BASE_OFFSET_PCT = (float)1/21;
     UIButton *_prevInstrButton;
     UIButton *_nextInstrButton;
     
+    
     int _instrStep; // Ranges from 1 to NUM_INSTR_STEPS
 }
 
@@ -309,6 +310,7 @@ CGFloat BASE_OFFSET_PCT = (float)1/21;
         // [_prevInstrButton setBackgroundImage:[UIImage ] forState:UIControlStateNormal];
     }
 }
+
 
 - (void)backButtonPressed
 {

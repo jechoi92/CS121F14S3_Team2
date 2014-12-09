@@ -13,4 +13,7 @@
 
 @interface ModeSelectViewController : UIViewController <ButtonSelected>
 
+@property (nonatomic) AVAudioPlayer *modeProgressSound;
+@property (nonatomic) AVAudioPlayer *modeBackSound;
+
 @end
