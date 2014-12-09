@@ -79,25 +79,25 @@ typedef enum {
             
         default:
         {
-            [self progressPlaySound];
+            [self shipSelectSound];
             break;
         }
     }
 }
 
-//
-- (void)progressPlaySound {
+// Play the sound to the select a ship
+- (void)shipSelectSound {
     NSError *error;
-    NSURL *progressButton = [[NSBundle mainBundle] URLForResource:@"button-09" withExtension:@"wav"];
+    NSURL *progressButton = [[NSBundle mainBundle] URLForResource:@"ship-select" withExtension:@"mp3"];
     self.shipSelectButton = [[AVAudioPlayer alloc] initWithContentsOfURL:progressButton error:&error];
     [self.shipSelectButton prepareToPlay];
     [self.shipSelectButton play];
 }
 
-//
+// Play the sound to go to the previous screen
 - (void)backPlaySound {
     NSError *error;
-    NSURL *backButton = [[NSBundle mainBundle] URLForResource:@"button-3" withExtension:@"wav"];
+    NSURL *backButton = [[NSBundle mainBundle] URLForResource:@"button-09" withExtension:@"wav"];
     self.shipBackButton = [[AVAudioPlayer alloc] initWithContentsOfURL:backButton error:&error];
     [self.shipBackButton prepareToPlay];
     [self.shipBackButton play];

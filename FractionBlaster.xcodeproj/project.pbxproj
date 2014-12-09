@@ -77,6 +77,7 @@
 		A91150D31A3669B1003D1961 /* laser_back.png in Resources */ = {isa = PBXBuildFile; fileRef = A91150D21A3669B1003D1961 /* laser_back.png */; };
 		A91150F71A368EEE003D1961 /* button-3.wav in Resources */ = {isa = PBXBuildFile; fileRef = A91150F61A368EEE003D1961 /* button-3.wav */; };
 		A91150F91A368F28003D1961 /* button-09.wav in Resources */ = {isa = PBXBuildFile; fileRef = A91150F81A368F28003D1961 /* button-09.wav */; };
+		A91150FB1A36BD67003D1961 /* ship-select.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = A91150FA1A36BD67003D1961 /* ship-select.mp3 */; };
 		A91EB3771A353F6200BB8067 /* credits.png in Resources */ = {isa = PBXBuildFile; fileRef = A91EB3761A353F6200BB8067 /* credits.png */; };
 		A91EB3801A3551DF00BB8067 /* blueSS_highlight.png in Resources */ = {isa = PBXBuildFile; fileRef = A91EB3781A3551DF00BB8067 /* blueSS_highlight.png */; };
 		A91EB3811A3551DF00BB8067 /* blueSS_no_highlight.png in Resources */ = {isa = PBXBuildFile; fileRef = A91EB3791A3551DF00BB8067 /* blueSS_no_highlight.png */; };
@@ -283,6 +284,7 @@
 		A91150F51A368AAD003D1961 /* survival_mode_button.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = survival_mode_button.png; path = ../../survival_mode_button.png; sourceTree = "<group>"; };
 		A91150F61A368EEE003D1961 /* button-3.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = "button-3.wav"; sourceTree = "<group>"; };
 		A91150F81A368F28003D1961 /* button-09.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = "button-09.wav"; sourceTree = "<group>"; };
+		A91150FA1A36BD67003D1961 /* ship-select.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "ship-select.mp3"; sourceTree = "<group>"; };
 		A91EB3761A353F6200BB8067 /* credits.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = credits.png; sourceTree = "<group>"; };
 		A91EB3781A3551DF00BB8067 /* blueSS_highlight.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = blueSS_highlight.png; sourceTree = "<group>"; };
 		A91EB3791A3551DF00BB8067 /* blueSS_no_highlight.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = blueSS_no_highlight.png; sourceTree = "<group>"; };
@@ -527,6 +529,7 @@
 		93EFADDC1A102B9E00195D8E /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				A91150FA1A36BD67003D1961 /* ship-select.mp3 */,
 				A91150F61A368EEE003D1961 /* button-3.wav */,
 				A91150F81A368F28003D1961 /* button-09.wav */,
 				A91150F51A368AAD003D1961 /* survival_mode_button.png */,
@@ -758,6 +761,7 @@
 				A962BCF11A2DAA7D00F2AD79 /* space_age.ttf in Resources */,
 				A962BCEE1A2D878600F2AD79 /* laser_panel.png in Resources */,
 				DA3109211A1B1EA100C5A3C4 /* main_background.png in Resources */,
+				A91150FB1A36BD67003D1961 /* ship-select.mp3 in Resources */,
 				93EFADF01A102B9E00195D8E /* background-music-aac.caf in Resources */,
 				A91EB3771A353F6200BB8067 /* credits.png in Resources */,
 				A9AD539B1A34F60D00CB97F1 /* simplify.png in Resources */,

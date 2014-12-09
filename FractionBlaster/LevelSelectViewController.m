@@ -10,8 +10,8 @@
 
 // Enum object for button tags
 typedef enum {
-    StartTag,
-    BackTag
+    StartTag = 10,
+    BackTag = 11
 }ButtonTags;
 
 @implementation LevelSelectViewController
@@ -51,8 +51,14 @@ typedef enum {
         // Back button was pressed, show previous screen
         case BackTag:
         {
+            [self backSound];
             [self.navigationController popViewControllerAnimated:YES];
             break;
+        }
+            
+        default:
+        {
+            [self levelSelectSound];
         }
     }
 }
@@ -68,6 +74,26 @@ typedef enum {
     NSString *fileName = [NSString stringWithFormat:@"%@/Progress.txt", documentsDirectory];
     NSString *content = [[NSString alloc] initWithContentsOfFile:fileName usedEncoding:nil error:nil];
     return [content intValue];
+}
+
+// Play the sound to the select a ship
+- (void)levelSelectSound
+{
+    NSError *error;
+    NSURL *progressButton = [[NSBundle mainBundle] URLForResource:@"ship-select" withExtension:@"mp3"];
+    self.levelButtonSound = [[AVAudioPlayer alloc] initWithContentsOfURL:progressButton error:&error];
+    [self.levelButtonSound prepareToPlay];
+    [self.levelButtonSound play];
+}
+
+// Play the sound to go to the previous screen
+- (void)backSound
+{
+    NSError *error;
+    NSURL *backButton = [[NSBundle mainBundle] URLForResource:@"button-09" withExtension:@"wav"];
+    self.levelBackSound = [[AVAudioPlayer alloc] initWithContentsOfURL:backButton error:&error];
+    [self.levelBackSound prepareToPlay];
+    [self.levelBackSound play];
 }
 
 @end
