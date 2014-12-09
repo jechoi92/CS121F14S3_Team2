@@ -267,6 +267,18 @@
 		A9046DB61A3114C500B6D265 /* menuBorder.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = menuBorder.png; sourceTree = "<group>"; };
 		A9046DB71A3114C500B6D265 /* pipe.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = pipe.png; sourceTree = "<group>"; };
 		A91150D21A3669B1003D1961 /* laser_back.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = laser_back.png; sourceTree = "<group>"; };
+		A91150E61A3688D6003D1961 /* redSS_highlight.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = redSS_highlight.png; path = ../../redSS_highlight.png; sourceTree = "<group>"; };
+		A91150E71A36898A003D1961 /* blueSS_highlight.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = blueSS_highlight.png; path = ../../blueSS_highlight.png; sourceTree = "<group>"; };
+		A91150E81A36898A003D1961 /* blueSS_no_highlight.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = blueSS_no_highlight.png; path = ../../blueSS_no_highlight.png; sourceTree = "<group>"; };
+		A91150E91A36898A003D1961 /* brownSS_highlight.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = brownSS_highlight.png; path = ../../brownSS_highlight.png; sourceTree = "<group>"; };
+		A91150EA1A36898A003D1961 /* brownSS_no_highlight.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = brownSS_no_highlight.png; path = ../../brownSS_no_highlight.png; sourceTree = "<group>"; };
+		A91150EB1A36898A003D1961 /* redSS_no_highlight.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = redSS_no_highlight.png; path = ../../redSS_no_highlight.png; sourceTree = "<group>"; };
+		A91150EC1A36898B003D1961 /* silverSS_highlight.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = silverSS_highlight.png; path = ../../silverSS_highlight.png; sourceTree = "<group>"; };
+		A91150ED1A36898B003D1961 /* silverSS_no_highlight.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = silverSS_no_highlight.png; path = ../../silverSS_no_highlight.png; sourceTree = "<group>"; };
+		A91150EE1A368A05003D1961 /* campaign_mode_button.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = campaign_mode_button.png; path = ../../campaign_mode_button.png; sourceTree = "<group>"; };
+		A91150F11A368A05003D1961 /* ship_select.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = ship_select.png; path = ../../ship_select.png; sourceTree = "<group>"; };
+		A91150F41A368A71003D1961 /* laser_back.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = laser_back.png; path = ../../laser_back.png; sourceTree = "<group>"; };
+		A91150F51A368AAD003D1961 /* survival_mode_button.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = survival_mode_button.png; path = ../../survival_mode_button.png; sourceTree = "<group>"; };
 		A91EB3761A353F6200BB8067 /* credits.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = credits.png; sourceTree = "<group>"; };
 		A91EB3781A3551DF00BB8067 /* blueSS_highlight.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = blueSS_highlight.png; sourceTree = "<group>"; };
 		A91EB3791A3551DF00BB8067 /* blueSS_no_highlight.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = blueSS_no_highlight.png; sourceTree = "<group>"; };
@@ -511,6 +523,18 @@
 		93EFADDC1A102B9E00195D8E /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				A91150F51A368AAD003D1961 /* survival_mode_button.png */,
+				A91150F41A368A71003D1961 /* laser_back.png */,
+				A91150EE1A368A05003D1961 /* campaign_mode_button.png */,
+				A91150F11A368A05003D1961 /* ship_select.png */,
+				A91150E71A36898A003D1961 /* blueSS_highlight.png */,
+				A91150E81A36898A003D1961 /* blueSS_no_highlight.png */,
+				A91150E91A36898A003D1961 /* brownSS_highlight.png */,
+				A91150EA1A36898A003D1961 /* brownSS_no_highlight.png */,
+				A91150EB1A36898A003D1961 /* redSS_no_highlight.png */,
+				A91150EC1A36898B003D1961 /* silverSS_highlight.png */,
+				A91150ED1A36898B003D1961 /* silverSS_no_highlight.png */,
+				A91150E61A3688D6003D1961 /* redSS_highlight.png */,
 				A9AD53A21A351C4300CB97F1 /* horizPipe.png */,
 				A9AD539C1A34F63300CB97F1 /* asteroid_button_use_highlight.png */,
 				A9A7874B1A357826003295B7 /* new_level_select.png */,
@@ -712,6 +736,18 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A9A787461A355CD7003295B7 /* survival_mode_button.png in Resources */,
+				A91150D31A3669B1003D1961 /* laser_back.png in Resources */,
+				A9A787481A355D37003295B7 /* campaign_mode_button.png in Resources */,
+				A9A7874A1A35748B003295B7 /* ship_select.png in Resources */,
+				A91EB3801A3551DF00BB8067 /* blueSS_highlight.png in Resources */,
+				A91EB3811A3551DF00BB8067 /* blueSS_no_highlight.png in Resources */,
+				A91EB3821A3551DF00BB8067 /* brownSS_highlight.png in Resources */,
+				A91EB3831A3551DF00BB8067 /* brownSS_no_highlight.png in Resources */,
+				A91EB3851A3551DF00BB8067 /* redSS_no_highlight.png in Resources */,
+				A91EB3861A3551DF00BB8067 /* silverSS_highlight.png in Resources */,
+				A91EB3871A3551DF00BB8067 /* silverSS_no_highlight.png in Resources */,
+				A91EB3841A3551DF00BB8067 /* redSS_highlight.png in Resources */,
 				A962BCF11A2DAA7D00F2AD79 /* space_age.ttf in Resources */,
 				A962BCEE1A2D878600F2AD79 /* laser_panel.png in Resources */,
 				DA3109211A1B1EA100C5A3C4 /* main_background.png in Resources */,
@@ -719,7 +755,6 @@
 				A91EB3771A353F6200BB8067 /* credits.png in Resources */,
 				A9AD539B1A34F60D00CB97F1 /* simplify.png in Resources */,
 				DA9F79B11A1B4F3200E03D88 /* !button7.png in Resources */,
-				A91EB3841A3551DF00BB8067 /* redSS_highlight.png in Resources */,
 				DA3109201A1B1EA100C5A3C4 /* logo@2x.png in Resources */,
 				DA9F79CA1A1B4F3200E03D88 /* Levels.png in Resources */,
 				93EFADEF1A102B9E00195D8E /* asteroid@2x.png in Resources */,
@@ -747,7 +782,6 @@
 				DA9F79C21A1B4F3200E03D88 /* button7highlight.png in Resources */,
 				93EFADEE1A102B9E00195D8E /* asteroid.png in Resources */,
 				93CB21031A0754590050185E /* LaunchScreen.xib in Resources */,
-				A91EB3801A3551DF00BB8067 /* blueSS_highlight.png in Resources */,
 				A962BCEB1A2C54F900F2AD79 /* survival_mode.png in Resources */,
 				DA9F79C41A1B4F3200E03D88 /* button8highlight.png in Resources */,
 				93EB31D51A1AE7130075BD53 /* background_defeat@2x.png in Resources */,
@@ -756,7 +790,6 @@
 				937335941A11C528001A0105 /* explosion.gif in Resources */,
 				A962BCE11A2BE60900F2AD79 /* level2.png in Resources */,
 				DA9F79B81A1B4F3200E03D88 /* button2highlight.png in Resources */,
-				A9A7874A1A35748B003295B7 /* ship_select.png in Resources */,
 				A962BCE91A2BE60900F2AD79 /* level10.png in Resources */,
 				A9AD53991A33F35100CB97F1 /* times.png in Resources */,
 				A9046DB91A3114C500B6D265 /* pipe.png in Resources */,
@@ -768,23 +801,19 @@
 				DA9F79B31A1B4F3200E03D88 /* !button9.png in Resources */,
 				936589B51A1034B8005D6D8B /* Spaceship.png in Resources */,
 				93EFADFC1A102B9E00195D8E /* redlaserbeam.png in Resources */,
-				A91150D31A3669B1003D1961 /* laser_back.png in Resources */,
 				93EFADF91A102B9E00195D8E /* hawtpinklaserbeam.png in Resources */,
 				DA9F79C71A1B4F3200E03D88 /* button10.png in Resources */,
 				DA78325A1A36838F000830C1 /* add-sub-tip.txt in Resources */,
 				93EFADF51A102B9E00195D8E /* goldlaserbeam.png in Resources */,
-				A91EB3821A3551DF00BB8067 /* brownSS_highlight.png in Resources */,
 				A962BCEF1A2D878600F2AD79 /* laser_panel@2x.png in Resources */,
 				DA9F79CB1A1B4F3200E03D88 /* Levels@2x.png in Resources */,
 				93EFADFB1A102B9E00195D8E /* jobro__laser6.wav in Resources */,
 				DA9F79B71A1B4F3200E03D88 /* button2.png in Resources */,
 				DA9F79AC1A1B4F3200E03D88 /* !button2.png in Resources */,
 				DA9F79C51A1B4F3200E03D88 /* button9.png in Resources */,
-				A91EB3861A3551DF00BB8067 /* silverSS_highlight.png in Resources */,
 				DA9F79BF1A1B4F3200E03D88 /* button6.png in Resources */,
 				93EED5741A317113002A9869 /* defeat_explosion.wav in Resources */,
 				A9AD53971A33F35100CB97F1 /* minus.png in Resources */,
-				A9A787481A355D37003295B7 /* campaign_mode_button.png in Resources */,
 				93EFADF31A102B9E00195D8E /* bluelaserbeam.png in Resources */,
 				DA9F79AB1A1B4F3200E03D88 /* !button1.png in Resources */,
 				93EFADF11A102B9E00195D8E /* background.png in Resources */,
@@ -792,7 +821,6 @@
 				DA9F79C91A1B4F3200E03D88 /* launch2.png in Resources */,
 				A9AD539F1A34F63300CB97F1 /* asteroid_button_use.png in Resources */,
 				DA9F79C31A1B4F3200E03D88 /* button8.png in Resources */,
-				A91EB3871A3551DF00BB8067 /* silverSS_no_highlight.png in Resources */,
 				DA9F79AE1A1B4F3200E03D88 /* !button4.png in Resources */,
 				A9AD53861A318D9900CB97F1 /* redSpaceShip.png in Resources */,
 				DA31091C1A1B1EA100C5A3C4 /* icon 1024.png in Resources */,
@@ -802,14 +830,12 @@
 				DA9F79B61A1B4F3200E03D88 /* button1highlight.png in Resources */,
 				937335971A11D5B2001A0105 /* StartOverIcon.png in Resources */,
 				A9AD53A11A3502E100CB97F1 /* bluespaceshipback.png in Resources */,
-				A91EB3851A3551DF00BB8067 /* redSS_no_highlight.png in Resources */,
 				93EFADF41A102B9E00195D8E /* bluelaserbeam@2x.png in Resources */,
 				A962BCD41A2A58DA00F2AD79 /* leaderboards.png in Resources */,
 				936589B61A1034B8005D6D8B /* Spaceship@2x.png in Resources */,
 				A9A7874E1A357B42003295B7 /* mode_select.png in Resources */,
 				DA9F79BB1A1B4F3200E03D88 /* button4.png in Resources */,
 				93EFADF21A102B9E00195D8E /* background@2x.png in Resources */,
-				A9A787461A355CD7003295B7 /* survival_mode_button.png in Resources */,
 				A9AD53831A318D6C00CB97F1 /* brownSpaceShip.png in Resources */,
 				DA9F79891A1B3F8500E03D88 /* instructions-1.txt in Resources */,
 				93EFADF81A102B9E00195D8E /* greenlaserbeam@2x.png in Resources */,
@@ -817,7 +843,6 @@
 				93EFADF71A102B9E00195D8E /* greenlaserbeam.png in Resources */,
 				A962BCE61A2BE60900F2AD79 /* level7.png in Resources */,
 				DA9F79C01A1B4F3200E03D88 /* button6highlight.png in Resources */,
-				A91EB3831A3551DF00BB8067 /* brownSS_no_highlight.png in Resources */,
 				DA31091D1A1B1EA100C5A3C4 /* icon.png in Resources */,
 				DA9F79AF1A1B4F3200E03D88 /* !button5.png in Resources */,
 				A962BCE41A2BE60900F2AD79 /* level5.png in Resources */,
@@ -834,7 +859,6 @@
 				DA9F79B41A1B4F3200E03D88 /* !button10.png in Resources */,
 				A962BCE71A2BE60900F2AD79 /* level8.png in Resources */,
 				DA9F79AD1A1B4F3200E03D88 /* !button3.png in Resources */,
-				A91EB3811A3551DF00BB8067 /* blueSS_no_highlight.png in Resources */,
 				DA9F79BD1A1B4F3200E03D88 /* button5.png in Resources */,
 				A9AD539E1A34F63300CB97F1 /* asteroid_button_use_highlight.png in Resources */,
 				93EED5761A31746A002A9869 /* victory_applause.wav in Resources */,

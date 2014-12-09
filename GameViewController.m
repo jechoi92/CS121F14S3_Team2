@@ -79,6 +79,9 @@ CGFloat INSET_RATIO = 0.02;
         if (_level < 5){
             [self createTipView];
         }
+        else {
+            [self dismissTip];
+        }
     }
     self.view.multipleTouchEnabled = YES;
 }

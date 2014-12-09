@@ -63,7 +63,6 @@ typedef enum {
         self.physicsWorld.contactDelegate = self;
         
         [self createPlayerWithShipNum:shipNum];
-        [self createLevelLabel];
         [self createExplosionFrames];
         [self createBackground];
     }
@@ -143,6 +142,8 @@ typedef enum {
 // Runs the animation of moving around the level node
 -(void)startLevelAnimation
 {
+    [self createLevelLabel];
+    
     // Play the start sound effect
     [self runAction:[SKAction playSoundFileNamed:@"sirens.wav" waitForCompletion:NO]];
     
