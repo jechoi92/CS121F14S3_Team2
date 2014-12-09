@@ -25,11 +25,12 @@
 
 - (void)backToMainMenu
 {
-    [self playButtonSound];
+    [self backButtonSound];
     [self.navigationController popViewControllerAnimated:YES];
 }
 
-- (void)playButtonSound {
+- (void)backButtonSound
+{
     NSError *error;
     NSURL *backButton = [[NSBundle mainBundle] URLForResource:@"button-09" withExtension:@"wav"];
     self.instrBackSound = [[AVAudioPlayer alloc] initWithContentsOfURL:backButton error:&error];
@@ -37,6 +38,13 @@
     [self.instrBackSound play];
 }
 
-
+- (void)normalButtonSound
+{
+    NSError *error;
+    NSURL *buttonSound = [[NSBundle mainBundle] URLForResource:@"button-3" withExtension:@"wav"];
+    self.instrButtonSound = [[AVAudioPlayer alloc] initWithContentsOfURL:buttonSound error:&error];
+    [self.instrButtonSound prepareToPlay];
+    [self.instrButtonSound play];
+}
 
 @end

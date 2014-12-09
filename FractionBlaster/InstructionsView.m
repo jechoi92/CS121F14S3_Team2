@@ -24,7 +24,6 @@ CGFloat BASE_OFFSET_PCT = (float)1/21;
     UIButton *_prevInstrButton;
     UIButton *_nextInstrButton;
     
-    
     int _instrStep; // Ranges from 1 to NUM_INSTR_STEPS
 }
 
@@ -40,6 +39,7 @@ CGFloat BASE_OFFSET_PCT = (float)1/21;
         [self setBackgroundColor:[[UIColor alloc] initWithPatternImage:[UIImage imageNamed:@"main_background"]]];
         
         // Create instruction display
+        [self createTitle];
         [self createInstrText];
         [self createInstrGif];
         
@@ -57,6 +57,22 @@ CGFloat BASE_OFFSET_PCT = (float)1/21;
 /***********************************
  *   INSTRUCTIONS INITIALIZATION   *
  ***********************************/
+
+// Create the title
+- (void)createTitle
+{
+    // Get frame and frame dimensions
+    CGRect frame = self.frame;
+    CGFloat frameWidth = CGRectGetWidth(frame);
+    CGFloat frameHeight = CGRectGetHeight(frame);
+    
+    // Add the level select image to the top of the view
+    CGRect title = CGRectMake(0, frameHeight * 0.1, frameWidth , frameHeight * 0.12);
+    UIImageView *imageView = [[UIImageView alloc] initWithFrame:title];
+    imageView.image = [UIImage imageNamed:@"instructions"];
+    
+    [self addSubview:imageView];
+}
 
 - (void)createInstrText
 {

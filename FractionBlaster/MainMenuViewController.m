@@ -80,11 +80,13 @@ typedef enum {
     }
 }
 
-- (void)didReceiveMemoryWarning {
+- (void)didReceiveMemoryWarning
+{
     [super didReceiveMemoryWarning];
 }
 
-- (void)playButtonSound {
+- (void)playButtonSound
+{
     NSError *error;
     NSURL *buttonSound = [[NSBundle mainBundle] URLForResource:@"button-3" withExtension:@"wav"];
     self.menubuttonSound = [[AVAudioPlayer alloc] initWithContentsOfURL:buttonSound error:&error];
