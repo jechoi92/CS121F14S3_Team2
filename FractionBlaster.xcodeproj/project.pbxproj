@@ -138,6 +138,11 @@
 		DA78325A1A36838F000830C1 /* add-sub-tip.txt in Resources */ = {isa = PBXBuildFile; fileRef = DA7832571A36838F000830C1 /* add-sub-tip.txt */; };
 		DA78325B1A36838F000830C1 /* div-tip.txt in Resources */ = {isa = PBXBuildFile; fileRef = DA7832581A36838F000830C1 /* div-tip.txt */; };
 		DA78325C1A36838F000830C1 /* mult-tip.txt in Resources */ = {isa = PBXBuildFile; fileRef = DA7832591A36838F000830C1 /* mult-tip.txt */; };
+		DA78325E1A36C803000830C1 /* simp-tip.txt in Resources */ = {isa = PBXBuildFile; fileRef = DA78325D1A36C803000830C1 /* simp-tip.txt */; };
+		DA7832651A36EA84000830C1 /* add-tip-img.png in Resources */ = {isa = PBXBuildFile; fileRef = DA7832611A36EA84000830C1 /* add-tip-img.png */; };
+		DA7832671A36EA84000830C1 /* mult-tip-img.png in Resources */ = {isa = PBXBuildFile; fileRef = DA7832631A36EA84000830C1 /* mult-tip-img.png */; };
+		DA7832681A36EA84000830C1 /* simp-tip-img.png in Resources */ = {isa = PBXBuildFile; fileRef = DA7832641A36EA84000830C1 /* simp-tip-img.png */; };
+		DA78326A1A36EDB0000830C1 /* div-tip-img.png in Resources */ = {isa = PBXBuildFile; fileRef = DA7832691A36EDB0000830C1 /* div-tip-img.png */; };
 		DA8D13421A2EC93B00BE47AA /* ImageIO.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DA8D13411A2EC93B00BE47AA /* ImageIO.framework */; };
 		DA8D13451A2EC9AF00BE47AA /* UIImage+animatedGIF.m in Sources */ = {isa = PBXBuildFile; fileRef = DA8D13441A2EC9AF00BE47AA /* UIImage+animatedGIF.m */; };
 		DA9F79891A1B3F8500E03D88 /* instructions-1.txt in Resources */ = {isa = PBXBuildFile; fileRef = DA9F79881A1B3F8500E03D88 /* instructions-1.txt */; };
@@ -353,6 +358,11 @@
 		DA7832571A36838F000830C1 /* add-sub-tip.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "add-sub-tip.txt"; sourceTree = "<group>"; };
 		DA7832581A36838F000830C1 /* div-tip.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "div-tip.txt"; sourceTree = "<group>"; };
 		DA7832591A36838F000830C1 /* mult-tip.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "mult-tip.txt"; sourceTree = "<group>"; };
+		DA78325D1A36C803000830C1 /* simp-tip.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "simp-tip.txt"; sourceTree = "<group>"; };
+		DA7832611A36EA84000830C1 /* add-tip-img.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "add-tip-img.png"; sourceTree = "<group>"; };
+		DA7832631A36EA84000830C1 /* mult-tip-img.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "mult-tip-img.png"; sourceTree = "<group>"; };
+		DA7832641A36EA84000830C1 /* simp-tip-img.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "simp-tip-img.png"; sourceTree = "<group>"; };
+		DA7832691A36EDB0000830C1 /* div-tip-img.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "div-tip-img.png"; sourceTree = "<group>"; };
 		DA8D13411A2EC93B00BE47AA /* ImageIO.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ImageIO.framework; path = System/Library/Frameworks/ImageIO.framework; sourceTree = SDKROOT; };
 		DA8D13431A2EC9AF00BE47AA /* UIImage+animatedGIF.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+animatedGIF.h"; sourceTree = "<group>"; };
 		DA8D13441A2EC9AF00BE47AA /* UIImage+animatedGIF.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+animatedGIF.m"; sourceTree = "<group>"; };
@@ -426,6 +436,7 @@
 		93CB20E61A0754590050185E = {
 			isa = PBXGroup;
 			children = (
+				DA7832691A36EDB0000830C1 /* div-tip-img.png */,
 				DA8D13411A2EC93B00BE47AA /* ImageIO.framework */,
 				DAD128551A1306FB00237071 /* explosionFrames.atlas */,
 				93EFADDC1A102B9E00195D8E /* Resources */,
@@ -564,9 +575,13 @@
 				A9AD539A1A34F60D00CB97F1 /* simplify.png */,
 				A9AD53921A33F35100CB97F1 /* divide.png */,
 				A9AD53931A33F35100CB97F1 /* minus.png */,
+				DA78325D1A36C803000830C1 /* simp-tip.txt */,
 				DA7832571A36838F000830C1 /* add-sub-tip.txt */,
 				DA7832581A36838F000830C1 /* div-tip.txt */,
 				DA7832591A36838F000830C1 /* mult-tip.txt */,
+				DA7832611A36EA84000830C1 /* add-tip-img.png */,
+				DA7832631A36EA84000830C1 /* mult-tip-img.png */,
+				DA7832641A36EA84000830C1 /* simp-tip-img.png */,
 				A9AD53941A33F35100CB97F1 /* plus.png */,
 				A9AD53951A33F35100CB97F1 /* times.png */,
 				A9AD53841A318D9900CB97F1 /* redSpaceShip.png */,
@@ -754,11 +769,10 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A91150F91A368F28003D1961 /* button-09.wav in Resources */,
-				A91150FB1A36BD67003D1961 /* ship-select.mp3 in Resources */,
-				A91150F71A368EEE003D1961 /* button-3.wav in Resources */,
+				DA7832671A36EA84000830C1 /* mult-tip-img.png in Resources */,
 				A9A787461A355CD7003295B7 /* survival_mode_button.png in Resources */,
 				A91150D31A3669B1003D1961 /* laser_back.png in Resources */,
+				DA7832651A36EA84000830C1 /* add-tip-img.png in Resources */,
 				A9A787481A355D37003295B7 /* campaign_mode_button.png in Resources */,
 				A9A7874A1A35748B003295B7 /* ship_select.png in Resources */,
 				A91EB3801A3551DF00BB8067 /* blueSS_highlight.png in Resources */,
@@ -780,6 +794,8 @@
 				9324D1511A36C62800D6A788 /* bossBGM.mp3 in Resources */,
 				DA9F79CA1A1B4F3200E03D88 /* Levels.png in Resources */,
 				93EFADEF1A102B9E00195D8E /* asteroid@2x.png in Resources */,
+				93EED5721A316CB7002A9869 /* sirens.wav in Resources */,
+				DA78326A1A36EDB0000830C1 /* div-tip-img.png in Resources */,
 				DA9F79BE1A1B4F3200E03D88 /* button5highlight.png in Resources */,
 				A9046DB81A3114C500B6D265 /* menuBorder.png in Resources */,
 				A962BCE31A2BE60900F2AD79 /* level4.png in Resources */,
@@ -799,6 +815,7 @@
 				93EFADFD1A102B9E00195D8E /* redlaserbeam@2x.png in Resources */,
 				DAD128561A1306FB00237071 /* explosionFrames.atlas in Resources */,
 				DA9F79BA1A1B4F3200E03D88 /* button3highlight.png in Resources */,
+				DA7832681A36EA84000830C1 /* simp-tip-img.png in Resources */,
 				93CB20FE1A0754590050185E /* Main.storyboard in Resources */,
 				DA9F79C81A1B4F3200E03D88 /* button10highlight.png in Resources */,
 				DA9F79C21A1B4F3200E03D88 /* button7highlight.png in Resources */,
@@ -835,6 +852,7 @@
 				DA9F79C51A1B4F3200E03D88 /* button9.png in Resources */,
 				DA9F79BF1A1B4F3200E03D88 /* button6.png in Resources */,
 				93EED5741A317113002A9869 /* defeat_explosion.wav in Resources */,
+				DA78325E1A36C803000830C1 /* simp-tip.txt in Resources */,
 				A9AD53971A33F35100CB97F1 /* minus.png in Resources */,
 				93EFADF31A102B9E00195D8E /* bluelaserbeam.png in Resources */,
 				DA9F79AB1A1B4F3200E03D88 /* !button1.png in Resources */,
