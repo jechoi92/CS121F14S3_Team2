@@ -23,7 +23,7 @@ typedef enum {
 {
     self = [super initWithFrame:frame];
     if (self) {
-        [self createTitleImage];
+        [self createTitle];
         [self createSelectionButtons];
         [self createLabels];
         [self createBackButton];
@@ -33,7 +33,7 @@ typedef enum {
 }
 
 // Create the title
-- (void)createTitleImage
+- (void)createTitle
 {
     // Get frame and frame dimensions
     CGRect frame = self.frame;
@@ -41,7 +41,7 @@ typedef enum {
     CGFloat frameHeight = CGRectGetHeight(frame);
     
     // Add the level select image to the top of the view
-    CGRect title = CGRectMake(frameWidth*0.1, frameHeight*0.05, frameWidth*0.8, frameHeight*.18);
+    CGRect title = CGRectMake(frameWidth * 0.1, frameHeight * 0.05, frameWidth * 0.8, frameHeight * 0.18);
     UIImageView *imageView = [[UIImageView alloc] initWithFrame:title];
     imageView.image = [UIImage imageNamed:@"mode_select"];
     
@@ -65,12 +65,6 @@ typedef enum {
         // Create target for buttons
         [button addTarget:self action:@selector(buttonSelected:)
          forControlEvents:UIControlEventTouchUpInside];
-        
-        // Style button
-    //   [button.titleLabel setFont:[UIFont fontWithName:@"SpaceAge" size:42.0f]];
-      //  [[button layer] setBorderWidth:6.0f];
-      //  [[button layer] setBorderColor:[UIColor whiteColor].CGColor];
-      //  [[button layer] setCornerRadius:18.0f];
         
         // Set up tag to determine action accordingly when button selected
         button.tag = i;

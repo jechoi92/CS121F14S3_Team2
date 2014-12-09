@@ -123,10 +123,8 @@ typedef enum {
     pipe1.image = [UIImage imageNamed:@"pipe"];
     UIImageView *pipe2 = [[UIImageView alloc] initWithFrame:pipeFrame2];
     pipe2.image = [UIImage imageNamed:@"pipe"];
-    
     UIImageView *pipe3 = [[UIImageView alloc] initWithFrame:pipeFrame3];
     pipe3.image = [UIImage imageNamed:@"pipe"];
-    
     UIImageView *pipe4 = [[UIImageView alloc] initWithFrame:pipeFrame4];
     pipe4.image = [UIImage imageNamed:@"pipe"];
     

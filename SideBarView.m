@@ -26,6 +26,7 @@ int TOTAL_INITIAL_FRACTIONS;
 
 // Function to handle button presses
 - (void)buttonPressed:(id)sender {
+    
     // Determine which button was selected
     UIButton *button = (UIButton*) sender;
     NSNumber *buttonTag = [NSNumber numberWithInteger:[button tag]];
@@ -82,11 +83,7 @@ int TOTAL_INITIAL_FRACTIONS;
         [dividor setTextColor:[UIColor whiteColor]];
         [dividor setText:@"__"];
         [self addSubview:dividor];
-        
-        //[backgroundButton setTitle:line forState:UIControlStateNormal];
-        
-        // Add the button to the screen
-       // [self addSubview:backgroundButton];
+
         [self addSubview:currentButton];
         
         // Set tag appropriately
@@ -101,26 +98,25 @@ int TOTAL_INITIAL_FRACTIONS;
     }
 }
 
-// Return the button at the designated index
--(UIButton*)getButtonWithIndex:(int)index {
-    return _buttons[index];
-}
-
 // Inserts the designated fraction into the correct button on the side bar
 - (void)setValueAtIndex:(int)index withValue:(Fraction*)value {
+    
     // First get the desired button
-    UIButton *button = [self getButtonWithIndex:index];
+    UIButton *button = [_buttons objectAtIndex:index];
+    
     int numerator = [value numerator];
     int denominator = [value denominator];
     
     // Create the label to reperesent the fraction numerator and denominator
     // as opposed to setting the button title
     UILabel *numAndDen = [[UILabel alloc] initWithFrame:button.frame];
+    
     numAndDen.numberOfLines = 2;
     numAndDen.textAlignment = NSTextAlignmentCenter;
     [numAndDen setFont:[UIFont fontWithName:@"HelveticaNeue-Bold" size:20.0f]];
     [numAndDen setTextColor:[UIColor whiteColor]];
     [numAndDen setText:[NSString stringWithFormat:@"%d\r%d", numerator, denominator]];
+    
     [self addSubview:numAndDen];
 }
 

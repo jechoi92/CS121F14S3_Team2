@@ -43,7 +43,7 @@ int NUM_LEVELS = 10;
         
         [self createEachButton:[UIButton alloc] withUnlockedLevel:level andNumRows:numRows];
         [self createTitle];
-        [self createLabel];
+        [self createDescriptionLabel];
         [self createStartButton];
         [self createBackButton];
         [self setBackgroundColor:[[UIColor alloc] initWithPatternImage:[UIImage imageNamed:@"main_background"]]];
@@ -164,27 +164,26 @@ int NUM_LEVELS = 10;
     [self addSubview:imageView];
 }
 
-- (void)createLabel
+// Creates the label that describes the current level selected
+- (void)createDescriptionLabel
 {
     CGFloat labelWidth = CGRectGetWidth(self.frame) * 0.8;
-    CGFloat labelHeight = CGRectGetHeight(self.frame) * 0.23;
+    CGFloat labelHeight = CGRectGetHeight(self.frame) * 0.25;
     CGFloat xOffset = CGRectGetWidth(self.frame) * 0.1;
     CGFloat yOffset = CGRectGetHeight(self.frame) * 0.57;
     
     CGRect labelFrame = CGRectMake(xOffset, yOffset, labelWidth, labelHeight);
     
     _levelInfo = [[UILabel alloc] initWithFrame:labelFrame];
-    _levelInfo.numberOfLines = 7;
+    _levelInfo.numberOfLines = 8;
     _levelInfo.textAlignment = NSTextAlignmentCenter;
     
     [_levelInfo setFont:[UIFont fontWithName:@"SpaceAge" size:32.0f]];
     [_levelInfo setTextColor:[UIColor whiteColor]];
+    
+    // Default set it to the description of the first level
     [_levelInfo setText:@"Level 1\rsimplificAtion Asteroids coming in At A slow speed. Perfect conditions for A beginning cAdet to leArn the ropes!"];
     
-    //UIImageView *background = [[UIImageView alloc] initWithFrame:labelFrame];
-    //background.image = [UIImage imageNamed:@"menuBorder"];
-    
-    //[self addSubview:background];
     [self addSubview:_levelInfo];
 }
 
@@ -244,28 +243,34 @@ int NUM_LEVELS = 10;
     // Update which button is currently selected
     [self setCurrentLevelSelected:(int)newButton.tag];
     
+    [self updateDescription];
+}
+
+// Function that updates the description label describing the current level selected
+- (void)updateDescription
+{
     // Update the level information label at the bottom of the screen
-    switch (newButton.tag) {
+    switch (_currentLevelSelected) {
         case 0:
             [_levelInfo setText:@"Level 1\rsimplificAtion Asteroids coming in At A slow speed. Perfect conditions for A beginning cAdet to leArn the ropes!"];
             break;
         case 1:
-            [_levelInfo setText:@"Level 2\rcAdets get their first experience with multiplication Asteroids At A slow speed!"];
+            [_levelInfo setText:@"Level 2\rcAdets get their first experience with multiplicAtion Asteroids At A slow speed!"];
             break;
         case 2:
-            [_levelInfo setText:@"Level 3\rincoming division Asteroids! cAdets should use their Acquired multiplication skills to combAt these Asteroids!"];
+            [_levelInfo setText:@"Level 3\rincoming division Asteroids! cAdets should use their Acquired multiplicAtion skills to combAt these Asteroids!"];
             break;
         case 3:
             [_levelInfo setText:@"Level 4\rnew types of Asteroids incoming! detectors Are reAding both Addition And subtrAction Asteroids! CAdets must learn new solving skills!"];
             break;
         case 4:
-            [_levelInfo setText:@"Level 5\rcAdet no longer! Apply All the solving skills you hAve Acquired to tAke on all the Asteroid types at a faster speed!"];
+            [_levelInfo setText:@"Level 5\rcAdet no longer! Apply All the solving skills you hAve Acquired to tAke on all the Asteroid types At A faster speed!"];
             break;
         case 5:
-            [_levelInfo setText:@"Level 6\ryou survived the surge, but there is no time to rest! we hAve incoming multiplication And division Asteroids At medium speed!"];
+            [_levelInfo setText:@"Level 6\ryou survived the surge, but there is no time to rest! we hAve incoming multiplicAtion And division Asteroids At medium speed!"];
             break;
         case 6:
-            [_levelInfo setText:@"Level 7\rAnother lArge of Addition And division Asteroids incoming! you cAn handle this!"];
+            [_levelInfo setText:@"Level 7\rAnother lArge wAve of Addition And division Asteroids incoming! you cAn hAndle this!"];
             break;
         case 7:
             [_levelInfo setText:@"Level 8\rdetectors Are picking up reAdings of Another huge wAve of Asteroids! survive this wAve and become A true veterAn!"];
@@ -274,12 +279,11 @@ int NUM_LEVELS = 10;
             [_levelInfo setText:@"Level 9\rdAnger! An even lArger wAve is incoming! these Asteroids Are coming At speeds thAt hAve never been recorded!"];
             break;
         case 9:
-            [_levelInfo setText:@"Level 10\rIt All comes down to this! The source of these Asteroid AttAcks! destroy this AttAck once And for All!"];
+            [_levelInfo setText:@"Level 10\rIt All comes down to this! The source of these Asteroid AttAcks! neutrAlize this threAt once And for All to ensure the survivAl of eArth!"];
             break;
         default:
             break;
     }
-    
 }
 
 @end

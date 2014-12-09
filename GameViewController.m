@@ -70,13 +70,13 @@ CGFloat INSET_RATIO = 0.02;
     if (!skView.scene) {
         // Create all necessary data members.
         _numAsteroid = [self findAsteroidsToDestroy:_level];
-        _initialFractions = [_equationGenerator getInitialFractions];
+        _initialFractions = [_equationGenerator initialFractions];
         [self createGameView];
         [self createSideBar];
         [self createHealthBar];
         [self createScene];
         
-        if (_level < 5){
+        if (_level > 0 && _level < 5){
             [self createTipView];
         }
         else {
@@ -153,17 +153,6 @@ CGFloat INSET_RATIO = 0.02;
     [self.view addSubview:_sidebar];
 }
 
-// Creates the health bar.
-//- (void)createHealthBar
-//{
-//    CGRect frame = self.view.frame;
-//    CGFloat width = CGRectGetWidth(frame);
-//    CGFloat height = CGRectGetHeight(frame);
-//    CGRect healthBarFrame = CGRectMake(width * 0.005, height * 0.55, width * 0.1, height * 0.42);
-//    _healthBar = [[HealthBarView alloc] initWithFrame:healthBarFrame];
-//    [self.view addSubview:_healthBar];
-//}
-
 // Creates the scene.
 - (void)createScene
 {
@@ -236,8 +225,8 @@ CGFloat INSET_RATIO = 0.02;
 // If so, then game over.
 - (void)asteroidReachedBottom
 {
-    [_healthBar setHealthLevel:([_healthBar getHealthLevel] - HEALTHPENALTY)];
-    if ([_healthBar getHealthLevel] <= 0) {
+    [_healthBar setHealthLevel:([_healthBar healthLevel] - HEALTHPENALTY)];
+    if ([_healthBar healthLevel] <= 0) {
         [self createGameOverSceneWithWin:NO];
     }
 }
@@ -287,7 +276,8 @@ CGFloat INSET_RATIO = 0.02;
 // Function to get a random equation whose solution is not value.
 - (Equation*)wrongAnswerAttempt:(Fraction*)value
 {
-    [self incrementScore:-50];
+    // Decrement 100 
+    [self incrementScore:-100];
     Equation* randomEquation = [_equationGenerator generateRandomEquation];
     
     // Make sure that we end up with an equation whose solution doesn't match the failed answer attempt
@@ -305,7 +295,7 @@ CGFloat INSET_RATIO = 0.02;
     [_scene createAsteroid: randomEquation];
     [_asteroidGenerationTimer invalidate];
     CGFloat rate = _asteroidGenerationTimer.timeInterval;
-    _asteroidGenerationTimer = [NSTimer scheduledTimerWithTimeInterval:rate * 0.98
+    _asteroidGenerationTimer = [NSTimer scheduledTimerWithTimeInterval:rate * 0.997
                                                                 target:self
                                                               selector:@selector(createAsteroid:)
                                                               userInfo:nil

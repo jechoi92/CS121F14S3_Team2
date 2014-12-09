@@ -27,12 +27,12 @@ typedef enum {
 
 @implementation OperatorsSelectView
 {
-    UIButton* _startButton;
-    bool plusSelected;
-    bool minusSelected;
-    bool timesSelected;
-    bool divideSelected;
-    bool simplifySelected;
+    UIButton *_startButton;
+    bool _additionSelected;
+    bool _subtractionSelected;
+    bool _multiplicationSelected;
+    bool _divisionSelected;
+    bool _simplificationSelected;
 }
 
 -(id)initWithFrame:(CGRect)frame
@@ -40,9 +40,8 @@ typedef enum {
     self = [super initWithFrame:frame];
     if (self) {
         _operatorsSelected = [[NSMutableArray alloc] init];
-      //  [self createTitle];
-        [self createLabel];
-        [self addBackgroundImages];
+        [self createTitle];
+        [self createBackgroundImages];
         [self createOperatorButtons];
         [self createBackButton];
         [self createStartButton];
@@ -51,14 +50,16 @@ typedef enum {
     return self;
 }
 
-- (void)addBackgroundImages
+// Create images in the background for aesthetics i.e. pipes and 3D ship
+- (void)createBackgroundImages
 {
-    // Create the blue ship for artistic pleasure
     CGFloat width = CGRectGetWidth(self.frame);
     CGFloat height = CGRectGetHeight(self.frame);
-    CGRect buttonFrame = CGRectMake(width*0.6, height*0.07, width*0.4, width*0.4);
+    
+    CGRect buttonFrame = CGRectMake(width * 0.6, height * 0.07, width * 0.4, width * 0.4);
     UIImageView *backgroundShip = [[UIImageView alloc] initWithFrame:buttonFrame];
     backgroundShip.image = [UIImage imageNamed:@"bluespaceshipback"];
+    
     [self addSubview:backgroundShip];
     [self sendSubviewToBack:backgroundShip];
     
@@ -72,7 +73,6 @@ typedef enum {
     
     UIImageView *pipe1 = [[UIImageView alloc] initWithFrame:pipeFrame1];
     pipe1.image = [UIImage imageNamed:@"pipe"];
-    
     UIImageView *pipe2 = [[UIImageView alloc] initWithFrame:pipeFrame2];
     pipe2.image = [UIImage imageNamed:@"pipe"];
     
@@ -84,20 +84,6 @@ typedef enum {
 
 // Creates the level select title image at the top of the screen
 -(void)createTitle
-{
-    // Get frame and frame dimensions
-    CGRect frame = self.frame;
-    CGFloat frameWidth = CGRectGetWidth(frame);
-    CGFloat frameHeight = CGRectGetHeight(frame);
-    
-    // Add the level select image to the top of the view
-    CGRect title = CGRectMake(0, -50, frameWidth, frameHeight*.5);
-    UIImageView *imageView = [[UIImageView alloc] initWithFrame:title];
-    imageView.image = [UIImage imageNamed:@"Levels.png"];
-    [self addSubview:imageView];
-}
-
-- (void)createLabel
 {
     CGFloat labelWidth = CGRectGetWidth(self.frame) * 0.48;
     CGFloat labelHeight = CGRectGetHeight(self.frame) * 0.14;
@@ -180,111 +166,162 @@ typedef enum {
 // Create buttons to select the operators
 - (void)createOperatorButtons
 {
+    [self createAdditionButton];
+    [self createSubtractionButton];
+    [self createMultiplicationButton];
+    [self createDivisionButton];
+    [self createSimplificationButton];
+}
+
+// Create the addition button
+- (void)createAdditionButton
+{
     CGFloat width = CGRectGetWidth(self.frame);
     CGFloat buttonSize = width / 4;
     
-    [self createPlusButton:buttonSize];
-    [self createMinusButton:buttonSize];
-    [self createTimesButton:buttonSize];
-    [self createDivideButton:buttonSize];
-    [self createSimplifyButton:buttonSize];
-}
-
-- (void)createPlusButton:(CGFloat)buttonSize
-{
     CGFloat yOffset = CGRectGetHeight(self.frame) * 0.35;
-    CGFloat xOffset = CGRectGetWidth(self.frame) * 0.2;
+    CGFloat xOffset = width * 0.2;
     
     CGRect buttonFrame = CGRectMake(xOffset, yOffset, buttonSize, buttonSize);
-    UIButton* plusButton = [[UIButton alloc] initWithFrame:buttonFrame];
-    plusButton.tag = 0;
-    [plusButton setBackgroundImage:[UIImage imageNamed:@"asteroid_button_use"] forState:UIControlStateNormal];
-    [plusButton addTarget:self action:@selector(operatorSelected:)
+    UIButton *button = [[UIButton alloc] initWithFrame:buttonFrame];
+    
+    // Set the tag appropriately
+    button.tag = AdditionTag;
+    
+    [button setBackgroundImage:[UIImage imageNamed:@"asteroid_button_use"] forState:UIControlStateNormal];
+    
+    // Create target for button
+    [button addTarget:self action:@selector(operatorSelected:)
             forControlEvents:UIControlEventTouchUpInside];
-    [self addSubview:plusButton];
-    plusSelected = false;
     
-    UIImageView *background = [[UIImageView alloc] initWithFrame:buttonFrame];
-    background.image = [UIImage imageNamed:@"plus"];
-    [self addSubview:background];
+    [self addSubview:button];
+    
+    // Create the image for the button
+    UIImageView *foreground = [[UIImageView alloc] initWithFrame:buttonFrame];
+    foreground.image = [UIImage imageNamed:@"plus"];
+    
+    [self addSubview:foreground];
 }
 
--(void)createMinusButton:(CGFloat)buttonSize
+// Create the subtraction button
+-(void)createSubtractionButton
 {
+    CGFloat width = CGRectGetWidth(self.frame);
+    CGFloat buttonSize = width / 4;
+    
     CGFloat yOffset = CGRectGetHeight(self.frame) * 0.65;
-    CGFloat xOffset = CGRectGetWidth(self.frame) * 0.2;
+    CGFloat xOffset = width * 0.2;
     
     CGRect buttonFrame = CGRectMake(xOffset, yOffset, buttonSize, buttonSize);
-    UIButton* minusButton = [[UIButton alloc] initWithFrame:buttonFrame];
-    minusButton.tag = 1;
-    [minusButton setBackgroundImage:[UIImage imageNamed:@"asteroid_button_use"] forState:UIControlStateNormal];
-    [minusButton addTarget:self action:@selector(operatorSelected:)
-         forControlEvents:UIControlEventTouchUpInside];
-    [self addSubview:minusButton];
-    minusSelected = false;
+    UIButton *button = [[UIButton alloc] initWithFrame:buttonFrame];
     
-    UIImageView *background = [[UIImageView alloc] initWithFrame:buttonFrame];
-    background.image = [UIImage imageNamed:@"minus"];
-    [self addSubview:background];
+    // Set the tag appropriately
+    button.tag = SubtractionTag;
+    
+    [button setBackgroundImage:[UIImage imageNamed:@"asteroid_button_use"] forState:UIControlStateNormal];
+    
+    // Create target for button
+    [button addTarget:self action:@selector(operatorSelected:)
+         forControlEvents:UIControlEventTouchUpInside];
+    
+    [self addSubview:button];
+    
+    // Create the image for the button
+    UIImageView *foreground = [[UIImageView alloc] initWithFrame:buttonFrame];
+    foreground.image = [UIImage imageNamed:@"minus"];
+    
+    [self addSubview:foreground];
 }
 
-- (void)createTimesButton:(CGFloat)buttonSize
+// Create the multiplication button
+- (void)createMultiplicationButton
 {
+    CGFloat width = CGRectGetWidth(self.frame);
+    CGFloat buttonSize = width / 4;
+    
     CGFloat yOffset = CGRectGetHeight(self.frame) * 0.65;
-    CGFloat xOffset = CGRectGetWidth(self.frame) * 0.55;
+    CGFloat xOffset = width * 0.55;
     
     CGRect buttonFrame = CGRectMake(xOffset, yOffset, buttonSize, buttonSize);
-    UIButton* timesButton = [[UIButton alloc] initWithFrame:buttonFrame];
-    timesButton.tag = 2;
-    [timesButton setBackgroundImage:[UIImage imageNamed:@"asteroid_button_use"] forState:UIControlStateNormal];
-    [timesButton addTarget:self action:@selector(operatorSelected:)
-         forControlEvents:UIControlEventTouchUpInside];
-    [self addSubview:timesButton];
-    timesSelected = false;
+    UIButton *button = [[UIButton alloc] initWithFrame:buttonFrame];
     
-    UIImageView *background = [[UIImageView alloc] initWithFrame:buttonFrame];
-    background.image = [UIImage imageNamed:@"times"];
-    [self addSubview:background];
+    // Set the tag appropriately
+    button.tag = MultiplicationTag;
+    
+    [button setBackgroundImage:[UIImage imageNamed:@"asteroid_button_use"] forState:UIControlStateNormal];
+    
+    // Create the target for the button
+    [button addTarget:self action:@selector(operatorSelected:)
+         forControlEvents:UIControlEventTouchUpInside];
+    
+    [self addSubview:button];
+    
+    // Create the image for the button
+    UIImageView *foreground = [[UIImageView alloc] initWithFrame:buttonFrame];
+    foreground.image = [UIImage imageNamed:@"times"];
+    
+    [self addSubview:foreground];
 }
 
-- (void)createDivideButton:(CGFloat)buttonSize
+// Create the division button
+- (void)createDivisionButton
 {
+    CGFloat width = CGRectGetWidth(self.frame);
+    CGFloat buttonSize = width / 4;
+    
     CGFloat yOffset = CGRectGetHeight(self.frame) * 0.35;
-    CGFloat xOffset = CGRectGetWidth(self.frame) * 0.55;
+    CGFloat xOffset = width * 0.55;
     
     CGRect buttonFrame = CGRectMake(xOffset, yOffset, buttonSize, buttonSize);
-    UIButton* divideButton = [[UIButton alloc] initWithFrame:buttonFrame];
-    divideButton.tag = 3;
-    [divideButton setBackgroundImage:[UIImage imageNamed:@"asteroid_button_use"] forState:UIControlStateNormal];
-    [divideButton addTarget:self action:@selector(operatorSelected:)
-         forControlEvents:UIControlEventTouchUpInside];
-    [self addSubview:divideButton];
-    plusSelected = false;
+    UIButton *button = [[UIButton alloc] initWithFrame:buttonFrame];
     
-    UIImageView *background = [[UIImageView alloc] initWithFrame:buttonFrame];
-    background.image = [UIImage imageNamed:@"divide"];
-    [self addSubview:background];
+    // Set the tag appropriately
+    button.tag = DivisionTag;
+    
+    [button setBackgroundImage:[UIImage imageNamed:@"asteroid_button_use"] forState:UIControlStateNormal];
+    
+    // Create the target for the button
+    [button addTarget:self action:@selector(operatorSelected:)
+         forControlEvents:UIControlEventTouchUpInside];
+    
+    [self addSubview:button];
+    
+    // Create the image for the button
+    UIImageView *foreground = [[UIImageView alloc] initWithFrame:buttonFrame];
+    foreground.image = [UIImage imageNamed:@"divide"];
+    
+    [self addSubview:foreground];
 }
 
-- (void)createSimplifyButton:(CGFloat)buttonSize
+// Create the simplification button
+- (void)createSimplificationButton
 {
+    CGFloat width = CGRectGetWidth(self.frame);
+    CGFloat buttonSize = width / 4;
     
     CGFloat yOffset = CGRectGetHeight(self.frame) * 0.5;
-    CGFloat xOffset = CGRectGetWidth(self.frame) * 0.37;
+    CGFloat xOffset = width * 0.37;
     
     CGRect buttonFrame = CGRectMake(xOffset, yOffset, buttonSize, buttonSize);
-    UIButton* simplifyButton = [[UIButton alloc] initWithFrame:buttonFrame];
-    simplifyButton.tag = 4;
-    [simplifyButton setBackgroundImage:[UIImage imageNamed:@"asteroid_button_use"] forState:UIControlStateNormal];
-    [simplifyButton addTarget:self action:@selector(operatorSelected:)
-         forControlEvents:UIControlEventTouchUpInside];
-    [self addSubview:simplifyButton];
-    simplifySelected = false;
+    UIButton *button = [[UIButton alloc] initWithFrame:buttonFrame];
     
-    CGRect label = CGRectMake(xOffset*1.07, yOffset*1.13, buttonSize*0.78, buttonSize*0.3);
-    UIImageView *background = [[UIImageView alloc] initWithFrame:label];
-    background.image = [UIImage imageNamed:@"simplify"];
-    [self addSubview:background];
+    // Set the tag appropriately
+    button.tag = SimplificationTag;
+    
+    [button setBackgroundImage:[UIImage imageNamed:@"asteroid_button_use"] forState:UIControlStateNormal];
+    
+    // Create the target for the button
+    [button addTarget:self action:@selector(operatorSelected:)
+         forControlEvents:UIControlEventTouchUpInside];
+    
+    [self addSubview:button];
+    
+    // Create the image for the button
+    CGRect foregroundFrame = CGRectMake(xOffset*1.07, yOffset*1.13, buttonSize*0.78, buttonSize*0.3);
+    UIImageView *foreground = [[UIImageView alloc] initWithFrame:foregroundFrame];
+    foreground.image = [UIImage imageNamed:@"simplify"];
+    
+    [self addSubview:foreground];
 }
 
 - (void)buttonSelected:(id)sender
@@ -292,28 +329,29 @@ typedef enum {
     [self.delegate buttonSelected:sender];
 }
 
-// Function to update the selected operators
+// Function to update the selected operators and the background images
 - (void)operatorSelected:(id)sender
 {
     // Determine which button was selected
     UIButton* button = (UIButton*)sender;
     
-    // Determine the operator selected according to the tag
+    // Determine the operator selected according to the tag, add/remove from selected operators,
+    // and update button image depending on whether currently selected or deselected
     NSString* operator;
     switch (button.tag) {
-        case 0:
+        case AdditionTag:
         {
             operator = @"+";
             
-            if (plusSelected) {
+            if (_additionSelected) {
                 [_operatorsSelected removeObject:operator];
                 [button setBackgroundImage:[UIImage imageNamed:@"asteroid_button_use"] forState:UIControlStateNormal];
-                plusSelected = false;
-                
-            } else {
+                _additionSelected = false;
+            }
+            else {
                 [_operatorsSelected addObject:operator];
                 [button setBackgroundImage:[UIImage imageNamed:@"asteroid_button_use_highlight"] forState:UIControlStateNormal];
-                plusSelected = true;
+                _additionSelected = true;
             }
             break;
         }
@@ -321,14 +359,15 @@ typedef enum {
         {
             operator = @"-";
             
-            if (minusSelected) {
+            if (_subtractionSelected) {
                 [_operatorsSelected removeObject:operator];
                 [button setBackgroundImage:[UIImage imageNamed:@"asteroid_button_use"] forState:UIControlStateNormal];
-                minusSelected = false;
-            } else {
+                _subtractionSelected = false;
+            }
+            else {
                 [_operatorsSelected addObject:operator];
                 [button setBackgroundImage:[UIImage imageNamed:@"asteroid_button_use_highlight"] forState:UIControlStateNormal];
-                minusSelected = true;
+                _subtractionSelected = true;
             }
             break;
         }
@@ -336,14 +375,15 @@ typedef enum {
         {
             operator = @"*";
             
-            if (timesSelected) {
+            if (_multiplicationSelected) {
                 [_operatorsSelected removeObject:operator];
                 [button setBackgroundImage:[UIImage imageNamed:@"asteroid_button_use"] forState:UIControlStateNormal];
-                timesSelected = false;
-            } else {
+                _multiplicationSelected = false;
+            }
+            else {
                 [_operatorsSelected addObject:operator];
                 [button setBackgroundImage:[UIImage imageNamed:@"asteroid_button_use_highlight"] forState:UIControlStateNormal];
-                timesSelected = true;
+                _multiplicationSelected = true;
             }
             break;
         }
@@ -351,14 +391,15 @@ typedef enum {
         {
             operator = @"/";
             
-            if (divideSelected) {
+            if (_divisionSelected) {
                 [_operatorsSelected removeObject:operator];
                 [button setBackgroundImage:[UIImage imageNamed:@"asteroid_button_use"] forState:UIControlStateNormal];
-                divideSelected = false;
-            } else {
+                _divisionSelected = false;
+            }
+            else {
                 [_operatorsSelected addObject:operator];
                 [button setBackgroundImage:[UIImage imageNamed:@"asteroid_button_use_highlight"] forState:UIControlStateNormal];
-                divideSelected = true;
+                _divisionSelected = true;
             }
             break;
         }
@@ -366,26 +407,25 @@ typedef enum {
         {
             operator = @"$";
             
-            if (simplifySelected) {
+            if (_simplificationSelected) {
                 [_operatorsSelected removeObject:operator];
                 [button setBackgroundImage:[UIImage imageNamed:@"asteroid_button_use"] forState:UIControlStateNormal];
-                simplifySelected = false;
-            } else {
+                _simplificationSelected = false;
+            }
+            else {
                 [_operatorsSelected addObject:operator];
                 [button setBackgroundImage:[UIImage imageNamed:@"asteroid_button_use_highlight"] forState:UIControlStateNormal];
-                simplifySelected = true;
+                _simplificationSelected = true;
             }
             break;
         }
     }
     
-    
-    
     // Enable/disable start button
     [self updateStartButton];
 }
 
-// Functiont that sets the enabled property of the start button
+// Function that sets the enabled property of the start button
 - (void)updateStartButton
 {
     // If there are no operators selected, disable
