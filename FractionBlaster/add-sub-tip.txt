@@ -1,0 +1,6 @@
+If the denominators are the same, just add the numerators!
+
+If the denominators are different, then multiply each fraction by
+the denominator of the other so that they have the same denominator. 
+This works because multiplying by a fraction with the same numerator and 
+denominator is the same as multiplying by 1!

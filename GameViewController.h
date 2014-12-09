@@ -16,10 +16,12 @@
 #import "SideBarView.h"
 #import "GameView.h"
 #import "GameEndView.h"
+#import "TipView.h"
 
 @interface GameViewController : UIViewController <AsteroidAction,
                                                   LaserFrequencyChosen,
-                                                  GoBackGame>
+                                                  GoBackGame,
+                                                  DismissTip>
 
 @property (nonatomic) AVAudioPlayer *backgroundMusicPlayer;
 
