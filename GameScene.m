@@ -64,14 +64,14 @@ typedef enum {
 - (void)createBackground
 {
     SKSpriteNode* background;
-    if (_level < 5) {
-        background = [SKSpriteNode spriteNodeWithImageNamed:@"background"];
-    }
-    else if (_level == 5 || _level == -1) {
+    if (_level == 5 || _level == -1) {
         background = [SKSpriteNode spriteNodeWithColor:[UIColor blackColor] size:self.frame.size];
-        _hyperTimer = [NSTimer scheduledTimerWithTimeInterval:0.07
-                                                                    target:self selector:@selector(createHyperSpace)
-                                                                  userInfo:nil repeats:YES];
+        _hyperTimer = [NSTimer scheduledTimerWithTimeInterval:0.02
+                                                       target:self selector:@selector(createHyperSpace)
+                                                     userInfo:nil repeats:YES];
+    }
+    else if (_level < 5) {
+        background = [SKSpriteNode spriteNodeWithImageNamed:@"background"];
     }
     else {
         background = [SKSpriteNode spriteNodeWithImageNamed:@"foreign-back"];

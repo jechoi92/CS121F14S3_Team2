@@ -7,10 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-
-@protocol DismissTip
--(void)dismissTip;
-@end
+#import "Protocols.h"
 
 @interface TipView : UIView
 

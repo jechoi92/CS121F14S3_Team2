@@ -8,15 +8,7 @@
 
 #import <SpriteKit/SpriteKit.h>
 #import "Equation.h"
-
-@protocol AsteroidAction
-- (void)asteroidReachedBottom;
-- (void)incrementScore: (int)value;
-- (void)incrementAsteroid: (int)numAsteroid;
-- (void)lastAsteroidDestroyed;
-- (Equation*)wrongAnswerAttempt: (Fraction*)value;
-- (Equation*)initializeTarget;
-@end
+#import "Protocols.h"
 
 @interface GameScene : SKScene
 

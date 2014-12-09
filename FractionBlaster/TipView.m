@@ -80,7 +80,7 @@
             title = @"Division";
             break;
         case '+':
-            title = @"Addition/Subtraction";
+            title = @"Addition/\nSubtraction";
             break;
         default:
             break;
@@ -90,6 +90,7 @@
     [tipTitle setText:title];
     [tipTitle setTextColor:[UIColor yellowColor]];
     [tipTitle setBackgroundColor:[UIColor clearColor]];
+    tipTitle.numberOfLines = 2;
     [tipTitle setTextAlignment:NSTextAlignmentCenter];
     [tipTitle setFont:[UIFont fontWithName:@"SpaceAge" size:45]];
     

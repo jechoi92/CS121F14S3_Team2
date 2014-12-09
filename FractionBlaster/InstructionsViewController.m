@@ -20,6 +20,7 @@
     // Set up the view and delegate
     _instructionsView = [[InstructionsView alloc] initWithFrame:self.view.frame];
     [_instructionsView setDelegate:self];
+    [_instructionsView setButtonDelegate:self];
     [self.view addSubview:_instructionsView];
 }
 

@@ -421,6 +421,7 @@
 		DA7832631A36EA84000830C1 /* mult-tip-img.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "mult-tip-img.png"; sourceTree = "<group>"; };
 		DA7832641A36EA84000830C1 /* simp-tip-img.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "simp-tip-img.png"; sourceTree = "<group>"; };
 		DA7832691A36EDB0000830C1 /* div-tip-img.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "div-tip-img.png"; path = "../../div-tip-img.png"; sourceTree = "<group>"; };
+		DA78326B1A3710BD000830C1 /* Protocols.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Protocols.h; sourceTree = "<group>"; };
 		DA8D13411A2EC93B00BE47AA /* ImageIO.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ImageIO.framework; path = System/Library/Frameworks/ImageIO.framework; sourceTree = SDKROOT; };
 		DA8D13431A2EC9AF00BE47AA /* UIImage+animatedGIF.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+animatedGIF.h"; sourceTree = "<group>"; };
 		DA8D13441A2EC9AF00BE47AA /* UIImage+animatedGIF.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+animatedGIF.m"; sourceTree = "<group>"; };
@@ -517,6 +518,7 @@
 			children = (
 				DA6F99961A36EE2D005B8662 /* Constants.h */,
 				DA6F99971A36EE2D005B8662 /* Constants.m */,
+				DA78326B1A3710BD000830C1 /* Protocols.h */,
 				DA6F99931A36ED39005B8662 /* BossScene.h */,
 				DA6F99941A36ED39005B8662 /* BossScene.m */,
 				93CB20F91A0754590050185E /* MainMenuViewController.h */,
