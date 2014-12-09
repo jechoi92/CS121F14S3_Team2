@@ -14,5 +14,6 @@
 
 @property (nonatomic) AVAudioPlayer *levelButtonSound;
 @property (nonatomic) AVAudioPlayer *levelBackSound;
+@property (nonatomic) AVAudioPlayer *levelLaunch;
 
 @end

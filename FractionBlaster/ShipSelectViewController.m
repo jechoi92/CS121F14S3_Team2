@@ -16,7 +16,7 @@ typedef enum {
     RedShip,
     StartTag,
     BackTag
-}ButtonTags;
+} ButtonTags;
 
 @implementation ShipSelectViewController
 {
@@ -57,6 +57,8 @@ typedef enum {
         // Start game
         case StartTag:
         {
+            [self launchSound];
+            
             // Determine which ship was selected
             int shipNum = [_shipSelectView currentShipSelected];
             
@@ -72,35 +74,45 @@ typedef enum {
         // Back button selected, move to previous screen
         case BackTag:
         {
-            [self backPlaySound];
+            [self backSound];
             [self.navigationController popViewControllerAnimated:YES];
             break;
         }
             
         default:
         {
-            [self shipSelectSound];
+            [self shipSelectedSound];
             break;
         }
     }
 }
 
 // Play the sound to the select a ship
-- (void)shipSelectSound {
+- (void)shipSelectedSound {
     NSError *error;
     NSURL *progressButton = [[NSBundle mainBundle] URLForResource:@"ship-select" withExtension:@"mp3"];
-    self.shipSelectButton = [[AVAudioPlayer alloc] initWithContentsOfURL:progressButton error:&error];
-    [self.shipSelectButton prepareToPlay];
-    [self.shipSelectButton play];
+    self.shipSelectSound = [[AVAudioPlayer alloc] initWithContentsOfURL:progressButton error:&error];
+    [self.shipSelectSound prepareToPlay];
+    [self.shipSelectSound play];
 }
 
 // Play the sound to go to the previous screen
-- (void)backPlaySound {
+- (void)backSound {
     NSError *error;
     NSURL *backButton = [[NSBundle mainBundle] URLForResource:@"button-09" withExtension:@"wav"];
-    self.shipBackButton = [[AVAudioPlayer alloc] initWithContentsOfURL:backButton error:&error];
-    [self.shipBackButton prepareToPlay];
-    [self.shipBackButton play];
+    self.shipBackSound = [[AVAudioPlayer alloc] initWithContentsOfURL:backButton error:&error];
+    [self.shipBackSound prepareToPlay];
+    [self.shipBackSound play];
+}
+
+// Play the sound to go to the next screen
+- (void)launchSound
+{
+    NSError *error;
+    NSURL *backButton = [[NSBundle mainBundle] URLForResource:@"button-3" withExtension:@"wav"];
+    self.shipLaunch = [[AVAudioPlayer alloc] initWithContentsOfURL:backButton error:&error];
+    [self.shipLaunch prepareToPlay];
+    [self.shipLaunch play];
 }
 
 @end
