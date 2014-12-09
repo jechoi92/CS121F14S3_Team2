@@ -1,0 +1,3 @@
+Move the ship by dragging it side to side to line it up with the asteroid you want to destroy.
+
+Fire a laser by clicking on one of the buttons on the right hand side. If the laser frequency solves the expression on the asteroid, the asteroid will explode.

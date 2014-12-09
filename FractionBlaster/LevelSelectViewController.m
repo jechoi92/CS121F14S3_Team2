@@ -7,111 +7,108 @@
 //
 
 #import "LevelSelectViewController.h"
+#import "ShipSelectViewController.h"
 
-
+// Enum object for button tags
+typedef enum {
+    StartTag = 10,
+    BackTag = 11
+}ButtonTags;
 
 @implementation LevelSelectViewController
 {
-    LevelButtonView *_levelButtonView;
-    StartLevelButtonView *_startLevelButtonView;
-    UIButton *_backButton;
+    LevelSelectView *_levelSelectView;
 }
 
-// Constant to dtermine the placement of top view icons
-static CGFloat INSET_RATIO = 0.02;
-
 // Initialize the level seclect view controller
--(void)viewDidLoad
+- (void)viewDidLoad
 {
     [super viewDidLoad];
     
-    // Set the background to the default space theme
-    [self.view setBackgroundColor:[[UIColor alloc] initWithPatternImage:[UIImage imageNamed:@"main_background"]]];
-    
-    // Create level buttons
-    [self createLevelButtonView];
-    
-    // Create title
-    [self createLevelTitle];
-    
-    // Create back button
-    [self createTopButtonsAndLabelsWithFrame:self.view.frame];
+    // Add the subview
+    _levelSelectView = [[LevelSelectView alloc] initWithFrame:self.view.frame andUnlockedLevel:[self readProgress]];
+    [_levelSelectView setDelegate:self];
+    [self.view addSubview: _levelSelectView];
 }
 
--(void)createLevelButtonView
+- (void)buttonSelected:(id)sender
 {
-    // Get frame and frame dimensions
-    CGRect frame = self.view.frame;
-    CGFloat frameWidth = CGRectGetWidth(frame);
-    CGFloat frameHeight = CGRectGetHeight(frame);
+    // Figure out button navigation
+    UIButton *button = (UIButton *)sender;
+    int tag = (int)button.tag;
     
-    // Set up the grid frame, based on a specified percentage of the frame that
-    // the grid is supposed to take up
-    CGFloat levelViewPctOfFrame = 0.7;
-    CGFloat levelViewXOffset = 0.15 * frameWidth;
-    CGFloat levelViewYOffset = 0.5 * frameHeight;
-    CGFloat levelViewWidth = frameWidth * levelViewPctOfFrame;
-    CGFloat levelViewHeight = levelViewWidth * 2 / 5;
-    CGRect levelViewFrame = CGRectMake(levelViewXOffset, levelViewYOffset, levelViewWidth, levelViewHeight);
-    
-    // Create start button with the appropriate delegate
-    _levelButtonView = [[LevelButtonView alloc] initWithFrame:levelViewFrame];
-    [self.view addSubview:_levelButtonView];
-    CGRect startButtonFrame = CGRectMake(frameWidth*.1, frameHeight*.8, frameWidth*.8, frameHeight*.15);
-    _startLevelButtonView = [[StartLevelButtonView alloc] initWithFrame:startButtonFrame];
-    [_startLevelButtonView setDelegate:self];
-    [self.view addSubview:_startLevelButtonView];
+    switch (tag){
+            
+        // Show ship selection screen
+        case StartTag:
+        {
+            [self launchSound];
+            int currentLevel = [_levelSelectView currentLevelSelected] + 1;
+            ShipSelectViewController *svc = [[ShipSelectViewController alloc]
+                                       initWithLevel:currentLevel andOperators:NULL];
+            [self.navigationController pushViewController:svc animated:YES];
+            break;
+        }
+            
+        // Back button was pressed, show previous screen
+        case BackTag:
+        {
+            [self backSound];
+            [self.navigationController popViewControllerAnimated:YES];
+            break;
+        }
+            
+        default:
+        {
+            
+            [self levelSelectSound];
+            break;
+        }
+    }
 }
 
-// Creates the level select title image at the top of the screen
--(void)createLevelTitle
+// Updates the Progress text file to save the progress of the player
+// after the player closes and reopens the game
+- (int)readProgress
 {
-    // Get frame and frame dimensions
-    CGRect frame = self.view.frame;
-    CGFloat frameWidth = CGRectGetWidth(frame);
-    CGFloat frameHeight = CGRectGetHeight(frame);
-    
-    // Add the level select image to the top of the view
-    CGRect title = CGRectMake(0, -50, frameWidth, frameHeight*.5);
-    UIImageView *imageView = [[UIImageView alloc] initWithFrame:title];
-    imageView.image = [UIImage imageNamed:@"Levels.png"];
-    [self.view addSubview:imageView];
+    // Read the max. unlocked level stored in the progress file
+    NSArray *paths = NSSearchPathForDirectoriesInDomains
+    (NSDocumentDirectory, NSUserDomainMask, YES);
+    NSString *documentsDirectory = [paths objectAtIndex:0];
+    NSString *fileName = [NSString stringWithFormat:@"%@/Progress.txt", documentsDirectory];
+    NSString *content = [[NSString alloc] initWithContentsOfFile:fileName usedEncoding:nil error:nil];
+    return [content intValue];
 }
 
-// Creates the back button on the top of the level view screen
-- (void)createTopButtonsAndLabelsWithFrame:(CGRect)frame
+// Play the sound to the select a ship
+- (void)levelSelectSound
 {
-    // Get all of the parameters of the frame to build the button
-    CGFloat size = MIN(CGRectGetWidth(frame), CGRectGetHeight(frame));
-    CGFloat iconParam = size / 15;
-    CGFloat backButtonX = CGRectGetWidth(frame) * INSET_RATIO;
-    CGFloat backButtonY = CGRectGetHeight(frame) * INSET_RATIO;
-    CGRect backButtonFrame = CGRectMake(backButtonX, backButtonY, iconParam, iconParam);
-    
-    // Initailze the back button with these certain images and and icons
-    _backButton = [[UIButton alloc] initWithFrame:backButtonFrame];
-    [_backButton setBackgroundImage:[UIImage imageNamed:@"StartOverIcon"] forState:UIControlStateNormal];
-    
-    // Set the delegate of when the button is clicked
-    [_backButton addTarget:self action:@selector(backButtonPressed)
-          forControlEvents:UIControlEventTouchUpInside];
-    
-    [self.view addSubview:_backButton];
+    NSError *error;
+    NSURL *progressButton = [[NSBundle mainBundle] URLForResource:@"ship-select" withExtension:@"mp3"];
+    self.levelButtonSound = [[AVAudioPlayer alloc] initWithContentsOfURL:progressButton error:&error];
+    [self.levelButtonSound prepareToPlay];
+    [self.levelButtonSound play];
 }
 
-// Tells the navigator controller to pop back to the main menu screen
--(void)backButtonPressed
+// Play the sound to go to the previous screen
+- (void)backSound
 {
-    [self.navigationController popViewControllerAnimated:YES];
+    NSError *error;
+    NSURL *backButton = [[NSBundle mainBundle] URLForResource:@"button-09" withExtension:@"wav"];
+    self.levelBackSound = [[AVAudioPlayer alloc] initWithContentsOfURL:backButton error:&error];
+    [self.levelBackSound prepareToPlay];
+    [self.levelBackSound play];
 }
 
-// Tells the navigator controller to progress to the game screen
--(void)startLevel
+// Play the sound to go to the next screen
+- (void)launchSound
 {
-    int currentLevel = [_levelButtonView currentLevelSelected] + 1;
-    GameViewController *gvc = [[GameViewController alloc]
-                             initWithLevel:currentLevel andScore:0];
-    [self.navigationController pushViewController:gvc animated:YES];
+    NSError *error;
+    NSURL *backButton = [[NSBundle mainBundle] URLForResource:@"button-3" withExtension:@"wav"];
+    self.levelLaunch = [[AVAudioPlayer alloc] initWithContentsOfURL:backButton error:&error];
+    [self.levelLaunch prepareToPlay];
+    [self.levelLaunch play];
 }
+
 
 @end

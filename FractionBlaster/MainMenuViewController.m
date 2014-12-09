@@ -7,97 +7,92 @@
 //
 
 #import "MainMenuViewController.h"
-#import "LevelSelectViewController.h"
-#import "InstructionsViewController.h"
-#import "LeaderboardViewController.h"
+
+// Enum object for button tags
+typedef enum {
+    StartMissionTag,
+    InstructionsTag,
+    LeaderboardTag,
+    CreditsTag
+}ButtonTags;
 
 @implementation MainMenuViewController
 {
-    MainMenuButtonsView *_buttonsView;
-    UIImageView *_titleView;
+    MainMenuView *_mainMenuView;
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    [self.view setBackgroundColor:[[UIColor alloc] initWithPatternImage:[UIImage imageNamed:@"main_background"]]];
-    
-    // Get frame stats
-    CGFloat frameHeight = CGRectGetHeight(self.view.frame);
-    CGFloat frameWidth  = CGRectGetWidth(self.view.frame);
-    
-    // Title image
-    UIImage *titleImage =[UIImage imageNamed:@"logo.png"];
-    CGFloat titleXOffset = (frameWidth-titleImage.size.width)/2;
-    CGFloat titleYOffset = 0.2 * frameHeight;
-    _titleView = [[UIImageView alloc] initWithFrame:CGRectMake(titleXOffset, titleYOffset, titleImage.size.width, titleImage.size.height)];
-    [_titleView setImage:titleImage];
-    [self.view addSubview:_titleView];
-    
-    // Constants for button size
-    CGFloat buttonsFramePctWidth = 0.25;
-    CGFloat buttonsFramePctHeight = 0.40;
-    
-    // Set up x-centered frame for buttons
-    CGFloat buttonsFrameHeight = frameHeight * buttonsFramePctHeight;
-    CGFloat buttonsFrameWidth = frameWidth * buttonsFramePctWidth;
-    CGFloat buttonsFrameYOffset = titleYOffset+titleImage.size.height+30;
-    CGFloat buttonsFrameXOffset = (frameWidth-buttonsFrameWidth)/2;
-    
-    CGRect buttonsFrame = CGRectMake(buttonsFrameXOffset, buttonsFrameYOffset, buttonsFrameWidth, buttonsFrameHeight);
-    
-    // Add the subview
-    _buttonsView = [[MainMenuButtonsView alloc] initWithFrame:buttonsFrame];
-    [_buttonsView setDelegate:self];
-    [self.view addSubview: _buttonsView];
-    
+    // Set up the view and delegate
+    _mainMenuView = [[MainMenuView alloc] initWithFrame:self.view.frame];
+    [_mainMenuView setDelegate:self];
+    [self.view addSubview: _mainMenuView];
 }
 
-- (void)createTitle
-{
-    
-}
-
+// Function to perform actions when buttons were selected
 - (void)buttonSelected:(id)sender
 {
-    // Figure out button navigation
-    UIButton *button = (UIButton *)sender;
+    // Figure out the button that was selected
+    UIButton *button = (UIButton*)sender;
     int tag = (int)button.tag;
     
+    // Play sound
+    [self playButtonSound];
+    
+    // Perform correct action
     switch (tag){
-        case 0:
+            
+        // Show mode selection screen
+        case StartMissionTag:
         {
-            // Go to LevelSelectViewController
-            LevelSelectViewController *lsvc = [[LevelSelectViewController alloc] init];
-            [self.navigationController pushViewController:lsvc animated:YES];
+            ModeSelectViewController *msvc = [[ModeSelectViewController alloc] init];
+            [self.navigationController pushViewController:msvc animated:YES];
             break;
         }
-        case 1:
+            
+        // Show instructions screen
+        case InstructionsTag:
         {
-            // Go to InstrViewController
             InstructionsViewController *ivc = [[InstructionsViewController alloc] init];
             [self.navigationController pushViewController:ivc animated:YES];
             break;
         }
-        case 2:
+            
+        // Show leaderboard screen
+        case LeaderboardTag:
         {
-            // Go to Leaderboard
             LeaderboardViewController *lbvc = [[LeaderboardViewController alloc] init];
             [self.navigationController pushViewController:lbvc animated:YES];
             break;
         }
-        default:
+        
+        // Show credits pop-up screen
+        case CreditsTag:
         {
-            NSLog(@"This button shouldn't exist");
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Fraction Blaster"
+                                                            message:@"Harvey Mudd College CS121 Fall 2014\n\nTeam 2\nLouis Brann, Jeongwoo Choi,\nKevin McSwiggen, Alejandro Mendoza\n\nFunded by NSF grant #1042472\n\nwww.stackoverflow.com\nrosettacode.org/wiki/Rosetta_Code\nsoundbible.com\nmillionthvector.blogspot.com\nbestpaperz.com\nmototsume.deviantart.com\nfreesound.org\nwww.dievantile.com\n\nSpecial thanks to Prof. Z Sweedyk\n\nCopyright (c) 2014 MatherTeresa.\nAll rights reserved."
+                                    delegate:self cancelButtonTitle:nil otherButtonTitles:nil];
+            [alert addButtonWithTitle:@"OK"];
+            [alert show];
             break;
         }
     }
-
 }
 
-- (void)didReceiveMemoryWarning {
+- (void)didReceiveMemoryWarning
+{
     [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
 }
+
+- (void)playButtonSound
+{
+    NSError *error;
+    NSURL *buttonSound = [[NSBundle mainBundle] URLForResource:@"button-3" withExtension:@"wav"];
+    self.menubuttonSound = [[AVAudioPlayer alloc] initWithContentsOfURL:buttonSound error:&error];
+    [self.menubuttonSound prepareToPlay];
+    [self.menubuttonSound play];
+}
+
 
 @end

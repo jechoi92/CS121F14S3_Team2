@@ -7,83 +7,70 @@
 //
 
 #import "LeaderboardView.h"
-
-CGFloat INSET_RATIO;
+#import "Constants.h"
 
 @implementation LeaderboardView {
-    NSMutableArray* _highScoreLabels;
-    UIButton* _backButton;
-    UILabel* _highScoreLabel;
+    NSMutableArray *_highScoreLabels;
 }
 
--(id)initWithFrame:(CGRect)frame
+- (id)initWithFrame:(CGRect)frame
 {
     self = [super initWithFrame:frame];
     if (self) {
-        [self createLabelAndButton];
+        [self createTitle];
         [self createScoreLabels];
+        [self createBackButton];
         [self setBackgroundColor:[[UIColor alloc] initWithPatternImage:[UIImage imageNamed:@"main_background"]]];
     }
     return self;
 }
 
-// Sets the label at the provided index with the provided score.
--(void)setLabelAtIndex:(int)i withString:(NSString*)score
+// Sets the label at the provided index with the provided score
+- (void)setLabelAtIndex:(int)i withString:(NSString*)score
 {
-    UILabel* currentLabel = [_highScoreLabels objectAtIndex:i];
-    NSString* scoreString = [score substringToIndex:7];
-    NSString* nameString = [score substringFromIndex:7];
-    NSString* text = [[NSString alloc] initWithFormat:@"%d.    %@      %@", i + 1, scoreString, nameString];
+    UILabel *currentLabel = [_highScoreLabels objectAtIndex:i];
+    NSString *scoreString = [score substringToIndex:7];
+    NSString *nameString = [score substringFromIndex:7];
+    NSString *text = [[NSString alloc] initWithFormat:@" %d.    %@      %@", i + 1, scoreString, nameString];
     [currentLabel setText:text];
 }
 
--(void)createLabelAndButton
+// Create the title label
+- (void)createTitle
 {
+    // Get frame and frame dimensions
     CGRect frame = self.frame;
-    CGFloat size = MIN(CGRectGetWidth(frame), CGRectGetHeight(frame));
-    CGFloat itemWidth = size / 15;
-    CGFloat backButtonLength = itemWidth;
-    CGFloat backButtonWidth = itemWidth;
-    CGFloat backButtonX = CGRectGetWidth(frame) * INSET_RATIO;
-    CGFloat backButtonY = CGRectGetHeight(frame) * INSET_RATIO;
-    CGRect backButtonFrame = CGRectMake(backButtonX, backButtonY, backButtonLength, backButtonWidth);
-    _backButton = [[UIButton alloc] initWithFrame:backButtonFrame];
-    [_backButton setBackgroundImage:[UIImage imageNamed:@"StartOverIcon"] forState:UIControlStateNormal];
-    [[_backButton layer] setBorderWidth:2.5f];
-    [[_backButton layer] setBorderColor:[UIColor blackColor].CGColor];
-    [[_backButton layer] setCornerRadius:12.0f];
-    [_backButton addTarget:self action:@selector(backButtonPressed)
-          forControlEvents:UIControlEventTouchUpInside];
-    [self addSubview:_backButton];
+    CGFloat frameWidth = CGRectGetWidth(frame);
+    CGFloat frameHeight = CGRectGetHeight(frame);
     
-    CGFloat labelLength = itemWidth * 5;
-    CGFloat labelWidth = itemWidth * 2;
-    CGFloat labelX = CGRectGetWidth(frame) * 0.37;
-    CGFloat labelY = CGRectGetHeight(frame) * 0.1;
-    CGRect labelFrame = CGRectMake(labelX, labelY, labelLength, labelWidth);
-    _highScoreLabel = [[UILabel alloc] initWithFrame:labelFrame];
-    [_highScoreLabel setText:@"High Scores"];
-    [_highScoreLabel setTextColor:[UIColor whiteColor]];
-    [_highScoreLabel setFont: [UIFont fontWithName:@"HelveticaNeue-Bold" size:36.0f]];
-    [self addSubview:_highScoreLabel];
+    // Add the level select image to the top of the view
+    CGRect title = CGRectMake(frameWidth * 0.1, frameHeight * 0.05, frameWidth * 0.8, frameHeight * 0.18);
+    UIImageView *imageView = [[UIImageView alloc] initWithFrame:title];
+    imageView.image = [UIImage imageNamed:@"high_scores"];
+    
+    [self addSubview:imageView];
 }
 
--(void)createScoreLabels
+// Create labels that display the scores
+- (void)createScoreLabels
 {
     CGRect frame = self.frame;
     _highScoreLabels = [[NSMutableArray alloc] initWithCapacity:5];
-    CGFloat width = CGRectGetWidth(frame);
-    CGFloat height = CGRectGetHeight(frame);
-    CGFloat labelWidth = width;
-    CGFloat labelHeight = height / 20;
+    CGFloat xOffset = CGRectGetWidth(frame) * 0.3;
+    CGFloat yOffset = CGRectGetHeight(frame) * 0.4;
+    CGFloat labelWidth = CGRectGetWidth(frame) * .4;
+    CGFloat labelHeight = CGRectGetHeight(frame) * 0.05;
 
-    // Creates all score labels.
+    // Creates all score labels, and add it into the array
     for (int i = 0; i < 5; i++) {
-        CGRect labelFrame = CGRectMake(width * 0.35, height * 0.25 + i * labelHeight, labelWidth, labelHeight);
-        UILabel* currentLabel = [[UILabel alloc] initWithFrame:labelFrame];
+        CGRect labelFrame = CGRectMake(xOffset, yOffset, labelWidth, labelHeight);
+        
+        UILabel *currentLabel = [[UILabel alloc] initWithFrame:labelFrame];
+        
         currentLabel.backgroundColor = [UIColor clearColor];
-        [currentLabel setFont: [UIFont fontWithName:@"HelveticaNeue-Bold" size:24.0f]];
+        [currentLabel setFont: [UIFont fontWithName:@"HelveticaNeue-Bold" size:30.0f]];
         [currentLabel setTextColor:[UIColor whiteColor]];
+        
         // For the highest score, make the text color yellow.
         if (i == 0) {
             [currentLabel setTextColor:[UIColor yellowColor]];
@@ -91,10 +78,43 @@ CGFloat INSET_RATIO;
 
         [self addSubview:currentLabel];
         [_highScoreLabels insertObject:currentLabel atIndex:i];
+        
+        // Set border images for each button
+        UIImageView *background = [[UIImageView alloc] initWithFrame:labelFrame];
+        background.image = [UIImage imageNamed:@"menuBorder"];
+        [self addSubview:background];
+        [self sendSubviewToBack:background];
+        
+        // Increment offset for next label frame
+        yOffset += labelHeight*2;
     }
 }
 
--(void)backButtonPressed
+// Create the back button
+- (void)createBackButton
+{
+    CGFloat size = MIN(CGRectGetWidth(self.frame), CGRectGetHeight(self.frame));
+    CGFloat itemWidth = size / 15;
+    CGFloat backButtonLength = itemWidth;
+    CGFloat backButtonWidth = itemWidth;
+    CGFloat backButtonX = CGRectGetWidth(self.frame) * INSET_RATIO;
+    CGFloat backButtonY = CGRectGetHeight(self.frame) * INSET_RATIO;
+    
+    CGRect backButtonFrame = CGRectMake(backButtonX, backButtonY, backButtonLength, backButtonWidth);
+    UIButton *backButton = [[UIButton alloc] initWithFrame:backButtonFrame];
+    
+    [backButton setBackgroundImage:[UIImage imageNamed:@"StartOverIcon"] forState:UIControlStateNormal];
+    [[backButton layer] setBorderWidth:2.5f];
+    [[backButton layer] setBorderColor:[UIColor blackColor].CGColor];
+    [[backButton layer] setCornerRadius:12.0f];
+    
+    [backButton addTarget:self action:@selector(backButtonPressed)
+         forControlEvents:UIControlEventTouchUpInside];
+    
+    [self addSubview:backButton];
+}
+
+- (void)backButtonPressed
 {
     [self.delegate backToMainMenu];
 }

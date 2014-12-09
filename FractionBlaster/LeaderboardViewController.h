@@ -8,7 +8,10 @@
 
 #import <UIKit/UIKit.h>
 #import "LeaderboardView.h"
+#import <AVFoundation/AVFoundation.h>
 
 @interface LeaderboardViewController : UIViewController <GoBack>
+
+@property (nonatomic) AVAudioPlayer *leaderBrdBackSound;
 
 @end

@@ -7,10 +7,13 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "LevelButtonView.h"
-#import "StartLevelButtonView.h"
-#import "GameViewController.h"
+#import "LevelSelectView.h"
+#import "AVFoundation/AVFoundation.h"
 
-@interface LevelSelectViewController : UIViewController <StartLevel>
+@interface LevelSelectViewController : UIViewController <ButtonSelected>
+
+@property (nonatomic) AVAudioPlayer *levelButtonSound;
+@property (nonatomic) AVAudioPlayer *levelBackSound;
+@property (nonatomic) AVAudioPlayer *levelLaunch;
 
 @end

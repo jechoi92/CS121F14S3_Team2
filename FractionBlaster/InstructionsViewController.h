@@ -7,7 +7,12 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "InstructionsView.h"
+#import <AVFoundation/AVFoundation.h>
 
-@interface InstructionsViewController : UIViewController
+@interface InstructionsViewController : UIViewController<GoBack>
+
+@property (nonatomic) AVAudioPlayer *instrBackSound;
+@property (nonatomic) AVAudioPlayer *instrButtonSound;
 
 @end

@@ -11,18 +11,18 @@
 #import <AVFoundation/AVFoundation.h>
 #import <QuartzCore/QuartzCore.h>
 #import "GameScene.h"
+#import "BossScene.h"
 #import "HealthBarView.h"
 #import "EquationGenerator.h"
 #import "SideBarView.h"
-#import "GameLabelsAndButtonsView.h"
-#import "GameEndLabelAndButtonsView.h"
+#import "GameView.h"
+#import "GameEndView.h"
+#import "TipView.h"
 
-@interface GameViewController : UIViewController <AsteroidAction,
-                                                  LaserFrequencyChosen,
-                                                  GoBack>
+@interface GameViewController : UIViewController <AsteroidAction, LaserFrequencyChosen, GoBackGame, DismissTip>
 
 @property (nonatomic) AVAudioPlayer *backgroundMusicPlayer;
 
-- (id)initWithLevel:(int)level andScore: (int)score;
+- (id)initWithLevel:(int)level andOperators: (NSArray*)operators andShipNumber:(int)shipNum;
 
 @end
