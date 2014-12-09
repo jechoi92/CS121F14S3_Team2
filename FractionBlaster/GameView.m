@@ -38,9 +38,6 @@
     
     UIButton *backButton = [[UIButton alloc] initWithFrame:backButtonFrame];
     [backButton setBackgroundImage:[UIImage imageNamed:@"StartOverIcon"] forState:UIControlStateNormal];
-    [[backButton layer] setBorderWidth:2.5f];
-    [[backButton layer] setBorderColor:[UIColor blackColor].CGColor];
-    [[backButton layer] setCornerRadius:12.0f];
     
     // Create target for button
     [backButton addTarget:self action:@selector(backButtonPressed)
