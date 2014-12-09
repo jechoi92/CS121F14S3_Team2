@@ -64,7 +64,14 @@ typedef enum {
 
 - (void)createBackground
 {
-    SKSpriteNode* background = [SKSpriteNode spriteNodeWithImageNamed:@"background"];
+    SKSpriteNode* background;
+    if (_level < 5) {
+        background = [SKSpriteNode spriteNodeWithImageNamed:@"background"];
+    } else if (_level == 5) {
+        background = [SKSpriteNode spriteNodeWithImageNamed:@"background"];
+    } else {
+        background = [SKSpriteNode spriteNodeWithImageNamed:@"foreign-back"];
+    }
     background.position = CGPointMake(CGRectGetMidX(self.frame), CGRectGetMidY(self.frame));
     background.zPosition = -1;
     [self addChild:background];
