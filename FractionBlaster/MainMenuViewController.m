@@ -37,6 +37,10 @@ typedef enum {
     UIButton *button = (UIButton*)sender;
     int tag = (int)button.tag;
     
+    // Play sound
+    [self playButtonSound];
+    
+    // Perform correct action
     switch (tag){
             
         // Show mode selection screen
@@ -44,7 +48,6 @@ typedef enum {
         {
             ModeSelectViewController *msvc = [[ModeSelectViewController alloc] init];
             [self.navigationController pushViewController:msvc animated:YES];
-            [self playButtonSound];
             break;
         }
             
@@ -53,7 +56,6 @@ typedef enum {
         {
             InstructionsViewController *ivc = [[InstructionsViewController alloc] init];
             [self.navigationController pushViewController:ivc animated:YES];
-            [self playButtonSound];
             break;
         }
             
@@ -62,7 +64,6 @@ typedef enum {
         {
             LeaderboardViewController *lbvc = [[LeaderboardViewController alloc] init];
             [self.navigationController pushViewController:lbvc animated:YES];
-            [self playButtonSound];
             break;
         }
         
@@ -73,7 +74,6 @@ typedef enum {
                                                             message:@"Harvey Mudd College CS121 Fall 2014\n\nTeam 2\nLouis Brann, Jeongwoo Choi,\nKevin McSwiggen, Alejandro Mendoza\n\nFunded by NSF grant #1042472\n\nwww.stackoverflow.com\nrosettacode.org/wiki/Rosetta_Code\nsoundbible.com\nmillionthvector.blogspot.com\nbestpaperz.com\nmototsume.deviantart.com\nfreesound.org\nwww.dievantile.com\n\nSpecial thanks to Prof. Z Sweedyk\n\nCopyright (c) 2014 MatherTeresa.\nAll rights reserved."
                                     delegate:self cancelButtonTitle:nil otherButtonTitles:nil];
             [alert addButtonWithTitle:@"OK"];
-            [self playButtonSound];
             [alert show];
             break;
         }

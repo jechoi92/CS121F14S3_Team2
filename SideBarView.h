@@ -10,10 +10,6 @@
 #import "Fraction.h"
 #import "MainMenuView.h"
 
-@protocol LaserFrequencyChosen
-- (void)laserFrequencyChosen:(NSNumber *)buttonTag;
-@end
-
 @interface SideBarView : UIView
 
 @property (assign, nonatomic) id <LaserFrequencyChosen> delegate;

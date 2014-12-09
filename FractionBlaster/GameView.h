@@ -7,11 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-
-@protocol GoBackGame
-- (void)backToMainMenu;
-- (void)backToGameWithNextLevel:(BOOL)won;
-@end
+#import "Protocols.h"
 
 @interface GameView : UIView
 

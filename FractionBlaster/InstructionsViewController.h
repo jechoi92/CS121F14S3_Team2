@@ -10,10 +10,8 @@
 #import "InstructionsView.h"
 #import <AVFoundation/AVFoundation.h>
 
-@interface InstructionsViewController : UIViewController<GoBack>
-
+@interface InstructionsViewController : UIViewController<GoBack, ButtonSelected>
 
 @property (nonatomic) AVAudioPlayer *instrBackSound;
-
 
 @end
