@@ -9,15 +9,7 @@
 #import "GameScene.h"
 #import "Constants.h"
 
-static const uint32_t laserCategory     =  0x1 << 0;
-static const uint32_t asteroidCategory  =  0x1 << 1;
-
 CGFloat INSET_RATIO;
-int SLOW_SPEED = 40;
-int MEDIUM_SPEED = 35;
-int MAX_SPEED = 30;
-int ALLOWED_WRONG_ANSWERS = 2;
-CGFloat LASER_VELOCITY = 1500.0;
 
 // Enum object for ship numbers
 typedef enum {
