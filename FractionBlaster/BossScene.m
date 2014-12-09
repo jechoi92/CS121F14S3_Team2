@@ -363,8 +363,8 @@
     endX += arc4random_uniform(self.frame.size.width);
     endX -= arc4random_uniform(self.frame.size.width);
     
-    int minX = asteroid.size.width * 1.2;
-    int maxX = self.frame.size.width - asteroid.size.width * 1.2;
+    int minX = asteroid.size.width * 1.5;
+    int maxX = self.frame.size.width - asteroid.size.width * 1.5;
     
     if (endX < minX) {
         endX = minX;

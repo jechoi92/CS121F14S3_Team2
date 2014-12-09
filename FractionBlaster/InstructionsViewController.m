@@ -20,7 +20,7 @@
     // Set up the view and delegate
     _instructionsView = [[InstructionsView alloc] initWithFrame:self.view.frame];
     [_instructionsView setDelegate:self];
-    [_instructionsView setButtonDelegate:self];
+    [_instructionsView setButtonDelegate:(id<ButtonSelected>)self];
     [self.view addSubview:_instructionsView];
 }
 
@@ -32,10 +32,6 @@
 
 - (void)buttonSelected:(id)sender
 {
-    // Figure out the button that was selected
-    UIButton *button = (UIButton*)sender;
-    int tag = (int)button.tag;
-    
     // Play sound
     [self playButtonSound];
 }
