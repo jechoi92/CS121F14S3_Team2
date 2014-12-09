@@ -7,10 +7,7 @@
 //
 
 #import "GameViewController.h"
-
-int TOTAL_INITIAL_FRACTIONS = 5;
-int HEALTHPENALTY = 20;
-CGFloat INSET_RATIO = 0.02;
+#import "Constants.h"
 
 @implementation GameViewController
 {
@@ -90,8 +87,6 @@ CGFloat INSET_RATIO = 0.02;
         [self createSideBar];
         [self createHealthBar];
         [self createScene];
-        
-        
         
         // If campaign mode and level is between 1 and 4, show tips screen
         if (_level > 0 && _level < 5){
@@ -196,7 +191,6 @@ CGFloat INSET_RATIO = 0.02;
     
     [skView presentScene:_scene];
 }
-
 
 // Creates the appropriate ending scene upon the end of a game
 -(void)createGameOverSceneWithWin:(BOOL)winning
@@ -426,7 +420,7 @@ CGFloat INSET_RATIO = 0.02;
 }
 
 // Writes the highest level beaten so that progress can be saved
--(void)updateProgress
+- (void)updateProgress
 {
     NSArray *paths = NSSearchPathForDirectoriesInDomains
     (NSDocumentDirectory, NSUserDomainMask, YES);
@@ -440,7 +434,7 @@ CGFloat INSET_RATIO = 0.02;
 }
 
 // Function to update high scores, if any are changed
--(void)updateHighScores
+- (void)updateHighScores
 {
     NSArray* currentHighScores = [self loadHighScores];
     NSString* lowestScoreString = [currentHighScores objectAtIndex:4];
@@ -461,7 +455,7 @@ CGFloat INSET_RATIO = 0.02;
 }
 
 // Read highscores from text file, return array of 5 scores
--(NSArray*) loadHighScores
+- (NSArray*)loadHighScores
 {
     NSArray *paths = NSSearchPathForDirectoriesInDomains
     (NSDocumentDirectory, NSUserDomainMask, YES);
@@ -486,7 +480,7 @@ CGFloat INSET_RATIO = 0.02;
 }
 
 // Prompts user for username, to store for highscore
--(void)requestUserName
+- (void)requestUserName
 {
     UIAlertView* alert = [[UIAlertView alloc] initWithTitle:@"High Score!"
                                                     message:@"Enter your initials! (3 letters)"
@@ -513,7 +507,7 @@ CGFloat INSET_RATIO = 0.02;
 }
 
 // Writes the new highscore with the username
--(void)writeScore: (NSString*)name
+- (void)writeScore:(NSString*)name
 {
     // Gets the previously high scores
     NSMutableArray* currentHighScores = [[NSMutableArray alloc] initWithArray:[self loadHighScores]];
@@ -551,7 +545,7 @@ CGFloat INSET_RATIO = 0.02;
 }
 
 // Creates the ending screen
--(void)createGameEndView:(BOOL)win
+- (void)createGameEndView:(BOOL)win
 {
     CGRect frame = self.view.frame;
     CGFloat width = CGRectGetWidth(frame);
@@ -568,7 +562,7 @@ CGFloat INSET_RATIO = 0.02;
 }
 
 // Creates the ending screen when we have finished campaign mode.
--(void)createGameEndViewVictory
+- (void)createGameEndViewVictory
 {
     CGRect frame = self.view.frame;
     CGFloat width = CGRectGetWidth(frame);
@@ -585,7 +579,7 @@ CGFloat INSET_RATIO = 0.02;
 }
 
 // Function that dismisses the tip screen
--(void)dismissTip
+- (void)dismissTip
 {
     // Create timer upon dismissal of tip view
     [_tipView removeFromSuperview];
@@ -596,14 +590,14 @@ CGFloat INSET_RATIO = 0.02;
 }
 
 // Back button to main menu
--(void)backToMainMenu
+- (void)backToMainMenu
 {
     [self cleanup];
     [self.navigationController popToRootViewControllerAnimated:YES];
 }
 
 // Reload the gameVC with the next level if won, or a score of 0 if lost.
--(void)backToGameWithNextLevel:(BOOL)won
+- (void)backToGameWithNextLevel:(BOOL)won
 {
     // If won, increment level
     if (won){

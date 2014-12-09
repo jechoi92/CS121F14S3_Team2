@@ -9,8 +9,6 @@
 #import "GameScene.h"
 #import "Constants.h"
 
-CGFloat INSET_RATIO;
-
 // Enum object for ship numbers
 typedef enum {
     BlueShip,

@@ -8,8 +8,7 @@
 
 #import "TipView.h"
 #import "UIImage+animatedGIF.h"
-
-CGFloat INSET_RATIO;
+#import "Constants.h"
 
 @implementation TipView
 {
