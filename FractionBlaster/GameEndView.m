@@ -35,6 +35,12 @@
 {
     if (_win) {
         [self setBackgroundColor:[[UIColor alloc] initWithPatternImage:[UIImage imageNamed:@"background"]]];
+        if (_level == 5) {
+            [self setBackgroundColor:[UIColor blackColor]];
+        }
+        else if (_level > 5) {
+            [self setBackgroundColor:[[UIColor alloc] initWithPatternImage:[UIImage imageNamed:@"foreign-back"]]];
+        }
     }
     else {
         [self setBackgroundColor:[[UIColor alloc] initWithPatternImage:[UIImage imageNamed:@"background_defeat"]]];
