@@ -93,7 +93,7 @@ CGFloat INSET_RATIO;
     [tipTitle setBackgroundColor:[UIColor clearColor]];
     [tipTitle setTextAlignment:NSTextAlignmentCenter];
     // TODO: Magic number
-    [tipTitle setFont:[UIFont fontWithName:@"SpaceAge" size:28]];
+    [tipTitle setFont:[UIFont fontWithName:@"SpaceAge" size:45]];
     
     [self addSubview:tipTitle];
 }
@@ -101,30 +101,24 @@ CGFloat INSET_RATIO;
 -(void)createTipImg
 {
     // Get image
-    // TODO: Get images
-//    NSString *imgName;
-//    switch (_operator) {
-//        case '$':
-//            imgName = @"simp-img";
-//            break;
-//        case '*':
-//            imgName = @"mult-img";
-//            break;
-//        case '/':
-//            imgName = @"div-img";
-//            break;
-//        case '+':
-//            imgName = @"add-sub-img";
-//            break;
-//        default:
-//            break;
-//    }
-    NSString *imgName = @"instructions-1";
-    
-    // TODO?: Placeholder for image to see if it loads correctly
-    NSURL *gifURL2 = [[NSBundle mainBundle]
-                      URLForResource:imgName withExtension:@"gif"];
-    UIImage *tipImg = [UIImage animatedImageWithAnimatedGIFURL:(NSURL *)gifURL2];
+    NSString *imgName;
+    switch (_operator) {
+        case '$':
+            imgName = @"simp-tip-img";
+            break;
+        case '*':
+            imgName = @"mult-tip-img";
+            break;
+        case '/':
+            imgName = @"div-tip-img";
+            break;
+        case '+':
+            imgName = @"add-tip-img";
+            break;
+        default:
+            break;
+    }
+    UIImage *tipImg = [UIImage imageNamed:imgName];
     
     // Get image dimensions for height and width
     CGSize imgDimensions = [tipImg size];
@@ -157,7 +151,7 @@ CGFloat INSET_RATIO;
     // Set up frame dimensions
     CGFloat textHeight = 0.4 * frameHeight;
     CGFloat textWidth = 0.9 * frameWidth;
-    CGFloat textYOff = 0.5 * frameHeight;
+    CGFloat textYOff = 0.45 * frameHeight;
     CGFloat textXOff = (frameWidth - textWidth) / 2;
     
     // Make frame and textview
@@ -170,7 +164,7 @@ CGFloat INSET_RATIO;
         // TODO: Upload simplification file?
         case '$':
             filename = [NSString stringWithFormat:@"simp-%@", filename];
-            return;
+            break;
         case '*':
             filename = [NSString stringWithFormat:@"mult-%@", filename];
             break;
@@ -191,11 +185,12 @@ CGFloat INSET_RATIO;
     // Style the text with a black-outlined border
     NSAttributedString *styledInstrText = [[NSAttributedString alloc] initWithString:tipText
                 attributes:@{NSStrokeColorAttributeName:[UIColor yellowColor],
-                             NSStrokeWidthAttributeName:[NSNumber numberWithFloat:-2.0],
-                             NSFontAttributeName:[UIFont systemFontOfSize:24.0f],
-                             NSForegroundColorAttributeName:[UIColor blackColor]
+                             NSStrokeWidthAttributeName:[NSNumber numberWithFloat:0],
+                             NSFontAttributeName:[UIFont fontWithName:@"SpaceAge" size:32],
+                             NSForegroundColorAttributeName:[UIColor whiteColor]
                             }];
     tipTextView.attributedText = styledInstrText;
+    tipTextView.textAlignment = NSTextAlignmentCenter;
     tipTextView.editable = NO;
     
     [tipTextView setBackgroundColor:[UIColor clearColor]];
