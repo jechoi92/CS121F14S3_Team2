@@ -14,6 +14,7 @@
 - (void)incrementScore: (int)value;
 - (void)lastAsteroidDestroyed;
 - (Equation*)wrongAnswerAttempt: (Fraction*)value;
+- (Equation*)initializeTarget;
 @end
 
 @interface GameScene : SKScene
@@ -22,7 +23,11 @@
 
 
 - (id)initWithSize:(CGSize)size andLevel:(int)level;
-- (void)createAsteroid: (Equation*)equation;
-- (void)fireLaser: (Fraction*)value fromButton: (int)tag;
+- (void)createAsteroid:(Equation*)equation;
+- (void)fireLaser:(Fraction*)value fromButton: (int)tag;
+- (void)laser:(SKSpriteNode*)laser didCollideWithAsteroid:(SKSpriteNode*)asteroid;
+- (void)spawnExplosion:(CGPoint)position;
+- (void)notifyWithPosition:(CGPoint)position andScore:(int)score andPositive:(BOOL)plus;
+- (void)initializeSprites;
 
 @end

@@ -7,17 +7,7 @@
 //
 
 #import "GameScene.h"
-
-static const uint32_t laserCategory     =  0x1 << 0;
-static const uint32_t asteroidCategory  =  0x1 << 1;
-
-CGFloat INSET_RATIO;
-int SLOW_SPEED = 35;
-int MEDIUM_SPEED = 30;
-int MAX_SPEED = 25;
-int HELL_MODE = 15;
-int ALLOWED_WRONG_ANSWERS = 2;
-CGFloat LASER_VELOCITY = 800.0;
+#import "Constants.h"
 
 @interface GameScene () <SKPhysicsContactDelegate>
 @property (nonatomic) SKSpriteNode* player;
@@ -34,7 +24,6 @@ CGFloat LASER_VELOCITY = 800.0;
 
 -(id)initWithSize:(CGSize)size andLevel:(int)level {
     if (self = [super initWithSize:size]) {
-        
         SKSpriteNode* background = [SKSpriteNode spriteNodeWithImageNamed:@"background"];
         
         background.position = CGPointMake(CGRectGetMidX(self.frame), CGRectGetMidY(self.frame));
@@ -50,11 +39,9 @@ CGFloat LASER_VELOCITY = 800.0;
         [self createLabel];
         [self initializeSprites];
         
-        
         self.physicsWorld.gravity = CGVectorMake(0,0);
         self.physicsWorld.contactDelegate = self;
     }
-    
     return self;
 }
 
@@ -164,8 +151,8 @@ CGFloat LASER_VELOCITY = 800.0;
     // Set up the asteroid's contact detection body
     asteroid.physicsBody = [SKPhysicsBody bodyWithCircleOfRadius:asteroid.size.width/2];
     asteroid.physicsBody.dynamic = YES; // 2
-    asteroid.physicsBody.categoryBitMask = asteroidCategory; // 3
-    asteroid.physicsBody.contactTestBitMask = laserCategory; // 4
+    asteroid.physicsBody.categoryBitMask = ASTEROID_CATEGORY; // 3
+    asteroid.physicsBody.contactTestBitMask = LASER_CATEGORY; // 4
     asteroid.physicsBody.collisionBitMask = 0; // 5
     
     // Determine where to spawn the asteroid along the X axis
@@ -351,8 +338,8 @@ CGFloat LASER_VELOCITY = 800.0;
     projectile.position = self.player.position;
     projectile.physicsBody = [SKPhysicsBody bodyWithCircleOfRadius:projectile.size.width/2];
     projectile.physicsBody.dynamic = YES;
-    projectile.physicsBody.categoryBitMask = laserCategory;
-    projectile.physicsBody.contactTestBitMask = asteroidCategory;
+    projectile.physicsBody.categoryBitMask = LASER_CATEGORY;
+    projectile.physicsBody.contactTestBitMask = ASTEROID_CATEGORY | SHIELD_CATEGORY | BOSS_CATEGORY;
     projectile.physicsBody.collisionBitMask = 0;
     projectile.physicsBody.usesPreciseCollisionDetection = YES;
     projectile.yScale = -1.0;
@@ -381,10 +368,6 @@ CGFloat LASER_VELOCITY = 800.0;
     
     // If the frequencies are the same, destroy both sprites and increment score
     if ([laserFrequency compare:asteroidFrequency] == NSOrderedSame) {
-        // Play explosion sound effect
-        [self runAction:[SKAction playSoundFileNamed:@"ryansnook__medium-explosion.wav" waitForCompletion:NO]];
-        
-        // Spawn animated explosion sprite
         [self spawnExplosion:[asteroid position]];
         
         // Decrement our counter of asteroids remaining in the level
@@ -397,6 +380,7 @@ CGFloat LASER_VELOCITY = 800.0;
         
         // Remove the asteroid sprite
         [asteroid removeFromParent];
+
         if (_asteroidsToDestroy <= 0) {
             // If the victory condition is met, destroy all asteroids left in the scene...
             [self removeAllAsteroids];
@@ -430,6 +414,7 @@ CGFloat LASER_VELOCITY = 800.0;
 // Creates an animated explosion sprite at the provided position
 - (void)spawnExplosion: (CGPoint)position
 {
+    NSLog(@"SPAWNEXPLOSION location: %f,%f", position.x, position.y);
     SKTexture* temp = _explosionFrames[0];
     SKSpriteNode* explosion = [SKSpriteNode spriteNodeWithTexture:temp];
     explosion.position = position;
@@ -441,6 +426,8 @@ CGFloat LASER_VELOCITY = 800.0;
                                                 timePerFrame:0.05f];
     SKAction * endAnimation = [SKAction removeFromParent];
     [explosion runAction:[SKAction sequence:@[playExplosion, endAnimation]]];
+    
+    [self runAction:[SKAction playSoundFileNamed:@"ryansnook__medium-explosion.wav" waitForCompletion:NO]];
 }
 
 // Spawn a label with the number of points earned from an asteroid
@@ -485,8 +472,8 @@ CGFloat LASER_VELOCITY = 800.0;
         secondBody = contact.bodyA;
     }
     
-    if ((firstBody.categoryBitMask & laserCategory) != 0 &&
-        (secondBody.categoryBitMask & asteroidCategory) != 0)
+    if ((firstBody.categoryBitMask & LASER_CATEGORY) != 0 &&
+        (secondBody.categoryBitMask & ASTEROID_CATEGORY) != 0)
     {
         [self laser:(SKSpriteNode*) firstBody.node didCollideWithAsteroid:(SKSpriteNode*) secondBody.node];
     }

@@ -11,6 +11,7 @@
 #import <AVFoundation/AVFoundation.h>
 #import <QuartzCore/QuartzCore.h>
 #import "GameScene.h"
+#import "BossScene.h"
 #import "HealthBarView.h"
 #import "EquationGenerator.h"
 #import "SideBarView.h"

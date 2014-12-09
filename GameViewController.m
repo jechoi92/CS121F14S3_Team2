@@ -61,12 +61,24 @@ CGFloat INSET_RATIO = 0.02;
         [self createHealthBar];
         [self createScene];
 
-        // Timer that creates an asteroid every given time interval.
-        _asteroidGenerationTimer = [NSTimer scheduledTimerWithTimeInterval:7.0
-                                                                    target:self
-                                                                  selector:@selector(createAsteroid:)
-                                                                  userInfo:nil
-                                                                   repeats:YES];
+        if (_level != 10) {
+            // Timer that creates an asteroid every given time interval.
+            _asteroidGenerationTimer = [NSTimer scheduledTimerWithTimeInterval:7.0
+                                                                        target:self
+                                                                      selector:@selector(createAsteroid:)
+                                                                      userInfo:nil
+                                                                       repeats:YES];
+        } else {
+            double delayInSeconds = 10.0;
+            dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, delayInSeconds * NSEC_PER_SEC);
+            dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
+                _asteroidGenerationTimer = [NSTimer scheduledTimerWithTimeInterval:10.0
+                                                                            target:self
+                                                                          selector:@selector(createAsteroid:)
+                                                                          userInfo:nil
+                                                                           repeats:YES];
+            });
+        }
     }
 }
 
@@ -106,9 +118,14 @@ CGFloat INSET_RATIO = 0.02;
 - (void)createScene
 {
     SKView * skView = (SKView *)self.view;
-    _scene = [[GameScene alloc] initWithSize:skView.bounds.size andLevel:_level];
+    if (_level != 10) {
+        _scene = [[GameScene alloc] initWithSize:skView.bounds.size andLevel:_level];
+        [_scene setDeli:self];
+    } else {
+        _scene = [[BossScene alloc] initWithSize:skView.bounds.size andLevel:_level andDelegate:self];
+    }
     _scene.scaleMode = SKSceneScaleModeAspectFill;
-    [(GameScene*)_scene setDeli:self];
+    [_scene setDeli:self];
     [skView presentScene:_scene];
 }
 
@@ -187,6 +204,12 @@ CGFloat INSET_RATIO = 0.02;
     [_gameView updateScore:_score];
 }
 
+- (Equation*)initializeTarget
+{
+    Equation* randomEquation = [_equationGenerator generateRandomEquation];
+    return randomEquation;
+}
+
 // Function to get a random equation whose solution is not value.
 - (Equation*)wrongAnswerAttempt:(Fraction*)value
 {
@@ -206,13 +229,15 @@ CGFloat INSET_RATIO = 0.02;
 {
     Equation* randomEquation = [_equationGenerator generateRandomEquation];
     [_scene createAsteroid: randomEquation];
-    [_asteroidGenerationTimer invalidate];
-    CGFloat rate = _asteroidGenerationTimer.timeInterval;
-    _asteroidGenerationTimer = [NSTimer scheduledTimerWithTimeInterval:rate * 0.99
-                                                                target:self
-                                                              selector:@selector(createAsteroid:)
-                                                              userInfo:nil
-                                                               repeats:YES];
+    if (_level != 10) {
+        [_asteroidGenerationTimer invalidate];
+        CGFloat rate = _asteroidGenerationTimer.timeInterval;
+        _asteroidGenerationTimer = [NSTimer scheduledTimerWithTimeInterval:rate * 0.99
+                                                                    target:self
+                                                                  selector:@selector(createAsteroid:)
+                                                                  userInfo:nil
+                                                                   repeats:YES];
+    }
 }
 
 // Gets the tag of the pressed button and then fires a laser on the scene with that laser value.
