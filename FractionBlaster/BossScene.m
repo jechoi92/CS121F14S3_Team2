@@ -41,6 +41,14 @@
     return self;
 }
 
+- (void)createBackground
+{
+    SKSpriteNode *background = [SKSpriteNode spriteNodeWithImageNamed:@"foreign-back"];
+    background.position = CGPointMake(CGRectGetMidX(self.frame), CGRectGetMidY(self.frame));
+    background.zPosition = -1;
+    [self addChild:background];
+}
+
 - (void)advanceBossStage
 {
     if (_bossStage == 0) {        // Boss moving onto screen, starting battle
