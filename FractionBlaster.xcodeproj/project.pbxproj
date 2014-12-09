@@ -108,7 +108,6 @@
 		A9AD539F1A34F63300CB97F1 /* asteroid_button_use.png in Resources */ = {isa = PBXBuildFile; fileRef = A9AD539D1A34F63300CB97F1 /* asteroid_button_use.png */; };
 		A9AD53A11A3502E100CB97F1 /* bluespaceshipback.png in Resources */ = {isa = PBXBuildFile; fileRef = A9AD53A01A3502E100CB97F1 /* bluespaceshipback.png */; };
 		A9AD53A31A351C4300CB97F1 /* horizPipe.png in Resources */ = {isa = PBXBuildFile; fileRef = A9AD53A21A351C4300CB97F1 /* horizPipe.png */; };
-		DA19D1431A2ECFED00068F40 /* DestroyingAsteroid.gif in Resources */ = {isa = PBXBuildFile; fileRef = DA19D1421A2ECFED00068F40 /* DestroyingAsteroid.gif */; };
 		DA3109141A1B130C00C5A3C4 /* InstructionsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DA3109131A1B130C00C5A3C4 /* InstructionsViewController.m */; };
 		DA31091C1A1B1EA100C5A3C4 /* icon 1024.png in Resources */ = {isa = PBXBuildFile; fileRef = DA3109151A1B1EA100C5A3C4 /* icon 1024.png */; };
 		DA31091D1A1B1EA100C5A3C4 /* icon.png in Resources */ = {isa = PBXBuildFile; fileRef = DA3109161A1B1EA100C5A3C4 /* icon.png */; };
@@ -117,9 +116,9 @@
 		DA3109201A1B1EA100C5A3C4 /* logo@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = DA3109191A1B1EA100C5A3C4 /* logo@2x.png */; };
 		DA3109211A1B1EA100C5A3C4 /* main_background.png in Resources */ = {isa = PBXBuildFile; fileRef = DA31091A1A1B1EA100C5A3C4 /* main_background.png */; };
 		DA3109221A1B1EA100C5A3C4 /* main_background@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = DA31091B1A1B1EA100C5A3C4 /* main_background@2x.png */; };
-		DA7478421A35A746009B7EC2 /* add-sub-tip.txt in Resources */ = {isa = PBXBuildFile; fileRef = DA74783F1A35A746009B7EC2 /* add-sub-tip.txt */; };
-		DA7478431A35A746009B7EC2 /* div-tip.txt in Resources */ = {isa = PBXBuildFile; fileRef = DA7478401A35A746009B7EC2 /* div-tip.txt */; };
-		DA7478441A35A746009B7EC2 /* mult-tip.txt in Resources */ = {isa = PBXBuildFile; fileRef = DA7478411A35A746009B7EC2 /* mult-tip.txt */; };
+		DA78325A1A36838F000830C1 /* add-sub-tip.txt in Resources */ = {isa = PBXBuildFile; fileRef = DA7832571A36838F000830C1 /* add-sub-tip.txt */; };
+		DA78325B1A36838F000830C1 /* div-tip.txt in Resources */ = {isa = PBXBuildFile; fileRef = DA7832581A36838F000830C1 /* div-tip.txt */; };
+		DA78325C1A36838F000830C1 /* mult-tip.txt in Resources */ = {isa = PBXBuildFile; fileRef = DA7832591A36838F000830C1 /* mult-tip.txt */; };
 		DA8D13421A2EC93B00BE47AA /* ImageIO.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DA8D13411A2EC93B00BE47AA /* ImageIO.framework */; };
 		DA8D13451A2EC9AF00BE47AA /* UIImage+animatedGIF.m in Sources */ = {isa = PBXBuildFile; fileRef = DA8D13441A2EC9AF00BE47AA /* UIImage+animatedGIF.m */; };
 		DA9F79891A1B3F8500E03D88 /* instructions-1.txt in Resources */ = {isa = PBXBuildFile; fileRef = DA9F79881A1B3F8500E03D88 /* instructions-1.txt */; };
@@ -289,7 +288,6 @@
 		A9AD539D1A34F63300CB97F1 /* asteroid_button_use.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = asteroid_button_use.png; sourceTree = "<group>"; };
 		A9AD53A01A3502E100CB97F1 /* bluespaceshipback.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bluespaceshipback.png; sourceTree = "<group>"; };
 		A9AD53A21A351C4300CB97F1 /* horizPipe.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = horizPipe.png; sourceTree = "<group>"; };
-		DA19D1421A2ECFED00068F40 /* DestroyingAsteroid.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = DestroyingAsteroid.gif; sourceTree = "<group>"; };
 		DA3109121A1B130C00C5A3C4 /* InstructionsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InstructionsViewController.h; sourceTree = "<group>"; };
 		DA3109131A1B130C00C5A3C4 /* InstructionsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InstructionsViewController.m; sourceTree = "<group>"; };
 		DA3109151A1B1EA100C5A3C4 /* icon 1024.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon 1024.png"; sourceTree = "<group>"; };
@@ -299,9 +297,9 @@
 		DA3109191A1B1EA100C5A3C4 /* logo@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "logo@2x.png"; sourceTree = "<group>"; };
 		DA31091A1A1B1EA100C5A3C4 /* main_background.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = main_background.png; sourceTree = "<group>"; };
 		DA31091B1A1B1EA100C5A3C4 /* main_background@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "main_background@2x.png"; sourceTree = "<group>"; };
-		DA74783F1A35A746009B7EC2 /* add-sub-tip.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = "add-sub-tip.txt"; path = "../add-sub-tip.txt"; sourceTree = "<group>"; };
-		DA7478401A35A746009B7EC2 /* div-tip.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = "div-tip.txt"; path = "../div-tip.txt"; sourceTree = "<group>"; };
-		DA7478411A35A746009B7EC2 /* mult-tip.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = "mult-tip.txt"; path = "../mult-tip.txt"; sourceTree = "<group>"; };
+		DA7832571A36838F000830C1 /* add-sub-tip.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "add-sub-tip.txt"; sourceTree = "<group>"; };
+		DA7832581A36838F000830C1 /* div-tip.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "div-tip.txt"; sourceTree = "<group>"; };
+		DA7832591A36838F000830C1 /* mult-tip.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "mult-tip.txt"; sourceTree = "<group>"; };
 		DA8D13411A2EC93B00BE47AA /* ImageIO.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ImageIO.framework; path = System/Library/Frameworks/ImageIO.framework; sourceTree = SDKROOT; };
 		DA8D13431A2EC9AF00BE47AA /* UIImage+animatedGIF.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+animatedGIF.h"; sourceTree = "<group>"; };
 		DA8D13441A2EC9AF00BE47AA /* UIImage+animatedGIF.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+animatedGIF.m"; sourceTree = "<group>"; };
@@ -485,9 +483,6 @@
 		93EFADDC1A102B9E00195D8E /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				DA74783F1A35A746009B7EC2 /* add-sub-tip.txt */,
-				DA7478401A35A746009B7EC2 /* div-tip.txt */,
-				DA7478411A35A746009B7EC2 /* mult-tip.txt */,
 				A9AD53A21A351C4300CB97F1 /* horizPipe.png */,
 				A9AD539C1A34F63300CB97F1 /* asteroid_button_use_highlight.png */,
 				A9AD53A01A3502E100CB97F1 /* bluespaceshipback.png */,
@@ -495,6 +490,9 @@
 				A9AD539A1A34F60D00CB97F1 /* simplify.png */,
 				A9AD53921A33F35100CB97F1 /* divide.png */,
 				A9AD53931A33F35100CB97F1 /* minus.png */,
+				DA7832571A36838F000830C1 /* add-sub-tip.txt */,
+				DA7832581A36838F000830C1 /* div-tip.txt */,
+				DA7832591A36838F000830C1 /* mult-tip.txt */,
 				A9AD53941A33F35100CB97F1 /* plus.png */,
 				A9AD53951A33F35100CB97F1 /* times.png */,
 				A9AD53841A318D9900CB97F1 /* redSpaceShip.png */,
@@ -738,6 +736,7 @@
 				93EFADFC1A102B9E00195D8E /* redlaserbeam.png in Resources */,
 				93EFADF91A102B9E00195D8E /* hawtpinklaserbeam.png in Resources */,
 				DA9F79C71A1B4F3200E03D88 /* button10.png in Resources */,
+				DA78325A1A36838F000830C1 /* add-sub-tip.txt in Resources */,
 				93EFADF51A102B9E00195D8E /* goldlaserbeam.png in Resources */,
 				A962BCEF1A2D878600F2AD79 /* laser_panel@2x.png in Resources */,
 				DA9F79CB1A1B4F3200E03D88 /* Levels@2x.png in Resources */,
@@ -753,8 +752,6 @@
 				93EFADF11A102B9E00195D8E /* background.png in Resources */,
 				DAC158011A33E37F003D6A19 /* instructions-2.txt in Resources */,
 				DA9F79C91A1B4F3200E03D88 /* launch2.png in Resources */,
-				DA7478441A35A746009B7EC2 /* mult-tip.txt in Resources */,
-				DA7478431A35A746009B7EC2 /* div-tip.txt in Resources */,
 				A9AD539F1A34F63300CB97F1 /* asteroid_button_use.png in Resources */,
 				DA9F79C31A1B4F3200E03D88 /* button8.png in Resources */,
 				DA9F79AE1A1B4F3200E03D88 /* !button4.png in Resources */,
@@ -762,6 +759,7 @@
 				DA31091C1A1B1EA100C5A3C4 /* icon 1024.png in Resources */,
 				A962BCE81A2BE60900F2AD79 /* level9.png in Resources */,
 				A9AD53871A318D9900CB97F1 /* silverSpaceShip.png in Resources */,
+				DA78325C1A36838F000830C1 /* mult-tip.txt in Resources */,
 				DA9F79B61A1B4F3200E03D88 /* button1highlight.png in Resources */,
 				937335971A11D5B2001A0105 /* StartOverIcon.png in Resources */,
 				A9AD53A11A3502E100CB97F1 /* bluespaceshipback.png in Resources */,
@@ -787,9 +785,9 @@
 				A962BCD51A2A58DA00F2AD79 /* start_mission.png in Resources */,
 				A962BCF31A2E7DC200F2AD79 /* stats_holder.png in Resources */,
 				93EFADFA1A102B9E00195D8E /* hawtpinklaserbeam@2x.png in Resources */,
+				DA78325B1A36838F000830C1 /* div-tip.txt in Resources */,
 				93EB31D41A1AE7130075BD53 /* background_defeat.png in Resources */,
 				DA9F79B01A1B4F3200E03D88 /* !button6.png in Resources */,
-				DA7478421A35A746009B7EC2 /* add-sub-tip.txt in Resources */,
 				DA9F79B41A1B4F3200E03D88 /* !button10.png in Resources */,
 				A962BCE71A2BE60900F2AD79 /* level8.png in Resources */,
 				DA9F79AD1A1B4F3200E03D88 /* !button3.png in Resources */,

@@ -8,7 +8,6 @@
 
 // TODO: Fix commenting - section separators are interpreted as
 //       docstrings for methods
-// TODO: Fix ratios - looks terrible; how to fix?
 
 #import "InstructionsView.h"
 #import "UIImage+animatedGIF.h"
