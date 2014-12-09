@@ -497,9 +497,6 @@ typedef enum {
     // If the frequencies are the same, destroy both sprites and increment score
     if ([laserFrequency compare:asteroidFrequency] == NSOrderedSame) {
         
-        // Play explosion sound effect
-        [self runAction:[SKAction playSoundFileNamed:@"ryansnook__medium-explosion.wav" waitForCompletion:NO]];
-        
         // Create animated explosion sprite
         [self createExplosion:[asteroid position]];
         
@@ -518,8 +515,7 @@ typedef enum {
         // If there are no more asteroids to destroy
         if (_asteroidsToDestroy == 0) {
             
-            // Destroy all asteroids left in the scene and inform the delegate
-            [self removeAllAsteroids];
+            // Inform the delegate
             [self.deli lastAsteroidDestroyed];
         }
     }
@@ -557,6 +553,9 @@ typedef enum {
 // Creates an animated explosion sprite at the provided position
 - (void)createExplosion: (CGPoint)position
 {
+    // Play explosion sound effect
+    [self runAction:[SKAction playSoundFileNamed:@"ryansnook__medium-explosion.wav" waitForCompletion:NO]];
+    
     SKTexture *temp = _explosionFrames[0];
     SKSpriteNode *explosion = [SKSpriteNode spriteNodeWithTexture:temp];
     explosion.position = position;
@@ -620,12 +619,5 @@ typedef enum {
         [self laser:(SKSpriteNode*) firstBody.node didCollideWithAsteroid:(SKSpriteNode*) secondBody.node];
     }
 }
-
-// Clear the remaining asteroids in the scene
--(void)removeAllAsteroids
-{
-    [self enumerateChildNodesWithName:@"asteroid" usingBlock:^(SKNode *node, BOOL *stop) {[node removeFromParent];}];
-}
-
 
 @end

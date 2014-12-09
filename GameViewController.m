@@ -237,6 +237,8 @@ CGFloat INSET_RATIO = 0.02;
         
         // Update high scores
         [self updateHighScores];
+        
+        
     }
     
     // Load the end view.
