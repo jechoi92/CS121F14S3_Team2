@@ -15,6 +15,7 @@
 @interface TipView : UIView
 
 @property (assign, nonatomic) id <DismissTip> delegate;
+
 -(id)initWithFrame:(CGRect)frame andLevel:(int)level;
 
 @end

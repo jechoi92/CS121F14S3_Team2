@@ -132,7 +132,7 @@
     // Currently hard-coded to 4 initial solutions.
     // Testing if the values are less than 1.0.
     
-    NSMutableArray* initialFractions = [_equationGenerator getInitialFractions];
+    NSMutableArray* initialFractions = [_equationGenerator initialFractions];
     XCTAssert([initialFractions count] == 4);
     XCTAssert([[initialFractions objectAtIndex:0] isKindOfClass:[Fraction class]]);
     XCTAssert([[initialFractions objectAtIndex:0] number] < 1.0);
@@ -223,7 +223,7 @@
 {
     // Testing if a value is contained in the array of initial values.
     
-    NSMutableArray* initialFractions = [_equationGenerator getInitialFractions];
+    NSMutableArray* initialFractions = [_equationGenerator initialFractions];
     XCTAssert([_equationGenerator containsValue:[initialFractions objectAtIndex:0]]);
     XCTAssert([_equationGenerator containsValue:[initialFractions objectAtIndex:1]]);
     XCTAssert([_equationGenerator containsValue:[initialFractions objectAtIndex:2]]);

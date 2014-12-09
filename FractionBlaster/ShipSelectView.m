@@ -27,7 +27,7 @@ typedef enum {
 @implementation ShipSelectView
 {
     UIButton *_startButton;
-    NSMutableArray *_shipSelection;
+    NSMutableArray *_shipSelected;
     UILabel *_shipInfo;
     BOOL blueSelected;
     BOOL brownSelected;
@@ -40,10 +40,10 @@ typedef enum {
     self = [super initWithFrame:frame];
     
     if (self) {
-        _shipSelection = [[NSMutableArray alloc] init];
+        _shipSelected = [[NSMutableArray alloc] init];
         [self createShipSelectionButtons];
-        [self createTitleImage];
-        [self createLabel];
+        [self createTitle];
+        [self createDescriptionLabel];
         [self createBackButton];
         [self createStartButton];
         [self setBackgroundColor:[[UIColor alloc] initWithPatternImage:[UIImage imageNamed:@"main_background"]]];
@@ -81,7 +81,7 @@ typedef enum {
 }
 
 // Create the title
-- (void)createTitleImage
+- (void)createTitle
 {
     // Get frame and frame dimensions
     CGRect frame = self.frame;
@@ -96,7 +96,8 @@ typedef enum {
     [self addSubview:imageView];
 }
 
-- (void)createLabel
+// Create the label that has the description of the ship selected
+- (void)createDescriptionLabel
 {
     CGFloat labelWidth = CGRectGetWidth(self.frame) * 0.8;
     CGFloat labelHeight = CGRectGetHeight(self.frame) * 0.23;
@@ -111,6 +112,8 @@ typedef enum {
     
     [_shipInfo setFont:[UIFont fontWithName:@"SpaceAge" size:32.0f]];
     [_shipInfo setTextColor:[UIColor whiteColor]];
+    
+    // Default set it to the first ship selected i.e. Blueship
     [_shipInfo setText:@"AlphA-clAss mAntis\r\rAmerican built. Light, manueverable, and effective."];
     
     [self addSubview:_shipInfo];
@@ -167,7 +170,7 @@ typedef enum {
          forControlEvents:UIControlEventTouchUpInside];
         
         // Add the button to the correct spot in the nested arrays
-        [_shipSelection insertObject:button atIndex:tag];
+        [_shipSelected insertObject:button atIndex:tag];
         
         [self addSubview: button];
         
@@ -181,12 +184,13 @@ typedef enum {
 -(void)shipSelected:(id)sender
 {
     UIButton *newButton = (UIButton*)sender;
-    
-    int shipNum = [self currentShipSelected];
-    UIButton *oldButton = [_shipSelection objectAtIndex:shipNum];
-    
     int newTag = (int) newButton.tag;
     
+    // Determine which button was previously being selected
+    int shipNum = [self currentShipSelected];
+    UIButton *oldButton = [_shipSelected objectAtIndex:shipNum];
+
+    // First unhighlight the button that was previously selected
     switch(oldButton.tag) {
         case BlueShip:
         {
@@ -214,32 +218,29 @@ typedef enum {
         }
     }
     
+    // Then highlight the newly selected button
     switch(newTag) {
         case BlueShip:
         {
             [newButton setImage:[UIImage imageNamed:@"blueSS_highlight"] forState:UIControlStateNormal];
-            [_shipInfo setText:@"AlphA-clAss mAntis\r\rAmericAn model.\rlight, mAnueverAble, And effective."];
             blueSelected = true;
             break;
         }
         case BrownShip:
         {
             [newButton setImage:[UIImage imageNamed:@"brownSS_highlight"] forState:UIControlStateNormal];
-            [_shipInfo setText:@"omegA-clAss mAntis\r\rrussiAn model.\rthis older model is heAvy And bulking, yet powerful!"];
             brownSelected = false;
             break;
         }
         case SilverShip:
         {
-            [newButton setImage:[UIImage imageNamed:@"silverSS_highlight"] forState:UIControlStateNormal];
-            [_shipInfo setText:@"fury-clAss mAntis\r\reuropeAn model.\rThe newest And most sophisticAted Amongst the mAntis models!"];
+            [newButton setImage:[UIImage imageNamed:@"silverSS_highlight"] forState:UIControlStateNormal];;
             silverSelected = false;
             break;
         }
         case RedShip:
         {
             [newButton setImage:[UIImage imageNamed:@"redSS_highlight"] forState:UIControlStateNormal];
-            [_shipInfo setText:@"centurion-clAss mAntis\r\rchinese model.\rA prototype mAntis designed to be the most deAdly mAntis!"];
             redSelected = false;
             break;
         }
@@ -247,6 +248,37 @@ typedef enum {
     
     // Update which button is currently selected
     [self setCurrentShipSelected:(int)newTag];
+    
+    // Update the description label
+    [self updateDescription];
+}
+
+// Function that updates the description label describing the current ship selected
+- (void)updateDescription
+{
+    // Update the ship information label at the bottom of the screen
+    switch(_currentShipSelected) {
+        case BlueShip:
+        {
+            [_shipInfo setText:@"AlphA-clAss mAntis\r\rAmericAn model.\rlight, mAnueverAble, And effective."];
+            break;
+        }
+        case BrownShip:
+        {
+            [_shipInfo setText:@"omegA-clAss mAntis\r\rrussiAn model.\rthis dAted model from the soviet erA is heAvy And bulking, yet powerful!"];
+            break;
+        }
+        case SilverShip:
+        {
+            [_shipInfo setText:@"fury-clAss mAntis\r\reuropeAn model.\rThe newest And most sophisticAted Amongst the mAntis models!"];
+            break;
+        }
+        case RedShip:
+        {
+            [_shipInfo setText:@"centurion-clAss mAntis\r\rchinese model.\rA prototype mAntis designed to be the most deAdly mAntis!"];
+            break;
+        }
+    }
 }
 
 // Create the start button

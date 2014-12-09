@@ -11,7 +11,6 @@
 
 @interface HealthBarView : UIView
 
-- (int)getHealthLevel;
-- (void)setHealthLevel: (int)healthLevel;
+@property (nonatomic) int healthLevel;
 
 @end

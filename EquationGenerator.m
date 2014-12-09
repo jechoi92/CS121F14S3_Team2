@@ -13,7 +13,6 @@ int SCALAR_LIMIT = 10;
 
 @implementation EquationGenerator
 {
-    NSMutableArray* _initialFractions; // An array of the solutions generated initially.
     NSArray* _operators;               // An array of all the current operators being used.
     int _difficulty;                   // An int storing the level difficulty.
                                        // (0 == easy, 1 == medium, 2 == hard)
@@ -145,12 +144,6 @@ int SCALAR_LIMIT = 10;
                                            andDenominator:[solution denominator] * randScalar andSimplify:NO];
     Equation* equation = [[Equation alloc] initWithFraction1:value andFraction2:NULL andOperator:'$'];
     return equation;
-}
-
-// Returns the solutions.
-- (NSMutableArray*) getInitialFractions
-{
-    return _initialFractions;
 }
 
 // Generates a random fraction within a certain limit

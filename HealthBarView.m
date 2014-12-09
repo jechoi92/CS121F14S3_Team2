@@ -13,7 +13,6 @@ int MAX_HEALTH = 100;
 
 @implementation HealthBarView
 {
-    int _healthLevel;
     NSMutableArray *_healthBar;
 }
 
@@ -66,11 +65,6 @@ int MAX_HEALTH = 100;
     [container setFrame:CGRectMake(0,0,width, height)];
     
     [self addSubview:container];
-}
-
-- (int)getHealthLevel
-{
-    return _healthLevel;
 }
 
 // Sets health level and then updates the health bar.
