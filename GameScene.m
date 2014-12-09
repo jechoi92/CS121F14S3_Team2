@@ -66,7 +66,7 @@ typedef enum {
     SKSpriteNode* background;
     if (_level == 5 || _level == -1) {
         background = [SKSpriteNode spriteNodeWithColor:[UIColor blackColor] size:self.frame.size];
-        _hyperTimer = [NSTimer scheduledTimerWithTimeInterval:0.07
+        _hyperTimer = [NSTimer scheduledTimerWithTimeInterval:0.02
                                                        target:self selector:@selector(createHyperSpace)
                                                      userInfo:nil repeats:YES];
     }

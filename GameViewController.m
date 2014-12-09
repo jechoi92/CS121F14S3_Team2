@@ -32,9 +32,9 @@
     _level = level;
     _shipNum = shipNum;
     
-    // If survival mode, Equation Generator is created with the selected operators and hard difficulty
+    // If survival mode, Equation Generator is created with the selected operators and medium difficulty
     if (_level == -1) {
-        _equationGenerator = [[EquationGenerator alloc] initWithOperators:operators andDenominatorLimit:12 andDifficulty:2];
+        _equationGenerator = [[EquationGenerator alloc] initWithOperators:operators andDenominatorLimit:12 andDifficulty:1];
     }
     
     return self;
