@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "MainMenuView.h"
+#import "Protocols.h"
 
 @interface ModeSelectView : UIView
 

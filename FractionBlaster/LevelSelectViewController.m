@@ -7,6 +7,7 @@
 //
 
 #import "LevelSelectViewController.h"
+#import "ShipSelectViewController.h"
 
 // Enum object for button tags
 typedef enum {

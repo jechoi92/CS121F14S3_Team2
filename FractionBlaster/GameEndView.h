@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "GameView.h"
+#import "Protocols.h"
 
 @interface GameEndView : UIView
 

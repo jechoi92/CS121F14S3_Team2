@@ -7,10 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-
-@protocol GoBack
-- (void)backToMainMenu;
-@end
+#import "Protocols.h"
 
 @interface LeaderboardView : UIView
 

@@ -12,8 +12,7 @@
 
 @interface InstructionsViewController : UIViewController<GoBack>
 
-
 @property (nonatomic) AVAudioPlayer *instrBackSound;
-
+@property (nonatomic) AVAudioPlayer *instrButtonSound;
 
 @end

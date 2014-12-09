@@ -277,10 +277,10 @@ int NUM_LEVELS = 10;
             [_levelInfo setText:@"Level 4\rnew types of Asteroids incoming! detectors Are reAding both Addition And subtrAction Asteroids! CAdets must learn new solving skills!"];
             break;
         case Level5:
-            [_levelInfo setText:@"Level 5\rcAdet no longer! Apply All the solving skills you hAve Acquired to tAke on all the Asteroid types At A faster speed!"];
+            [_levelInfo setText:@"Level 5\rcAdet no longer! trAvel to the source of the Asteroids And Apply All your new solving skills to stop the source of these Asteroids!"];
             break;
         case Level6:
-            [_levelInfo setText:@"Level 6\ryou survived the surge, but there is no time to rest! we hAve incoming multiplicAtion And division Asteroids At medium speed!"];
+            [_levelInfo setText:@"Level 6\ryou survived the journey! but there is no time to rest! we hAve incoming multiplicAtion And division Asteroids At medium speed!"];
             break;
         case Level7:
             [_levelInfo setText:@"Level 7\rAnother lArge wAve of Addition And division Asteroids incoming! you cAn hAndle this!"];

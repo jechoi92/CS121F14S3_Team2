@@ -24,7 +24,6 @@ CGFloat BASE_OFFSET_PCT = (float)1/21;
     UIButton *_prevInstrButton;
     UIButton *_nextInstrButton;
     
-    
     int _instrStep; // Ranges from 1 to NUM_INSTR_STEPS
 }
 
@@ -40,6 +39,7 @@ CGFloat BASE_OFFSET_PCT = (float)1/21;
         [self setBackgroundColor:[[UIColor alloc] initWithPatternImage:[UIImage imageNamed:@"main_background"]]];
         
         // Create instruction display
+        [self createTitle];
         [self createInstrText];
         [self createInstrGif];
         
@@ -58,6 +58,22 @@ CGFloat BASE_OFFSET_PCT = (float)1/21;
  *   INSTRUCTIONS INITIALIZATION   *
  ***********************************/
 
+// Create the title
+- (void)createTitle
+{
+    // Get frame and frame dimensions
+    CGRect frame = self.frame;
+    CGFloat frameWidth = CGRectGetWidth(frame);
+    CGFloat frameHeight = CGRectGetHeight(frame);
+    
+    // Add the level select image to the top of the view
+    CGRect title = CGRectMake(0, frameHeight * 0.1, frameWidth , frameHeight * 0.12);
+    UIImageView *imageView = [[UIImageView alloc] initWithFrame:title];
+    imageView.image = [UIImage imageNamed:@"instructions"];
+    
+    [self addSubview:imageView];
+}
+
 - (void)createInstrText
 {
     // Get frame size
@@ -71,7 +87,7 @@ CGFloat BASE_OFFSET_PCT = (float)1/21;
     CGFloat instrWidth = frameWidth * instrWidthRatio;
     
     // Y Offset has enough room for the height and the buffer
-    CGFloat yOffset = 0.25 * frameHeight;
+    CGFloat yOffset = 0.4 * frameHeight;
     CGFloat xOffset = (frameWidth - instrWidth)/2;
 
     CGRect textViewFrame = CGRectMake(xOffset, yOffset, instrWidth, instrHeight);
@@ -107,8 +123,8 @@ CGFloat BASE_OFFSET_PCT = (float)1/21;
     // Center image horizotally
     CGFloat imgXOff = (CGRectGetWidth(self.frame) - imgWidth) / 2;
     
-    // Hard-coded y off? TODO: Magic number
-    CGFloat imgYOff = 0.5 * CGRectGetHeight(self.frame);
+    // Hard-coded y offset
+    CGFloat imgYOff = 0.65 * CGRectGetHeight(self.frame);
     
     // Create view with image
     CGRect gifFrame = CGRectMake(imgXOff, imgYOff, imgWidth, imgHeight);
@@ -118,20 +134,18 @@ CGFloat BASE_OFFSET_PCT = (float)1/21;
     [self addSubview:_instrGifView];
 }
 
-/***************************
- *  BUTTON INITIALIZATION  *
- ***************************/
-
 - (CGRect)createInstrButtonFrame
 {
+    // Get frame dimension
     CGFloat frameWidth  = CGRectGetWidth(self.frame);
     CGFloat frameHeight = CGRectGetHeight(self.frame);
     
-    // TODO: Make this not-magic
+    // Set button dimensions
     CGFloat buttonWidth = frameWidth * 0.24;
     CGFloat buttonHeight = frameHeight * 0.1;
     CGFloat xOffset = frameWidth * BASE_OFFSET_PCT;
-    CGFloat yOffset = frameHeight * BASE_OFFSET_PCT * 2;
+    // Leave room for title
+    CGFloat yOffset = frameHeight * BASE_OFFSET_PCT * 6;
     
     return CGRectMake(xOffset, yOffset, buttonWidth, buttonHeight);
 }
@@ -222,10 +236,6 @@ CGFloat BASE_OFFSET_PCT = (float)1/21;
     [self addSubview:backButton];
 }
 
-/***************
- *   SETTERS   *
- ***************/
-
 -(void)setGifInstruction:(int)step
 {
     // Get the gif corresponding to the current step
@@ -272,43 +282,33 @@ CGFloat BASE_OFFSET_PCT = (float)1/21;
     _instrTextView.editable = NO;
 }
 
-/************************
- *      SELECTORS       *
- ************************/
-
 -(void)nextInstruction:(id)sender
 {
     // Can't go to next if at the last step
-    // TODO: This wouldn't be necessary if can logically disable/enable button
     if (_instrStep >= NUM_INSTR_STEPS){
         return;
     }
     
+    [self.buttonDelegate buttonSelected:0];
+    
+    // Get next instruction
     ++_instrStep;
     [self setTextInstruction:_instrStep];
     [self setGifInstruction:_instrStep];
-    
-    if (_instrStep == NUM_INSTR_STEPS){
-        // TODO: Visually (and logically?) disable button
-    }
 }
 
 -(void)prevInstruction:(id)sender
 {
     // Can't go to previous if at the first step
-    // TODO: This wouldn't be necessary if can logically disable/enable button
     if (_instrStep <= 1){
         return;
     }
     
+    [self.buttonDelegate buttonSelected:0];
+    
     --_instrStep;
     [self setTextInstruction:_instrStep];
     [self setGifInstruction:_instrStep];
-    
-    if (_instrStep == 1){
-        // TODO: Visually (and logically?) disable button
-        // [_prevInstrButton setBackgroundImage:[UIImage ] forState:UIControlStateNormal];
-    }
 }
 
 
