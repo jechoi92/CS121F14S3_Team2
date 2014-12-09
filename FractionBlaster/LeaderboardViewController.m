@@ -62,7 +62,16 @@ CGFloat INSET_RATIO;
 
 - (void)backToMainMenu
 {
+    [self playButtonSound];
     [self.navigationController popViewControllerAnimated:YES];
+}
+
+- (void)playButtonSound {
+    NSError *error;
+    NSURL *backButton = [[NSBundle mainBundle] URLForResource:@"button-09" withExtension:@"wav"];
+    self.leaderBrdBackSound = [[AVAudioPlayer alloc] initWithContentsOfURL:backButton error:&error];
+    [self.leaderBrdBackSound prepareToPlay];
+    [self.leaderBrdBackSound play];
 }
 
 @end

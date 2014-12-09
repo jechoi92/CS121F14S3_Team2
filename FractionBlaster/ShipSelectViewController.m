@@ -10,6 +10,10 @@
 
 // Enum object for button tags
 typedef enum {
+    BlueShip,
+    BrownShip,
+    SilverShip,
+    RedShip,
     StartTag,
     BackTag
 }ButtonTags;
@@ -68,12 +72,35 @@ typedef enum {
         // Back button selected, move to previous screen
         case BackTag:
         {
+            [self backPlaySound];
             [self.navigationController popViewControllerAnimated:YES];
+            break;
+        }
+            
+        default:
+        {
+            [self shipSelectSound];
             break;
         }
     }
 }
 
+// Play the sound to the select a ship
+- (void)shipSelectSound {
+    NSError *error;
+    NSURL *progressButton = [[NSBundle mainBundle] URLForResource:@"ship-select" withExtension:@"mp3"];
+    self.shipSelectButton = [[AVAudioPlayer alloc] initWithContentsOfURL:progressButton error:&error];
+    [self.shipSelectButton prepareToPlay];
+    [self.shipSelectButton play];
+}
 
+// Play the sound to go to the previous screen
+- (void)backPlaySound {
+    NSError *error;
+    NSURL *backButton = [[NSBundle mainBundle] URLForResource:@"button-09" withExtension:@"wav"];
+    self.shipBackButton = [[AVAudioPlayer alloc] initWithContentsOfURL:backButton error:&error];
+    [self.shipBackButton prepareToPlay];
+    [self.shipBackButton play];
+}
 
 @end

@@ -8,12 +8,13 @@
 
 #import <UIKit/UIKit.h>
 #import "MainMenuView.h"
-#import "MainMenuViewController.h"
 #import "InstructionsViewController.h"
 #import "LeaderboardViewController.h"
 #import "ModeSelectViewController.h"
 
 @interface MainMenuViewController : UIViewController <ButtonSelected>
+
+@property (nonatomic) AVAudioPlayer *menubuttonSound;
 
 @end
 

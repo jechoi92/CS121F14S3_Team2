@@ -13,7 +13,7 @@ typedef enum {
     LevelSelectTag,
     OperatorSelectTag,
     BackTag
-}ButtonTags;
+} ButtonTags;
 
 @implementation ModeSelectViewController
 {
@@ -42,6 +42,7 @@ typedef enum {
         // Show level selection screen
         case LevelSelectTag:
         {
+            [self progressButtonSound];
             LevelSelectViewController *lsvc = [[LevelSelectViewController alloc] init];
             [self.navigationController pushViewController:lsvc animated:YES];
             break;
@@ -50,6 +51,7 @@ typedef enum {
         // Show operator selection screen
         case OperatorSelectTag:
         {
+            [self progressButtonSound];
             OperatorsSelectViewController *osvc = [[OperatorsSelectViewController alloc] init];
             [self.navigationController pushViewController:osvc animated:YES];
             break;
@@ -57,10 +59,29 @@ typedef enum {
         // Back button selected, show previous screen
         case BackTag:
         {
+            [self backButtonSound];
             [self.navigationController popViewControllerAnimated:YES];
             break;
         }
     }
+}
+
+//
+- (void)progressButtonSound {
+    NSError *error;
+    NSURL *progressButton = [[NSBundle mainBundle] URLForResource:@"button-3" withExtension:@"wav"];
+    self.modeProgressSound = [[AVAudioPlayer alloc] initWithContentsOfURL:progressButton error:&error];
+    [self.modeProgressSound prepareToPlay];
+    [self.modeProgressSound play];
+}
+
+//
+- (void)backButtonSound {
+    NSError *error;
+    NSURL *backButton = [[NSBundle mainBundle] URLForResource:@"button-09" withExtension:@"wav"];
+    self.modeBackSound = [[AVAudioPlayer alloc] initWithContentsOfURL:backButton error:&error];
+    [self.modeBackSound prepareToPlay];
+    [self.modeBackSound play];
 }
 
 @end
