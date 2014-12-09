@@ -26,12 +26,21 @@
 
 - (void)backToMainMenu
 {
-    [self backButtonSound];
+    [self playButtonSound];
     [self.navigationController popViewControllerAnimated:YES];
 }
 
-- (void)backButtonSound
+- (void)buttonSelected:(id)sender
 {
+    // Figure out the button that was selected
+    UIButton *button = (UIButton*)sender;
+    int tag = (int)button.tag;
+    
+    // Play sound
+    [self playButtonSound];
+}
+
+- (void)playButtonSound {
     NSError *error;
     NSURL *backButton = [[NSBundle mainBundle] URLForResource:@"button-09" withExtension:@"wav"];
     self.instrBackSound = [[AVAudioPlayer alloc] initWithContentsOfURL:backButton error:&error];
