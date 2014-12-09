@@ -37,8 +37,9 @@ typedef enum {
     int _asteroidsToDestroy;
     int _score;
     int _level;
-    SKNode* _levelNode;
-    NSArray* _explosionFrames;
+    SKNode *_levelNode;
+    NSArray *_explosionFrames;
+    NSTimer *_hyperTimer;
 }
 
 -(id)initWithSize:(CGSize)size andLevel:(int)level andShipNum:(int)shipNum
@@ -67,9 +68,14 @@ typedef enum {
     SKSpriteNode* background;
     if (_level < 5) {
         background = [SKSpriteNode spriteNodeWithImageNamed:@"background"];
-    } else if (_level == 5) {
-        background = [SKSpriteNode spriteNodeWithImageNamed:@"background"];
-    } else {
+    }
+    else if (_level == 5 || _level == -1) {
+        background = [SKSpriteNode spriteNodeWithColor:[UIColor blackColor] size:self.frame.size];
+        _hyperTimer = [NSTimer scheduledTimerWithTimeInterval:0.07
+                                                                    target:self selector:@selector(createHyperSpace)
+                                                                  userInfo:nil repeats:YES];
+    }
+    else {
         background = [SKSpriteNode spriteNodeWithImageNamed:@"foreign-back"];
     }
     background.position = CGPointMake(CGRectGetMidX(self.frame), CGRectGetMidY(self.frame));
@@ -218,6 +224,26 @@ typedef enum {
     else {
         return 25;
     }
+}
+
+// Creates illusion of space travel with laser beams
+- (void) createHyperSpace
+{
+    int color = arc4random_uniform(5);
+    SKSpriteNode *warpFlash = [SKSpriteNode spriteNodeWithImageNamed:[NSString stringWithFormat:@"laser_back%d", color]];
+    // Create the asteroid slightly off-screen along the top edge,
+    // and along a random position along the X axis as calculated above
+    warpFlash.position = CGPointMake(arc4random_uniform((u_int32_t)self.frame.size.width), self.frame.size.height + warpFlash.size.height);
+    warpFlash.physicsBody.dynamic = YES;
+    [self addChild:warpFlash];
+    CGPoint endPoint = CGPointMake(warpFlash.position.x, -warpFlash.size.height);
+    // Determine speed of the asteroid
+    int actualDuration = self.size.width / WARP_FLASH_VELOCITY;
+    warpFlash.zPosition = -1;
+    // Create the actions and animate the asteroid's motion
+    SKAction *actionMove = [SKAction moveTo:endPoint duration:actualDuration];
+    SKAction *actionMoveDone = [SKAction removeFromParent];
+    [warpFlash runAction:[SKAction sequence:@[actionMove, actionMoveDone]]];
 }
 
 // Creates an asteroid with a corresponding equation at a random x location
