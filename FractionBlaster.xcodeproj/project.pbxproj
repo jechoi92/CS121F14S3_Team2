@@ -126,6 +126,7 @@
 		A9AD539F1A34F63300CB97F1 /* asteroid_button_use.png in Resources */ = {isa = PBXBuildFile; fileRef = A9AD539D1A34F63300CB97F1 /* asteroid_button_use.png */; };
 		A9AD53A11A3502E100CB97F1 /* bluespaceshipback.png in Resources */ = {isa = PBXBuildFile; fileRef = A9AD53A01A3502E100CB97F1 /* bluespaceshipback.png */; };
 		A9AD53A31A351C4300CB97F1 /* horizPipe.png in Resources */ = {isa = PBXBuildFile; fileRef = A9AD53A21A351C4300CB97F1 /* horizPipe.png */; };
+		A9F6C9A81A36E9AF000BE39A /* high_scores.png in Resources */ = {isa = PBXBuildFile; fileRef = A9F6C9A71A36E9AF000BE39A /* high_scores.png */; };
 		DA3109141A1B130C00C5A3C4 /* InstructionsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DA3109131A1B130C00C5A3C4 /* InstructionsViewController.m */; };
 		DA31091C1A1B1EA100C5A3C4 /* icon 1024.png in Resources */ = {isa = PBXBuildFile; fileRef = DA3109151A1B1EA100C5A3C4 /* icon 1024.png */; };
 		DA31091D1A1B1EA100C5A3C4 /* icon.png in Resources */ = {isa = PBXBuildFile; fileRef = DA3109161A1B1EA100C5A3C4 /* icon.png */; };
@@ -344,6 +345,7 @@
 		A9E6EA0E1A36D94C001F3872 /* button-3.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; name = "button-3.wav"; path = "../../button-3.wav"; sourceTree = "<group>"; };
 		A9E6EA0F1A36DA34001F3872 /* ship-select.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = "ship-select.mp3"; path = "../../ship-select.mp3"; sourceTree = "<group>"; };
 		A9E6EA101A36DA60001F3872 /* button-09.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; name = "button-09.wav"; path = "../../button-09.wav"; sourceTree = "<group>"; };
+		A9F6C9A71A36E9AF000BE39A /* high_scores.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = high_scores.png; sourceTree = "<group>"; };
 		DA3109121A1B130C00C5A3C4 /* InstructionsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InstructionsViewController.h; sourceTree = "<group>"; };
 		DA3109131A1B130C00C5A3C4 /* InstructionsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InstructionsViewController.m; sourceTree = "<group>"; };
 		DA3109151A1B1EA100C5A3C4 /* icon 1024.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon 1024.png"; sourceTree = "<group>"; };
@@ -545,6 +547,7 @@
 		93EFADDC1A102B9E00195D8E /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				A9F6C9A71A36E9AF000BE39A /* high_scores.png */,
 				A9E6EA101A36DA60001F3872 /* button-09.wav */,
 				A9E6EA0F1A36DA34001F3872 /* ship-select.mp3 */,
 				A9E6EA0E1A36D94C001F3872 /* button-3.wav */,
@@ -802,6 +805,7 @@
 				DA9F79B21A1B4F3200E03D88 /* !button8.png in Resources */,
 				DA9F79C61A1B4F3200E03D88 /* button9highlight.png in Resources */,
 				A962BCE01A2BE60900F2AD79 /* level1.png in Resources */,
+				A9F6C9A81A36E9AF000BE39A /* high_scores.png in Resources */,
 				DA9F79BC1A1B4F3200E03D88 /* button4highlight.png in Resources */,
 				DA9F79B91A1B4F3200E03D88 /* button3.png in Resources */,
 				DAC158071A33E7DB003D6A19 /* instructions-1.gif in Resources */,

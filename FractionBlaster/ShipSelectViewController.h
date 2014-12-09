@@ -13,8 +13,9 @@
 
 @interface ShipSelectViewController : UIViewController <ButtonSelected>
 
-@property (nonatomic) AVAudioPlayer *shipSelectButton;
-@property (nonatomic) AVAudioPlayer *shipBackButton;
+@property (nonatomic) AVAudioPlayer *shipSelectSound;
+@property (nonatomic) AVAudioPlayer *shipBackSound;
+@property (nonatomic) AVAudioPlayer *shipLaunch;
 
 - (id)initWithLevel:(int)level andOperators:(NSArray*)operators;
 

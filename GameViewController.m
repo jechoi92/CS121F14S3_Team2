@@ -476,7 +476,7 @@ CGFloat INSET_RATIO = 0.02;
 -(void)requestUserName
 {
     UIAlertView* alert = [[UIAlertView alloc] initWithTitle:@"High Score!"
-                                                    message:@"Enter your initials! (3 alphabets)"
+                                                    message:@"Enter your initials! (3 letters)"
                                                    delegate:self
                                           cancelButtonTitle:nil
                                           otherButtonTitles:@"OK", nil];
