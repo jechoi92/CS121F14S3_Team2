@@ -18,15 +18,18 @@ typedef enum {
 
 @implementation MainMenuView
 
+// Initialization
 - (id)initWithFrame:(CGRect)frame
 {
     self = [super initWithFrame:frame];
+    
     if (self) {
         [self createTitle];
         [self createSelectionButtons];
         [self createImages];
         [self setBackgroundColor:[[UIColor alloc] initWithPatternImage:[UIImage imageNamed:@"main_background"]]];
     }
+    
     return self;
 }
 
@@ -80,9 +83,6 @@ typedef enum {
                 break;
             case CreditsTag:
                 title = @"credits";
-                
-                //[button setTitle:@"Credits" forState:UIControlStateNormal];
-                //[button.titleLabel setFont: [UIFont fontWithName:@"HelveticaNeue-Bold" size:36.0f]];
                 break;
             default:
                 break;
@@ -128,10 +128,13 @@ typedef enum {
     UIImageView *pipe4 = [[UIImageView alloc] initWithFrame:pipeFrame4];
     pipe4.image = [UIImage imageNamed:@"pipe"];
     
+    // Add subviews
     [self addSubview:pipe1];
     [self addSubview:pipe2];
     [self addSubview:pipe3];
     [self addSubview:pipe4];
+    
+    // Send behind menu buttons
     [self sendSubviewToBack:pipe1];
     [self sendSubviewToBack:pipe2];
     [self sendSubviewToBack:pipe3];

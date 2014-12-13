@@ -34,14 +34,20 @@
 - (void)createBackground
 {
     if (_win) {
-        [self setBackgroundColor:[[UIColor alloc] initWithPatternImage:[UIImage imageNamed:@"background"]]];
-        if (_level == 5) {
+        // Earth background for early levels
+        if (_level < 5){
+            [self setBackgroundColor:[[UIColor alloc] initWithPatternImage:[UIImage imageNamed:@"background"]]];
+        }
+        // Blackness if lost in the wormhole
+        else if (_level == 5) {
             [self setBackgroundColor:[UIColor blackColor]];
         }
+        // Different background for alien realm
         else if (_level > 5) {
             [self setBackgroundColor:[[UIColor alloc] initWithPatternImage:[UIImage imageNamed:@"foreign-back"]]];
         }
     }
+    // Always see the earth blown up, regardless of level
     else {
         [self setBackgroundColor:[[UIColor alloc] initWithPatternImage:[UIImage imageNamed:@"background_defeat"]]];
     }
@@ -119,6 +125,7 @@
         [endMessageLabel setText: @"YOU HAVE FAILED HUMANITY..."];
     }
     
+    // Style label
     [endMessageLabel setFont:[UIFont fontWithName:@"HelveticaNeue-Bold" size:30.0f]];
     [endMessageLabel setTextColor:[UIColor whiteColor]];
     endMessageLabel.textAlignment = YES;

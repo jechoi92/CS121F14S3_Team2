@@ -20,7 +20,7 @@
 // The value of the equation is computed and stored as well.
 - (id)initWithFraction1: (Fraction*)args1 andFraction2: (Fraction*)args2 andOperator: (char)operator
 {
-  self = [super init];
+    self = [super init];
     _args1 = args1;
     _args2 = args2;
     _value = args1;

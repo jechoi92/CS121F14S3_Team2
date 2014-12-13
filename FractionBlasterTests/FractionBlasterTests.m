@@ -9,6 +9,7 @@
 #import <XCTest/XCTest.h>
 #import "EquationGenerator.h"
 #import "GameViewController.h"
+#import "Constants.h"
 
 @interface FractionBlasterTests : XCTestCase
 {
@@ -129,11 +130,9 @@
 - (void)testGetInitialFractions
 {
     // Testing whether the objects are of Fraction class.
-    // Currently hard-coded to 4 initial solutions.
     // Testing if the values are less than 1.0.
     
     NSMutableArray* initialFractions = [_equationGenerator initialFractions];
-    XCTAssert([initialFractions count] == 4);
     XCTAssert([[initialFractions objectAtIndex:0] isKindOfClass:[Fraction class]]);
     XCTAssert([[initialFractions objectAtIndex:0] number] < 1.0);
     XCTAssert([[initialFractions objectAtIndex:1] isKindOfClass:[Fraction class]]);
