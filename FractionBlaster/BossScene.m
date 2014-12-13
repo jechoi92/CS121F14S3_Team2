@@ -23,6 +23,7 @@
     NSTimer* _testTimer;
 }
 
+// Initialize the scene
 -(id)initWithSize:(CGSize)size andLevel:(int)level andShipNum:(int)shipNum andDelegate:(id<AsteroidAction>)deli{
     if (self = [super initWithSize:size]) {
         self.deli = deli;
@@ -41,6 +42,7 @@
     return self;
 }
 
+// Create the background image for the level
 - (void)createBackground
 {
     SKSpriteNode *background = [SKSpriteNode spriteNodeWithImageNamed:@"foreign-back"];
@@ -49,22 +51,24 @@
     [self addChild:background];
 }
 
+// Handle animations and hitbox activations for different stages of the boss fight
 - (void)advanceBossStage
 {
     if (_bossStage == 0) {        // Boss moving onto screen, starting battle
+        // Move the boss onto the screen
         _bossNode.position = CGPointMake(self.size.width/2, self.size.height + 200.0);
         CGPoint destination = CGPointMake(self.size.width/2.0, self.size.height - 180.0);
         SKAction* moveAction = [SKAction moveTo:destination duration:15.0];
         [_bossNode runAction:moveAction];
         
+        // Make the boss hover
         SKAction* moveUp = [SKAction moveByX:0.0 y:8.0 duration:1.5];
         moveUp.timingMode = SKActionTimingEaseInEaseOut;
         SKAction* moveDown = [SKAction moveByX:0.0 y:-8.0 duration:1.5];
         moveDown.timingMode = SKActionTimingEaseInEaseOut;
-        
         [_bossNode runAction:[SKAction repeatActionForever:[SKAction sequence:@[moveUp, moveDown]]]];
         
-        // TODO this is some hacky terrible code right here.  Need to fix our delegation I think.
+        // Initialize the first two parts of the boss
         [self addEquation:[self.deli initializeTarget] ToBossPart:[_bossNode childNodeWithName:@"shieldGen1"]];
         [self addEquation:[self.deli initializeTarget] ToBossPart:[_bossNode childNodeWithName:@"shieldGen2"]];
     }
@@ -77,6 +81,7 @@
         [[_bossNode childNodeWithName:@"shield"] runAction:
          [SKAction sequence:@[[SKAction fadeAlphaTo:0.0 duration:2.0], [SKAction removeFromParent]]]];
         
+        // Initialize the next two parts of the boss
         [self addEquation:[self.deli initializeTarget] ToBossPart:[_bossNode childNodeWithName:@"asteroidGen1"]];
         [self addEquation:[self.deli initializeTarget] ToBossPart:[_bossNode childNodeWithName:@"asteroidGen2"]];
         
@@ -84,7 +89,7 @@
         [[_bossNode childNodeWithName:@"asteroidGen2"] childNodeWithName:@"collisionBody"].physicsBody.categoryBitMask = BOSS_CATEGORY;
     }
     else if (_bossStage == 3) { // one asteroidGen destroyed
-        
+        // No extra animations for this stage
     }
     else if (_bossStage == 4) { // both asteroidGens destroyed
         [self addEquation:[self.deli initializeTarget] ToBossPart:[_bossNode childNodeWithName:@"warpGen"]];
@@ -100,29 +105,37 @@
         });
     }
     else {
-        // ????
+        // Something went wrong
+        [NSException raise:@"Nonexistent boss stage" format:@"_bossStage of %d is invalid", _bossStage];
     }
     
     _bossStage++;
 }
 
+// Displays an equation to solve on a given section of the boss
 - (void)addEquation:(Equation*)equation ToBossPart:(SKNode*)part
 {
+    // Update collision information
     [[part childNodeWithName:@"collisionBody"] userData][@"frequency"] = [equation getSolution];
+    
+    // Remove previous label
     [[part childNodeWithName:@"frequencyLabel"] removeFromParent];
+    
+    // Add the new label
     SKNode* labelNode = [self createLabelForEquation:equation];
     labelNode.name = @"frequencyLabel";
     [part addChild:labelNode];
 }
 
+// Creates the boss sprites for the level and adds them to the scene
 - (void)createBoss
 {
     _bossStage = 0;
     _lastAsteroidGenerated = 1;
     
-    _bossNode = [SKNode node];
+    _bossNode = [SKNode node]; // Pieces of the boss are children of _bossNode
     
-    // Do stuff
+    // Create and position each piece of the boss relative to the containing node
     SKNode* warpGen = [self createWarpGenerator];
     warpGen.name = @"warpGen";
     
@@ -155,19 +168,20 @@
     
     
     _bossNode.position = CGPointMake(self.size.width/2.0, self.size.height - 180.0);
-    // Do stuff
     
+    // The size of the sprites are slightly too big for the screen, so we shrink it down a bit
     [_bossNode setScale:0.85];
     
     [self addChild:_bossNode];
 }
 
+// Creates sprite for the boss shield
 - (SKNode*)createShield
 {
     SKNode* container = [SKNode node];
     SKSpriteNode* shield = [SKSpriteNode spriteNodeWithImageNamed:@"shield"];
     
-    shield.name = @"collisionBody";
+    shield.name = @"collisionBody"; // Sprites with collision information are all named collisionBody
     
     shield.blendMode = SKBlendModeAdd;
     shield.alpha = 0.5;
@@ -180,6 +194,7 @@
     shield.physicsBody.contactTestBitMask = LASER_CATEGORY; // 4
     shield.physicsBody.collisionBitMask = 0; // 5
     
+    // Animation to make shield grow and shrink slightly
     SKAction* shieldScaleUp = [SKAction scaleTo:1.28 duration:3.0];
     SKAction* shieldScaleDown = [SKAction scaleTo:1.22 duration:3.0];
     [shield runAction:[SKAction repeatActionForever:[SKAction sequence:@[shieldScaleUp, shieldScaleDown]]]];
@@ -187,6 +202,7 @@
     return container;
 }
 
+// Creates sprites for the boss shield generators
 - (SKNode*)createShieldGenerator
 {
     SKNode* container = [SKNode node];
@@ -194,7 +210,7 @@
     shieldGen.userData = [NSMutableDictionary dictionary];
     [shieldGen userData][@"hitPoints"] = [NSNumber numberWithInt:SHIELDGEN_HP];
     
-    shieldGen.name = @"collisionBody";
+    shieldGen.name = @"collisionBody"; // Sprites with collision information are all named collisionBody
     
     // Set up the generator's contact detection body
     shieldGen.physicsBody = [SKPhysicsBody bodyWithRectangleOfSize:shieldGen.size];
@@ -205,16 +221,18 @@
     
     shieldGen.yScale = -1.0;
     
+    // Decorative sprite for the shield generator's core.
     SKSpriteNode* shieldCore = [SKSpriteNode spriteNodeWithImageNamed:@"tube"];
     shieldCore.name = @"shieldCore";
     [shieldCore runAction:[SKAction rotateByAngle:M_PI/-2.0 duration:0]];
-    shieldCore.position = CGPointMake(0.0, 30.0); // This is a really bad guess tbh
+    shieldCore.position = CGPointMake(0.0, 30.0);
     
     [container addChild:shieldCore];
     [container addChild:shieldGen];
     return container;
 }
 
+// Creates sprites for the boss asteroid generators
 - (SKNode*)createAsteroidGenerator
 {
     SKNode* container = [SKNode node];
@@ -222,7 +240,7 @@
     asteroidGen.userData = [NSMutableDictionary dictionary];
     [asteroidGen userData][@"hitPoints"] = [NSNumber numberWithInt:ASTEROIDGEN_HP];
     
-    asteroidGen.name = @"collisionBody";
+    asteroidGen.name = @"collisionBody"; // Sprites with collision information are all named collisionBody
     
     // Set up the generator's contact detection body
     asteroidGen.physicsBody = [SKPhysicsBody bodyWithRectangleOfSize:asteroidGen.size];
@@ -236,9 +254,9 @@
     [container addChild:asteroidGen];
     
     return container;
-    
 }
 
+// Creates sprites for the boss warp generator
 - (SKNode*)createWarpGenerator
 {
     SKNode* container = [SKNode node];
@@ -246,7 +264,7 @@
     warpGen.userData = [NSMutableDictionary dictionary];
     [warpGen userData][@"hitPoints"] = [NSNumber numberWithInt:WARPGEN_HP];
     
-    warpGen.name = @"collisionBody";
+    warpGen.name = @"collisionBody"; // Sprites with collision information are all named collisionBody
     
     // Set up the generator's contact detection body
     warpGen.physicsBody = [SKPhysicsBody bodyWithRectangleOfSize:warpGen.size];
@@ -257,6 +275,7 @@
     
     warpGen.yScale = -1.0;
     
+    // Decorative sprite to make the warp generator glow
     SKSpriteNode* warpField = [SKSpriteNode spriteNodeWithImageNamed:@"glowball"];
     warpField.alpha = 0.5;
     warpField.blendMode = SKBlendModeMultiplyX2;
@@ -282,11 +301,13 @@
     warpGlow.alpha = 0.5;
     warpGlow.blendMode = SKBlendModeAdd;
     
+    // Add animation effects to the warp glow, with a different frequency than the warp field to produce cool interference effects.
     SKAction* fadeIn2 = [SKAction fadeAlphaBy:0.3 duration:1];
     SKAction* fadeOut2 = [SKAction fadeAlphaBy:-0.3 duration:1];
     [warpGlow runAction:[SKAction repeatActionForever:[SKAction sequence:@[fadeIn2, fadeOut2]] ]];
     [warpGlow runAction:[SKAction repeatActionForever:[SKAction rotateByAngle:360.0 duration:5]]];
     
+    // Make the sprite actually cover the whole OUTER circle of the generator
     [warpGlow setScale:1.1];
     
     SKSpriteNode* warpCore = [SKSpriteNode spriteNodeWithImageNamed:@"tube"];
@@ -307,10 +328,14 @@
 {
     CGPoint start;
     
+    // We want to shoot every other asteroid from the opposite generator
+    // so we first have to check which one shot an asteroid last
     if (_lastAsteroidGenerated == 1) {
         _lastAsteroidGenerated = 2;
         
         if (_asteroidGenTwoDestroyed) {
+            // The generator we would be shooting from on this step has already
+            // been blown up, so there's nothing to do.
             return;
         }
         
@@ -320,6 +345,7 @@
         _lastAsteroidGenerated = 1;
         
         if (_asteroidGenOneDestroyed) {
+            // Same as above--nothing to do.
             return;
         }
         
@@ -372,8 +398,6 @@
         endX = maxX;
     }
     
-    // TODO make an asteroid generation animation!
-    
     asteroid.userData = [NSMutableDictionary dictionary];
     // Store the solution for the equation, the laser frequency which will destroy the asteroid
     [asteroid userData][@"frequency"] = [equation getSolution];
@@ -391,85 +415,6 @@
         [self asteroidHitBottom];
     }];
     [asteroid runAction:[SKAction sequence:@[actionAlpha, actionMove, loseAction, actionMoveDone]]];
-}
-
-// Create an SKNode with text representing an equation
-- (SKNode*)createLabelForEquation:(Equation*)equation
-{
-    SKNode* eqn = [SKNode node];
-    SKNode* first = [self createLabelForFraction:[equation getFraction1]];
-    NSString* op = [NSString stringWithFormat:@"%c" , [equation getOperator]];
-    // Add the first fraction to the equation node
-    [eqn addChild:first];
-    
-    // If the operator isn't simplification, there will be more things to place
-    if (![op isEqualToString:@"$"]) {
-        SKNode* oper = [self createLabelForOperator:op];
-        SKNode* second = [self createLabelForFraction:[equation getFraction2]];
-        
-        // Adjust the positions of the fractions and the operator in their parent node
-        first.position = CGPointMake(-30.0, 0.0);
-        oper.position = CGPointMake(0.0, -15.0);
-        second.position = CGPointMake(30.0, 0.0);
-        
-        [eqn addChild:oper];
-        [eqn addChild:second];
-    }
-    
-    return eqn;
-}
-
-// Create an SKNode with text representing a fraction
-- (SKNode*)createLabelForFraction:(Fraction*)fraction
-{
-    // Create the line dividing the numerator and denominator
-    SKLabelNode* line = [[SKLabelNode alloc] initWithFontNamed:@"Arial Bold"];
-    line.text = @"__";
-    line.fontSize = 24;
-    line.fontColor = [UIColor whiteColor];
-    
-    // Create a label for the numerator
-    SKLabelNode* numer = [[SKLabelNode alloc] initWithFontNamed:@"Helvetica-Bold"];
-    numer.text = [NSString stringWithFormat:@"%d", [fraction numerator]];
-    numer.fontSize = 24;
-    numer.fontColor = [UIColor whiteColor];
-    numer.position = CGPointMake(0.0, 5.0);
-    
-    // Create a label for the denominator
-    SKLabelNode* denom = [[SKLabelNode alloc] initWithFontNamed:@"Helvetica-Bold"];
-    denom.text = [NSString stringWithFormat:@"%d", [fraction denominator]];
-    denom.fontSize = 24;
-    denom.fontColor = [UIColor whiteColor];
-    denom.position = CGPointMake(0.0, -30.0);
-    
-    // Add them all to a single node to return
-    SKNode* verticalFraction = [SKNode node];
-    [verticalFraction addChild:numer];
-    [verticalFraction addChild:line];
-    [verticalFraction addChild:denom];
-    
-    return verticalFraction;
-}
-
-// Creates a node with the corresponding nice-looking symbol for each operator string
-- (SKNode*)createLabelForOperator:(NSString*)operator
-{
-    SKLabelNode* oper = [[SKLabelNode alloc] initWithFontNamed:@"Arial Bold"];
-    
-    if ([operator isEqualToString:@"/"]) {
-        oper.text = @"÷";
-    } else if ([operator isEqualToString:@"+"]) {
-        oper.text = @"+";
-    } else if ([operator isEqualToString:@"-"]) {
-        oper.text = @"-";
-    } else {
-        oper.text = @"x";
-    }
-    
-    oper.fontSize = 30;
-    oper.fontColor = [UIColor whiteColor];
-    
-    return oper;
 }
 
 // Inform the deligate that the player failed to destroy an asteroid in time
@@ -540,20 +485,28 @@
     if ((firstBody.categoryBitMask & LASER_CATEGORY) != 0 &&
         (secondBody.categoryBitMask & ASTEROID_CATEGORY) != 0) {
         [self laser:(SKSpriteNode*) firstBody.node didCollideWithAsteroid:(SKSpriteNode*) secondBody.node];
-    } else if ((firstBody.categoryBitMask & LASER_CATEGORY) != 0 &&
+    }
+    else if ((firstBody.categoryBitMask & LASER_CATEGORY) != 0 &&
                (secondBody.categoryBitMask & SHIELD_CATEGORY) != 0) {
-        [firstBody.node removeFromParent];
-        
-        [secondBody.node runAction:[SKAction sequence:@[
-                                                        [SKAction colorizeWithColor:[UIColor cyanColor] colorBlendFactor:7.0 duration:0.05],
-                                                        [SKAction colorizeWithColorBlendFactor:0.0 duration:0.2]]]];
-        [secondBody.node runAction:[SKAction sequence:@[
-                                                        [SKAction fadeAlphaBy:0.3 duration:0.05],
-                                                        [SKAction fadeAlphaBy:-0.3 duration:0.2]]]];
-    } else if ((firstBody.categoryBitMask & LASER_CATEGORY) != 0 &&
+        [self laser:(SKSpriteNode*)firstBody.node hitShield:(SKSpriteNode*)secondBody.node];
+    }
+    else if ((firstBody.categoryBitMask & LASER_CATEGORY) != 0 &&
                (secondBody.categoryBitMask & BOSS_CATEGORY) != 0) {
         [self laser:(SKSpriteNode*)firstBody.node hitBossPart:(SKSpriteNode*)secondBody.node];
     }
+}
+
+- (void)laser:(SKSpriteNode*)laser hitShield:(SKSpriteNode*)shield
+{
+    [laser removeFromParent];
+    
+    // Animate shield to show that the laser collided with it
+    [shield runAction:[SKAction sequence:@[
+            [SKAction colorizeWithColor:[UIColor cyanColor] colorBlendFactor:7.0 duration:0.05],
+            [SKAction colorizeWithColorBlendFactor:0.0 duration:0.2]]]];
+    [shield runAction:[SKAction sequence:@[
+            [SKAction fadeAlphaBy:0.3 duration:0.05],
+            [SKAction fadeAlphaBy:-0.3 duration:0.2]]]];
 }
 
 - (void)createExplosions:(int)numExplosions OnNode:(SKNode*)node WithSize:(CGSize)size AndInterval:(CGFloat)interval
@@ -569,10 +522,12 @@
     }
 }
 
+// Handles animations and setup for destruction of specific boss parts
 - (void)bossPartDestroyed:(SKSpriteNode*)part
 {
     NSString* name = [part parent].name;
     if ([name isEqualToString:@"shieldGen1"] || [name isEqualToString:@"shieldGen2"]) {
+        // Make the shield core look dead
         SKSpriteNode* tubeNode = (SKSpriteNode*)[[part parent] childNodeWithName:@"shieldCore"];
         [tubeNode runAction:[SKAction setTexture:[SKTexture textureWithImageNamed:@"tube_dead"]]];
     }
@@ -583,15 +538,17 @@
         _asteroidGenTwoDestroyed = YES;
     }
     else if ([name isEqualToString:@"warpGen"]) {
+        // Make the warp core look dead
         SKSpriteNode* tubeNode = (SKSpriteNode*)[[part parent] childNodeWithName:@"warpCore"];
         [tubeNode runAction:[SKAction setTexture:[SKTexture textureWithImageNamed:@"tube_dead"]]];
         
+        // Fade warp field
         [[[part parent] childNodeWithName:@"warpField"] runAction:[SKAction fadeAlphaTo:0.0 duration:2.0]];
         [[[part parent] childNodeWithName:@"warpGlow"] runAction:[SKAction fadeAlphaTo:0.0 duration:1.0]];
         
     }
     else {
-        // ????
+        // Something went wrong
     }
     
     [part runAction:[SKAction colorizeWithColor:[UIColor blackColor] colorBlendFactor:0.5 duration:0]];
@@ -603,45 +560,7 @@
     [self advanceBossStage];
 }
 
-- (void)laser:(SKSpriteNode*)laser didCollideWithAsteroid:(SKSpriteNode*)asteroid
-{
-    Fraction* laserFrequency = [laser userData][@"frequency"];
-    Fraction* asteroidFrequency = [asteroid userData][@"frequency"];
-    
-    // If the frequencies are the same, destroy both sprites and increment score
-    if ([laserFrequency compare:asteroidFrequency] == NSOrderedSame) {
-        // Spawn animated explosion sprite
-        [self createExplosion:[asteroid position]];
-        
-        // Calculate the score for the destroyed asteroid and spawn a notice with that score
-        int asteroidScore = (10 + (int) asteroid.position.y / 100) * 10;
-        [self asteroidDestroyed: (int)asteroidScore];
-        [self notifyWithPosition: asteroid.position andScore: asteroidScore andPositive:YES];
-        
-        // Remove the asteroid sprite
-        [asteroid removeFromParent];
-    } else {
-        // Check how many wrong attempts are left for this asteroid
-        int attemptsLeft = [[asteroid userData][@"attemptsLeft"] intValue];
-        attemptsLeft--;
-        
-        // If all attempts are used, change the equation for this asteroid to prevent spamming
-        if (attemptsLeft <= 0) {
-            Equation* newEquation = [self.deli wrongAnswerAttempt:laserFrequency];
-            [self notifyWithPosition: asteroid.position andScore: 50 andPositive:NO];
-            [asteroid userData][@"frequency"] = [newEquation getSolution];
-            [asteroid removeAllChildren];
-            [asteroid addChild:[self createLabelForEquation:newEquation]];
-            
-            // Reset the number of attempts left
-            attemptsLeft = ALLOWED_WRONG_ANSWERS;
-        }
-        [asteroid userData][@"attemptsLeft"] = [NSNumber numberWithInt:attemptsLeft];
-    }
-    [laser removeFromParent];
-}
-
-
+// Handle laser collision with the boss
 - (void)laser:(SKSpriteNode*)laser hitBossPart:(SKSpriteNode*)part
 {
     Fraction* laserFrequency = [laser userData][@"frequency"];
@@ -703,6 +622,5 @@
         [node removeFromParent];
     }];
 }
-
 
 @end

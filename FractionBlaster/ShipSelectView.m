@@ -19,7 +19,6 @@ typedef enum {
     BackTag
 }ButtonTags;
 
-
 @implementation ShipSelectView
 {
     UIButton *_startButton;
@@ -31,6 +30,7 @@ typedef enum {
     BOOL redSelected;
 }
 
+// Initialize with the frame of the enitire screen
 - (id)initWithFrame:(CGRect)frame
 {
     self = [super initWithFrame:frame];
@@ -50,6 +50,7 @@ typedef enum {
 // Create the back button
 - (void)createBackButton
 {
+    // Get all the parameters for the frame of the back button
     CGRect frame = self.frame;
     CGFloat size = MIN(CGRectGetWidth(frame), CGRectGetHeight(frame));
     CGFloat itemWidth = size / 15;
@@ -58,66 +59,70 @@ typedef enum {
     CGFloat backButtonX = CGRectGetWidth(frame) * INSET_RATIO;
     CGFloat backButtonY = CGRectGetHeight(frame) * INSET_RATIO;
     
+    // Create the button with the frame
     CGRect backButtonFrame = CGRectMake(backButtonX, backButtonY, backButtonLength, backButtonWidth);
     UIButton* backButton = [[UIButton alloc] initWithFrame:backButtonFrame];
     
+    // Emplace the back-arrow image into the button frame
     [backButton setBackgroundImage:[UIImage imageNamed:@"StartOverIcon"] forState:UIControlStateNormal];
     [[backButton layer] setBorderWidth:2.5f];
     [[backButton layer] setBorderColor:[UIColor blackColor].CGColor];
     [[backButton layer] setCornerRadius:12.0f];
     
-    // Create target for button
+    // Create target for back button and set its tag value
     [backButton addTarget:self action:@selector(buttonSelected:)
          forControlEvents:UIControlEventTouchUpInside];
-    
-    // Set tag
     backButton.tag = BackTag;
     
+    // Add the button frame to the main frame
     [self addSubview:backButton];
 }
 
-// Create the title
+// Create the title image for the screen
 - (void)createTitle
 {
-    // Get frame and frame dimensions
+    // Get the frame dimensions for the title image
     CGRect frame = self.frame;
     CGFloat frameWidth = CGRectGetWidth(frame);
     CGFloat frameHeight = CGRectGetHeight(frame);
     
-    // Add the level select image to the top of the view
+    // Add the ship-select title to the frame
     CGRect title = CGRectMake(frameWidth*0.1, frameHeight*0.05, frameWidth*0.8, frameHeight*.18);
     UIImageView *imageView = [[UIImageView alloc] initWithFrame:title];
     imageView.image = [UIImage imageNamed:@"ship_select"];
     
+    // Add the image to the main view
     [self addSubview:imageView];
 }
 
 // Create the label that has the description of the ship selected
 - (void)createDescriptionLabel
 {
+    // Get the dimensions for the description view
     CGFloat labelWidth = CGRectGetWidth(self.frame) * 0.8;
     CGFloat labelHeight = CGRectGetHeight(self.frame) * 0.23;
     CGFloat xOffset = CGRectGetWidth(self.frame) * 0.1;
     CGFloat yOffset = CGRectGetHeight(self.frame) * 0.57;
-    
     CGRect labelFrame = CGRectMake(xOffset, yOffset, labelWidth, labelHeight);
     
+    // Set the specifications for the description label
     _shipInfo = [[UILabel alloc] initWithFrame:labelFrame];
     _shipInfo.numberOfLines = 7;
     _shipInfo.textAlignment = NSTextAlignmentCenter;
-    
     [_shipInfo setFont:[UIFont fontWithName:@"SpaceAge" size:32.0f]];
     [_shipInfo setTextColor:[UIColor whiteColor]];
     
     // Default set it to the first ship selected i.e. Blueship
     [_shipInfo setText:@"AlphA-clAss mAntis\r\rAmerican built. Light, manueverable, and effective."];
     
+    // Add the label to the main view
     [self addSubview:_shipInfo];
 }
 
-// Create the buttons to select the ships
+// Create the buttons to select the type of ship you want to play as
 - (void)createShipSelectionButtons
 {
+    // Set the frame size for the ship buttons
     CGFloat buttonSize = CGRectGetWidth(self.frame) / 6.5;
     CGFloat baseOffset = buttonSize / 4;
     CGFloat vertOffset = CGRectGetHeight(self.frame) * 0.4;
@@ -133,34 +138,8 @@ typedef enum {
         // Set the tag appropriately
         button.tag = tag;
         
-        switch(tag) {
-            case BlueShip:
-            {
-                // Default select the first button
-                [self setCurrentShipSelected:tag];
-                [button setImage:[UIImage imageNamed:@"blueSS_highlight"] forState:UIControlStateNormal];
-                blueSelected = true;
-                break;
-            }
-            case BrownShip:
-            {
-                [button setImage:[UIImage imageNamed:@"brownSS_no_highlight"] forState:UIControlStateNormal];
-                brownSelected = false;
-                break;
-            }
-            case SilverShip:
-            {
-                [button setImage:[UIImage imageNamed:@"silverSS_no_highlight"] forState:UIControlStateNormal];
-                silverSelected = false;
-                break;
-            }
-            case RedShip:
-            {
-                [button setImage:[UIImage imageNamed:@"redSS_no_highlight"] forState:UIControlStateNormal];
-                redSelected = false;
-                break;
-            }
-        }
+        // Initialize the correctly highlighted and unhighlighted button
+        button = [self createButtonWithTag:tag andButton:button];
         
         // Create target for button
         [button addTarget:self action:@selector(shipSelected:)
@@ -180,15 +159,48 @@ typedef enum {
     }
 }
 
+// Initialize the correctly highlighted and unhighlighted button
+- (UIButton*) createButtonWithTag:(int)tag andButton:(UIButton*)button
+{
+    switch(tag) {
+        case BlueShip:
+        {
+            // Default select the first button
+            [self setCurrentShipSelected:tag];
+            [button setImage:[UIImage imageNamed:@"blueSS_highlight"] forState:UIControlStateNormal];
+            blueSelected = true;
+            break;
+        }
+        case BrownShip:
+        {
+            [button setImage:[UIImage imageNamed:@"brownSS_no_highlight"] forState:UIControlStateNormal];
+            brownSelected = false;
+            break;
+        }
+        case SilverShip:
+        {
+            [button setImage:[UIImage imageNamed:@"silverSS_no_highlight"] forState:UIControlStateNormal];
+            silverSelected = false;
+            break;
+        }
+        case RedShip:
+        {
+            [button setImage:[UIImage imageNamed:@"redSS_no_highlight"] forState:UIControlStateNormal];
+            redSelected = false;
+            break;
+        }
+    }
+    return button;
+}
+
 // Updates the array of buttons based on which button the player has selected
 // and updates the button tag that we are currently highlighting
--(void)shipSelected:(id)sender
+- (void)shipSelected:(id)sender
 {
+    // Get the new button to be selected
     UIButton *newButton = (UIButton*)sender;
     int newTag = (int) newButton.tag;
-    
-    
-    
+
     // Determine which button was previously being selected
     int shipNum = [self currentShipSelected];
     UIButton *oldButton = [_shipSelected objectAtIndex:shipNum];
@@ -249,12 +261,8 @@ typedef enum {
         }
     }
     
-
-    
-    // Update which button is currently selected
+    // Update which button is currently selected and the description label
     [self setCurrentShipSelected:(int)newTag];
-    
-    // Update the description label
     [self updateDescription];
 }
 
@@ -286,19 +294,18 @@ typedef enum {
     }
 }
 
-// Create the start button
+// Create the launch button
 - (void)createStartButton
 {
-    // Get frame and frame dimensions
+    // Get frame and frame dimensions and create the button
     CGRect frame = self.frame;
     CGFloat width = CGRectGetWidth(frame);
     CGFloat height = CGRectGetHeight(frame);
-    
     CGRect startButtonFrame = CGRectMake(width * 0.2, height * 0.8, width * 0.6, height * 0.15);
     UIButton *startButton = [[UIButton alloc] initWithFrame:startButtonFrame];
     
     // Set image for button
-    UIImage *image = [UIImage imageNamed:@"launch2.png"];
+    UIImage *image = [UIImage imageNamed:@"launch2"];
     [startButton setImage:image forState:UIControlStateNormal];
     
     // Create target for button
@@ -311,6 +318,7 @@ typedef enum {
     [self addSubview:startButton];
 }
 
+// Set the delegate for when a button is selected
 -(void)buttonSelected:(id)sender
 {
     [self.delegate buttonSelected:sender];
