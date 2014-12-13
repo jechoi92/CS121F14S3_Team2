@@ -66,7 +66,7 @@ typedef enum {
     }
 }
 
-//
+// Play sound for going forward
 - (void)progressButtonSound {
     NSError *error;
     NSURL *progressButton = [[NSBundle mainBundle] URLForResource:@"button-3" withExtension:@"wav"];
@@ -75,7 +75,7 @@ typedef enum {
     [self.modeProgressSound play];
 }
 
-//
+// Play sound for going backward
 - (void)backButtonSound {
     NSError *error;
     NSURL *backButton = [[NSBundle mainBundle] URLForResource:@"button-09" withExtension:@"wav"];
