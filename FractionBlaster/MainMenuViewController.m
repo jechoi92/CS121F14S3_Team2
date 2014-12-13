@@ -71,7 +71,7 @@ typedef enum {
         case CreditsTag:
         {
             UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Fraction Blaster"
-                                    message:@"Harvey Mudd College CS121 Fall 2014\n\nTeam 2\nLouis Brann, Jeongwoo Choi,\nKevin McSwiggen, Alejandro Mendoza\n\nFunded by NSF grant #1042472\n\nwww.stackoverflow.com\nrosettacode.org/wiki/Rosetta_Code\nsoundbible.com\nmillionthvector.blogspot.com\nbestpaperz.com\nmototsume.deviantart.com\nfreesound.org\nwww.dievantile.com\nwww.dafont.com\nNASA\n\nSpecial thanks to Prof. Z Sweedyk\n\nCopyright (c) 2014 MatherTeresa.\nAll rights reserved."
+                                    message:@"Harvey Mudd College CS121 Fall 2014\n\nTeam 2\nLouis Brann, Jeongwoo Choi,\nKevin McSwiggen, Alejandro Mendoza\n\nFunded by NSF grant #1042472\n\nwww.stackoverflow.com\nrosettacode.org/wiki/Rosetta_Code\nsoundbible.com\nmillionthvector.blogspot.com\nbestpaperz.com\nmototsume.deviantart.com\nfreesound.org\nwww.dievantile.com\nwww.dafont.com\ngithub.com/mayoff\nNASA\n\nSpecial thanks to Prof. Z Sweedyk\n\nCopyright (c) 2014 MatherTeresa.\nAll rights reserved."
                                     delegate:self cancelButtonTitle:nil otherButtonTitles:nil];
             [alert addButtonWithTitle:@"OK"];
             [alert show];
