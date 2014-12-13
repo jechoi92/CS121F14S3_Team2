@@ -140,6 +140,7 @@ CGFloat BASE_OFFSET_PCT = (float)1/21;
     CGFloat buttonWidth = frameWidth * 0.24;
     CGFloat buttonHeight = frameHeight * 0.1;
     CGFloat xOffset = frameWidth * BASE_OFFSET_PCT;
+    
     // Leave room for title
     CGFloat yOffset = frameHeight * BASE_OFFSET_PCT * 6;
     
@@ -251,8 +252,7 @@ CGFloat BASE_OFFSET_PCT = (float)1/21;
     // Center image horizotally
     CGFloat imgXOff = (CGRectGetWidth(self.frame) - imgWidth) / 2;
     
-    // TODO: is _instrGifView... good style?
-    CGRect newFrame = CGRectMake(imgXOff, _instrGifView.frame.origin.y, imgWidth, imgHeight);
+    CGRect newFrame = CGRectMake(imgXOff, CGRectGetMinY(_instrGifView.frame), imgWidth, imgHeight);
     [_instrGifView setFrame:newFrame];
     
     // Set the image

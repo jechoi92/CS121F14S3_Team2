@@ -22,34 +22,29 @@
     [_instructionsView setDelegate:self];
     [_instructionsView setButtonDelegate:(id<ButtonSelected>)self];
     [self.view addSubview:_instructionsView];
-}
-
-- (void)backToMainMenu
-{
-    [self playButtonSound];
-    [self.navigationController popViewControllerAnimated:YES];
-}
-
-- (void)buttonSelected:(id)sender
-{
-    // Play sound
-    [self playButtonSound];
-}
-
-- (void)playButtonSound {
+    
+    // Set up back button AudioPlayer
     NSError *error;
     NSURL *backButton = [[NSBundle mainBundle] URLForResource:@"button-09" withExtension:@"wav"];
     self.instrBackSound = [[AVAudioPlayer alloc] initWithContentsOfURL:backButton error:&error];
     [self.instrBackSound prepareToPlay];
-    [self.instrBackSound play];
-}
-
-- (void)normalButtonSound
-{
-    NSError *error;
+    
+    // Set up normal button AudioPlayer
     NSURL *buttonSound = [[NSBundle mainBundle] URLForResource:@"button-3" withExtension:@"wav"];
     self.instrButtonSound = [[AVAudioPlayer alloc] initWithContentsOfURL:buttonSound error:&error];
     [self.instrButtonSound prepareToPlay];
+}
+
+// Back button pressed
+- (void)backToMainMenu
+{
+    [self.instrBackSound play];
+    [self.navigationController popViewControllerAnimated:YES];
+}
+
+// Play sound for previous/next buttons
+- (void)buttonSelected:(id)sender
+{
     [self.instrButtonSound play];
 }
 
