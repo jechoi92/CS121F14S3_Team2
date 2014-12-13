@@ -24,5 +24,8 @@
 - (void)startLevelAnimation;
 - (void)createPlayerWithShipNum:(int)shipNum;
 - (void)createBackground;
+- (SKNode*)createLabelForEquation:(Equation*)equation;
+- (SKNode*)createLabelForFraction:(Fraction*)fraction;
+- (SKNode*)createLabelForOperator:(NSString*)operator;
 
 @end
