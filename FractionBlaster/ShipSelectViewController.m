@@ -9,7 +9,8 @@
 #import "ShipSelectViewController.h"
 #import "GameViewController.h"
 
-// Enum object for button tags
+// Enum object for button tags, we include the ship buttons so that
+// proper sounds can be played when buttonSelected is called
 typedef enum {
     BlueShip,
     BrownShip,
@@ -26,7 +27,8 @@ typedef enum {
     int _level;
 }
 
-// Function to relay information about level and operators to GameVC
+// Keep track of the levels and the operators array so that
+// we can pass these values to the Game View Controller
 - (id)initWithLevel:(int)level andOperators:(NSArray*)operators
 {
     self = [super init];
@@ -54,10 +56,10 @@ typedef enum {
     int tag = (int)button.tag;
     
     switch (tag) {
-        
-        // Start game
+        // This case starts the game
         case StartTag:
         {
+            // Play the sound of the launch button
             [self launchSound];
             
             // Determine which ship was selected
@@ -83,13 +85,16 @@ typedef enum {
         // Back button selected, move to previous screen
         case BackTag:
         {
+            // Play the back button sound and pop the view
             [self backSound];
             [self.navigationController popViewControllerAnimated:YES];
             break;
         }
             
+        // One of the ship buttons was selected
         default:
         {
+            // Play the ship button sound
             [self shipSelectedSound];
             break;
         }
