@@ -54,10 +54,6 @@ CGFloat BASE_OFFSET_PCT = (float)1/21;
     return self;
 }
 
-/***********************************
- *   INSTRUCTIONS INITIALIZATION   *
- ***********************************/
-
 // Create the title
 - (void)createTitle
 {
